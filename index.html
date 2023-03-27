@@ -172,6 +172,16 @@
                                       </a>
                                     </li>
                                   
+                                    <li>
+                                      <a target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22
+                                      </a>
+                                    </li>
+                                  
+                                    <li>
+                                      <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB
+                                      </a>
+                                    </li>
+                                  
                                 </ul>
                             
                         </li>
@@ -239,6 +249,14 @@
                             <a class="dropdown-item" target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
                         </li>
                     
+                        <li class="dropdown-item flex-center">
+                            <a class="dropdown-item" target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                        </li>
+                    
+                        <li class="dropdown-item flex-center">
+                            <a class="dropdown-item" target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                        </li>
+                    
                 
             
         </ul>
@@ -265,14 +283,16 @@
 
                 <h3 class="home-article-title">
                     <a href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/">
-                        navicat连接mysql 2048
+                        记录navicat15连接mysql 2048
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        1mysql -u root -p
-1ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;password.&#x27; PASSWORD EXPIRE NEVE...
+                        原因是mysql8版本修改了密钥认证方式，需要进行修改
+mysql -u root -p
+ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘password.’ PASSWORD EXPIRE NEVER;
+这...
                     
                 </div>
 
@@ -294,13 +314,14 @@
 
                 <h3 class="home-article-title">
                     <a href="/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        数据库
+                        数据库操作记录
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。
+                        老是忘记数据库许多基本操作，开个贴记录一下
+数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。
 
                     
                 </div>
