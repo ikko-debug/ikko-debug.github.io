@@ -11,7 +11,7 @@
   --fourth-text-color: #eaeced;
   --default-text-color: #373d3f;
   --invert-text-color: #bebec6;
-  --border-color: #b3b3b3;
+  --border-color: rgba(0,0,0,0.08);
   --selection-color: #be243c;
   --shadow-color-1: rgba(0,0,0,0.08);
   --shadow-color-2: rgba(0,0,0,0.05);
@@ -57,7 +57,7 @@
     --fourth-text-color: #eaeced;
     --default-text-color: #373d3f;
     --invert-text-color: #bebec6;
-    --border-color: #b3b3b3;
+    --border-color: rgba(0,0,0,0.08);
     --selection-color: #be243c;
     --shadow-color-1: rgba(0,0,0,0.08);
     --shadow-color-2: rgba(0,0,0,0.05);
@@ -104,7 +104,7 @@
     --fourth-text-color: #242429;
     --default-text-color: #bebec6;
     --invert-text-color: #373d3f;
-    --border-color: #4a4c53;
+    --border-color: rgba(255,255,255,0.08);
     --selection-color: #be243c;
     --shadow-color-1: rgba(255,255,255,0.08);
     --shadow-color-2: rgba(255,255,255,0.05);
@@ -150,7 +150,7 @@
   --fourth-text-color: #eaeced;
   --default-text-color: #373d3f;
   --invert-text-color: #bebec6;
-  --border-color: #b3b3b3;
+  --border-color: rgba(0,0,0,0.08);
   --selection-color: #be243c;
   --shadow-color-1: rgba(0,0,0,0.08);
   --shadow-color-2: rgba(0,0,0,0.05);
@@ -195,7 +195,7 @@
   --fourth-text-color: #242429;
   --default-text-color: #bebec6;
   --invert-text-color: #373d3f;
-  --border-color: #4a4c53;
+  --border-color: rgba(255,255,255,0.08);
   --selection-color: #be243c;
   --shadow-color-1: rgba(255,255,255,0.08);
   --shadow-color-2: rgba(255,255,255,0.05);
