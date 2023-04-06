@@ -16,22 +16,17 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/03/21/数据库/"/>
+    <link rel="canonical" href="http://example.com/tags/mysql/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="老是忘记数据库许多基本操作，开个贴记录一下 数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。 从数据库一列提取无重复数据插入另一张表12INSERT INTO search_policygrade (policy_grade)SELECT DISTINCT policy_grade FROM search_policy;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="数据库操作记录">
-<meta property="og:url" content="http://example.com/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+        <meta property="og:type" content="website">
+<meta property="og:title" content="IKKO">
+<meta property="og:url" content="http://example.com/tags/mysql/index.html">
 <meta property="og:site_name" content="IKKO">
-<meta property="og:description" content="老是忘记数据库许多基本操作，开个贴记录一下 数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。 从数据库一列提取无重复数据插入另一张表12INSERT INTO search_policygrade (policy_grade)SELECT DISTINCT policy_grade FROM search_policy;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-21T14:31:38.000Z">
-<meta property="article:modified_time" content="2023-04-06T03:23:33.783Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
     
     <!--- Icon Part-->
@@ -43,7 +38,7 @@
     
     <title>
         
-            数据库操作记录 -
+            Tag: mysql -
         
         Ikko&#39;s Blog
     </title>
@@ -281,221 +276,39 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="post-page-container">
-        <div class="article-content-container">
-
-            
-            
-                <div class="article-title">
-                    <h1 class="article-title-regular">数据库操作记录</h1>
-                </div>
-            
-                
-            
-
-            
-                <div class="article-header">
-                    <div class="avatar">
-                        <img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
-                    </div>
-                    <div class="info">
-                        <div class="author">
-                            <span class="name">Ikko</span>
-                            
-                                <span class="author-label">Lv2</span>
-                            
-                        </div>
-                        <div class="meta-info">
-                            <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-03-21 22:31:38</span>
-        <span class="mobile">2023-03-21 22:31</span>
-        <span class="hover-info">Created</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-06 11:23:33</span>
-            <span class="mobile">2023-04-06 11:23</span>
-            <span class="hover-info">Updated</span>
-        </span>
-    
-
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/mysql/">mysql</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>131 Words</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
-        </span>
-    
-    
-</div>
-
-                        </div>
-                    </div>
-                </div>
-            
-
-            <div class="article-content markdown-body">
-                <p>老是忘记数据库许多基本操作，开个贴记录一下</p>
-<h2 id="数据库一些基本操作"><a href="#数据库一些基本操作" class="headerlink" title="数据库一些基本操作"></a>数据库一些基本操作</h2><p>truncate table<br>删除一个表中所有的数据<br>注意truncate删除数据后是不可以rollback的。</p>
-<h2 id="从数据库一列提取无重复数据插入另一张表"><a href="#从数据库一列提取无重复数据插入另一张表" class="headerlink" title="从数据库一列提取无重复数据插入另一张表"></a>从数据库一列提取无重复数据插入另一张表</h2><div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> search_policygrade (policy_grade)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> policy_grade <span class="keyword">FROM</span> search_policy;</span><br></pre></td></tr></table></figure></div>
-<p>python:</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">cnx = pymysql.connect(</span><br><span class="line">    user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;.&#x27;</span>, host=<span class="string">&#x27;&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"></span><br><span class="line">query = (<span class="string">&quot;SELECT DISTINCT policy_grade FROM search_policy&quot;</span>)</span><br><span class="line"></span><br><span class="line">cursor.execute(query)</span><br><span class="line">result = cursor.fetchall()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line">result_list = []</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> result:</span><br><span class="line">    result_list.append(record[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(result_list)</span><br></pre></td></tr></table></figure></div>
-            </div>
-
-            
-                <div class="post-copyright-info">
-                    <div class="article-copyright-info-container">
-    <ul>
-        <li><strong>Title:</strong> 数据库操作记录</li>
-        <li><strong>Author:</strong> Ikko</li>
-        <li><strong>Created at:</strong> 2023-03-21 22:31:38</li>
-        
-            <li>
-                <strong>Updated at:</strong> 2023-04-06 11:23:33
-            </li>
-        
-        <li>
-            <strong>Link:</strong> https://redefine.ohevan.com/2023/03/21/数据库/
-        </li>
-        <li>
-            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
-        </li>
-    </ul>
-</div>
-
-                </div>
-            
-
-            
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="/tags/mysql/">#mysql</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
-
-            
-
-            
-                <div class="article-nav">
-                    
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">记录navicat12连接mysql 2048</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
-                    
-                        <div class="article-next">
-                            <a class="next"
-                            rel="next"
-                            href="/2023/03/02/%E5%8D%81%E5%9B%9B%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E6%A8%A1%E6%8B%9F%E8%B5%9B/"
-                            >
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">十四届蓝桥杯模拟赛</span>
-                                    <span class="post-nav-item">Next posts</span>
-                                </span>
-                                <span class="right arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                    
-                </div>
-            
-
-
-            
-                <div class="comment-container">
-                    <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fa-solid fa-comments"></i>&nbsp;Comments
-    </div>
-    
-
-        
-            
- 
-    <div id="waline"></div>
-    <script type="module"  data-pjax>
-        import { init } from 'https://evan.beee.top/js/waline.mjs';
-
-        function loadWaline() {
-            init({
-                el: '#waline',
-                serverURL: 'https://waline-nine-kohl.vercel.app/',
-                lang: 'zh-CN',
-                dark: 'body[class~="dark-mode"]',
-                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
-            });
-        }
-
-        if ('true') {
-            const loadWalineTimeout = setTimeout(() => {
-                loadWaline();
-                clearTimeout(loadWalineTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadWaline);
-        }
-        
-    </script>
-
-
-
-        
-    
-</div>
-
-                </div>
-            
+    <div class="tag-container">
+        <div class="tag-name"><i class="fa-solid fa-tag"></i>&nbsp;mysql
         </div>
-
-        
-            <div class="toc-content-container">
-                <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">数据库操作记录</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">数据库一些基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E5%88%97%E6%8F%90%E5%8F%96%E6%97%A0%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E6%8F%92%E5%85%A5%E5%8F%A6%E4%B8%80%E5%BC%A0%E8%A1%A8"><span class="nav-text">从数据库一列提取无重复数据插入另一张表</span></a></li></ol>
-
-    </div>
-</div>
+        <div class="tag-post-list">
+            
+<div class="archive-list-container">
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2023</span>
+                <span class="archive-year-post-count">[1]</span>
             </div>
-        
+            <ul class="article-list">
+              
+              <li class="article-item" date-is='03-21'>
+                <a href="/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                  <span class="article-title">数据库操作记录</span>
+                </a>
+              </li>
+              
+            </ul>
+        </section>
+    
+</div>
+
+        </div>
+    </div>
+
+    <div class="tag-paginator">
+        <div class="paginator">
+    <span class="page-number current">1</span>
+</div>
+
     </div>
 </div>
 
@@ -574,27 +387,6 @@
         </div>
     </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
-</div>
-
-        </div>
     
 
     <div class="right-side-tools-container">
@@ -681,8 +473,6 @@
 
 
 <div class="post-scripts pjax">
-    
-        <script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.0/source/js/tools/tocToggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.0/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.0/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v2.1.0/source/js/plugins/tabs.js"></script>
     
 </div>
 

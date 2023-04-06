@@ -16,22 +16,22 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/03/21/数据库/"/>
+    <link rel="canonical" href="http://example.com/2023/04/04/mysql数据导入elasticsearch/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="老是忘记数据库许多基本操作，开个贴记录一下 数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。 从数据库一列提取无重复数据插入另一张表12INSERT INTO search_policygrade (policy_grade)SELECT DISTINCT policy_grade FROM search_policy;">
+        <meta name="description" content="首先创建索引： 123456789101112131415161718curl -XPUT -u elastic:密码 IP:9200&#x2F;索引名 -H &amp;#x27;Content-Type: application&#x2F;json&amp;#x27; -d &amp;#x27;&amp;#123;    &quot;settings&quot;: &amp;#123;        &quot;number_of_shards&amp;quot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库操作记录">
-<meta property="og:url" content="http://example.com/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:title" content="mysql数据导入elasticsearch">
+<meta property="og:url" content="http://example.com/2023/04/04/mysql%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5elasticsearch/index.html">
 <meta property="og:site_name" content="IKKO">
-<meta property="og:description" content="老是忘记数据库许多基本操作，开个贴记录一下 数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。 从数据库一列提取无重复数据插入另一张表12INSERT INTO search_policygrade (policy_grade)SELECT DISTINCT policy_grade FROM search_policy;">
+<meta property="og:description" content="首先创建索引： 123456789101112131415161718curl -XPUT -u elastic:密码 IP:9200&#x2F;索引名 -H &amp;#x27;Content-Type: application&#x2F;json&amp;#x27; -d &amp;#x27;&amp;#123;    &quot;settings&quot;: &amp;#123;        &quot;number_of_shards&amp;quot">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-21T14:31:38.000Z">
-<meta property="article:modified_time" content="2023-04-06T03:23:33.783Z">
+<meta property="article:published_time" content="2023-04-04T06:22:39.000Z">
+<meta property="article:modified_time" content="2023-04-04T06:27:04.640Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="elasticsearch">
 <meta name="twitter:card" content="summary">
     
     <!--- Icon Part-->
@@ -43,7 +43,7 @@
     
     <title>
         
-            数据库操作记录 -
+            mysql数据导入elasticsearch -
         
         Ikko&#39;s Blog
     </title>
@@ -287,7 +287,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">数据库操作记录</h1>
+                    <h1 class="article-title-regular">mysql数据导入elasticsearch</h1>
                 </div>
             
                 
@@ -309,15 +309,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-03-21 22:31:38</span>
-        <span class="mobile">2023-03-21 22:31</span>
+        <span class="desktop">2023-04-04 14:22:39</span>
+        <span class="mobile">2023-04-04 14:22</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-06 11:23:33</span>
-            <span class="mobile">2023-04-06 11:23</span>
+            <span class="desktop">2023-04-04 14:27:04</span>
+            <span class="mobile">2023-04-04 14:27</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -329,7 +329,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/mysql/">mysql</a>&nbsp;
+                        <a href="/tags/elasticsearch/">elasticsearch</a>&nbsp;
                     </li>
                 
             </ul>
@@ -339,7 +339,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>131 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>277 Words</span>
         </span>
     
     
@@ -356,27 +356,26 @@
             
 
             <div class="article-content markdown-body">
-                <p>老是忘记数据库许多基本操作，开个贴记录一下</p>
-<h2 id="数据库一些基本操作"><a href="#数据库一些基本操作" class="headerlink" title="数据库一些基本操作"></a>数据库一些基本操作</h2><p>truncate table<br>删除一个表中所有的数据<br>注意truncate删除数据后是不可以rollback的。</p>
-<h2 id="从数据库一列提取无重复数据插入另一张表"><a href="#从数据库一列提取无重复数据插入另一张表" class="headerlink" title="从数据库一列提取无重复数据插入另一张表"></a>从数据库一列提取无重复数据插入另一张表</h2><div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> search_policygrade (policy_grade)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> policy_grade <span class="keyword">FROM</span> search_policy;</span><br></pre></td></tr></table></figure></div>
-<p>python:</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">cnx = pymysql.connect(</span><br><span class="line">    user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;.&#x27;</span>, host=<span class="string">&#x27;&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"></span><br><span class="line">query = (<span class="string">&quot;SELECT DISTINCT policy_grade FROM search_policy&quot;</span>)</span><br><span class="line"></span><br><span class="line">cursor.execute(query)</span><br><span class="line">result = cursor.fetchall()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line">result_list = []</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> result:</span><br><span class="line">    result_list.append(record[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(result_list)</span><br></pre></td></tr></table></figure></div>
+                <p>首先创建索引：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -u elastic:密码 IP:9200/索引名 -H &#x27;Content-Type: application/json&#x27; -d &#x27;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;: &#123;</span><br><span class="line">        &quot;number_of_shards&quot;: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">            &quot;policy_title&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;policy_body&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#x27;</span><br></pre></td></tr></table></figure></div>
+<p>然后使用python导入：</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> helpers</span><br><span class="line"><span class="comment"># 连接MySQL数据库</span></span><br><span class="line">cnx = pymysql.connect(user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;&#x27;</span>, host=<span class="string">&#x27;localhost&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接mysql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行查询语句，获取数据</span></span><br><span class="line">query = <span class="string">&quot;SELECT * FROM search_policy&quot;</span></span><br><span class="line">cursor.execute(query)</span><br><span class="line">res0 = cursor.fetchall()</span><br><span class="line">list1 = []</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> cursor.description:</span><br><span class="line">    list1.append(row[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">tuple</span>(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[<span class="string">&#x27;https://elastic:密码@IP:9200&#x27;</span>]) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接es&#x27;</span>)</span><br><span class="line"></span><br><span class="line">actions = []</span><br><span class="line">tb_name = <span class="string">&quot;tb_demo&quot;</span></span><br><span class="line">cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> res0:</span><br><span class="line">    cnt += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    data = <span class="built_in">dict</span>(<span class="built_in">zip</span>(list1, r))</span><br><span class="line">        </span><br><span class="line">    <span class="built_in">print</span>(cnt)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">try</span>:                                                </span><br><span class="line">        action = &#123;<span class="string">&quot;_index&quot;</span>:<span class="string">&#x27;policyy&#x27;</span>, <span class="string">&quot;_source&quot;</span>:data&#125; </span><br><span class="line">        actions.append(action)</span><br><span class="line">               </span><br><span class="line">            <span class="comment"># 每1000个一组批量导入</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(actions) == <span class="number">1000</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;execute 1000 action&quot;</span>)</span><br><span class="line">            success,errors = helpers.bulk(es, actions, raise_on_error = <span class="literal">True</span>)</span><br><span class="line">            actions = []</span><br><span class="line">    <span class="keyword">except</span>:        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;traceback.format_exc():\n%s&#x27;</span> % traceback.format_exc())</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(actions) &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        success,errors = helpers.bulk(es, actions, raise_on_error = <span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
             </div>
 
             
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 数据库操作记录</li>
+        <li><strong>Title:</strong> mysql数据导入elasticsearch</li>
         <li><strong>Author:</strong> Ikko</li>
-        <li><strong>Created at:</strong> 2023-03-21 22:31:38</li>
+        <li><strong>Created at:</strong> 2023-04-04 14:22:39</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-06 11:23:33
+                <strong>Updated at:</strong> 2023-04-04 14:27:04
             </li>
         
         <li>
-            <strong>Link:</strong> https://redefine.ohevan.com/2023/03/21/数据库/
+            <strong>Link:</strong> https://redefine.ohevan.com/2023/04/04/mysql数据导入elasticsearch/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -391,7 +390,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/mysql/">#mysql</a>&nbsp;
+                            <a href="/tags/elasticsearch/">#elasticsearch</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -402,29 +401,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">记录navicat12连接mysql 2048</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/03/02/%E5%8D%81%E5%9B%9B%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E6%A8%A1%E6%8B%9F%E8%B5%9B/"
+                            href="/2023/03/28/django%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">十四届蓝桥杯模拟赛</span>
+                                    <span class="post-nav-title-item">django提升性能</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -489,8 +473,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">数据库操作记录</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">数据库一些基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E5%88%97%E6%8F%90%E5%8F%96%E6%97%A0%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E6%8F%92%E5%85%A5%E5%8F%A6%E4%B8%80%E5%BC%A0%E8%A1%A8"><span class="nav-text">从数据库一列提取无重复数据插入另一张表</span></a></li></ol>
+        <div class="page-title">mysql数据导入elasticsearch</div>
+        
 
     </div>
 </div>
