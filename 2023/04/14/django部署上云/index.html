@@ -15,21 +15,22 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/04/11/test/"/>
+    <link rel="canonical" href="http://example.com/2023/04/14/django部署上云/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="以下是使用 Django 和 Ajax 实现分页功能的示例代码：  在 views.py 中定义视图函数，用于返回需要分页的数据。  1234567891011from django.core.paginator import Paginatorfrom django.http import JsonResponsefrom django.shortcuts import renderfrom .">
+        <meta name="description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥ssh-keygen -t rsa -C “&amp;#56;&amp;#x36;&amp;#50;&amp;#48;&amp;#x34;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="django分页功能实现">
-<meta property="og:url" content="http://example.com/2023/04/11/test/index.html">
+<meta property="og:title" content="django部署上云">
+<meta property="og:url" content="http://example.com/2023/04/14/django%E9%83%A8%E7%BD%B2%E4%B8%8A%E4%BA%91/index.html">
 <meta property="og:site_name" content="IKKO">
-<meta property="og:description" content="以下是使用 Django 和 Ajax 实现分页功能的示例代码：  在 views.py 中定义视图函数，用于返回需要分页的数据。  1234567891011from django.core.paginator import Paginatorfrom django.http import JsonResponsefrom django.shortcuts import renderfrom .">
+<meta property="og:description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥ssh-keygen -t rsa -C “&amp;#56;&amp;#x36;&amp;#50;&amp;#48;&amp;#x34;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-04-11T03:09:22.000Z">
-<meta property="article:modified_time" content="2023-04-11T12:20:40.319Z">
+<meta property="article:published_time" content="2023-04-14T08:53:40.000Z">
+<meta property="article:modified_time" content="2023-04-14T14:38:39.052Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="django">
 <meta name="twitter:card" content="summary">
     
     <!--- Icon Part-->
@@ -41,7 +42,7 @@
     
     <title>
         
-            django分页功能实现 -
+            django部署上云 -
         
         Ikko&#39;s Blog
     </title>
@@ -285,7 +286,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">django分页功能实现</h1>
+                    <h1 class="article-title-regular">django部署上云</h1>
                 </div>
             
                 
@@ -307,26 +308,37 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-04-11 11:09:22</span>
-        <span class="mobile">2023-04-11 11:09</span>
+        <span class="desktop">2023-04-14 16:53:40</span>
+        <span class="mobile">2023-04-14 16:53</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-11 20:20:40</span>
-            <span class="mobile">2023-04-11 20:20</span>
+            <span class="desktop">2023-04-14 22:38:39</span>
+            <span class="mobile">2023-04-14 22:38</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
     
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/django/">django</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>421 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>581 Words</span>
         </span>
     
     
@@ -343,18 +355,21 @@
             
 
             <div class="article-content markdown-body">
-                <p>以下是使用 Django 和 Ajax 实现分页功能的示例代码：</p>
-<ol>
-<li>在 <code>views.py</code> 中定义视图函数，用于返回需要分页的数据。</li>
-</ol>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.core.paginator <span class="keyword">import</span> Paginator</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> JsonResponse</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> MyModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_view</span>(<span class="params">request</span>):</span><br><span class="line">    data = MyModel.objects.<span class="built_in">all</span>()</span><br><span class="line">    paginator = Paginator(data, <span class="number">10</span>)  <span class="comment"># 每页显示 10 条数据</span></span><br><span class="line">    page_number = request.GET.get(<span class="string">&#x27;page&#x27;</span>)</span><br><span class="line">    page_obj = paginator.get_page(page_number)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;my_template.html&#x27;</span>, &#123;<span class="string">&#x27;page_obj&#x27;</span>: page_obj&#125;)</span><br></pre></td></tr></table></figure></div>
-
-<ol start="2">
-<li>在 <code>my_template.html</code> 中，使用 Ajax 请求获取分页数据，并通过 JavaScript 将数据展示在页面上。</li>
-</ol>
-<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- my_template.html --&gt;</span></span><br><span class="line">&#123;% extends &#x27;base.html&#x27; %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;my-data&quot;</span>&gt;</span></span><br><span class="line">    &#123;% for obj in page_obj %&#125;</span><br><span class="line">        <span class="comment">&lt;!-- 展示数据 --&gt;</span></span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;my-pagination&quot;</span>&gt;</span></span><br><span class="line">    &#123;% if page_obj.has_previous %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?page=&#123;&#123; page_obj.previous_page_number &#125;&#125;&quot;</span>&gt;</span>上一页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;current-page&quot;</span>&gt;</span>&#123;&#123; page_obj.number &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    &#123;% if page_obj.has_next %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?page=&#123;&#123; page_obj.next_page_number &#125;&#125;&quot;</span>&gt;</span>下一页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    $(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// Ajax 请求分页数据</span></span></span><br><span class="line"><span class="language-javascript">      $(<span class="string">&#x27;#my-pagination a&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        e.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">        $.<span class="title function_">ajax</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">url</span>: <span class="string">&#x27;&#123;% url &quot;my_view&quot; %&#125;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">data</span>: &#123;<span class="attr">page</span>: $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;href&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;=&#x27;</span>)[<span class="number">1</span>]&#125;,</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">success</span>: <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            $(<span class="string">&#x27;#my-data&#x27;</span>).<span class="title function_">html</span>(data);</span></span><br><span class="line"><span class="language-javascript">          &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">      &#125;);</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>在上面的示例中，我们使用 Django 提供的 <code>Paginator</code> 类来实现分页功能，并在模板中通过 <code>has_previous</code>、<code>has_next</code> 和 <code>number</code> 等属性获取分页信息。在 JavaScript 部分，我们监听上一页和下一页的链接点击事件，并使用 <code>$.ajax</code> 函数向 Django 视图函数发送 GET 请求获取分页数据，成功后将数据显示在页面上。</p>
+                <p>因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。</p>
+<h2 id="配置gitee"><a href="#配置gitee" class="headerlink" title="配置gitee"></a>配置gitee</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;&quot;</span><br><span class="line">git config --global user.email &quot;654@qq.com&quot;</span><br></pre></td></tr></table></figure></div>
+<p>生成密钥<br>ssh-keygen -t rsa -C “<a class="link"   href="mailto:&#56;&#x36;&#50;&#48;&#x34;&#x39;&#x36;&#x35;&#x34;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109;" >&#56;&#x36;&#50;&#48;&#x34;&#x39;&#x36;&#x35;&#x34;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“<br>查看密钥并拷贝，将它添加到码云个人账号的SSH公钥里：<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub<br>测试链接<br>ssh -T <a class="link"   href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x2e;&#111;&#x73;&#99;&#x68;&#105;&#110;&#97;&#x2e;&#110;&#x65;&#x74;" >&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x2e;&#111;&#x73;&#99;&#x68;&#105;&#110;&#97;&#x2e;&#110;&#x65;&#x74; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#x27;git.oschina.net (212.64.63.190)&#x27; can&#x27;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.</span><br><span class="line">ECDSA key fingerprint is MD5:27:e5:d3:f7:2a:9e:eb:6c:93:cd:1f:c1:47:a3:54:b1.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure></div>
+<p>输入yes,而不是按enter<br>Hi ikko-debug! You’ve successfully authenticated, but GITEE.COM does not provide shell access.<br>然后就可以使用git clone了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@gitee.com:.git#从仓库主页复制</span><br></pre></td></tr></table></figure></div>
+<p>以后需要更新仓库只需要cd到项目目录下，然后git pull即可</p>
+<h2 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h2><h3 id="配置pip包管理器"><a href="#配置pip包管理器" class="headerlink" title="配置pip包管理器"></a>配置pip包管理器</h3><p>首先在自己虚拟环境下<br>pip freeze &gt; requirements.txt<br>然后在服务器上<br>pip3.9 install -r requirements.txt<br>安装mysqlclient遇到：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql_config</span><br><span class="line">          raise OSError(&quot;&#123;&#125; not found&quot;.format(_mysql_config_path))</span><br><span class="line">      OSError: mysql_config not found</span><br><span class="line">      mysql_config --version</span><br><span class="line">      mariadb_config --version</span><br><span class="line">      mysql_config --libs</span><br><span class="line">      [end of output]</span><br><span class="line">  </span><br><span class="line">  note: This error originates from a subprocess, and is likely not a problem with pip.</span><br><span class="line">error: metadata-generation-failed</span><br><span class="line"></span><br><span class="line">× Encountered error while generating package metadata.</span><br><span class="line">╰─&gt; See above for output.</span><br><span class="line"></span><br><span class="line">note: This is an issue with the package mentioned above, not pip.</span><br><span class="line">hint: See above for details.</span><br></pre></td></tr></table></figure></div>
+<p>安装 MySQL C Connector 及其开发包，以便能够正确编译和链接 mysqlclient 包。<br>unbuntu:<br>sudo apt-get update<br>sudo apt-get install libmysqlclient-dev<br>centos:<br>sudo yum install mysql-devel<br>然后运行<br>mysql_config –version<br>重新pip，成功</p>
+<h3 id="安装配置nginx"><a href="#安装配置nginx" class="headerlink" title="安装配置nginx"></a>安装配置nginx</h3><p>我已经装过了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启动nginx: service nginx start</span><br><span class="line">停止nginx：service nginx stop</span><br><span class="line">重启nginx：service nginx restart</span><br><span class="line">重载配置文件：service nginx reload</span><br><span class="line">查看nginx状态：service nginx status</span><br><span class="line">配置nginx：</span><br></pre></td></tr></table></figure></div>
+<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>也装过了</p>
+<h2 id="安装配置uwsgi"><a href="#安装配置uwsgi" class="headerlink" title="安装配置uwsgi"></a>安装配置uwsgi</h2><p>pip3.9 install uwsgi<br>在&#x2F;home&#x2F;根目录创建文件夹mylog_uwsg<br>在mylog_uwsgi文件夹下新建名为mylog.ini文件<br>uwsgi –ini root&#x2F;mylog_uwsg&#x2F;mylog.ini<br>启动：uwsgi -ini &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后报错：<br>uwsgi: invalid option – ‘n’<br>getopt_long() error<br>网上查了下使用很多人提供的解决方案，不行，于是放弃，只用nginx</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>nohup python3.9 manage.py runserver 0.0.0.0:8000<br>然后重启nginx就行service nginx restart</p>
 
             </div>
 
@@ -362,16 +377,16 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> django分页功能实现</li>
+        <li><strong>Title:</strong> django部署上云</li>
         <li><strong>Author:</strong> Ikko</li>
-        <li><strong>Created at:</strong> 2023-04-11 11:09:22</li>
+        <li><strong>Created at:</strong> 2023-04-14 16:53:40</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-11 20:20:40
+                <strong>Updated at:</strong> 2023-04-14 22:38:39
             </li>
         
         <li>
-            <strong>Link:</strong> https://redefine.ohevan.com/2023/04/11/test/
+            <strong>Link:</strong> https://redefine.ohevan.com/2023/04/14/django部署上云/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -383,35 +398,28 @@
             
 
             
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/django/">#django</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
 
             
 
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/04/11/elasticsearch%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">elasticsearch性能优化</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/04/04/mysql%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5elasticsearch/"
+                            href="/2023/04/11/elasticsearch%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">mysql数据导入elasticsearch</span>
+                                    <span class="post-nav-title-item">elasticsearch性能优化</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -476,8 +484,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">django分页功能实现</div>
-        
+        <div class="page-title">django部署上云</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEgitee"><span class="nav-text">配置gitee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEpip%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-text">配置pip包管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEnginx"><span class="nav-text">安装配置nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mysql"><span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEuwsgi"><span class="nav-text">安装配置uwsgi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-text">启动</span></a></li></ol>
 
     </div>
 </div>
