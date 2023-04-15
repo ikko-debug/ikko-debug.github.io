@@ -28,7 +28,7 @@
 <meta property="og:description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥 1ssh-keygen -t rsa -C &quot;862049654@qq.com&amp;quo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-14T08:53:40.000Z">
-<meta property="article:modified_time" content="2023-04-15T05:52:57.394Z">
+<meta property="article:modified_time" content="2023-04-15T05:58:27.662Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="django">
 <meta name="twitter:card" content="summary">
@@ -315,8 +315,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-15 13:52:57</span>
-            <span class="mobile">2023-04-15 13:52</span>
+            <span class="desktop">2023-04-15 13:58:27</span>
+            <span class="mobile">2023-04-15 13:58</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -338,7 +338,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>905 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>901 Words</span>
         </span>
     
     
@@ -387,10 +387,11 @@
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chdir() to /usr/searchsys  #你的项目文件夹路径</span><br><span class="line">chdir(): No such file or directory [core/uwsgi.c line 2625]</span><br></pre></td></tr></table></figure></div>
 
 <p>uwsgi –ini root&#x2F;mylog_uwsg&#x2F;mylog.ini<br>启动：uwsgi -ini &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后报错：<br>uwsgi: invalid option – ‘n’<br>getopt_long() error<br>网上查了下使用很多人提供的解决方案，不行，于是放弃，只用nginx<br>后来把项目从root下移动到了&#x2F;usr下，然后<br>折磨了一天使用这条命令成功了</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --ini /usr/searchsys/mylog_uwsgi/mylog.ini</span><br><span class="line">关闭uwwsgi</span><br></pre></td></tr></table></figure></div>
-<p>fuser -k 8000&#x2F;tcp</p>
-<p>&#96;&#96;&#96;</p>
-<p>[uWSGI] getting INI configuration from &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --ini /usr/searchsys/mylog_uwsgi/mylog.ini</span><br></pre></td></tr></table></figure></div>
+<p>[uWSGI] getting INI configuration from &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>关闭uwwsgi</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -k 8000/tcp</span><br></pre></td></tr></table></figure></div>
+
+
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>nohup python3.9 manage.py runserver 0.0.0.0:8000<br>uwsgi –ini &#x2F;usr&#x2F;searchsys&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后重启nginx就行service nginx restart</p>
 
             </div>
@@ -404,7 +405,7 @@
         <li><strong>Created at:</strong> 2023-04-14 16:53:40</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-15 13:52:57
+                <strong>Updated at:</strong> 2023-04-15 13:58:27
             </li>
         
         <li>
