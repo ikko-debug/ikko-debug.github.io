@@ -20,15 +20,15 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥ssh-keygen -t rsa -C “&amp;#56;&amp;#x36;&amp;#50;&amp;#48;&amp;#x34;">
+        <meta name="description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥 1ssh-keygen -t rsa -C &quot;862049654@qq.com&amp;quo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django部署上云">
 <meta property="og:url" content="http://example.com/2023/04/14/django%E9%83%A8%E7%BD%B2%E4%B8%8A%E4%BA%91/index.html">
 <meta property="og:site_name" content="IKKO">
-<meta property="og:description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥ssh-keygen -t rsa -C “&amp;#56;&amp;#x36;&amp;#50;&amp;#48;&amp;#x34;">
+<meta property="og:description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥 1ssh-keygen -t rsa -C &quot;862049654@qq.com&amp;quo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-14T08:53:40.000Z">
-<meta property="article:modified_time" content="2023-04-14T14:38:39.052Z">
+<meta property="article:modified_time" content="2023-04-15T05:52:00.064Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="django">
 <meta name="twitter:card" content="summary">
@@ -315,8 +315,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-14 22:38:39</span>
-            <span class="mobile">2023-04-14 22:38</span>
+            <span class="desktop">2023-04-15 13:52</span>
+            <span class="mobile">2023-04-15 13:52</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -338,12 +338,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>581 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>903 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
         </span>
     
     
@@ -357,19 +357,41 @@
             <div class="article-content markdown-body">
                 <p>因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。</p>
 <h2 id="配置gitee"><a href="#配置gitee" class="headerlink" title="配置gitee"></a>配置gitee</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;&quot;</span><br><span class="line">git config --global user.email &quot;654@qq.com&quot;</span><br></pre></td></tr></table></figure></div>
-<p>生成密钥<br>ssh-keygen -t rsa -C “<a class="link"   href="mailto:&#56;&#x36;&#50;&#48;&#x34;&#x39;&#x36;&#x35;&#x34;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109;" >&#56;&#x36;&#50;&#48;&#x34;&#x39;&#x36;&#x35;&#x34;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“<br>查看密钥并拷贝，将它添加到码云个人账号的SSH公钥里：<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub<br>测试链接<br>ssh -T <a class="link"   href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x2e;&#111;&#x73;&#99;&#x68;&#105;&#110;&#97;&#x2e;&#110;&#x65;&#x74;" >&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x2e;&#111;&#x73;&#99;&#x68;&#105;&#110;&#97;&#x2e;&#110;&#x65;&#x74; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>生成密钥</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;862049654@qq.com&quot;</span><br></pre></td></tr></table></figure></div>
+<p>查看密钥并拷贝，将它添加到码云个人账号的SSH公钥里：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></div>
+<p>测试链接</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@git.oschina.net</span><br></pre></td></tr></table></figure></div>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#x27;git.oschina.net (212.64.63.190)&#x27; can&#x27;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.</span><br><span class="line">ECDSA key fingerprint is MD5:27:e5:d3:f7:2a:9e:eb:6c:93:cd:1f:c1:47:a3:54:b1.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure></div>
-<p>输入yes,而不是按enter<br>Hi ikko-debug! You’ve successfully authenticated, but GITEE.COM does not provide shell access.<br>然后就可以使用git clone了</p>
+<p>输入yes,而不是按enter</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi ikko-debug! You&#x27;ve successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure></div>
+<p>然后就可以使用git clone了</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@gitee.com:.git#从仓库主页复制</span><br></pre></td></tr></table></figure></div>
 <p>以后需要更新仓库只需要cd到项目目录下，然后git pull即可</p>
 <h2 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h2><h3 id="配置pip包管理器"><a href="#配置pip包管理器" class="headerlink" title="配置pip包管理器"></a>配置pip包管理器</h3><p>首先在自己虚拟环境下<br>pip freeze &gt; requirements.txt<br>然后在服务器上<br>pip3.9 install -r requirements.txt<br>安装mysqlclient遇到：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql_config</span><br><span class="line">          raise OSError(&quot;&#123;&#125; not found&quot;.format(_mysql_config_path))</span><br><span class="line">      OSError: mysql_config not found</span><br><span class="line">      mysql_config --version</span><br><span class="line">      mariadb_config --version</span><br><span class="line">      mysql_config --libs</span><br><span class="line">      [end of output]</span><br><span class="line">  </span><br><span class="line">  note: This error originates from a subprocess, and is likely not a problem with pip.</span><br><span class="line">error: metadata-generation-failed</span><br><span class="line"></span><br><span class="line">× Encountered error while generating package metadata.</span><br><span class="line">╰─&gt; See above for output.</span><br><span class="line"></span><br><span class="line">note: This is an issue with the package mentioned above, not pip.</span><br><span class="line">hint: See above for details.</span><br></pre></td></tr></table></figure></div>
-<p>安装 MySQL C Connector 及其开发包，以便能够正确编译和链接 mysqlclient 包。<br>unbuntu:<br>sudo apt-get update<br>sudo apt-get install libmysqlclient-dev<br>centos:<br>sudo yum install mysql-devel<br>然后运行<br>mysql_config –version<br>重新pip，成功</p>
+<p>安装 MySQL C Connector 及其开发包，以便能够正确编译和链接 mysqlclient 包。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">unbuntu:</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br><span class="line">centos:</span><br><span class="line">sudo yum install mysql-devel</span><br></pre></td></tr></table></figure></div>
+<p>然后运行</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_config --version</span><br></pre></td></tr></table></figure></div>
+<p>重新pip，成功</p>
 <h3 id="安装配置nginx"><a href="#安装配置nginx" class="headerlink" title="安装配置nginx"></a>安装配置nginx</h3><p>我已经装过了</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启动nginx: service nginx start</span><br><span class="line">停止nginx：service nginx stop</span><br><span class="line">重启nginx：service nginx restart</span><br><span class="line">重载配置文件：service nginx reload</span><br><span class="line">查看nginx状态：service nginx status</span><br><span class="line">配置nginx：</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启动nginx: service nginx start</span><br><span class="line">停止nginx：service nginx stop</span><br><span class="line">重启nginx：service nginx restart;./nginx -s reload</span><br><span class="line">重载配置文件：service nginx reload</span><br><span class="line">查看nginx状态：service nginx status</span><br></pre></td></tr></table></figure></div>
+<p>配置nginx：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 90;</span><br><span class="line">    server_name 81.68.225.236;  # 设置您的域名或 IP 地址</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass 127.0.0.1:8001; # 需要和ini文件中的端口保持一致，这样才能实现两者的通信。</span><br><span class="line">        uwsgi_read_timeout 30;</span><br><span class="line">   &#125;</span><br><span class="line">   location /static/ &#123;</span><br><span class="line">        root /root/searchsys/static;  # CSS, JavaScript 和图片等静态文件的路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></div>
 <h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>也装过了</p>
-<h2 id="安装配置uwsgi"><a href="#安装配置uwsgi" class="headerlink" title="安装配置uwsgi"></a>安装配置uwsgi</h2><p>pip3.9 install uwsgi<br>在&#x2F;home&#x2F;根目录创建文件夹mylog_uwsg<br>在mylog_uwsgi文件夹下新建名为mylog.ini文件<br>uwsgi –ini root&#x2F;mylog_uwsg&#x2F;mylog.ini<br>启动：uwsgi -ini &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后报错：<br>uwsgi: invalid option – ‘n’<br>getopt_long() error<br>网上查了下使用很多人提供的解决方案，不行，于是放弃，只用nginx</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>nohup python3.9 manage.py runserver 0.0.0.0:8000<br>然后重启nginx就行service nginx restart</p>
+<h2 id="安装配置uwsgi"><a href="#安装配置uwsgi" class="headerlink" title="安装配置uwsgi"></a>安装配置uwsgi</h2><p>pip3.9 install uwsgi<br>在&#x2F;home&#x2F;根目录创建文件夹mylog_uwsg<br>在mylog_uwsgi文件夹下新建名为mylog.ini文件<br>填入：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line">chdir = /usr/searchsys</span><br><span class="line">#module = searchsys.wsgi:searchsys  #对应你的项目名</span><br><span class="line">wsgi-file = /usr/searchsys/searchsys/wsgi.py</span><br><span class="line">python-path = /root/Python-3.9.16</span><br><span class="line">master = True</span><br><span class="line">processes = 4</span><br><span class="line">harakiri = 60</span><br><span class="line">max-requests = 5000</span><br><span class="line"></span><br><span class="line">socket = 127.0.0.1:8001  #对应配置安全组时开放的端口，uWSGI根据socket协议与Nginx相互在这个端口通信，在进行Nginx配置时会设置相同端口，这步极其重要，否则会配置失败</span><br><span class="line">uid = 1000 </span><br><span class="line">gid = 2000</span><br><span class="line"></span><br><span class="line">pidfile = /usr/searchsys/mylog_uwsgi/master.pid  </span><br><span class="line">daemonize = /usr/searchsys/mylog_uwsgi/mylog.log  </span><br><span class="line"></span><br><span class="line">vacuum = True</span><br></pre></td></tr></table></figure></div>
+<p>注意文件中路径后面不能有空格，不然会报错，我找了一天错没找到，服了，这一般人谁能看出来是有空格，建议copy的时候删除所有注释</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chdir() to /usr/searchsys  #你的项目文件夹路径</span><br><span class="line">chdir(): No such file or directory [core/uwsgi.c line 2625]</span><br></pre></td></tr></table></figure></div>
+
+<p>uwsgi –ini root&#x2F;mylog_uwsg&#x2F;mylog.ini<br>启动：uwsgi -ini &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后报错：<br>uwsgi: invalid option – ‘n’<br>getopt_long() error<br>网上查了下使用很多人提供的解决方案，不行，于是放弃，只用nginx<br>后来把项目从root下移动到了&#x2F;usr下，然后<br>折磨了一天使用这条命令成功了</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --ini /usr/searchsys/mylog_uwsgi/mylog.ini</span><br><span class="line">关闭uwwsgi</span><br></pre></td></tr></table></figure></div>
+<p>fuser -k 8000&#x2F;tcp</p>
+<p>&#96;&#96;&#96;</p>
+<p>[uWSGI] getting INI configuration from &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>nohup python3.9 manage.py runserver 0.0.0.0:8000<br>uwsgi –ini &#x2F;usr&#x2F;searchsys&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后重启nginx就行service nginx restart</p>
 
             </div>
 
@@ -382,7 +404,7 @@
         <li><strong>Created at:</strong> 2023-04-14 16:53:40</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-14 22:38:39
+                <strong>Updated at:</strong> 2023-04-15 13:52:00
             </li>
         
         <li>
