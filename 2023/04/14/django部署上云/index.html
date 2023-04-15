@@ -28,7 +28,7 @@
 <meta property="og:description" content="因为上一次部署遇到了很多问题，这一次决定记录一下，以便下次部署的时候可以快速上手。 配置gitee12git config --global user.name &quot;&quot;git config --global user.email &quot;654@qq.com&quot; 生成密钥 1ssh-keygen -t rsa -C &quot;862049654@qq.com&amp;quo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-14T08:53:40.000Z">
-<meta property="article:modified_time" content="2023-04-15T05:58:27.662Z">
+<meta property="article:modified_time" content="2023-04-15T11:25:35.974Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="django">
 <meta name="twitter:card" content="summary">
@@ -315,8 +315,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-15 13:58:27</span>
-            <span class="mobile">2023-04-15 13:58</span>
+            <span class="desktop">2023-04-15 19:25:35</span>
+            <span class="mobile">2023-04-15 19:25</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -338,7 +338,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>901 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>925 Words</span>
         </span>
     
     
@@ -379,9 +379,9 @@
 <h3 id="安装配置nginx"><a href="#安装配置nginx" class="headerlink" title="安装配置nginx"></a>安装配置nginx</h3><p>我已经装过了</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启动nginx: service nginx start</span><br><span class="line">停止nginx：service nginx stop</span><br><span class="line">重启nginx：service nginx restart;./nginx -s reload</span><br><span class="line">重载配置文件：service nginx reload</span><br><span class="line">查看nginx状态：service nginx status</span><br></pre></td></tr></table></figure></div>
 <p>配置nginx：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 90;</span><br><span class="line">    server_name ;  # 设置您的域名或 IP 地址，服务器IP地址</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass 127.0.0.1:8001; # 需要和ini文件中的端口保持一致，这样才能实现两者的通信。</span><br><span class="line">        uwsgi_read_timeout 30;</span><br><span class="line">   &#125;</span><br><span class="line">   location /static/ &#123;</span><br><span class="line">        root /root/searchsys/static;  # CSS, JavaScript 和图片等静态文件的路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></div>
-<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>也装过了</p>
-<h2 id="安装配置uwsgi"><a href="#安装配置uwsgi" class="headerlink" title="安装配置uwsgi"></a>安装配置uwsgi</h2><p>pip3.9 install uwsgi<br>在&#x2F;home&#x2F;根目录创建文件夹mylog_uwsg<br>在mylog_uwsgi文件夹下新建名为mylog.ini文件<br>填入：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 90;</span><br><span class="line">    server_name ;  # 设置您的域名或 IP 地址，服务器IP地址</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass 127.0.0.1:8001; # 需要和ini文件中的端口保持一致，这样才能实现两者的通信。</span><br><span class="line">        uwsgi_read_timeout 30;</span><br><span class="line">   &#125;</span><br><span class="line">   location /static/ &#123;</span><br><span class="line">        root /root/searchsys/collected_static;  # CSS, JavaScript 和图片等静态文件的路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></div>
+<h3 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><p>也装过了</p>
+<h3 id="安装配置uwsgi"><a href="#安装配置uwsgi" class="headerlink" title="安装配置uwsgi"></a>安装配置uwsgi</h3><p>pip3.9 install uwsgi<br>在&#x2F;home&#x2F;根目录创建文件夹mylog_uwsg<br>在mylog_uwsgi文件夹下新建名为mylog.ini文件<br>填入：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line">chdir = /usr/searchsys</span><br><span class="line">#module = searchsys.wsgi:searchsys  #对应你的项目名</span><br><span class="line">wsgi-file = /usr/searchsys/searchsys/wsgi.py</span><br><span class="line">python-path = /root/Python-3.9.16</span><br><span class="line">master = True</span><br><span class="line">processes = 4</span><br><span class="line">harakiri = 60</span><br><span class="line">max-requests = 5000</span><br><span class="line"></span><br><span class="line">socket = 127.0.0.1:8001  #对应配置安全组时开放的端口，uWSGI根据socket协议与Nginx相互在这个端口通信，在进行Nginx配置时会设置相同端口，这步极其重要，否则会配置失败</span><br><span class="line">uid = 1000 </span><br><span class="line">gid = 2000</span><br><span class="line"></span><br><span class="line">pidfile = /usr/searchsys/mylog_uwsgi/master.pid  </span><br><span class="line">daemonize = /usr/searchsys/mylog_uwsgi/mylog.log  </span><br><span class="line"></span><br><span class="line">vacuum = True</span><br></pre></td></tr></table></figure></div>
 <p>注意文件中路径后面不能有空格，不然会报错，我找了一天错没找到，服了，这一般人谁能看出来是有空格，建议copy的时候删除所有注释</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chdir() to /usr/searchsys  #你的项目文件夹路径</span><br><span class="line">chdir(): No such file or directory [core/uwsgi.c line 2625]</span><br></pre></td></tr></table></figure></div>
@@ -390,9 +390,7 @@
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --ini /usr/searchsys/mylog_uwsgi/mylog.ini</span><br></pre></td></tr></table></figure></div>
 <p>[uWSGI] getting INI configuration from &#x2F;root&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>关闭uwwsgi</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -k 8000/tcp</span><br></pre></td></tr></table></figure></div>
-
-
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>nohup python3.9 manage.py runserver 0.0.0.0:8000<br>uwsgi –ini &#x2F;usr&#x2F;searchsys&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后重启nginx就行service nginx restart</p>
+<h3 id="静态文件收集"><a href="#静态文件收集" class="headerlink" title="静态文件收集"></a>静态文件收集</h3><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>fuser -k 8001&#x2F;tcp   &#x2F;&#x2F;关闭uwsgi<br>uwsgi –ini &#x2F;usr&#x2F;searchsys&#x2F;mylog_uwsgi&#x2F;mylog.ini<br>然后重启nginx就行    .&#x2F;nginx -s reload<br>注意，每次修改代码都需要执行上述操作</p>
 
             </div>
 
@@ -405,7 +403,7 @@
         <li><strong>Created at:</strong> 2023-04-14 16:53:40</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-04-15 13:58:27
+                <strong>Updated at:</strong> 2023-04-15 19:25:35
             </li>
         
         <li>
@@ -508,7 +506,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">django部署上云</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEgitee"><span class="nav-text">配置gitee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEpip%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-text">配置pip包管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEnginx"><span class="nav-text">安装配置nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mysql"><span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEuwsgi"><span class="nav-text">安装配置uwsgi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-text">启动</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEgitee"><span class="nav-text">配置gitee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEpip%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-text">配置pip包管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEnginx"><span class="nav-text">安装配置nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mysql"><span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEuwsgi"><span class="nav-text">安装配置uwsgi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E6%94%B6%E9%9B%86"><span class="nav-text">静态文件收集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-text">启动</span></a></li></ol>
 
     </div>
 </div>
