@@ -426,4 +426,21 @@
         <tag>django</tag>
       </tags>
   </entry>
+  <entry>
+    <title>jenkins自动化部署</title>
+    <url>/2023/07/05/jenkins%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>开发人员提交完代码至版本控制器后，由Jenkins自动获取远程代码，自动打包，然后再自动发布的过程。</p>
+<h2 id="下载docker"><a href="#下载docker" class="headerlink" title="下载docker"></a>下载docker</h2><p>前提是linux中已经安装Docker，再执行以下命令：</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>chatGPT本地部署</title>
+    <url>/2023/07/05/chatGPT%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<p>此文章是开源作品<a class="link"   href="https://github.com/pengzhile/pandora%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%BD%BF%E7%94%A8" >https://github.com/pengzhile/pandora的介绍使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>Python&gt;&#x3D;3.7</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install &#x27;pandora-chatgpt[cloud]&#x27;</span><br><span class="line">pandora-cloud</span><br></pre></td></tr></table></figure></div>
+<p>浏览器打开<a href="http://127.0.0.1:8018即可访问">http://127.0.0.1:8018即可访问</a><br>1.使用自己的账号密码<br>2.使用token<br>共享Token（ChatGPT4.0多人用，三小时只能问25个问题，限制后可以换个Token）：<br>Token1：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJqYWNvYi5qb25lcy5ldWVjaUByYW1ibGVyLnJ1IiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItR2lLdnlaY0FLTWw0ajB2SUdSUE5CQUwyIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2VkMDE0ZjY5NjQ3YmJlOWI1YWZmY2EiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg3NTAyODE0LCJleHAiOjE2ODg3MTI0MTQsImF6cCI6InBkbExJWDJZNzJNSWwycmhMaFRFOVZWOWJOOTA1a0JoIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb2ZmbGluZV9hY2Nlc3MifQ.wiBlLA8BWkEBxi63l2_f7y5kUTgo3Evca7_W9UGdBplaNWLaW2dI0242WdcUVDC6ZMk2ZTJWdhTrpuqk176_xkLcMetan8UVzaIwIXnoSk8i_blZAteK0kcyJ-cVjR3JRCD00i58fGdLyxZW-AjiGBmhHWH8nwjuQ_I-t8ho0gRE1GWT8YYpb8Zc-cUw2rKPDw1Amub0dI23FvwxgJU9-ay-g2pr6foSBWCea-IhihEyIUM_QO3Q32O3RyjHJjbETFYc6qQkZcHDczYvy1GQPFrOuBJlMnPp2xBxWCVkkvEvSJ78Gv7PgFisl5Kg4tgK9xC6U8ro8awyAKO4VNL0UA</span><br></pre></td></tr></table></figure></div>
+<p>:<br>token2：:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJqYWNvYi5qb25lcy5ldWVjaUByYW1ibGVyLnJ1IiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItR2lLdnlaY0FLTWw0ajB2SUdSUE5CQUwyIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2VkMDE0ZjY5NjQ3YmJlOWI1YWZmY2EiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg4NDMyNjE0LCJleHAiOjE2ODk2NDIyMTQsImF6cCI6InBkbExJWDJZNzJNSWwycmhMaFRFOVZWOWJOOTA1a0JoIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb2ZmbGluZV9hY2Nlc3MifQ.YFpy_ThStbM6aDPukD82WSU-260Erew5f6OBAfOsGxI5mcPKpWdYR7ppgY5G_JFseQ-zGDWDsOHKZYV9EZKRCtb2wMU7hvFxSMojtjvBRm8wvw1-iRazOxhjSyVK4oWX2_v_NTsB202_7Ags8yfv7oCn4V8gWGQ-Tp6sfoSldj6LPbEuSmxj_hsVW8a8YuF_yxOgybenNSXM3DoV47OKAkPsQO5HrGN1dwdfhS822lCQpr_Mv-pQKAo0eYft8pqNOHrcWcNdYPUle0lvxktmgx4LNFONUA2YBalB65zBn-a7oo2NqAKVvf6GYioyDi18wG3t6S8eeU7X8eaZmrck2w</span><br></pre></td></tr></table></figure></div>]]></content>
+  </entry>
 </search>
