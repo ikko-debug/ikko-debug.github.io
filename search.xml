@@ -443,4 +443,21 @@
 <p>:<br>token2：:</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJqYWNvYi5qb25lcy5ldWVjaUByYW1ibGVyLnJ1IiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItR2lLdnlaY0FLTWw0ajB2SUdSUE5CQUwyIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2VkMDE0ZjY5NjQ3YmJlOWI1YWZmY2EiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg4NDMyNjE0LCJleHAiOjE2ODk2NDIyMTQsImF6cCI6InBkbExJWDJZNzJNSWwycmhMaFRFOVZWOWJOOTA1a0JoIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb2ZmbGluZV9hY2Nlc3MifQ.YFpy_ThStbM6aDPukD82WSU-260Erew5f6OBAfOsGxI5mcPKpWdYR7ppgY5G_JFseQ-zGDWDsOHKZYV9EZKRCtb2wMU7hvFxSMojtjvBRm8wvw1-iRazOxhjSyVK4oWX2_v_NTsB202_7Ags8yfv7oCn4V8gWGQ-Tp6sfoSldj6LPbEuSmxj_hsVW8a8YuF_yxOgybenNSXM3DoV47OKAkPsQO5HrGN1dwdfhS822lCQpr_Mv-pQKAo0eYft8pqNOHrcWcNdYPUle0lvxktmgx4LNFONUA2YBalB65zBn-a7oo2NqAKVvf6GYioyDi18wG3t6S8eeU7X8eaZmrck2w</span><br></pre></td></tr></table></figure></div>]]></content>
   </entry>
+  <entry>
+    <title>博客部署到云服务器</title>
+    <url>/2023/07/27/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="购买云服务器"><a href="#购买云服务器" class="headerlink" title="购买云服务器"></a>购买云服务器</h2><p>安全组中把ssh，hhtp等的端口都打开</p>
+<h2 id="vscode连接"><a href="#vscode连接" class="headerlink" title="vscode连接"></a>vscode连接</h2><p>下载ssh插件<br>加击加号<br>输入ssh root@ip<br>输入密码<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/IB%60A2MV2EBY$CH8T@%5DTLYW9.png"
+                      alt="示例"
+                ></p>
+<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>sudo yum update<br>安装 Nginx：<br>sudo yum install nginx<br>启动 Nginx 服务：<br>安装完成后，使用以下命令启动 Nginx 服务，并设置其开机自启动：<br>sudo systemctl start nginx<br>sudo systemctl enable nginx<br>配置 Nginx：<br>Nginx 的主要配置文件位于 &#x2F;etc&#x2F;nginx&#x2F;nginx.conf。点击vscode的打开文件夹可以直接打开etc文件夹进行修改</p>
+<h2 id="上传静态文件"><a href="#上传静态文件" class="headerlink" title="上传静态文件"></a>上传静态文件</h2><p>这里我没有使用git，因为我和朋友共用一个服务器，所以我直接使用了winscp，将静态文件上传到服务器</p>
+<h2 id="配置-Nginx"><a href="#配置-Nginx" class="headerlink" title="配置 Nginx"></a>配置 Nginx</h2><p>Nginx 的主要配置文件位于 &#x2F;etc&#x2F;nginx&#x2F;nginx.conf。点击vscode的打开文件夹可以直接打开etc文件夹进行修改</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        listen       [::]:80;</span><br><span class="line">        server_name   ikko-debug.love;</span><br><span class="line">        root         /usr/xyc/ikko-debug.github.io-main;</span><br><span class="line"></span><br><span class="line">        # Load configuration files for the default server block.</span><br><span class="line">        #include /etc/nginx/default.d/*.conf;</span><br><span class="line">        index index.html index.htm;</span><br><span class="line">        error_page 404 /404.html;</span><br><span class="line">            location = /40x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 500 502 503 504 /50x.html;</span><br><span class="line">            location = /50x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<p>server_name可以是自己的域名（需要提前绑定）或者ip<br>检查配置并重新加载 Nginx：<br>检查 Nginx 配置是否有语法错误：<br>sudo nginx -t<br>如果没有错误，重新加载 Nginx 配置以使更改生效：<br>sudo systemctl reload nginx</p>
+]]></content>
+  </entry>
 </search>
