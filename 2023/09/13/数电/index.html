@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/images/ka.png">
 <meta property="og:image" content="http://example.com/images/gongshi.png">
 <meta property="article:published_time" content="2023-09-13T11:43:33.000Z">
-<meta property="article:modified_time" content="2023-09-20T08:37:51.495Z">
+<meta property="article:modified_time" content="2023-10-06T07:22:21.554Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/bcd.png">
@@ -366,8 +366,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-09-20 16:37:51</span>
-            <span class="mobile">2023-09-20 16:37:51</span>
+            <span class="desktop">2023-10-06 15:22:21</span>
+            <span class="mobile">2023-10-06 15:22:21</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -378,12 +378,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.2k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.8k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>14 Mins</span>
         </span>
     
     
@@ -403,6 +403,7 @@
 
         <div class="article-content markdown-body">
             <h2 id="教材链接"><a href="#教材链接" class="headerlink" title="教材链接"></a>教材链接</h2><p><a class="link"   target="_blank" rel="noopener" href="https://pan.oldming.top/OD%E5%9B%BD%E9%99%85%E7%9B%98/%E6%95%99%E6%9D%90%E6%96%87%E4%BB%B6/%E6%95%B0%E7%94%B5/%E9%98%8E%E7%9F%B3%E3%80%8A%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%89%88%E6%95%99%E5%AD%A6%E8%AF%BE%E4%BB%B6" >https://pan.oldming.top/OD%E5%9B%BD%E9%99%85%E7%9B%98/%E6%95%99%E6%9D%90%E6%96%87%E4%BB%B6/%E6%95%B0%E7%94%B5/%E9%98%8E%E7%9F%B3%E3%80%8A%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%89%88%E6%95%99%E5%AD%A6%E8%AF%BE%E4%BB%B6 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>单个硅片上的一个或多个门电路的集合体，叫集成电路（IC）。</p>
+<h2 id="常用英文"><a href="#常用英文" class="headerlink" title="常用英文"></a>常用英文</h2><p>complement：补码<br>最高有效位（ most significant bit，MSB）指的是一个n位二进制数字中的n-1位，具有最高的权值2^(n-1)。最低有效位和最高有效位是相对应的概念。<br>SM-CODE：符号位<br>resistive loads：电阻负载</p>
 <h2 id="数制和编码"><a href="#数制和编码" class="headerlink" title="数制和编码"></a>数制和编码</h2><p>基数：(base or radix) 计数制中，每一位的基数都是固定的，如十进制的基数是10，二进制的基数是2，八进制的基数是8，十六进制的基数是16。<br>十进制转化为二进制：<br>1.整数：除2取余，逆序排列<br>2.小数：乘2取整，顺序排列</p>
 <p>原码：将一个整数转换成二进制形式，就是其原码。例如short a &#x3D; 6; a 的原码就是0000 0000 0000 0110；更改 a 的值a &#x3D; -18; 此时 a 的原码就是1000 0000 0001 0010。</p>
 <p>通俗的理解，原码就是一个整数本来的二进制形式。<br>原码表示范围2^(n-1)-1到-2^(n-1)</p>
@@ -420,7 +421,19 @@
                      src="/images/loading.svg"
                      data-src="/images/gray.png"
                       alt="格雷码"
-                ><br>Write the logic expression of a 2-bit adder!<br>2 input 1 output<br>Input 2-bit, output 3-bit<br>一个2位加法器可以用逻辑表达式表示为一个3位输出的逻辑函数，其中输入是两个2位二进制数字（A和B），输出是它们的和（S）和可能的进位（C）。以下是这个2位加法器的逻辑表达式：</p>
+                ><br>给定二进制数 $ (0111)_2 $ ，要将其转换为格雷码（Gray code）：</p>
+<ol>
+<li>二进制数的最高位（MSB）与格雷码的最高位（MSB）相同。</li>
+<li>格雷码的其他位可以通过对二进制数当前位置的位与其下一高位置的位进行异或（XOR）运算来获得。</li>
+</ol>
+<p>给定二进制数 ( 0111 )：</p>
+<ol>
+<li>最高位是 0。</li>
+<li>$( 0 \oplus 1 )$ 是 1。</li>
+<li>$( 1 \oplus 1 )$ 是 0。</li>
+<li>$( 1 \oplus 1 )$ 是 0。</li>
+</ol>
+<p>因此，二进制数 ( 0111 ) 的格雷码是 ( 0100 )。<br>Write the logic expression of a 2-bit adder!<br>2 input 1 output<br>Input 2-bit, output 3-bit<br>一个2位加法器可以用逻辑表达式表示为一个3位输出的逻辑函数，其中输入是两个2位二进制数字（A和B），输出是它们的和（S）和可能的进位（C）。以下是这个2位加法器的逻辑表达式：</p>
 <p>对于和（S）的每一位：<br>S0 &#x3D; A0 ⊕ B0（个位相加）<br>S1 &#x3D; (A1 ⊕ B1) ⊕ (A0 ∧ B0)（十位相加）</p>
 <p>对于进位（C）的每一位：<br>C0 &#x3D; A0 ∧ B0（个位进位）<br>C1 &#x3D; (A1 ∧ B1) ∨ (A0 ∧ B0)（十位进位）</p>
 <p>这里的符号表示：</p>
@@ -430,7 +443,7 @@
 <p>在将十进制分数转换为二进制分数的情境下，ADC接受模拟输入，通常是表示十进制分数的电压，然后生成对应的二进制表示。</p>
 <p>二进制分数通常使用固定位数的比特来表示，其中每个比特表示ADC总范围的特定分数。ADC的精度，通常以数字输出中的比特数表示，决定了二进制分数的粒度，从而影响了从十进制到二进制的转换的准确性。</p>
 <p>将模拟输入（十进制分数）转换为二进制分数的过程涉及一系列数学运算，基于数字电子学和二进制算术的原理。得到的二进制分数可以用于进一步的数字处理、存储或传输原始模拟信号。</p>
-<h4 id="概念区分"><a href="#概念区分" class="headerlink" title="概念区分"></a>概念区分</h4><p>分辨率</p>
+<h4 id="概念区分"><a href="#概念区分" class="headerlink" title="概念区分"></a>概念区分</h4><p>两个反相器能输出高质量信号<br>分辨率</p>
 <p>分辨率（Resolution）是指ADC能够分辨量化的最小信号的能力，用二进制位数表示。</p>
 <p>比如：一个10位的ADC，其所能分辨的最小量化电平为参考电平（满量程）的2的10次方分之一。即分辨率越高，就可以将满量程里的电平分出更多份数，得到的结果就越精确，得到的数字信号再用DAC转换回去后就越接近原来输入的模拟值。</p>
 <p>所以，对于给定的一个具体ADC器件，其分辨率值是固定的。</p>
@@ -483,7 +496,14 @@
                      data-src="/images/gongshi.png"
                       alt="重要公式"
                 ></p>
-<h2 id="常用英文"><a href="#常用英文" class="headerlink" title="常用英文"></a>常用英文</h2><p>complement：补码<br>最高有效位（ most significant bit，MSB）指的是一个n位二进制数字中的n-1位，具有最高的权值2^(n-1)。最低有效位和最高有效位是相对应的概念。<br>SM-CODE：符号位</p>
+<h2 id="mos"><a href="#mos" class="headerlink" title="mos"></a>mos</h2><h3 id="半导体载荷"><a href="#半导体载荷" class="headerlink" title="半导体载荷"></a>半导体载荷</h3><p>半导体中有两种载流子：自由电子和空穴。电子负电，空穴正电。<br>不论是P型还是N型半导体,它们本身是不带电的,也就是保持电中性。载流子的浓度不同。</p>
+<h3 id="N-型半导体"><a href="#N-型半导体" class="headerlink" title="N 型半导体"></a>N 型半导体</h3><p>N 型半导体也称为电子型半导体。N型半导体即自由电子浓度远大于空穴浓度的杂质半导体。（negative）</p>
+<h3 id="P-型半导体"><a href="#P-型半导体" class="headerlink" title="P 型半导体"></a>P 型半导体</h3><p>P 型半导体也称为空穴型半导体。P型半导体即空穴浓度远大于自由电子浓度的杂质半导体。（positive）</p>
+<h4 id="PMOS晶体管工作原理"><a href="#PMOS晶体管工作原理" class="headerlink" title="PMOS晶体管工作原理"></a>PMOS晶体管工作原理</h4><p>p型晶体管的工作方式与n型晶体管非常不同当该晶体管接收到非零电压时，它将产生开路，从而阻止电流从栅极 (G) 端子流向源极 (S) 。与此类似，当该晶体管接收到约0伏的电压时，它形成一个闭合电路，这意味着电流从栅极 (G) 端子流向漏极(D)<br>0输出1，1输出0<br>n型晶体管反之<br>NAND门是数字电子电路中的一种基本逻辑门，用于进行逻辑运算。它是由两个输入引脚和一个输出引脚组成。NAND门的输出取决于两个输入的逻辑状态。</p>
+<p>逻辑运算规则如下：</p>
+<p>当两个输入都为1时，输出为0。<br>在其他情况下，输出为1。<br>NOR门（Not OR门）是数字电子电路中的一种基本逻辑门，用于进行逻辑运算。它是由两个输入引脚和一个输出引脚组成。NOR门的输出取决于两个输入的逻辑状态。</p>
+<p>逻辑运算规则如下：</p>
+<p>当两个输入都为0时，输出为1。<br>在其他情况下，输出为0。</p>
 
         </div>
 
@@ -498,7 +518,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2023-09-20 16:37:51
+                    :</strong> 2023-10-06 15:22:21
             </li>
         
         <li>
@@ -525,6 +545,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/09/28/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">信号与系统</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
@@ -612,7 +647,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">数电</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%99%E6%9D%90%E9%93%BE%E6%8E%A5"><span class="nav-text">教材链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%88%B6%E5%92%8C%E7%BC%96%E7%A0%81"><span class="nav-text">数制和编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="nav-text">加减运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BCD"><span class="nav-text">BCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E9%9B%B7%E7%A0%81"><span class="nav-text">格雷码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADC-DAC"><span class="nav-text">ADC,DAC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ADC"><span class="nav-text">ADC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-text">例题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DAC"><span class="nav-text">DAC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%A1%E8%AF%BA%E5%9B%BE"><span class="nav-text">卡诺图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%85%AC%E5%BC%8F"><span class="nav-text">重要公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%8B%B1%E6%96%87"><span class="nav-text">常用英文</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%99%E6%9D%90%E9%93%BE%E6%8E%A5"><span class="nav-text">教材链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%8B%B1%E6%96%87"><span class="nav-text">常用英文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%88%B6%E5%92%8C%E7%BC%96%E7%A0%81"><span class="nav-text">数制和编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="nav-text">加减运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BCD"><span class="nav-text">BCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E9%9B%B7%E7%A0%81"><span class="nav-text">格雷码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADC-DAC"><span class="nav-text">ADC,DAC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ADC"><span class="nav-text">ADC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-text">例题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DAC"><span class="nav-text">DAC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%A1%E8%AF%BA%E5%9B%BE"><span class="nav-text">卡诺图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%85%AC%E5%BC%8F"><span class="nav-text">重要公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mos"><span class="nav-text">mos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E8%BD%BD%E8%8D%B7"><span class="nav-text">半导体载荷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#N-%E5%9E%8B%E5%8D%8A%E5%AF%BC%E4%BD%93"><span class="nav-text">N 型半导体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P-%E5%9E%8B%E5%8D%8A%E5%AF%BC%E4%BD%93"><span class="nav-text">P 型半导体</span></a></li></ol></li></ol>
 
     </div>
 </div>
