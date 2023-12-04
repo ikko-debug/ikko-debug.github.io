@@ -472,6 +472,32 @@
     <url>/2023/09/13/%E6%95%B0%E7%94%B5/</url>
     <content><![CDATA[<h2 id="教材链接"><a href="#教材链接" class="headerlink" title="教材链接"></a>教材链接</h2><p><a class="link"   href="https://pan.oldming.top/OD%E5%9B%BD%E9%99%85%E7%9B%98/%E6%95%99%E6%9D%90%E6%96%87%E4%BB%B6/%E6%95%B0%E7%94%B5/%E9%98%8E%E7%9F%B3%E3%80%8A%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%89%88%E6%95%99%E5%AD%A6%E8%AF%BE%E4%BB%B6" >https://pan.oldming.top/OD%E5%9B%BD%E9%99%85%E7%9B%98/%E6%95%99%E6%9D%90%E6%96%87%E4%BB%B6/%E6%95%B0%E7%94%B5/%E9%98%8E%E7%9F%B3%E3%80%8A%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%89%88%E6%95%99%E5%AD%A6%E8%AF%BE%E4%BB%B6 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>单个硅片上的一个或多个门电路的集合体，叫集成电路（IC）。</p>
 <h2 id="常用英文"><a href="#常用英文" class="headerlink" title="常用英文"></a>常用英文</h2><p>complement：补码<br>最高有效位（ most significant bit，MSB）指的是一个n位二进制数字中的n-1位，具有最高的权值2^(n-1)。最低有效位和最高有效位是相对应的概念。<br>SM-CODE：符号位<br>resistive loads：电阻负载</p>
+<h2 id="门电路"><a href="#门电路" class="headerlink" title="门电路"></a>门电路</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian1.png"
+                      alt="与门"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian2.png"
+                      alt="或门"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian3.png"
+                      alt="非门"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian4.png"
+                      alt="异或门"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian5.png"
+                      alt="与非门"
+                ></p>
 <h2 id="数制和编码"><a href="#数制和编码" class="headerlink" title="数制和编码"></a>数制和编码</h2><p>基数：(base or radix) 计数制中，每一位的基数都是固定的，如十进制的基数是10，二进制的基数是2，八进制的基数是8，十六进制的基数是16。<br>十进制转化为二进制：<br>1.整数：除2取余，逆序排列<br>2.小数：乘2取整，顺序排列</p>
 <p>原码：将一个整数转换成二进制形式，就是其原码。例如short a &#x3D; 6; a 的原码就是0000 0000 0000 0110；更改 a 的值a &#x3D; -18; 此时 a 的原码就是1000 0000 0001 0010。</p>
 <p>通俗的理解，原码就是一个整数本来的二进制形式。<br>原码表示范围2^(n-1)-1到-2^(n-1)</p>
@@ -573,6 +599,22 @@
 <p>逻辑运算规则如下：</p>
 <p>当两个输入都为0时，输出为1。<br>在其他情况下，输出为0。</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>输入输出都取非，与变或，或变与</p>
+<h2 id="时序电路常用元器件"><a href="#时序电路常用元器件" class="headerlink" title="时序电路常用元器件"></a>时序电路常用元器件</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian6.png"
+                      alt="时序电路常用元器件"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian7.png"
+                      alt="时序电路常用元器件"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/shudian8.png"
+                      alt="时序电路常用元器件"
+                ></p>
 ]]></content>
   </entry>
   <entry>
