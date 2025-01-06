@@ -558,12 +558,13 @@
 <p>当两个输入都为0时，输出为1。<br>在其他情况下，输出为0。</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>输入输出都取非，与变或，或变与<br>##<br>mealy machine outputs are determined by states and inputs<br>moore machine outputs are determined by states</p>
 <h2 id="时序电路常用元器件"><a href="#时序电路常用元器件" class="headerlink" title="时序电路常用元器件"></a>时序电路常用元器件</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/shudian6.png" alt="时序电路常用元器件"><br><img lazyload="" src="/images/loading.svg" data-src="/images/shudian7.png" alt="时序电路常用元器件"><br><img lazyload="" src="/images/loading.svg" data-src="/images/shudian8.png" alt="时序电路常用元器件"></p>
+<h1 id="家教兼职求职"><a href="#家教兼职求职" class="headerlink" title="家教兼职求职"></a>家教兼职求职</h1><p>擅长科目：数学、计算机、物化生<br>个人简介：<br>1.奖学金（含国家级校级若干），竞赛奖项（一个国二，一个省一，两个省三）。<br>2.已报研本校成电。<br>家教向：本人男，现住沙河校区，周一三五去清水河，不接语文辅导<br>兼职向：可辅导系统开发，数据分析，擅长语言包括但不限python，java。</p>
 ]]></content>
   </entry>
   <entry>
     <title>信号与系统</title>
     <url>/2023/09/28/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h2 id="常用英文"><a href="#常用英文" class="headerlink" title="常用英文"></a>常用英文</h2><p>even，odd 偶数，奇数<br>exponential 指数<br>sinusoidal 正弦<br>series (cascade) interconnection 串联级联<br>parallel interconnection 并联<br>series-parallel interconnection 串并联<br>differential equation 微分方程</p>
+    <content><![CDATA[<h2 id="常用英文"><a href="#常用英文" class="headerlink" title="常用英文"></a>常用英文</h2><p>even，odd 偶数，奇数<br>exponential 指数<br>sinusoidal 正弦<br>series (cascade) interconnection 串联级联<br>parallel interconnection 并联<br>series-parallel interconnection 串并联<br>differential equation 微分方程<br>rational function 有理函数<br>block diagram representation 框图表示<br>convolution integral 卷积积分<br>converge 收敛<br>finite duration 有限长<br>corrseponding magnitude，phase response 对应的幅度，相位响应</p>
 <h2 id="坐标轴偏移"><a href="#坐标轴偏移" class="headerlink" title="坐标轴偏移"></a>坐标轴偏移</h2><p>平移考虑系数，缩放考虑偏移量,考虑自变量系数<br><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao1.png" alt="坐标轴偏移"><br><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao2.png" alt="坐标轴偏移"><br>任何一个函数都能表示成一个偶函数和一个奇函数的和。</p>
 <h2 id="properties"><a href="#properties" class="headerlink" title="properties"></a>properties</h2><h3 id="脉冲函数和跃迁函数"><a href="#脉冲函数和跃迁函数" class="headerlink" title="脉冲函数和跃迁函数"></a>脉冲函数和跃迁函数</h3><p>离散<br><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao3.png" alt="离散脉冲函数和跃迁函数"><br>连续<br><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao4.png" alt="连续脉冲函数和跃迁函数"><br>他们俩是求导和积分的关系<br>间断点值取两边极限的平均值</p>
 <h3 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h3><p>C=Q/U<br>I=C*dU/dt</p>
@@ -617,6 +618,8 @@
 <h2 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h2><h3 id="casual-and-stable"><a href="#casual-and-stable" class="headerlink" title="casual and stable"></a>casual and stable</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao27.png" alt="casual and stable"></p>
 <h3 id="基本函数的拉普拉斯变换"><a href="#基本函数的拉普拉斯变换" class="headerlink" title="基本函数的拉普拉斯变换"></a>基本函数的拉普拉斯变换</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao29.png" alt="基本函数的拉普拉斯变换"></p>
 <h3 id="拉普拉斯变换性质"><a href="#拉普拉斯变换性质" class="headerlink" title="拉普拉斯变换性质"></a>拉普拉斯变换性质</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao30.png" alt="拉普拉斯变换性质"><br>对于一个具有有理系统函数的系统来说，系统的因果性就等效于收敛域位于最右边极点的右边的右半平面。<br>当且仅当系统函数 H(s)的收敛域包括 j 轴即 Re{s}=0 时一个线性时不变系统就是稳定的</p>
+<h3 id="实函数"><a href="#实函数" class="headerlink" title="实函数"></a>实函数</h3><p>如果是实函数，那么拉普拉斯变换的零极点共轭对称</p>
+<h3 id="输入e的多少t或z的多少n次方"><a href="#输入e的多少t或z的多少n次方" class="headerlink" title="输入e的多少t或z的多少n次方"></a>输入e的多少t或z的多少n次方</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/xinhao31.png" alt="输入e的多少t或z的多少n次方"></p>
 ]]></content>
   </entry>
 </search>
