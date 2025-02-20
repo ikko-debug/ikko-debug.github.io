@@ -17,22 +17,24 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/07/05/chatgpt本地部署/"/>
+    <link rel="canonical" href="http://example.com/2025/02/20/mha/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="此文章是开源作品https:&#x2F;&#x2F;github.com&#x2F;pengzhile&#x2F;pandora的介绍使用 Python&gt;&#x3D;3.7 12pip install &amp;#x27;pandora-chatgpt[cloud]&amp;#x27;pandora-cloud 浏览器打开http:&#x2F;&#x2F;127.0.0.1:8018即可访问1.使用自己的账号密码2.使用token共享Token（ChatGPT4.0">
+        <meta name="description" content="MHA 和 GQA 中 Q、K、V 分割的区别解析 1. 图3的详细解析1.1 整体布局 标题：Figure 3 | Kernel design for NSA 说明：The kernel loads queries by GQA groups (Grid Loop), fetches corresponding sparse KV blocks (Inner Loop), and perform">
 <meta property="og:type" content="article">
-<meta property="og:title" content="chatGPT本地部署">
-<meta property="og:url" content="http://example.com/2023/07/05/chatGPT%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:title" content="MHA">
+<meta property="og:url" content="http://example.com/2025/02/20/MHA/index.html">
 <meta property="og:site_name" content="IKKO">
-<meta property="og:description" content="此文章是开源作品https:&#x2F;&#x2F;github.com&#x2F;pengzhile&#x2F;pandora的介绍使用 Python&gt;&#x3D;3.7 12pip install &amp;#x27;pandora-chatgpt[cloud]&amp;#x27;pandora-cloud 浏览器打开http:&#x2F;&#x2F;127.0.0.1:8018即可访问1.使用自己的账号密码2.使用token共享Token（ChatGPT4.0">
+<meta property="og:description" content="MHA 和 GQA 中 Q、K、V 分割的区别解析 1. 图3的详细解析1.1 整体布局 标题：Figure 3 | Kernel design for NSA 说明：The kernel loads queries by GQA groups (Grid Loop), fetches corresponding sparse KV blocks (Inner Loop), and perform">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-07-05T12:53:36.000Z">
-<meta property="article:modified_time" content="2023-07-05T13:02:05.931Z">
+<meta property="og:image" content="http://example.com/images/nsa.png">
+<meta property="article:published_time" content="2025-02-20T08:19:18.000Z">
+<meta property="article:modified_time" content="2025-02-20T08:24:16.920Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/nsa.png">
     
     
     <!--- Icon Part-->
@@ -44,7 +46,7 @@
     
     <title>
         
-            chatGPT本地部署 -
+            MHA -
         
         Ikko&#39;s Blog
     </title>
@@ -332,7 +334,7 @@
 
         <div class="article-title">
             
-                <h1 class="article-title-regular">chatGPT本地部署</h1>
+                <h1 class="article-title-regular">MHA</h1>
             
             </div>
             
@@ -354,15 +356,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-07-05 20:53:36</span>
-        <span class="mobile">2023-07-05 20:53:36</span>
+        <span class="desktop">2025-02-20 16:19:18</span>
+        <span class="mobile">2025-02-20 16:19:18</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-07-05 21:02:05</span>
-            <span class="mobile">2023-07-05 21:02:05</span>
+            <span class="desktop">2025-02-20 16:24:16</span>
+            <span class="mobile">2025-02-20 16:24:16</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -373,12 +375,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>106 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
         </span>
     
     
@@ -397,30 +399,224 @@
 
 
         <div class="article-content markdown-body">
-            <p>此文章是开源作品<a class="link"   target="_blank" rel="noopener" href="https://github.com/pengzhile/pandora%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%BD%BF%E7%94%A8" >https://github.com/pengzhile/pandora的介绍使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>Python&gt;&#x3D;3.7</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install &#x27;pandora-chatgpt[cloud]&#x27;</span><br><span class="line">pandora-cloud</span><br></pre></td></tr></table></figure></div>
-<p>浏览器打开<a href="http://127.0.0.1:8018即可访问">http://127.0.0.1:8018即可访问</a><br>1.使用自己的账号密码<br>2.使用token<br>共享Token（ChatGPT4.0多人用，三小时只能问25个问题，限制后可以换个Token）：<br>Token1：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJqYWNvYi5qb25lcy5ldWVjaUByYW1ibGVyLnJ1IiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItR2lLdnlaY0FLTWw0ajB2SUdSUE5CQUwyIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2VkMDE0ZjY5NjQ3YmJlOWI1YWZmY2EiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg3NTAyODE0LCJleHAiOjE2ODg3MTI0MTQsImF6cCI6InBkbExJWDJZNzJNSWwycmhMaFRFOVZWOWJOOTA1a0JoIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb2ZmbGluZV9hY2Nlc3MifQ.wiBlLA8BWkEBxi63l2_f7y5kUTgo3Evca7_W9UGdBplaNWLaW2dI0242WdcUVDC6ZMk2ZTJWdhTrpuqk176_xkLcMetan8UVzaIwIXnoSk8i_blZAteK0kcyJ-cVjR3JRCD00i58fGdLyxZW-AjiGBmhHWH8nwjuQ_I-t8ho0gRE1GWT8YYpb8Zc-cUw2rKPDw1Amub0dI23FvwxgJU9-ay-g2pr6foSBWCea-IhihEyIUM_QO3Q32O3RyjHJjbETFYc6qQkZcHDczYvy1GQPFrOuBJlMnPp2xBxWCVkkvEvSJ78Gv7PgFisl5Kg4tgK9xC6U8ro8awyAKO4VNL0UA</span><br></pre></td></tr></table></figure></div>
-<p>:<br>token2：:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJqYWNvYi5qb25lcy5ldWVjaUByYW1ibGVyLnJ1IiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItR2lLdnlaY0FLTWw0ajB2SUdSUE5CQUwyIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2M2VkMDE0ZjY5NjQ3YmJlOWI1YWZmY2EiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg4NDMyNjE0LCJleHAiOjE2ODk2NDIyMTQsImF6cCI6InBkbExJWDJZNzJNSWwycmhMaFRFOVZWOWJOOTA1a0JoIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb2ZmbGluZV9hY2Nlc3MifQ.YFpy_ThStbM6aDPukD82WSU-260Erew5f6OBAfOsGxI5mcPKpWdYR7ppgY5G_JFseQ-zGDWDsOHKZYV9EZKRCtb2wMU7hvFxSMojtjvBRm8wvw1-iRazOxhjSyVK4oWX2_v_NTsB202_7Ags8yfv7oCn4V8gWGQ-Tp6sfoSldj6LPbEuSmxj_hsVW8a8YuF_yxOgybenNSXM3DoV47OKAkPsQO5HrGN1dwdfhS822lCQpr_Mv-pQKAo0eYft8pqNOHrcWcNdYPUle0lvxktmgx4LNFONUA2YBalB65zBn-a7oo2NqAKVvf6GYioyDi18wG3t6S8eeU7X8eaZmrck2w</span><br></pre></td></tr></table></figure></div>
+            <h1 id="MHA-和-GQA-中-Q、K、V-分割的区别解析"><a href="#MHA-和-GQA-中-Q、K、V-分割的区别解析" class="headerlink" title="MHA 和 GQA 中 Q、K、V 分割的区别解析"></a>MHA 和 GQA 中 Q、K、V 分割的区别解析</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/nsa.png"
+                      alt="Figure 3 from nsa"
+                ></p>
+<h2 id="1-图3的详细解析"><a href="#1-图3的详细解析" class="headerlink" title="1. 图3的详细解析"></a>1. 图3的详细解析</h2><h3 id="1-1-整体布局"><a href="#1-1-整体布局" class="headerlink" title="1.1 整体布局"></a>1.1 整体布局</h3><ul>
+<li><strong>标题</strong>：Figure 3 | Kernel design for NSA</li>
+<li><strong>说明</strong>：The kernel loads queries by GQA groups (Grid Loop), fetches corresponding sparse KV blocks (Inner Loop), and performs attention computation on SRAM. Green blocks indicate data on SRAM, while blue indicates data on HBM.</li>
+<li><strong>目的</strong>：展示 NSA 如何利用 GQA（Grouped-Query Attention）、稀疏选择和 GPU 内存层次（SRAM 和 HBM）优化计算效率。</li>
+</ul>
+<h3 id="1-2-关键元素"><a href="#1-2-关键元素" class="headerlink" title="1.2 关键元素"></a>1.2 关键元素</h3><h4 id="左侧：Grid-Loop（网格循环）"><a href="#左侧：Grid-Loop（网格循环）" class="headerlink" title="左侧：Grid Loop（网格循环）"></a>左侧：Grid Loop（网格循环）</h4><ul>
+<li><p><strong>视觉</strong>：</p>
+<ul>
+<li>左侧是一个蓝色柱状结构，标注为 <code>Q</code>（<code>N × d_k × h</code>），表示查询矩阵。<ul>
+<li><code>N</code>：序列长度。</li>
+<li><code>d_k</code>：键的维度。</li>
+<li><code>h</code>：注意力头的数量。</li>
+</ul>
+</li>
+<li>蓝色表示数据存储在 HBM（高带宽内存），用波浪线表示大数据量。</li>
+<li>有一个向下箭头，标有“Grid Loop”，指向中间的“Inner Loop”区域，表示按 GQA 组加载查询。</li>
+</ul>
+</li>
+<li><p><strong>含义</strong>：</p>
+<ul>
+<li>“Grid Loop”是由 GPU 的网格调度器（grid scheduler）驱动的外循环，按 GQA 组（分组查询注意力）加载查询数据。</li>
+<li>GQA 将 <code>h</code> 个头分成 <code>G</code> 组（论文中为 4 组，每组 16 个头），每组共享键值对，从而减少冗余加载。</li>
+<li>数据从 HBM 加载到 SRAM（绿色区域）进行计算，优化内存带宽。</li>
+</ul>
+</li>
+</ul>
+<h4 id="中间：Inner-Loop（内循环）"><a href="#中间：Inner-Loop（内循环）" class="headerlink" title="中间：Inner Loop（内循环）"></a>中间：Inner Loop（内循环）</h4><ul>
+<li><p><strong>视觉</strong>：</p>
+<ul>
+<li>中间区域标有“Inner Loop”，包含：<ul>
+<li>顶部有三条横向条带：<code>Q</code>（<code>N × d_k × h</code>）、<code>K</code>（<code>d_k × N</code>）、<code>V</code>（<code>d_v × N</code>），表示查询、键和值矩阵。</li>
+<li>从 <code>K</code> 和 <code>V</code> 中，通过虚线“Select In”选择稀疏键值块（绿色块，标注为 <code>B_K</code> 和 <code>B_V</code>），维度分别为 <code>d_k</code> 和 <code>d_v</code>。</li>
+<li>有一个“Load”箭头，从 HBM（蓝色）加载稀疏 KV 块到 SRAM（绿色），标有 <code>d_k × B_K</code> 和 <code>d_v × B_V</code>。</li>
+<li>绿色块标有“Compute on SRAM”，表示在 SRAM 上执行注意力计算。</li>
+<li>底部有一个箭头“Output to HBM”，将结果写回 HBM。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>含义</strong>：</p>
+<ul>
+<li>“Inner Loop”是内循环部分，处理稀疏键值块的加载和计算。</li>
+<li>“Select In”对应 NSA 的选择分支（Token Selection），通过 Top-n Block Selection 动态选择重要稀疏块（论文中 <code>n=16</code>）。</li>
+<li>键 <code>K</code> 和值 <code>V</code> 存储在 HBM，但只加载选中的稀疏块到 SRAM，减少内存访问。</li>
+<li>在 SRAM 上利用 GPU 的 Tensor Core 计算注意力（<code>Attention(Q, K_block, V_block)</code>），降低延迟。</li>
+<li>结果写回 HBM，作为最终输出。</li>
+</ul>
+</li>
+</ul>
+<h4 id="右侧：稀疏-KV-块的加载"><a href="#右侧：稀疏-KV-块的加载" class="headerlink" title="右侧：稀疏 KV 块的加载"></a>右侧：稀疏 KV 块的加载</h4><ul>
+<li><p><strong>视觉</strong>：</p>
+<ul>
+<li>右侧是一个蓝色柱状结构，标注为 <code>V</code>（<code>d_v × N</code>），类似左侧的 <code>Q</code>，表示值的矩阵，存储在 HBM。</li>
+<li>通过“Select In”选择稀疏块（绿色 <code>B_V</code>），然后通过内循环加载到 SRAM。</li>
+<li>有一个双向箭头“Inner Loop”，表示多次迭代加载不同稀疏块。</li>
+</ul>
+</li>
+<li><p><strong>含义</strong>：</p>
+<ul>
+<li>强调 NSA 的稀疏策略：只加载与当前查询相关的关键 KV 块（选择分支），大幅减少内存需求。</li>
+</ul>
+</li>
+</ul>
+<h4 id="底部：Output（输出）"><a href="#底部：Output（输出）" class="headerlink" title="底部：Output（输出）"></a>底部：Output（输出）</h4><ul>
+<li><p><strong>视觉</strong>：</p>
+<ul>
+<li>底部有一个横向条带，标注为“Output”（<code>N × h × d_v</code>），表示注意力输出。</li>
+<li>输出条带部分蓝色（HBM），部分绿色（SRAM），并有一个箭头从“Compute on SRAM”指向“Output to HBM”。</li>
+</ul>
+</li>
+<li><p><strong>含义</strong>：</p>
+<ul>
+<li>这是计算结果的输出阶段，将 SRAM 中的中间结果写回 HBM。</li>
+<li>输出维度符合 Transformer 的格式，供后续层使用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-颜色与内存层次"><a href="#1-3-颜色与内存层次" class="headerlink" title="1.3 颜色与内存层次"></a>1.3 颜色与内存层次</h3><ul>
+<li><strong>绿色</strong>：表示 SRAM（片上内存），速度快但容量有限，用于临时存储和计算。</li>
+<li><strong>蓝色</strong>：表示 HBM（高带宽内存），容量大但访问延迟高，用于存储完整数据。</li>
+<li><strong>设计目标</strong>：通过将计算推到 SRAM，减少 HBM 访问次数，优化内存带宽和算术强度。</li>
+</ul>
+<h2 id="2-图3的动态流程"><a href="#2-图3的动态流程" class="headerlink" title="2. 图3的动态流程"></a>2. 图3的动态流程</h2><ol>
+<li><p><strong>Grid Loop（外循环）</strong>：</p>
+<ul>
+<li>按 GQA 组从 HBM 加载查询 <code>Q</code> 到 SRAM。</li>
+<li>外循环通过网格调度并行处理不同查询块。</li>
+</ul>
+</li>
+<li><p><strong>Select In（选择输入）</strong>：</p>
+<ul>
+<li>根据查询 <code>Q</code>，通过 NSA 选择分支确定稀疏 KV 块的索引 <code>I_t</code>。</li>
+<li>从 HBM 的 <code>K</code> 和 <code>V</code> 中选择对应稀疏块。</li>
+</ul>
+</li>
+<li><p><strong>Inner Loop（内循环）</strong>：</p>
+<ul>
+<li>逐个加载选中的稀疏 KV 块到 SRAM。</li>
+<li>在 SRAM 上计算注意力（<code>Attention(Q, K_block, V_block)</code>），迭代次数由 <code>n</code> 决定。</li>
+</ul>
+</li>
+<li><p><strong>Compute on SRAM</strong>：</p>
+<ul>
+<li>利用 Tensor Core 在 SRAM 上高效计算，减少 HBM 访问。</li>
+</ul>
+</li>
+<li><p><strong>Output to HBM</strong>：</p>
+<ul>
+<li>将结果写回 HBM，作为最终输出。</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-关于“MHA-和-GQA-中-Q、K、V-分割的区别”"><a href="#3-关于“MHA-和-GQA-中-Q、K、V-分割的区别”" class="headerlink" title="3. 关于“MHA 和 GQA 中 Q、K、V 分割的区别”"></a>3. 关于“MHA 和 GQA 中 Q、K、V 分割的区别”</h2><h3 id="3-1-MHA（Multi-Head-Attention）的-Q、K、V-分割"><a href="#3-1-MHA（Multi-Head-Attention）的-Q、K、V-分割" class="headerlink" title="3.1 MHA（Multi-Head Attention）的 Q、K、V 分割"></a>3.1 MHA（Multi-Head Attention）的 Q、K、V 分割</h3><ul>
+<li><strong>过程</strong>：<ul>
+<li><p>在 MHA 中，输入序列 ( X \in \mathbb{R}^{N \times d_{\text{model}}} )（<code>N</code> 是序列长度，<code>d_&#123;\text&#123;model&#125;&#125;</code> 是隐藏维度）通过线性变换生成 Q、K、V：<br>[<br>Q &#x3D; X W_Q, \quad K &#x3D; X W_K, \quad V &#x3D; X W_V<br>]<br>其中 ( W_Q, W_K, W_V ) 是可训练权重矩阵，维度分别为 ( d_{\text{model}} \times d_k )、( d_{\text{model}} \times d_k )、( d_{\text{model}} \times d_v )。</p>
+</li>
+<li><p><strong>分割</strong>：</p>
+<ul>
+<li>将 ( Q, K, V ) 沿着隐藏维度 ( d_{\text{model}} ) 分割成 ( h ) 个头（heads），每个头的维度为 ( d_k&#x2F;h )（键和查询）或 ( d_v&#x2F;h )（值）：<br>[<br>Q &#x3D; [Q_1, Q_2, …, Q_h], \quad K &#x3D; [K_1, K_2, …, K_h], \quad V &#x3D; [V_1, V_2, …, V_h]<br>]<br>其中 ( Q_i, K_i, V_i \in \mathbb{R}^{N \times (d_k&#x2F;h)} ) 或 ( \mathbb{R}^{N \times (d_v&#x2F;h)} )。</li>
+<li>每个头独立计算注意力：<br>[<br>\text{Head}_i &#x3D; \text{Attention}(Q_i, K_i, V_i) &#x3D; \text{softmax}\left(\frac{Q_i K_i^T}{\sqrt{d_k&#x2F;h}}\right) V_i<br>]</li>
+<li>最后将所有头的输出拼接并线性变换：<br>[<br>\text{MultiHead}(Q, K, V) &#x3D; \text{Concat}(\text{Head}_1, …, \text{Head}<em>h) W_O<br>]<br>其中 ( W_O \in \mathbb{R}^{(h \cdot d_v) \times d</em>{\text{model}}} )。</li>
+</ul>
+</li>
+<li><p><strong>你的观点</strong>：是的，MHA 中 Q、K、V 都需要分割成多个头，每个头独立处理。这是 MHA 捕捉不同语义关系的核心特性。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-GQA（Grouped-Query-Attention）的-Q、K、V-分割"><a href="#3-2-GQA（Grouped-Query-Attention）的-Q、K、V-分割" class="headerlink" title="3.2 GQA（Grouped-Query Attention）的 Q、K、V 分割"></a>3.2 GQA（Grouped-Query Attention）的 Q、K、V 分割</h3><ul>
+<li><strong>过程</strong>：<ul>
+<li><p>GQA 是 MHA 的优化版本，减少内存和计算开销。它同样从输入 ( X ) 生成 Q、K、V：<br>[<br>Q &#x3D; X W_Q, \quad K &#x3D; X W_K, \quad V &#x3D; X W_V<br>]</p>
+</li>
+<li><p><strong>分组</strong>：</p>
+<ul>
+<li>将 ( h ) 个查询头分成 ( G ) 组（groups），每组有 ( h&#x2F;G ) 个头。</li>
+<li><strong>Q 的分割</strong>：查询 ( Q ) 被分割成 ( G ) 组，每个组的 ( Q_g \in \mathbb{R}^{N \times (d_k&#x2F;G)} ) 对应每组的查询头。</li>
+<li><strong>K 和 V 的共享</strong>：与 MHA 不同，GQA 中 ( K ) 和 ( V ) 不按头分割，而是每组共享一组 ( K ) 和 ( V )：<ul>
+<li>( K, V \in \mathbb{R}^{N \times d_k} ) 和 ( \mathbb{R}^{N \times d_v} )，所有组使用相同的 ( K ) 和 ( V )。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>注意力计算</strong>：</p>
+<ul>
+<li>对每个组 ( g ) 计算注意力：<br>[<br>\text{Head}_g &#x3D; \text{Attention}(Q_g, K, V) &#x3D; \text{softmax}\left(\frac{Q_g K^T}{\sqrt{d_k&#x2F;G}}\right) V<br>]</li>
+<li>最后拼接所有组的输出：<br>[<br>\text{GroupedHead}(Q, K, V) &#x3D; \text{Concat}(\text{Head}_1, …, \text{Head}_G) W_O<br>]</li>
+</ul>
+</li>
+<li><p><strong>你的观点</strong>：是的，GQA 中主要分割 Q（按组分），而 K 和 V 不按头分割，而是按组共享。这正是 GQA 减少内存需求（尤其是 KV 缓存）和提升效率的关键。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-对比总结"><a href="#3-3-对比总结" class="headerlink" title="3.3 对比总结"></a>3.3 对比总结</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>MHA</th>
+<th>GQA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Q 的处理</strong></td>
+<td>分成 ( h ) 个头，每个头独立 ( Q_i )</td>
+<td>分成 ( G ) 个组，每个组的 ( Q_g )</td>
+</tr>
+<tr>
+<td><strong>K、V 的处理</strong></td>
+<td>分成 ( h ) 个头，每个头独立 ( K_i, V_i )</td>
+<td>不分割，共享给所有组（( K, V )）</td>
+</tr>
+<tr>
+<td><strong>内存需求</strong></td>
+<td>高（KV 缓存为 ( h \cdot N \cdot d_k )）</td>
+<td>低（KV 缓存为 ( G \cdot N \cdot d_k )）</td>
+</tr>
+<tr>
+<td><strong>计算效率</strong></td>
+<td>标准，适合训练</td>
+<td>优化，适合解码（长上下文）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>你的判断</strong>：基本上正确！MHA 确实需要将 Q、K、V 都分割成 ( h ) 个头，而 GQA 只需分割 Q（按 ( G ) 组），K 和 V 则共享给每组。这是 GQA 相对于 MHA 的主要优化点。</li>
+</ul>
+<h3 id="3-4-在-NSA-论文中的应用"><a href="#3-4-在-NSA-论文中的应用" class="headerlink" title="3.4 在 NSA 论文中的应用"></a>3.4 在 NSA 论文中的应用</h3><ul>
+<li>图3 和 NSA 利用 GQA 的特性，通过“Grid Loop”按组加载查询（Q），并通过“Select In”选择稀疏 KV 块（共享的 K、V）。这与 GQA 的设计一致，减少冗余加载，提升硬件效率。</li>
+</ul>
+<h2 id="4-通俗解释"><a href="#4-通俗解释" class="headerlink" title="4. 通俗解释"></a>4. 通俗解释</h2><ul>
+<li><strong>MHA 像什么</strong>：想象你在开会，64个人（64个头）每个人都记自己的笔记（Q、K、V 分成 64 份），讨论后汇总结果。效率不高，但能捕捉多种视角。</li>
+<li><strong>GQA 像什么</strong>：把 64 人分成 4 组（4 个组），每组 16 人共用一本笔记（K、V 共享），但每个人有自己的问题（Q 分组）。讨论效率更高，适合快速决策。</li>
+<li><strong>分割区别</strong>：MHA 每个人都记全套笔记（Q、K、V 都分），GQA 大家共用笔记（K、V 不分），只分问题（Q 分组）。</li>
+</ul>
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> chatGPT本地部署</li>
+        <li><strong>Title:</strong> MHA</li>
         <li><strong>Author:</strong> Ikko</li>
         <li><strong>Created at
-                :</strong> 2023-07-05 20:53:36</li>
+                :</strong> 2025-02-20 16:19:18</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2023-07-05 21:02:05
+                    :</strong> 2025-02-20 16:24:16
             </li>
         
         <li>
-            <strong>Link:</strong> https://redefine.ohevan.com/2023/07/05/chatGPT本地部署/
+            <strong>Link:</strong> https://redefine.ohevan.com/2025/02/20/MHA/
         </li>
         <li>
             <strong>
@@ -444,29 +640,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2023/07/27/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">博客部署到云服务器</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                         rel="next"
-                        href="/2023/06/03/django%E5%BC%80%E5%8F%91api/"
+                        href="/2025/02/10/gemm/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">django开发api</span>
+                                <span class="post-nav-title-item">gemm</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -544,8 +725,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">chatGPT本地部署</div>
-        
+        <div class="page-title">MHA</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MHA-%E5%92%8C-GQA-%E4%B8%AD-Q%E3%80%81K%E3%80%81V-%E5%88%86%E5%89%B2%E7%9A%84%E5%8C%BA%E5%88%AB%E8%A7%A3%E6%9E%90"><span class="nav-text">MHA 和 GQA 中 Q、K、V 分割的区别解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9B%BE3%E7%9A%84%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90"><span class="nav-text">1. 图3的详细解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%95%B4%E4%BD%93%E5%B8%83%E5%B1%80"><span class="nav-text">1.1 整体布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%85%B3%E9%94%AE%E5%85%83%E7%B4%A0"><span class="nav-text">1.2 关键元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E9%A2%9C%E8%89%B2%E4%B8%8E%E5%86%85%E5%AD%98%E5%B1%82%E6%AC%A1"><span class="nav-text">1.3 颜色与内存层次</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9B%BE3%E7%9A%84%E5%8A%A8%E6%80%81%E6%B5%81%E7%A8%8B"><span class="nav-text">2. 图3的动态流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%85%B3%E4%BA%8E%E2%80%9CMHA-%E5%92%8C-GQA-%E4%B8%AD-Q%E3%80%81K%E3%80%81V-%E5%88%86%E5%89%B2%E7%9A%84%E5%8C%BA%E5%88%AB%E2%80%9D"><span class="nav-text">3. 关于“MHA 和 GQA 中 Q、K、V 分割的区别”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MHA%EF%BC%88Multi-Head-Attention%EF%BC%89%E7%9A%84-Q%E3%80%81K%E3%80%81V-%E5%88%86%E5%89%B2"><span class="nav-text">3.1 MHA（Multi-Head Attention）的 Q、K、V 分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-GQA%EF%BC%88Grouped-Query-Attention%EF%BC%89%E7%9A%84-Q%E3%80%81K%E3%80%81V-%E5%88%86%E5%89%B2"><span class="nav-text">3.2 GQA（Grouped-Query Attention）的 Q、K、V 分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="nav-text">3.3 对比总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%9C%A8-NSA-%E8%AE%BA%E6%96%87%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">3.4 在 NSA 论文中的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%80%9A%E4%BF%97%E8%A7%A3%E9%87%8A"><span class="nav-text">4. 通俗解释</span></a></li></ol></li></ol>
 
     </div>
 </div>
