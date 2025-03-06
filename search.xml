@@ -545,7 +545,6 @@
 <p>当两个输入都为0时，输出为1。<br>在其他情况下，输出为0。</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>输入输出都取非，与变或，或变与<br>##<br>mealy machine outputs are determined by states and inputs<br>moore machine outputs are determined by states</p>
 <h2 id="时序电路常用元器件"><a href="#时序电路常用元器件" class="headerlink" title="时序电路常用元器件"></a>时序电路常用元器件</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/shudian6.png" alt="时序电路常用元器件"><br><img lazyload="" src="/images/loading.svg" data-src="/images/shudian7.png" alt="时序电路常用元器件"><br><img lazyload="" src="/images/loading.svg" data-src="/images/shudian8.png" alt="时序电路常用元器件"></p>
-<h1 id="家教兼职求职"><a href="#家教兼职求职" class="headerlink" title="家教兼职求职"></a>家教兼职求职</h1><p>擅长科目：数学、计算机、物化生<br>个人简介：<br>1.奖学金（含国家级校级若干），竞赛奖项（一个国二，一个省一，两个省三）。<br>2.已报研本校成电。<br>家教向：本人男，现住沙河校区，周一三五去清水河，不接语文辅导<br>兼职向：可辅导系统开发，数据分析，擅长语言包括但不限python，java。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1825,12 +1824,7 @@ def forward(
   <entry>
     <title>MHA</title>
     <url>/2025/02/20/MHA/</url>
-    <content><![CDATA[<h1 id="MHA-和-GQA-中-Q、K、V-分割的区别解析"><a href="#MHA-和-GQA-中-Q、K、V-分割的区别解析" class="headerlink" title="MHA 和 GQA 中 Q、K、V 分割的区别解析"></a>MHA 和 GQA 中 Q、K、V 分割的区别解析</h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/nsa.png"
-                      alt="Figure 3 from nsa"
-                ></p>
+    <content><![CDATA[<h1 id="MHA-和-GQA-中-Q、K、V-分割的区别解析"><a href="#MHA-和-GQA-中-Q、K、V-分割的区别解析" class="headerlink" title="MHA 和 GQA 中 Q、K、V 分割的区别解析"></a>MHA 和 GQA 中 Q、K、V 分割的区别解析</h1><p><img lazyload="" src="/images/loading.svg" data-src="/images/nsa.png" alt="Figure 3 from nsa"></p>
 <h2 id="1-图3的详细解析"><a href="#1-图3的详细解析" class="headerlink" title="1. 图3的详细解析"></a>1. 图3的详细解析</h2><h3 id="1-1-整体布局"><a href="#1-1-整体布局" class="headerlink" title="1.1 整体布局"></a>1.1 整体布局</h3><ul>
 <li><strong>标题</strong>：Figure 3 | Kernel design for NSA</li>
 <li><strong>说明</strong>：The kernel loads queries by GQA groups (Grid Loop), fetches corresponding sparse KV blocks (Inner Loop), and performs attention computation on SRAM. Green blocks indicate data on SRAM, while blue indicates data on HBM.</li>
@@ -1945,13 +1939,13 @@ def forward(
 </ol>
 <h2 id="3-关于“MHA-和-GQA-中-Q、K、V-分割的区别”"><a href="#3-关于“MHA-和-GQA-中-Q、K、V-分割的区别”" class="headerlink" title="3. 关于“MHA 和 GQA 中 Q、K、V 分割的区别”"></a>3. 关于“MHA 和 GQA 中 Q、K、V 分割的区别”</h2><h3 id="3-1-MHA（Multi-Head-Attention）的-Q、K、V-分割"><a href="#3-1-MHA（Multi-Head-Attention）的-Q、K、V-分割" class="headerlink" title="3.1 MHA（Multi-Head Attention）的 Q、K、V 分割"></a>3.1 MHA（Multi-Head Attention）的 Q、K、V 分割</h3><ul>
 <li><strong>过程</strong>：<ul>
-<li><p>在 MHA 中，输入序列 ( X \in \mathbb{R}^{N \times d_{\text{model}}} )（<code>N</code> 是序列长度，<code>d_&#123;\text&#123;model&#125;&#125;</code> 是隐藏维度）通过线性变换生成 Q、K、V：<br>[<br>Q &#x3D; X W_Q, \quad K &#x3D; X W_K, \quad V &#x3D; X W_V<br>]<br>其中 ( W_Q, W_K, W_V ) 是可训练权重矩阵，维度分别为 ( d_{\text{model}} \times d_k )、( d_{\text{model}} \times d_k )、( d_{\text{model}} \times d_v )。</p>
+<li><p>在 MHA 中，输入序列 ( X \in \mathbb{R}^{N \times d_{\text{model}}} )（<code>N</code> 是序列长度，<code>d_{\text{model}}</code> 是隐藏维度）通过线性变换生成 Q、K、V：<br>[<br>Q = X W_Q, \quad K = X W_K, \quad V = X W_V<br>]<br>其中 ( W_Q, W_K, W_V ) 是可训练权重矩阵，维度分别为 ( d_{\text{model}} \times d_k )、( d_{\text{model}} \times d_k )、( d_{\text{model}} \times d_v )。</p>
 </li>
 <li><p><strong>分割</strong>：</p>
 <ul>
-<li>将 ( Q, K, V ) 沿着隐藏维度 ( d_{\text{model}} ) 分割成 ( h ) 个头（heads），每个头的维度为 ( d_k&#x2F;h )（键和查询）或 ( d_v&#x2F;h )（值）：<br>[<br>Q &#x3D; [Q_1, Q_2, …, Q_h], \quad K &#x3D; [K_1, K_2, …, K_h], \quad V &#x3D; [V_1, V_2, …, V_h]<br>]<br>其中 ( Q_i, K_i, V_i \in \mathbb{R}^{N \times (d_k&#x2F;h)} ) 或 ( \mathbb{R}^{N \times (d_v&#x2F;h)} )。</li>
-<li>每个头独立计算注意力：<br>[<br>\text{Head}_i &#x3D; \text{Attention}(Q_i, K_i, V_i) &#x3D; \text{softmax}\left(\frac{Q_i K_i^T}{\sqrt{d_k&#x2F;h}}\right) V_i<br>]</li>
-<li>最后将所有头的输出拼接并线性变换：<br>[<br>\text{MultiHead}(Q, K, V) &#x3D; \text{Concat}(\text{Head}_1, …, \text{Head}<em>h) W_O<br>]<br>其中 ( W_O \in \mathbb{R}^{(h \cdot d_v) \times d</em>{\text{model}}} )。</li>
+<li>将 ( Q, K, V ) 沿着隐藏维度 ( d_{\text{model}} ) 分割成 ( h ) 个头（heads），每个头的维度为 ( d_k/h )（键和查询）或 ( d_v/h )（值）：<br>[<br>Q = [Q_1, Q_2, …, Q_h], \quad K = [K_1, K_2, …, K_h], \quad V = [V_1, V_2, …, V_h]<br>]<br>其中 ( Q_i, K_i, V_i \in \mathbb{R}^{N \times (d_k/h)} ) 或 ( \mathbb{R}^{N \times (d_v/h)} )。</li>
+<li>每个头独立计算注意力：<br>[<br>\text{Head}_i = \text{Attention}(Q_i, K_i, V_i) = \text{softmax}\left(\frac{Q_i K_i^T}{\sqrt{d_k/h}}\right) V_i<br>]</li>
+<li>最后将所有头的输出拼接并线性变换：<br>[<br>\text{MultiHead}(Q, K, V) = \text{Concat}(\text{Head}_1, …, \text{Head}<em>h) W_O<br>]<br>其中 ( W_O \in \mathbb{R}^{(h \cdot d_v) \times d</em>{\text{model}}} )。</li>
 </ul>
 </li>
 <li><p><strong>你的观点</strong>：是的，MHA 中 Q、K、V 都需要分割成多个头，每个头独立处理。这是 MHA 捕捉不同语义关系的核心特性。</p>
@@ -1961,12 +1955,12 @@ def forward(
 </ul>
 <h3 id="3-2-GQA（Grouped-Query-Attention）的-Q、K、V-分割"><a href="#3-2-GQA（Grouped-Query-Attention）的-Q、K、V-分割" class="headerlink" title="3.2 GQA（Grouped-Query Attention）的 Q、K、V 分割"></a>3.2 GQA（Grouped-Query Attention）的 Q、K、V 分割</h3><ul>
 <li><strong>过程</strong>：<ul>
-<li><p>GQA 是 MHA 的优化版本，减少内存和计算开销。它同样从输入 ( X ) 生成 Q、K、V：<br>[<br>Q &#x3D; X W_Q, \quad K &#x3D; X W_K, \quad V &#x3D; X W_V<br>]</p>
+<li><p>GQA 是 MHA 的优化版本，减少内存和计算开销。它同样从输入 ( X ) 生成 Q、K、V：<br>[<br>Q = X W_Q, \quad K = X W_K, \quad V = X W_V<br>]</p>
 </li>
 <li><p><strong>分组</strong>：</p>
 <ul>
-<li>将 ( h ) 个查询头分成 ( G ) 组（groups），每组有 ( h&#x2F;G ) 个头。</li>
-<li><strong>Q 的分割</strong>：查询 ( Q ) 被分割成 ( G ) 组，每个组的 ( Q_g \in \mathbb{R}^{N \times (d_k&#x2F;G)} ) 对应每组的查询头。</li>
+<li>将 ( h ) 个查询头分成 ( G ) 组（groups），每组有 ( h/G ) 个头。</li>
+<li><strong>Q 的分割</strong>：查询 ( Q ) 被分割成 ( G ) 组，每个组的 ( Q_g \in \mathbb{R}^{N \times (d_k/G)} ) 对应每组的查询头。</li>
 <li><strong>K 和 V 的共享</strong>：与 MHA 不同，GQA 中 ( K ) 和 ( V ) 不按头分割，而是每组共享一组 ( K ) 和 ( V )：<ul>
 <li>( K, V \in \mathbb{R}^{N \times d_k} ) 和 ( \mathbb{R}^{N \times d_v} )，所有组使用相同的 ( K ) 和 ( V )。</li>
 </ul>
@@ -1975,8 +1969,8 @@ def forward(
 </li>
 <li><p><strong>注意力计算</strong>：</p>
 <ul>
-<li>对每个组 ( g ) 计算注意力：<br>[<br>\text{Head}_g &#x3D; \text{Attention}(Q_g, K, V) &#x3D; \text{softmax}\left(\frac{Q_g K^T}{\sqrt{d_k&#x2F;G}}\right) V<br>]</li>
-<li>最后拼接所有组的输出：<br>[<br>\text{GroupedHead}(Q, K, V) &#x3D; \text{Concat}(\text{Head}_1, …, \text{Head}_G) W_O<br>]</li>
+<li>对每个组 ( g ) 计算注意力：<br>[<br>\text{Head}_g = \text{Attention}(Q_g, K, V) = \text{softmax}\left(\frac{Q_g K^T}{\sqrt{d_k/G}}\right) V<br>]</li>
+<li>最后拼接所有组的输出：<br>[<br>\text{GroupedHead}(Q, K, V) = \text{Concat}(\text{Head}_1, …, \text{Head}_G) W_O<br>]</li>
 </ul>
 </li>
 <li><p><strong>你的观点</strong>：是的，GQA 中主要分割 Q（按组分），而 K 和 V 不按头分割，而是按组共享。这正是 GQA 减少内存需求（尤其是 KV 缓存）和提升效率的关键。</p>
