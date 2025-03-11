@@ -9,10 +9,12 @@
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     
         
-            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -22,18 +24,23 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="首先创建索引： 12345678910111213141516171819curl -XPUT -u elastic:密码 IP:9200&#x2F;索引名 -H &amp;#x27;Content-Type: application&#x2F;json&amp;#x27; -d &amp;#x27;&amp;#123;    &quot;settings&quot;: &amp;#123;        &quot;number_of_shards&amp;qu">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql数据导入elasticsearch">
 <meta property="og:url" content="http://ikko-debug.github.io/2023/04/04/mysql%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5elasticsearch/index.html">
 <meta property="og:site_name" content="IKKO">
-<meta property="og:description" content="首先创建索引： 12345678910111213141516171819curl -XPUT -u elastic:密码 IP:9200&#x2F;索引名 -H &amp;#x27;Content-Type: application&#x2F;json&amp;#x27; -d &amp;#x27;&amp;#123;    &quot;settings&quot;: &amp;#123;        &quot;number_of_shards&amp;qu">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2023-04-04T06:22:39.000Z">
 <meta property="article:modified_time" content="2023-05-02T08:59:13.672Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="elasticsearch">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
     
     
     <!--- Icon Part-->
@@ -45,42 +52,45 @@
     
     <title>
         
-            mysql数据导入elasticsearch -
+            mysql数据导入elasticsearch | IKKO
         
-        IKKO
     </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
     
 <link rel="stylesheet" href="/css/style.css">
 
 
     
-        <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/css/build/styles.css">
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
     
 
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fonts/fonts.css">
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fonts/Satoshi/satoshi.css">
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fonts/Chillax/chillax.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
     
     
-
-    <!--- Inject Part-->
     
+    
+
     <script id="hexo-configurations">
-    let Global = window.Global || {};
-    Global.hexo_config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null},"highlight_theme":{"light":"github","dark":"vs2015"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]},"pangu_js":false},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null},"preloader":{"enable":false,"custom_message":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn","show_author":false},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null},"style":"default"}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.4.4","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"}},"search":{"enable":true,"preload":true},"width":{"home":"1200px","pages":"1000px"}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null,"show_on_mobile":true},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3},"excerpt_length":200},"footerStart":"2022/8/17 11:45:14"};
-    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    Global.data_config = {"masonry":true};
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
     
     
     
@@ -88,37 +98,34 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 
+
 <body>
-<div class="progress-bar-container">
-    
+	<div class="progress-bar-container">
+	
 
-    
-        <span class="pjax-progress-bar"></span>
-        <span class="swup-progress-icon">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-        </span>
-    
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container">
-    
-    <div class="navbar-content">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
-                <a class="logo-image" href="http://ikko-debug.github.io/">
-                    <img src="/images/idea.svg">
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-sm">
                 </a>
             
-            <a class="logo-title" href="http://ikko-debug.github.io/">
+            <a class="logo-title" href="/">
                 
                 IKKO
                 
@@ -131,84 +138,91 @@
                 <ul class="navbar-list">
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="/"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-house"></i>
-                                        
-                                        HOME
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="/archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="has-dropdown" 
-                                    href="#" onClick="return false;">
-                                    
-                                        
-                                            <i class="fa-solid fa-link"></i>
-                                        
-                                        FRIENDLINKS&nbsp;<i class="fa-solid fa-chevron-down"></i>
-                                    
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
                                 </a>
+
                                 <!-- Submenu -->
                                 
                                     <ul class="sub-menu">
-                                    
-                                        <li>
-                                        <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO
-                                        </a>
-                                        </li>
-                                    
-                                        <li>
-                                        <a target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22
-                                        </a>
-                                        </li>
-                                    
-                                        <li>
-                                        <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB
-                                        </a>
-                                        </li>
-                                    
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
                                     </ul>
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="/masonry/"  >
-                                    
-                                        
-                                            <i class="fa-solid fa-image"></i>
-                                        
-                                        ALBUM
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
@@ -223,7 +237,8 @@
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
@@ -232,86 +247,128 @@
         </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div class="navbar-drawer w-full absolute top-0 left-0 bg-background-color">
-        <ul class="drawer-navbar-list flex flex-col justify-start items-center">
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
-                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
-                        href="/"  >
-                             
-                                
-                                    <i class="fa-regular fa-house"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
                                 HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
-                        href="/archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
                                 ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group has-dropdown" 
-                        href="#" onClick="return false;">
-                            
-                                
-                                    <i class="fa-solid fa-link"></i>
-                                
-                                FRIENDLINKS&nbsp;<i class="group-hover:rotate-180 transition-transform fa-solid fa-chevron-down"></i>
-                            
-                        </a>
-                    </li>
-                    <!-- Submenu -->
-                              
-                        
-                            <li class="text-base flex justify-center items-center hover:underline active:underline hover:underline-offset-1 rounded-3xl">
-                                <a class="py-0.5" target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
-                            </li>
-                        
-                            <li class="text-base flex justify-center items-center hover:underline active:underline hover:underline-offset-1 rounded-3xl">
-                                <a class="py-0.5" target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
-                            </li>
-                        
-                            <li class="text-base flex justify-center items-center hover:underline active:underline hover:underline-offset-1 rounded-3xl">
-                                <a class="py-0.5" target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
-                            </li>
-                        
                     
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
             
                 
-                    <li class="drawer-navbar-item text-base my-1.5 flex justify-center items-center">
-                        <a class="rounded-3xl py-1.5 px-5 hover:border hover:!text-primary active:!text-primary group " 
-                        href="/masonry/"  >
-                             
-                                
-                                    <i class="fa-solid fa-image"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
                                 ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
 
+            
+            
         </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">23</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
     </div>
 
     <div class="window-mask"></div>
@@ -319,40 +376,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">mysql数据导入elasticsearch</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container">
-    <div class="article-content-container">
-
-        <div class="article-title">
-            
-                <h1 class="article-title-regular">mysql数据导入elasticsearch</h1>
-            
-            </div>
-            
-                    
-        
-        
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">Ikko</span>
-                        
-                            <span class="author-label">Lv3</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2023-04-04 14:22:39</span>
@@ -400,30 +454,30 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body">
-            <p>首先创建索引：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -u elastic:密码 IP:9200/索引名 -H &#x27;Content-Type: application/json&#x27; -d &#x27;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;: &#123;</span><br><span class="line">        &quot;number_of_shards&quot;: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">            &quot;policy_title&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;policy_body&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>首先创建索引：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -u elastic:密码 IP:9200/索引名 -H &#x27;Content-Type: application/json&#x27; -d &#x27;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;: &#123;</span><br><span class="line">        &quot;number_of_shards&quot;: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">            &quot;policy_title&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;policy_body&quot;: &#123;</span><br><span class="line">                &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">                &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>python创建索引：</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> helpers</span><br><span class="line">es = Elasticsearch(hosts=[</span><br><span class="line">                   <span class="string">&#x27;&#x27;</span>])</span><br><span class="line">index_name = <span class="string">&#x27;policyend&#x27;</span></span><br><span class="line">es.indices.create(</span><br><span class="line">    index=index_name,</span><br><span class="line">    body=&#123;</span><br><span class="line">        <span class="string">&#x27;settings&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;number_of_shards&#x27;</span>: <span class="number">3</span>,</span><br><span class="line">            <span class="string">&#x27;number_of_replicas&#x27;</span>: <span class="number">1</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&#x27;mappings&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;properties&#x27;</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;policy_title&#x27;</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;analyzer&#x27;</span>: <span class="string">&#x27;ik_max_word&#x27;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&#x27;policy_body&#x27;</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;analyzer&#x27;</span>: <span class="string">&#x27;ik_max_word&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> helpers</span><br><span class="line">es = Elasticsearch(hosts=[</span><br><span class="line">                   <span class="string">&#x27;&#x27;</span>])</span><br><span class="line">index_name = <span class="string">&#x27;policyend&#x27;</span></span><br><span class="line">es.indices.create(</span><br><span class="line">    index=index_name,</span><br><span class="line">    body=&#123;</span><br><span class="line">        <span class="string">&#x27;settings&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;number_of_shards&#x27;</span>: <span class="number">3</span>,</span><br><span class="line">            <span class="string">&#x27;number_of_replicas&#x27;</span>: <span class="number">1</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&#x27;mappings&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;properties&#x27;</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;policy_title&#x27;</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;analyzer&#x27;</span>: <span class="string">&#x27;ik_max_word&#x27;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&#x27;policy_body&#x27;</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;analyzer&#x27;</span>: <span class="string">&#x27;ik_max_word&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 <p>然后使用python导入：</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> helpers</span><br><span class="line"><span class="comment"># 连接MySQL数据库</span></span><br><span class="line">cnx = pymysql.connect(user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;&#x27;</span>, host=<span class="string">&#x27;localhost&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接mysql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行查询语句，获取数据</span></span><br><span class="line">query = <span class="string">&quot;SELECT * FROM search_policy&quot;</span></span><br><span class="line">cursor.execute(query)</span><br><span class="line">res0 = cursor.fetchall()</span><br><span class="line">list1 = []</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> cursor.description:</span><br><span class="line">    list1.append(row[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">tuple</span>(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[<span class="string">&#x27;https://elastic:密码@IP:9200&#x27;</span>]) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接es&#x27;</span>)</span><br><span class="line"></span><br><span class="line">actions = []</span><br><span class="line">tb_name = <span class="string">&quot;tb_demo&quot;</span></span><br><span class="line">cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> res0:</span><br><span class="line">    cnt += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    data = <span class="built_in">dict</span>(<span class="built_in">zip</span>(list1, r))</span><br><span class="line">        </span><br><span class="line">    <span class="built_in">print</span>(cnt)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">try</span>:                                                </span><br><span class="line">        action = &#123;<span class="string">&quot;_index&quot;</span>:<span class="string">&#x27;policyy&#x27;</span>, <span class="string">&quot;_source&quot;</span>:data&#125; </span><br><span class="line">        actions.append(action)</span><br><span class="line">               </span><br><span class="line">            <span class="comment"># 每1000个一组批量导入</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(actions) == <span class="number">1000</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;execute 1000 action&quot;</span>)</span><br><span class="line">            success,errors = helpers.bulk(es, actions, raise_on_error = <span class="literal">True</span>)</span><br><span class="line">            actions = []</span><br><span class="line">    <span class="keyword">except</span>:        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;traceback.format_exc():\n%s&#x27;</span> % traceback.format_exc())</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(actions) &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        success,errors = helpers.bulk(es, actions, raise_on_error = <span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> helpers</span><br><span class="line"><span class="comment"># 连接MySQL数据库</span></span><br><span class="line">cnx = pymysql.connect(user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;&#x27;</span>, host=<span class="string">&#x27;localhost&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接mysql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行查询语句，获取数据</span></span><br><span class="line">query = <span class="string">&quot;SELECT * FROM search_policy&quot;</span></span><br><span class="line">cursor.execute(query)</span><br><span class="line">res0 = cursor.fetchall()</span><br><span class="line">list1 = []</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> cursor.description:</span><br><span class="line">    list1.append(row[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">tuple</span>(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[<span class="string">&#x27;https://elastic:密码@IP:9200&#x27;</span>]) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接es&#x27;</span>)</span><br><span class="line"></span><br><span class="line">actions = []</span><br><span class="line">tb_name = <span class="string">&quot;tb_demo&quot;</span></span><br><span class="line">cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> r <span class="keyword">in</span> res0:</span><br><span class="line">    cnt += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    data = <span class="built_in">dict</span>(<span class="built_in">zip</span>(list1, r))</span><br><span class="line">        </span><br><span class="line">    <span class="built_in">print</span>(cnt)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">try</span>:                                                </span><br><span class="line">        action = &#123;<span class="string">&quot;_index&quot;</span>:<span class="string">&#x27;policyy&#x27;</span>, <span class="string">&quot;_source&quot;</span>:data&#125; </span><br><span class="line">        actions.append(action)</span><br><span class="line">               </span><br><span class="line">            <span class="comment"># 每1000个一组批量导入</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(actions) == <span class="number">1000</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;execute 1000 action&quot;</span>)</span><br><span class="line">            success,errors = helpers.bulk(es, actions, raise_on_error = <span class="literal">True</span>)</span><br><span class="line">            actions = []</span><br><span class="line">    <span class="keyword">except</span>:        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;traceback.format_exc():\n%s&#x27;</span> % traceback.format_exc())</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(actions) &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        success,errors = helpers.bulk(es, actions, raise_on_error = <span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>创建搜索建议：</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"><span class="keyword">from</span> elasticsearch.helpers <span class="keyword">import</span> bulk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接MySQL数据库</span></span><br><span class="line">cnx = pymysql.connect(user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;YDXcgyz123.&#x27;</span>,</span><br><span class="line">                      host=<span class="string">&#x27;localhost&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接mysql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行查询语句，获取数据</span></span><br><span class="line">query = <span class="string">&quot;SELECT * FROM search_policy&quot;</span></span><br><span class="line">cursor.execute(query)</span><br><span class="line">res0 = cursor.fetchall()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[</span><br><span class="line">                   <span class="string">&#x27;&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建新的索引并定义映射，包含一个 &quot;policy_title_suggest&quot; 字段作为 Completion Suggester</span></span><br><span class="line">index_name = <span class="string">&#x27;policy_title_suggest_index&#x27;</span></span><br><span class="line">mapping = &#123;</span><br><span class="line">    <span class="string">&quot;mappings&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;properties&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;policy_title_suggest&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;completion&quot;</span>,  <span class="comment"># Completion Suggester 字段类型</span></span><br><span class="line">                <span class="string">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_max_word&quot;</span>,</span><br><span class="line">                <span class="string">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_max_word&quot;</span>,</span><br><span class="line">                <span class="string">&quot;preserve_position_increments&quot;</span>: <span class="literal">False</span>,</span><br><span class="line">                <span class="string">&quot;preserve_separators&quot;</span>: <span class="literal">False</span>,</span><br><span class="line">                <span class="string">&quot;max_input_length&quot;</span>: <span class="number">50</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">es.indices.delete(index=<span class="string">&#x27;policy_title_suggest_index&#x27;</span>, ignore=[<span class="number">400</span>, <span class="number">404</span>])</span><br><span class="line"></span><br><span class="line">es.indices.create(index=index_name, body=mapping)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 MySQL 查询结果导入到 Elasticsearch 索引中，每次批量导入 5000 条文档</span></span><br><span class="line">new_docs = []</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res0:</span><br><span class="line">    <span class="keyword">if</span> row[<span class="number">1</span>]:  <span class="comment"># 过滤掉空值的文档</span></span><br><span class="line">        doc = &#123;</span><br><span class="line">            <span class="string">&quot;_index&quot;</span>: index_name,</span><br><span class="line">            <span class="string">&quot;_id&quot;</span>: row[<span class="number">0</span>],  <span class="comment"># 假设第一列为 ID 字段作为文档的唯一标识符</span></span><br><span class="line">            <span class="string">&quot;policy_title_suggest&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;input&quot;</span>: [row[<span class="number">1</span>]],  <span class="comment"># 将第二列数据作为输入</span></span><br><span class="line">                <span class="string">&quot;weight&quot;</span>: <span class="number">1</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        new_docs.append(doc)</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count % <span class="number">5000</span> == <span class="number">0</span>:</span><br><span class="line">            bulk(es, new_docs)</span><br><span class="line">            new_docs = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入剩余的文档</span></span><br><span class="line"><span class="keyword">if</span> new_docs:</span><br><span class="line">    bulk(es, new_docs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刷新索引</span></span><br><span class="line">es.indices.refresh(index=index_name)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"><span class="keyword">from</span> elasticsearch.helpers <span class="keyword">import</span> bulk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接MySQL数据库</span></span><br><span class="line">cnx = pymysql.connect(user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;YDXcgyz123.&#x27;</span>,</span><br><span class="line">                      host=<span class="string">&#x27;localhost&#x27;</span>, database=<span class="string">&#x27;search&#x27;</span>)</span><br><span class="line">cursor = cnx.cursor()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;连接mysql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行查询语句，获取数据</span></span><br><span class="line">query = <span class="string">&quot;SELECT * FROM search_policy&quot;</span></span><br><span class="line">cursor.execute(query)</span><br><span class="line">res0 = cursor.fetchall()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[</span><br><span class="line">                   <span class="string">&#x27;&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建新的索引并定义映射，包含一个 &quot;policy_title_suggest&quot; 字段作为 Completion Suggester</span></span><br><span class="line">index_name = <span class="string">&#x27;policy_title_suggest_index&#x27;</span></span><br><span class="line">mapping = &#123;</span><br><span class="line">    <span class="string">&quot;mappings&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;properties&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;policy_title_suggest&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;completion&quot;</span>,  <span class="comment"># Completion Suggester 字段类型</span></span><br><span class="line">                <span class="string">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_max_word&quot;</span>,</span><br><span class="line">                <span class="string">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_max_word&quot;</span>,</span><br><span class="line">                <span class="string">&quot;preserve_position_increments&quot;</span>: <span class="literal">False</span>,</span><br><span class="line">                <span class="string">&quot;preserve_separators&quot;</span>: <span class="literal">False</span>,</span><br><span class="line">                <span class="string">&quot;max_input_length&quot;</span>: <span class="number">50</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">es.indices.delete(index=<span class="string">&#x27;policy_title_suggest_index&#x27;</span>, ignore=[<span class="number">400</span>, <span class="number">404</span>])</span><br><span class="line"></span><br><span class="line">es.indices.create(index=index_name, body=mapping)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 MySQL 查询结果导入到 Elasticsearch 索引中，每次批量导入 5000 条文档</span></span><br><span class="line">new_docs = []</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res0:</span><br><span class="line">    <span class="keyword">if</span> row[<span class="number">1</span>]:  <span class="comment"># 过滤掉空值的文档</span></span><br><span class="line">        doc = &#123;</span><br><span class="line">            <span class="string">&quot;_index&quot;</span>: index_name,</span><br><span class="line">            <span class="string">&quot;_id&quot;</span>: row[<span class="number">0</span>],  <span class="comment"># 假设第一列为 ID 字段作为文档的唯一标识符</span></span><br><span class="line">            <span class="string">&quot;policy_title_suggest&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;input&quot;</span>: [row[<span class="number">1</span>]],  <span class="comment"># 将第二列数据作为输入</span></span><br><span class="line">                <span class="string">&quot;weight&quot;</span>: <span class="number">1</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        new_docs.append(doc)</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count % <span class="number">5000</span> == <span class="number">0</span>:</span><br><span class="line">            bulk(es, new_docs)</span><br><span class="line">            new_docs = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入剩余的文档</span></span><br><span class="line"><span class="keyword">if</span> new_docs:</span><br><span class="line">    bulk(es, new_docs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刷新索引</span></span><br><span class="line">es.indices.refresh(index=index_name)</span><br></pre></td></tr></table></figure></div>
 <p>搜索建议：</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接 Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[</span><br><span class="line">                   <span class="string">&#x27;&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义搜索关键词</span></span><br><span class="line">search_word = <span class="string">&#x27;优化&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建搜索建议的 Elasticsearch 查询体</span></span><br><span class="line">suggest_body = &#123;</span><br><span class="line">    <span class="string">&quot;suggest&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;suggestion&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;prefix&quot;</span>: search_word,</span><br><span class="line">            <span class="string">&quot;completion&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;field&quot;</span>: <span class="string">&quot;policy_title_suggest&quot;</span>,  <span class="comment"># 根据实际的字段名称进行修改</span></span><br><span class="line">                <span class="string">&quot;skip_duplicates&quot;</span>: <span class="literal">True</span>,</span><br><span class="line">                <span class="string">&quot;fuzzy&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;fuzziness&quot;</span>: <span class="string">&quot;AUTO&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Elasticsearch 查询请求</span></span><br><span class="line">response = es.search(index=<span class="string">&#x27;policy_title_suggest_index&#x27;</span>,</span><br><span class="line">                     body=suggest_body)  <span class="comment"># 根据实际的索引名称进行修改</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取搜索建议数据</span></span><br><span class="line">suggestions = response[<span class="string">&#x27;suggest&#x27;</span>][<span class="string">&#x27;suggestion&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;options&#x27;</span>]</span><br><span class="line">suggestion_terms = [suggestion[<span class="string">&#x27;text&#x27;</span>] <span class="keyword">for</span> suggestion <span class="keyword">in</span> suggestions]</span><br><span class="line"><span class="built_in">print</span>(suggestion_terms)</span><br></pre></td></tr></table></figure></div>
-        </div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接 Elasticsearch</span></span><br><span class="line">es = Elasticsearch(hosts=[</span><br><span class="line">                   <span class="string">&#x27;&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义搜索关键词</span></span><br><span class="line">search_word = <span class="string">&#x27;优化&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建搜索建议的 Elasticsearch 查询体</span></span><br><span class="line">suggest_body = &#123;</span><br><span class="line">    <span class="string">&quot;suggest&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;suggestion&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;prefix&quot;</span>: search_word,</span><br><span class="line">            <span class="string">&quot;completion&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;field&quot;</span>: <span class="string">&quot;policy_title_suggest&quot;</span>,  <span class="comment"># 根据实际的字段名称进行修改</span></span><br><span class="line">                <span class="string">&quot;skip_duplicates&quot;</span>: <span class="literal">True</span>,</span><br><span class="line">                <span class="string">&quot;fuzzy&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;fuzziness&quot;</span>: <span class="string">&quot;AUTO&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Elasticsearch 查询请求</span></span><br><span class="line">response = es.search(index=<span class="string">&#x27;policy_title_suggest_index&#x27;</span>,</span><br><span class="line">                     body=suggest_body)  <span class="comment"># 根据实际的索引名称进行修改</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取搜索建议数据</span></span><br><span class="line">suggestions = response[<span class="string">&#x27;suggest&#x27;</span>][<span class="string">&#x27;suggestion&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;options&#x27;</span>]</span><br><span class="line">suggestion_terms = [suggestion[<span class="string">&#x27;text&#x27;</span>] <span class="keyword">for</span> suggestion <span class="keyword">in</span> suggestions]</span><br><span class="line"><span class="built_in">print</span>(suggestion_terms)</span><br></pre></td></tr></table></figure></div>
+		</div>
 
-        
-            <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> mysql数据导入elasticsearch</li>
         <li><strong>Author:</strong> Ikko</li>
@@ -443,72 +497,67 @@
                 License:
             </strong>
             
-            This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
-            
 
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
         </li>
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box">
-                
-                    <li class="tag-item">
-                        <a href="/tags/elasticsearch/">#elasticsearch</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/elasticsearch/">#elasticsearch</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2023/04/11/test/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">django分页功能实现</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                        rel="next"
-                        href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">记录navicat12连接mysql 2048</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/04/11/test/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">django分页功能实现</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">记录navicat12连接mysql 2048</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-            <div class="comment-container">
-                <div class="comments-container pjax">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
     </div>
     
 
@@ -516,7 +565,7 @@
             
     <div id="gitalk-container"></div>
     <script data-swup-reload-script
-            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
     <script data-swup-reload-script>
 
         function loadGitalk() {
@@ -535,7 +584,8 @@
                     owner: 'ikko-debug',
                     admin: ['ikko-debug'],
                     id: __gitalk__pathname,
-                    language: 'en'
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
                 }).render('gitalk-container');
 
             } catch (e) {
@@ -559,36 +609,30 @@
     
 </div>
 
-            </div>
-        
-    </div>
+		</div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">mysql数据导入elasticsearch</div>
-        
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">mysql数据导入elasticsearch</div>
+		
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
@@ -598,6 +642,19 @@
               -
             
             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        23 posts in total
+                    </span>
+                    
+                        <span>
+                            36.4k words in total
+                        </span>
+                    
+                </p>
+            
         </div>
         
             <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
@@ -618,7 +675,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.4.4</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
         </div>
         
         
@@ -647,117 +704,102 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-expand-width flex justify-center items-center">
-            <i class="fa-regular fa-expand"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
+	
 
 </main>
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/Swup.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/SwupSlideTheme.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/SwupScriptsPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/SwupProgressPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/SwupScrollPlugin.min.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
     const swup = new Swup({
         plugins: [
@@ -771,65 +813,63 @@
             new SwupSlideTheme({
                 mainElement: ".main-content-body",
             }),
+            new SwupPreloadPlugin(),
         ],
         containers: ["#swup"],
     });
-
-    swup.hooks.on("page:view", () => {
-        Global.refresh();
-    });
-
-    // if (document.readyState === "complete") {
-    //
-    // } else {
-    //     document.addEventListener("DOMContentLoaded", () => init());
-    // }
 </script>
 
 
 
 
-
-<script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/utils.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/main.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/layouts/navbarShrink.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/tools/scrollTopBottom.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/tools/lightDarkSwitch.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/layouts/categoryList.js"></script>
-
-
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/tools/localSearch.js"></script>
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
 
 
-
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/tools/codeBlock.js"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
 
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/layouts/lazyload.js"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
 
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/tools/runtime.js"></script>
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/assets/odometer-theme-minimal.css">
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
 
 
 
-  <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/Typed.min.js"></script>
-  <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/plugins/typed.js"></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
 
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
 
 
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/minimasonry.min.js"></script>
-    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/plugins/masonry.js"></script>
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/masonry.js" ></script>
 
 
 
-<div class="post-scripts" data-swup-reload-script>
-    
-        <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/libs/anime.min.js"></script>
-        <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/tools/tocToggle.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/layouts/toc.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.4.4/source/js/plugins/tabs.js"></script>
-    
-</div>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
 
 
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
 </body>
+
 </html>
