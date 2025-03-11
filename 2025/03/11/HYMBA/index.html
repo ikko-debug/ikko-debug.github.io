@@ -31,7 +31,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/hymba.png">
 <meta property="article:published_time" content="2025-03-11T06:51:10.000Z">
-<meta property="article:modified_time" content="2025-03-11T07:39:19.067Z">
+<meta property="article:modified_time" content="2025-03-11T08:04:57.297Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/hymba.png">
@@ -475,8 +475,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-11 15:39:19</span>
-            <span class="mobile">2025-03-11 15:39:19</span>
+            <span class="desktop">2025-03-11 16:04:57</span>
+            <span class="mobile">2025-03-11 16:04:57</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -487,12 +487,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
         </span>
     
     
@@ -655,6 +655,7 @@ mjx-container[display="true"] + br {
 <li><strong>SSM支持</strong>：全局上下文由SSM总结，允许Attention用局部SWA。</li>
 <li><strong>结果</strong>：缓存减少11.67倍，吞吐量提升3.49倍（Tab. 2）。</li>
 </ul>
+<h2 id="四、前向传播伪代码"><a href="#四、前向传播伪代码" class="headerlink" title="四、前向传播伪代码"></a>四、前向传播伪代码</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    输入：X = [x_1, ..., x_n]</span><br><span class="line">1. 前置Meta Tokens：\tilde{X}^0 = [R, X]</span><br><span class="line">2. 遍历32层：</span><br><span class="line">   for i in [1, ..., 32]:</span><br><span class="line">      if i in [1, 16, 32]:  # 全局注意力</span><br><span class="line">         \tilde{X}^i = HymbaBlock-GA(\tilde{X}^{i-1})</span><br><span class="line">      else:  # 局部注意力</span><br><span class="line">         if i是KV共享组首层:</span><br><span class="line">            \tilde{X}^i, KV^i = HymbaBlock-SWA(\tilde{X}^{i-1})</span><br><span class="line">         else:</span><br><span class="line">            复用上一层KV^{i-1}</span><br><span class="line">            \tilde{X}^i = HymbaBlock-SWA(\tilde{X}^{i-1}, KV^{i-1})</span><br><span class="line">3. 输出：最后一层结果经投影生成预测。</span><br></pre></td></tr></table></figure></div>
 
         </div>
 
@@ -669,7 +670,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-03-11 15:39:19
+                    :</strong> 2025-03-11 16:04:57
             </li>
         
         <li>
@@ -783,7 +784,7 @@ mjx-container[display="true"] + br {
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">HYMBA论文粗总结</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hymba%EF%BC%9A%E5%B0%8F%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B0%E6%A0%87%E6%9D%86%E2%80%94%E2%80%94%E8%9E%8D%E5%90%88SSM%E4%B8%8EAttention%E7%9A%84%E6%B7%B7%E5%90%88%E6%9E%B6%E6%9E%84"><span class="nav-text">Hymba：小型语言模型的新标杆——融合SSM与Attention的混合架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81SSM%EF%BC%88%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B%EF%BC%89%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">一、SSM（状态空间模型）的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-SSM%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">1.1 SSM的基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Mamba%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-text">1.2 Mamba的改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SSM%E7%9A%84%E4%BC%98%E5%8A%A3"><span class="nav-text">1.3 SSM的优劣</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Hymba%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">二、Hymba的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-text">2.1 总体架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%B7%B7%E5%90%88%E5%A4%B4%E6%A8%A1%E5%9D%97%EF%BC%88Hybrid-Head-Module%EF%BC%89"><span class="nav-text">2.2 混合头模块（Hybrid-Head Module）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Meta-Tokens"><span class="nav-text">2.3 Meta Tokens</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-KV%E4%BC%98%E5%8C%96"><span class="nav-text">2.4 KV优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Hymba%E5%A6%82%E4%BD%95%E8%9E%8D%E5%90%88SSM%E4%B8%8EAttention"><span class="nav-text">三、Hymba如何融合SSM与Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-text">3.1 并行处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%BE%93%E5%87%BA%E8%9E%8D%E5%90%88"><span class="nav-text">3.2 输出融合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Meta-Tokens%E7%9A%84%E6%A1%A5%E6%A2%81%E4%BD%9C%E7%94%A8"><span class="nav-text">3.3 Meta Tokens的桥梁作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-KV%E4%BC%98%E5%8C%96%E7%9A%84%E5%8D%8F%E5%90%8C"><span class="nav-text">3.4 KV优化的协同</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hymba%EF%BC%9A%E5%B0%8F%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B0%E6%A0%87%E6%9D%86%E2%80%94%E2%80%94%E8%9E%8D%E5%90%88SSM%E4%B8%8EAttention%E7%9A%84%E6%B7%B7%E5%90%88%E6%9E%B6%E6%9E%84"><span class="nav-text">Hymba：小型语言模型的新标杆——融合SSM与Attention的混合架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81SSM%EF%BC%88%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B%EF%BC%89%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">一、SSM（状态空间模型）的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-SSM%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">1.1 SSM的基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Mamba%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-text">1.2 Mamba的改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SSM%E7%9A%84%E4%BC%98%E5%8A%A3"><span class="nav-text">1.3 SSM的优劣</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Hymba%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">二、Hymba的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-text">2.1 总体架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%B7%B7%E5%90%88%E5%A4%B4%E6%A8%A1%E5%9D%97%EF%BC%88Hybrid-Head-Module%EF%BC%89"><span class="nav-text">2.2 混合头模块（Hybrid-Head Module）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Meta-Tokens"><span class="nav-text">2.3 Meta Tokens</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-KV%E4%BC%98%E5%8C%96"><span class="nav-text">2.4 KV优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Hymba%E5%A6%82%E4%BD%95%E8%9E%8D%E5%90%88SSM%E4%B8%8EAttention"><span class="nav-text">三、Hymba如何融合SSM与Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-text">3.1 并行处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%BE%93%E5%87%BA%E8%9E%8D%E5%90%88"><span class="nav-text">3.2 输出融合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Meta-Tokens%E7%9A%84%E6%A1%A5%E6%A2%81%E4%BD%9C%E7%94%A8"><span class="nav-text">3.3 Meta Tokens的桥梁作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-KV%E4%BC%98%E5%8C%96%E7%9A%84%E5%8D%8F%E5%90%8C"><span class="nav-text">3.4 KV优化的协同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%BC%AA%E4%BB%A3%E7%A0%81"><span class="nav-text">四、前向传播伪代码</span></a></li></ol></li></ol>
 
     </div>
 </div>
