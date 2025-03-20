@@ -607,17 +607,14 @@ mjx-container[display="true"] + br {
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
                         <a href="/2025/03/20/tra/">
-                            BartAttention 中张量维度的变化分析
+                            BartAttention 中张量维度的变化分析,attention计算各部分耗时分析
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            概述BartAttention 实现了多头注意力机制（Multi-Head Attention, MHA），通过投影、重塑和并行计算，将输入张量拆分为多个头的表示形式，并在注意力计算中高效处理。本文档分析张量维度从输入到注意力权重计算的变化过程，分为两部分：
-
-通解分析：基于通用参数（如 , , ）和 BartAttention 的代码，描述维度变化的通用规律。
-实例佐证：结合日志数据（），...
+                            实验结果123456789Q Proj Total Time: 396.274400sK V Proj Total Time: 445.651598sAttention Reshape Total Time: 130.337801sAttn Weights Compute Total Time: 165.823140sAttn Mask Total Time: 0.015915sSoftma...
                         
                     </div>
 
@@ -634,7 +631,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/03/20/tra/">Read more<span class="seo-reader-text">BartAttention 中张量维度的变化分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/20/tra/">Read more<span class="seo-reader-text">BartAttention 中张量维度的变化分析,attention计算各部分耗时分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1068,7 +1065,7 @@ vscode连接下载ssh插件加击加号输入ssh root@ip输入密码
                     </span>
                     
                         <span>
-                            37.3k words in total
+                            38.5k words in total
                         </span>
                     
                 </p>
