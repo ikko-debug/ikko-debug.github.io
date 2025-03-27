@@ -2840,4 +2840,64 @@ def forward(
 </ul>
 ]]></content>
   </entry>
+  <entry>
+    <title>KV Cache and MLA</title>
+    <url>/2025/03/26/MLA/</url>
+    <content><![CDATA[<p>在 <strong>Decoder-only 的 Transformer 模型（如 GPT、DeepSeek-V3）</strong> 中，KV Cache 的核心作用正是为了 <strong>避免重复计算历史 token 的 Key 和 Value</strong>，从而实现高效的自回归生成。</p>
+<hr>
+<h3 id="1-KV-Cache-的复用机制"><a href="#1-KV-Cache-的复用机制" class="headerlink" title="1. KV Cache 的复用机制"></a><strong>1. KV Cache 的复用机制</strong></h3><h4 id="1-每次生成新-token-时的计算流程"><a href="#1-每次生成新-token-时的计算流程" class="headerlink" title="(1) 每次生成新 token 时的计算流程"></a><strong>(1) 每次生成新 token 时的计算流程</strong></h4><p>当模型生成第 $ t $ 个 token 时：</p>
+<ol>
+<li><strong>当前 token 的 Query（$ Q_t $）</strong>：  <ul>
+<li>由当前 token 的隐藏状态计算（新计算，无法复用）。</li>
+</ul>
+</li>
+<li><strong>历史 token 的 Key&#x2F;Value（$ K_{1:t-1} $、$ V_{1:t-1} $）</strong>：  <ul>
+<li><strong>直接复用 KV Cache 中缓存的结果</strong>，无需重新计算。</li>
+<li>新生成的 $ K_t $、$ V_t $ 会追加到缓存中供后续使用。<br><img src="/images/kvcache.gif" alt="kv cache(图源https://medium.com/@joaolages/kv-caching-explained-276520203249)"></li>
+</ul>
+</li>
+</ol>
+<h4 id="2-注意力计算的具体步骤"><a href="#2-注意力计算的具体步骤" class="headerlink" title="(2) 注意力计算的具体步骤"></a><strong>(2) 注意力计算的具体步骤</strong></h4><p>$$<br>\text{Attention}(Q_t, K_{1:t}, V_{1:t}) &#x3D; \text{Softmax}\left(\frac{Q_t [K_1, \dots, K_t]^T}{\sqrt{d_k}}\right) [V_1, \dots, V_t]<br>$$</p>
+<ul>
+<li><strong>复用部分</strong>：<br>$ K_{1:t-1} $ 和 $ V_{1:t-1} $ 直接读取自缓存，仅 $ K_t $、$ V_t $ 需新计算。</li>
+<li><strong>计算量节省</strong>：<br>避免了为每个新 token 重新计算所有历史 token 的 K&#x2F;V，将复杂度从 $ \mathcal{O}(t^2) $ 降至 $ \mathcal{O}(t) $。</li>
+</ul>
+<hr>
+<h3 id="2-为什么能复用？"><a href="#2-为什么能复用？" class="headerlink" title="2. 为什么能复用？"></a><strong>2. 为什么能复用？</strong></h3><h4 id="1-自回归生成的特性"><a href="#1-自回归生成的特性" class="headerlink" title="(1) 自回归生成的特性"></a><strong>(1) 自回归生成的特性</strong></h4><ul>
+<li><strong>单向依赖性</strong>：生成第 $ t $ 个 token 时，模型仅依赖之前所有 token（1 到 $ t-1 $）的信息，历史 token 的 K&#x2F;V 不会改变。</li>
+<li><strong>静态性</strong>：历史 token 的隐藏状态（及投影后的 K&#x2F;V）在生成过程中是固定的，无需更新。</li>
+</ul>
+<h4 id="2-投影矩阵的确定性"><a href="#2-投影矩阵的确定性" class="headerlink" title="(2) 投影矩阵的确定性"></a><strong>(2) 投影矩阵的确定性</strong></h4><ul>
+<li>每层的 $ W_K $、$ W_V $ 是固定的，因此同一 token 的 K&#x2F;V 只需计算一次即可复用：<br>$$<br>K_t &#x3D; \mathbf{h}_t W_K, \quad V_t &#x3D; \mathbf{h}_t W_V<br>$$<br>其中 $ \mathbf{h}_t $ 是第 $ t $ 个 token 的隐藏状态。</li>
+</ul>
+<hr>
+<h3 id="3-KV-Cache-的存储与更新"><a href="#3-KV-Cache-的存储与更新" class="headerlink" title="3. KV Cache 的存储与更新"></a><strong>3. KV Cache 的存储与更新</strong></h3><h4 id="1-存储结构"><a href="#1-存储结构" class="headerlink" title="(1) 存储结构"></a><strong>(1) 存储结构</strong></h4><ul>
+<li><strong>每层独立缓存</strong>：<br>每个 Decoder 层维护自己的 KV Cache，存储该层所有历史 token 的 $ K $ 和 $ V $。</li>
+<li><strong>形状示例</strong>：<br>对于 $ L $ 层模型、序列长度 $ T $、头数 $ n_h $、头维度 $ d_h $：<br>$$<br>\text{KV Cache 大小} &#x3D; 2 \times L \times n_h \times T \times d_h<br>$$</li>
+</ul>
+<h4 id="2-更新逻辑"><a href="#2-更新逻辑" class="headerlink" title="(2) 更新逻辑"></a><strong>(2) 更新逻辑</strong></h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 伪代码示例：生成第 t 个 token 时的 KV Cache 更新</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> decoder_layers:</span><br><span class="line">    <span class="comment"># 计算当前 token 的 K_t, V_t</span></span><br><span class="line">    K_t = current_hidden_state @ W_K  <span class="comment"># [n_h, d_h]</span></span><br><span class="line">    V_t = current_hidden_state @ W_V  <span class="comment"># [n_h, d_h]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 追加到该层的 KV Cache</span></span><br><span class="line">    layer.kv_cache.keys.append(K_t)    <span class="comment"># 形状变为 [n_h, t, d_h]</span></span><br><span class="line">    layer.kv_cache.values.append(V_t)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 注意力计算：Q_t 与所有历史 K/V 交互</span></span><br><span class="line">    attn_scores = Q_t @ concat(K_1, ..., K_t).T  <span class="comment"># 复用缓存的 K_1...K_&#123;t-1&#125;</span></span><br><span class="line">    output = attn_scores @ concat(V_1, ..., V_t)  <span class="comment"># 复用缓存的 V_1...V_&#123;t-1&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h3 id="4-实际优化案例"><a href="#4-实际优化案例" class="headerlink" title="4. 实际优化案例"></a><strong>4. 实际优化案例</strong></h3><h4 id="1-DeepSeek-V3-的-MLA-优化"><a href="#1-DeepSeek-V3-的-MLA-优化" class="headerlink" title="(1) DeepSeek-V3 的 MLA 优化"></a><strong>(1) DeepSeek-V3 的 MLA 优化</strong></h4><ul>
+<li><strong>低秩压缩</strong>：<br>缓存压缩后的潜在向量 $ \mathbf{c}_t^{KV} $（而非完整 K&#x2F;V），进一步减少内存占用：<br>$$<br>\mathbf{c}_t^{KV} &#x3D; \mathbf{W}^{DKV} \mathbf{h}_t \quad (\text{例如 } d_c&#x3D;512 \ll d_h n_h&#x3D;8192)<br>$$</li>
+<li><strong>重建计算</strong>：<br>在注意力计算时动态重建 $ K $ 和 $ V $：<br>$$<br>K_t &#x3D; \mathbf{W}^{UK} \mathbf{c}_t^{KV}, \quad V_t &#x3D; \mathbf{W}^{UV} \mathbf{c}_t^{KV}<br>$$</li>
+</ul>
+<h4 id="2-分块缓存（长上下文）"><a href="#2-分块缓存（长上下文）" class="headerlink" title="(2) 分块缓存（长上下文）"></a><strong>(2) 分块缓存（长上下文）</strong></h4><ul>
+<li><strong>滑动窗口</strong>：<br>对于超长序列（如 128K），仅保留最近 $ W $ 个 token 的 KV Cache（窗口外的丢弃或压缩）。</li>
+<li><strong>分页管理</strong>：<br>类似操作系统内存分页，将 KV Cache 划分为块，按需加载。</li>
+</ul>
+<hr>
+<h3 id="5-若不复用-KV-Cache-会怎样？"><a href="#5-若不复用-KV-Cache-会怎样？" class="headerlink" title="5. 若不复用 KV Cache 会怎样？"></a><strong>5. 若不复用 KV Cache 会怎样？</strong></h3><ul>
+<li><strong>计算爆炸</strong>：<br>生成长度为 $ T $ 的序列时，总计算量从 $ \mathcal{O}(T^2) $ 升至 $ \mathcal{O}(T^3) $（不可行）。</li>
+<li><strong>内存瓶颈</strong>：<br>每步需存储所有中间结果，显存需求激增（例如 1K token 的 24 层模型需缓存 24GB+ 的 K&#x2F;V）。</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><strong>KV Cache 的核心价值是复用历史 token 的 K&#x2F;V</strong>，避免重复计算。  </li>
+<li><strong>复用条件</strong>：自回归生成中历史 token 的表示不变，且投影矩阵固定。  </li>
+<li><strong>优化方向</strong>：通过低秩压缩（如 MLA）、共享注意力头（MQA&#x2F;GQA）等技术减少缓存大小。</li>
+</ul>
+<p>这种设计是 Transformer 自回归生成高效性的基石，也是支持长上下文（如 DeepSeek-V3 的 128K）的关键。</p>
+]]></content>
+  </entry>
 </search>
