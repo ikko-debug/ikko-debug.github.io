@@ -616,9 +616,19 @@ mjx-container[display="true"] + br {
                             
                             在 Decoder-only 的 Transformer 模型（如 GPT、DeepSeek-V3） 中，KV Cache 的核心作用正是为了 避免重复计算历史 token 的 Key 和 Value，从而实现高效的自回归生成。
 
-1. KV Cache 的复用机制(1) 每次生成新 token 时的计算流程当模型生成第 $ t $ 个 token 时：
+背景 自回归attention机制
+1. 核心分工
 
-当前 token 的 Query（...
+
+组件
+角色
+自回归中的关键设计
+
+
+
+Query (Q)
+当前Token的“问题”
+仅由最新生成的Toke...
                         
                     </div>
 
@@ -1053,7 +1063,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            42.7k words in total
+                            44.6k words in total
                         </span>
                     
                 </p>

@@ -2845,6 +2845,82 @@ def forward(
     <url>/2025/03/26/MLA/</url>
     <content><![CDATA[<p>在 <strong>Decoder-only 的 Transformer 模型（如 GPT、DeepSeek-V3）</strong> 中，KV Cache 的核心作用正是为了 <strong>避免重复计算历史 token 的 Key 和 Value</strong>，从而实现高效的自回归生成。</p>
 <hr>
+<h3 id="背景-自回归attention机制"><a href="#背景-自回归attention机制" class="headerlink" title="背景 自回归attention机制"></a>背景 自回归attention机制</h3><hr>
+<h4 id="1-核心分工"><a href="#1-核心分工" class="headerlink" title="1. 核心分工"></a><strong>1. 核心分工</strong></h4><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>角色</th>
+<th>自回归中的关键设计</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Query (Q)</strong></td>
+<td>当前Token的“问题”</td>
+<td>仅由<strong>最新生成的Token</strong>计算（$Q &#x3D; x_{t-1} · W_Q$）</td>
+</tr>
+<tr>
+<td><strong>Key&#x2F;Value (K&#x2F;V)</strong></td>
+<td>历史信息的“答案库”</td>
+<td>缓存所有历史Token的K&#x2F;V（$[K_{1:t-1}, K_t]$）</td>
+</tr>
+<tr>
+<td><strong>Attention机制</strong></td>
+<td>Q与历史K&#x2F;V交互</td>
+<td>通过<strong>因果掩码</strong>确保仅访问历史信息</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="2-具体实现方式"><a href="#2-具体实现方式" class="headerlink" title="2. 具体实现方式"></a><strong>2. 具体实现方式</strong></h4><h5 id="1-Query-Q-的来源"><a href="#1-Query-Q-的来源" class="headerlink" title="(1) Query (Q) 的来源"></a><strong>(1) Query (Q) 的来源</strong></h5><ul>
+<li><strong>始终由当前输入Token生成</strong>（即上一步预测出的$x_{t-1}$的隐藏状态）。</li>
+<li><strong>计算方式</strong>：<br>$$<br>Q_t &#x3D; \text{HiddenState}(x_{t-1}) \cdot W_Q<br>$$<ul>
+<li>例如：生成第3个Token时，<code>Q</code>仅来自<code>x₂</code>的隐藏状态。</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-Key-x2F-Value-K-x2F-V-的来源"><a href="#2-Key-x2F-Value-K-x2F-V-的来源" class="headerlink" title="(2) Key&#x2F;Value (K&#x2F;V) 的来源"></a><strong>(2) Key&#x2F;Value (K&#x2F;V) 的来源</strong></h5><ul>
+<li><strong>缓存所有历史Token的K&#x2F;V</strong>（包括刚计算的$K_t&#x2F;V_t$）：<br>$$<br>K_{1:t} &#x3D; [K_1, K_2, …, K_t], \quad V_{1:t} &#x3D; [V_1, V_2, …, V_t]<br>$$<ul>
+<li>例如：生成第3个Token时，$K&#x2F;V$包含 $x₁$ 和 $x₂$的信息。</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-注意力交互"><a href="#3-注意力交互" class="headerlink" title="(3) 注意力交互"></a><strong>(3) 注意力交互</strong></h5><ul>
+<li><strong>Q与历史K&#x2F;V计算相似度</strong>：<br>$$<br>\text{Attention}(Q_t, K_{1:t}, V_{1:t}) &#x3D; \text{Softmax}\left(\frac{Q_t K_{1:t}^T}{\sqrt{d}}\right) V_{1:t}<br>$$<ul>
+<li>由于因果掩码，$Q_t$不会与未来的$K_{t+1}$等交互（尽管此时未来信息尚未生成）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="3-为什么这样设计？"><a href="#3-为什么这样设计？" class="headerlink" title="3. 为什么这样设计？"></a><strong>3. 为什么这样设计？</strong></h4><ul>
+<li><p><strong>数学一致性</strong>：<br>自回归要求 $P(x_t | x_{&lt;t})$，即当前Token仅依赖历史信息。通过限制$Q$只与历史$K&#x2F;V$交互实现这一点。</p>
+</li>
+<li><p><strong>计算效率</strong>：  </p>
+<ul>
+<li>$Q$只需计算当前Token，避免冗余。</li>
+<li>$K&#x2F;V$缓存历史信息，避免重复计算。</li>
+</ul>
+</li>
+<li><p><strong>灵活性与泛化性</strong>：<br>$Q$作为“当前问题的提出者”，动态决定需要关注历史的哪些部分（通过Attention权重）。</p>
+</li>
+</ul>
+<hr>
+<h4 id="4-对比图示"><a href="#4-对比图示" class="headerlink" title="4. 对比图示"></a><strong>4. 对比图示</strong></h4><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">生成第3个Token (x₃) 时的数据流：</span><br><span class="line">Step 1: x₂ → Q₃ (仅当前)</span><br><span class="line">              ↓</span><br><span class="line">Step 2: Q₃ → [K₁, K₂] → Attention → 加权求和 → 输出</span><br><span class="line">              [V₁, V₂]</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>**$Q₃$**：由$x₂$的隐藏状态计算，代表“当前需要什么信息”。</li>
+<li>**$K₁, K₂$ &#x2F; $V₁, V₂$**：历史信息的编码，代表“已知的信息库”。</li>
+</ul>
+<hr>
+<h4 id="5-常见误区澄清"><a href="#5-常见误区澄清" class="headerlink" title="5. 常见误区澄清"></a><strong>5. 常见误区澄清</strong></h4><ul>
+<li>❌ 误区：“Q也需要包含所有历史Token。”<br>✅ 正解：Q仅来自当前Token，历史信息由K&#x2F;V提供。  </li>
+<li>❌ 误区：“因果掩码直接作用于Q。”<br>✅ 正解：掩码作用于Q与K的交互矩阵，确保Q不访问未来的K。</li>
+</ul>
+<hr>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><ul>
+<li><strong>$Q$ 是“提问者”</strong>：由当前Token动态生成，决定关注哪些历史信息。  </li>
+<li><strong>$K&#x2F;V$ 是“记忆库”</strong>：缓存所有历史Token的信息，供Q查询。  </li>
+<li><strong>因果性保障</strong>：通过Q与历史K&#x2F;V的交互 + 掩码，严格实现自回归的数学定义。</li>
+</ul>
+<p>这种分工使得Transformer在生成时既能高效利用历史信息，又能保持自回归的特性。</p>
 <h3 id="1-KV-Cache-的复用机制"><a href="#1-KV-Cache-的复用机制" class="headerlink" title="1. KV Cache 的复用机制"></a><strong>1. KV Cache 的复用机制</strong></h3><h4 id="1-每次生成新-token-时的计算流程"><a href="#1-每次生成新-token-时的计算流程" class="headerlink" title="(1) 每次生成新 token 时的计算流程"></a><strong>(1) 每次生成新 token 时的计算流程</strong></h4><p>当模型生成第 $ t $ 个 token 时：</p>
 <ol>
 <li><strong>当前 token 的 Query（$ Q_t $）</strong>：  <ul>
@@ -2878,26 +2954,90 @@ def forward(
 <h4 id="2-更新逻辑"><a href="#2-更新逻辑" class="headerlink" title="(2) 更新逻辑"></a><strong>(2) 更新逻辑</strong></h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 伪代码示例：生成第 t 个 token 时的 KV Cache 更新</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> decoder_layers:</span><br><span class="line">    <span class="comment"># 计算当前 token 的 K_t, V_t</span></span><br><span class="line">    K_t = current_hidden_state @ W_K  <span class="comment"># [n_h, d_h]</span></span><br><span class="line">    V_t = current_hidden_state @ W_V  <span class="comment"># [n_h, d_h]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 追加到该层的 KV Cache</span></span><br><span class="line">    layer.kv_cache.keys.append(K_t)    <span class="comment"># 形状变为 [n_h, t, d_h]</span></span><br><span class="line">    layer.kv_cache.values.append(V_t)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 注意力计算：Q_t 与所有历史 K/V 交互</span></span><br><span class="line">    attn_scores = Q_t @ concat(K_1, ..., K_t).T  <span class="comment"># 复用缓存的 K_1...K_&#123;t-1&#125;</span></span><br><span class="line">    output = attn_scores @ concat(V_1, ..., V_t)  <span class="comment"># 复用缓存的 V_1...V_&#123;t-1&#125;</span></span><br></pre></td></tr></table></figure></div>
 
 <hr>
-<h3 id="4-实际优化案例"><a href="#4-实际优化案例" class="headerlink" title="4. 实际优化案例"></a><strong>4. 实际优化案例</strong></h3><h4 id="1-DeepSeek-V3-的-MLA-优化"><a href="#1-DeepSeek-V3-的-MLA-优化" class="headerlink" title="(1) DeepSeek-V3 的 MLA 优化"></a><strong>(1) DeepSeek-V3 的 MLA 优化</strong></h4><ul>
-<li><strong>低秩压缩</strong>：<br>缓存压缩后的潜在向量 $ \mathbf{c}_t^{KV} $（而非完整 K&#x2F;V），进一步减少内存占用：<br>$$<br>\mathbf{c}_t^{KV} &#x3D; \mathbf{W}^{DKV} \mathbf{h}_t \quad (\text{例如 } d_c&#x3D;512 \ll d_h n_h&#x3D;8192)<br>$$</li>
-<li><strong>重建计算</strong>：<br>在注意力计算时动态重建 $ K $ 和 $ V $：<br>$$<br>K_t &#x3D; \mathbf{W}^{UK} \mathbf{c}_t^{KV}, \quad V_t &#x3D; \mathbf{W}^{UV} \mathbf{c}_t^{KV}<br>$$</li>
-</ul>
-<h4 id="2-分块缓存（长上下文）"><a href="#2-分块缓存（长上下文）" class="headerlink" title="(2) 分块缓存（长上下文）"></a><strong>(2) 分块缓存（长上下文）</strong></h4><ul>
-<li><strong>滑动窗口</strong>：<br>对于超长序列（如 128K），仅保留最近 $ W $ 个 token 的 KV Cache（窗口外的丢弃或压缩）。</li>
-<li><strong>分页管理</strong>：<br>类似操作系统内存分页，将 KV Cache 划分为块，按需加载。</li>
+<p>Multi-head Latent Attention (MLA) 是 DeepSeek-V2 中提出的一种创新的注意力机制，旨在解决传统注意力机制在推理效率上的瓶颈问题，特别是 Key-Value (KV) 缓存的高内存占用问题。<br>MLA 的目标是：</p>
+<ul>
+<li><strong>保持高性能</strong>：性能优于 MHA。</li>
+<li><strong>显著减少 KV 缓存</strong>：通过低秩压缩技术降低存储需求。</li>
 </ul>
 <hr>
-<h3 id="5-若不复用-KV-Cache-会怎样？"><a href="#5-若不复用-KV-Cache-会怎样？" class="headerlink" title="5. 若不复用 KV Cache 会怎样？"></a><strong>5. 若不复用 KV Cache 会怎样？</strong></h3><ul>
-<li><strong>计算爆炸</strong>：<br>生成长度为 $ T $ 的序列时，总计算量从 $ \mathcal{O}(T^2) $ 升至 $ \mathcal{O}(T^3) $（不可行）。</li>
-<li><strong>内存瓶颈</strong>：<br>每步需存储所有中间结果，显存需求激增（例如 1K token 的 24 层模型需缓存 24GB+ 的 K&#x2F;V）。</li>
+<h3 id="2-MLA-的核心设计"><a href="#2-MLA-的核心设计" class="headerlink" title="2. MLA 的核心设计"></a><strong>2. MLA 的核心设计</strong></h3><p>MLA 的核心创新是 <strong>低秩 Key-Value 联合压缩</strong> 和 <strong>解耦的旋转位置编码</strong>。</p>
+<h4 id="1-低秩-Key-Value-联合压缩"><a href="#1-低秩-Key-Value-联合压缩" class="headerlink" title="(1) 低秩 Key-Value 联合压缩"></a><strong>(1) 低秩 Key-Value 联合压缩</strong></h4><ul>
+<li><strong>压缩过程</strong>：<ol>
+<li>将 Key 和 Value 投影到一个低维的共享潜在向量 $(\mathbf{c}<em>{t}^{\text{KV}}$)：<br>$$<br>\mathbf{c}</em>{t}^{\text{KV}} &#x3D; W^{DKV} \mathbf{h}_t<br>$$<br>其中 $(d_c \ll d_h n_h$)（例如 $(d_c &#x3D; 512$)，而 $(d_h n_h &#x3D; 128 \times 128 &#x3D; 16384$)）。</li>
+<li>通过上投影矩阵 $(W^{UK}$) 和 $(W^{UV}$) 从 $(\mathbf{c}_{t}^{\text{KV}}$) 恢复 Key 和 Value：<br>$$<br>\mathbf{k}<em>t^C &#x3D; W^{UK} \mathbf{c}</em>{t}^{\text{KV}}, \quad \mathbf{v}<em>t^C &#x3D; W^{UV} \mathbf{c}</em>{t}^{\text{KV}}<br>$$</li>
+</ol>
+</li>
+<li><strong>推理优化</strong>：<ul>
+<li>只需缓存低维的 $(\mathbf{c}_{t}^{\text{KV}}$)（而非完整的 Key 和 Value），显著减少缓存需求。</li>
+<li>通过矩阵乘法的结合律，将 $(W^{UK}$) 和 $(W^{UV}$) 吸收到 Query 和输出投影矩阵中，避免重复计算。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-解耦的旋转位置编码-RoPE"><a href="#2-解耦的旋转位置编码-RoPE" class="headerlink" title="(2) 解耦的旋转位置编码 (RoPE)"></a><strong>(2) 解耦的旋转位置编码 (RoPE)</strong></h4><ul>
+<li><strong>问题</strong>：传统的 RoPE 直接应用于 Key 和 Query，导致位置敏感的矩阵无法在推理时被吸收，需实时计算 Key。</li>
+<li><strong>解决方案</strong>：<ul>
+<li>引入额外的解耦 Query $(\mathbf{q}_t^R$) 和共享 Key $(\mathbf{k}_t^R$) 来承载 RoPE：<br>$$<br>\mathbf{q}_t^R &#x3D; \text{RoPE}(W^{QR} \mathbf{c}_t^Q), \quad \mathbf{k}_t^R &#x3D; \text{RoPE}(W^{KR} \mathbf{h}_t)<br>$$</li>
+<li>将压缩的 Key&#x2F;Value 与解耦的 RoPE Key 拼接后计算注意力：<br>$$<br>\mathbf{q}_t &#x3D; [\mathbf{q}_t^C; \mathbf{q}_t^R], \quad \mathbf{k}_t &#x3D; [\mathbf{k}_t^C; \mathbf{k}_t^R]<br>$$</li>
+<li>推理时只需额外缓存 $(\mathbf{k}_t^R$)，进一步减少计算开销。</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
-<li><strong>KV Cache 的核心价值是复用历史 token 的 K&#x2F;V</strong>，避免重复计算。  </li>
-<li><strong>复用条件</strong>：自回归生成中历史 token 的表示不变，且投影矩阵固定。  </li>
-<li><strong>优化方向</strong>：通过低秩压缩（如 MLA）、共享注意力头（MQA&#x2F;GQA）等技术减少缓存大小。</li>
+<h3 id="3-KV-缓存对比"><a href="#3-KV-缓存对比" class="headerlink" title="3. KV 缓存对比"></a><strong>3. KV 缓存对比</strong></h3><p>MLA 的 KV 缓存需求显著低于传统方法：</p>
+<ul>
+<li><strong>MHA</strong>：需缓存 $(2n_h d_h l$) 个元素（例如 860.2K）。</li>
+<li><strong>MLA</strong>：仅需缓存 $((d_c + d_h^R) l$) 个元素（例如 34.6K，为 MHA 的 4%）。</li>
+<li><strong>性能</strong>：在相同参数量下，MLA 表现优于 MHA（如表 9 所示）。</li>
 </ul>
-<p>这种设计是 Transformer 自回归生成高效性的基石，也是支持长上下文（如 DeepSeek-V3 的 128K）的关键。</p>
+<hr>
+<h3 id="4-优势"><a href="#4-优势" class="headerlink" title="4. 优势"></a><strong>4. 优势</strong></h3><ol>
+<li><strong>高效推理</strong>：<ul>
+<li>减少 93.3% 的 KV 缓存，支持更大的批处理量和更长的上下文（128K）。</li>
+<li>吞吐量提升 5.76 倍（相比 DeepSeek 67B）。</li>
+</ul>
+</li>
+<li><strong>性能提升</strong>：<ul>
+<li>通过低秩压缩和解耦 RoPE，保持更强的表达能力。</li>
+</ul>
+</li>
+<li><strong>训练经济性</strong>：<ul>
+<li>激活参数仅 21B（总参数 236B），节省 42.5% 训练成本。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="5-公式总结"><a href="#5-公式总结" class="headerlink" title="5. 公式总结"></a><strong>5. 公式总结</strong></h3><p>MLA 的完整计算流程如下：</p>
+<ol>
+<li><strong>Query 压缩</strong>（可选）：<br>$$<br>\mathbf{c}_t^Q &#x3D; W^{DQ} \mathbf{h}_t, \quad \mathbf{q}_t^C &#x3D; W^{UQ} \mathbf{c}_t^Q<br>$$</li>
+<li><strong>Key-Value 压缩</strong>：<br>$$<br>\mathbf{c}_t^{\text{KV}} &#x3D; W^{DKV} \mathbf{h}_t, \quad \mathbf{k}_t^C &#x3D; W^{UK} \mathbf{c}_t^{\text{KV}}, \quad \mathbf{v}_t^C &#x3D; W^{UV} \mathbf{c}_t^{\text{KV}}<br>$$</li>
+<li><strong>解耦 RoPE</strong>：<br>$$<br>\mathbf{q}_t^R &#x3D; \text{RoPE}(W^{QR} \mathbf{c}_t^Q), \quad \mathbf{k}_t^R &#x3D; \text{RoPE}(W^{KR} \mathbf{h}_t)<br>$$</li>
+<li><strong>注意力计算</strong>：<br>$$<br>\mathbf{o}<em>{t,i} &#x3D; \sum</em>{j&#x3D;1}^t \text{Softmax}\left(\frac{[\mathbf{q}<em>{t,i}^C; \mathbf{q}</em>{t,i}^R]^T [\mathbf{k}_{j,i}^C; \mathbf{k}<em>j^R]}{\sqrt{d_h + d_h^R}}\right) \mathbf{v}</em>{j,i}^C<br>$$</li>
+</ol>
+<hr>
+<h3 id="6-应用与意义"><a href="#6-应用与意义" class="headerlink" title="6. 应用与意义"></a><strong>6. 应用与意义</strong></h3><p>MLA 是 DeepSeek-V2 实现高效推理的核心技术之一，尤其适合：</p>
+<ul>
+<li><strong>长上下文场景</strong>（如 128K 文本处理）。</li>
+<li><strong>资源受限部署</strong>（如减少显存占用）。</li>
+<li><strong>MoE 模型</strong>：与 DeepSeekMoE 结合，平衡稀疏激活与计算效率。</li>
+</ul>
+<hr>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="ROPE"><a href="#ROPE" class="headerlink" title="ROPE"></a>ROPE</h4><h5 id="原始-Transformer-的位置编码设计"><a href="#原始-Transformer-的位置编码设计" class="headerlink" title="原始 Transformer 的位置编码设计"></a><strong>原始 Transformer 的位置编码设计</strong></h5><p>在原始 Transformer 中，注意力机制本身不具备感知 token 位置的能力，因此需要显式地引入位置信息。Vaswani 等人选择了一种简单而有效的方案——正弦位置编码，其设计基于以下考虑：</p>
+<h6 id="1-绝对位置编码"><a href="#1-绝对位置编码" class="headerlink" title="(1) 绝对位置编码"></a>(1) <strong>绝对位置编码</strong></h6><ul>
+<li><strong>实现方式</strong>：正弦位置编码通过正弦和余弦函数为每个 token 的位置生成一个固定向量。具体公式为：<br>$$<br>PE(pos, 2i) &#x3D; \sin\left(\frac{pos}{10000^{2i&#x2F;d}}\right), \quad PE(pos, 2i+1) &#x3D; \cos\left(\frac{pos}{10000^{2i&#x2F;d}}\right)<br>$$<br>其中 $pos$ 是 token 的位置，$i$ 是嵌入维度的索引，$d$ 是模型的嵌入维度。</li>
+<li><strong>特点</strong>：这种编码为每个位置分配一个唯一的向量，与 token 的词嵌入相加后输入到模型中。</li>
+</ul>
+<h6 id="2-无参数设计"><a href="#2-无参数设计" class="headerlink" title="(2) 无参数设计"></a>(2) <strong>无参数设计</strong></h6><ul>
+<li><strong>原因</strong>：正弦位置编码不需要训练任何参数，完全由数学公式生成。这减少了模型的复杂性，并避免了因位置编码引入额外的可学习参数。</li>
+<li><strong>优势</strong>：在当时，这种方法简单高效，且适用于任意长度的序列（理论上），因为位置向量可以按需计算。</li>
+</ul>
+<h3 id="RoPE-Rotary-Position-Embedding-旋转位置编码-详解"><a href="#RoPE-Rotary-Position-Embedding-旋转位置编码-详解" class="headerlink" title="RoPE(Rotary Position Embedding,旋转位置编码)详解"></a><strong>RoPE(Rotary Position Embedding,旋转位置编码)详解</strong></h3><hr>
+<p>RoPE 是一种用于 Transformer 的位置编码方法，由苏剑林等人提出(论文《RoFormer: Enhanced Transformer with Rotary Position Embedding》)。它的核心思想是通过<strong>旋转矩阵</strong>将位置信息融入 Query 和 Key 的向量中，从而在不增加显式位置编码的情况下，实现对序列位置的建模。</p>
+<h5 id="RoPE-的核心原理"><a href="#RoPE-的核心原理" class="headerlink" title="RoPE 的核心原理"></a><strong>RoPE 的核心原理</strong></h5><h6 id="1-数学形式"><a href="#1-数学形式" class="headerlink" title="(1) 数学形式"></a><strong>(1) 数学形式</strong></h6><p>对于位置为 $ m $ 的 token,其 Query 或 Key 向量 $\mathbf{x}_m \in \mathbb{R}^d $ 通过旋转矩阵 $\mathbf{R}_m$进行变换：<br>$$<br>\mathbf{x}_m \rightarrow \mathbf{R}_m \mathbf{x}_m<br>$$<br>其中旋转矩阵 $ \mathbf{R}_m $ 是一个分块对角矩阵，每个子矩阵对向量的二维分量施加旋转：<br>$$<br>\mathbf{R}_m &#x3D; \begin{pmatrix}<br>\cos m\theta_1 &amp; -\sin m\theta_1 &amp; 0 &amp; \cdots &amp; 0 \<br>\sin m\theta_1 &amp; \cos m\theta_1 &amp; 0 &amp; \cdots &amp; 0 \<br>0 &amp; 0 &amp; \cos m\theta_2 &amp; -\sin m\theta_2 &amp; 0 \<br>0 &amp; 0 &amp; \sin m\theta_2 &amp; \cos m\theta_2 &amp; 0 \<br>\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br>\end{pmatrix}<br>$$<br>参数 $ \theta_i $ 控制旋转频率，通常设置为 $ \theta_i &#x3D; 10000^{-2i&#x2F;d} $。</p>
+<h6 id="2-特点"><a href="#2-特点" class="headerlink" title="(2) 特点"></a><strong>(2) 特点</strong></h6><ul>
+<li><strong>相对位置感知</strong>：通过旋转角度的差值 $ \theta(m-n) $，模型能自然学习相对位置关系。</li>
+<li><strong>长程衰减性</strong>：高频旋转分量（大 $ i $）对远距离位置的依赖减弱，符合语言建模的局部性先验。</li>
+<li><strong>无需显式拼接位置编码</strong>：直接修改 Query 和 Key 的值，节省计算和存储。</li>
+</ul>
 ]]></content>
   </entry>
 </search>
