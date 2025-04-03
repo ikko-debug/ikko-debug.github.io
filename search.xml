@@ -3043,7 +3043,81 @@ def forward(
   <entry>
     <title>mamba</title>
     <url>/2025/03/31/mamba/</url>
-    <content><![CDATA[<h2 id="ssm与其它序列模型的比较"><a href="#ssm与其它序列模型的比较" class="headerlink" title="ssm与其它序列模型的比较"></a>ssm与其它序列模型的比较</h2><h3 id="1-RNN（循环神经网络）"><a href="#1-RNN（循环神经网络）" class="headerlink" title="(1) RNN（循环神经网络）"></a><strong>(1) RNN（循环神经网络）</strong></h3><ul>
+    <content><![CDATA[<h2 id="ssm公式推导"><a href="#ssm公式推导" class="headerlink" title="ssm公式推导"></a>ssm公式推导</h2><p>，因为机器学习中的序列数据是离散的，而原始SSM通常以连续形式定义。从连续形式 $ h’(t) &#x3D; A h(t) + B x(t) $ 求解并离散化，得到离散形式 $ h_t &#x3D; \bar{A} h_{t-1} + \bar{B} x_t $。</p>
+<h3 id="1-连续微分方程"><a href="#1-连续微分方程" class="headerlink" title="1. 连续微分方程"></a>1. <strong>连续微分方程</strong></h3><p>SSM的连续形式为：</p>
+<ul>
+<li><p><strong>状态更新</strong>：<br>$ h’(t) &#x3D; A h(t) + B x(t) $<br>其中：</p>
+<ul>
+<li>$ h(t) $ 是隐状态向量（随时间 $ t $ 连续变化）。</li>
+<li>$ h’(t) &#x3D; \frac{dh(t)}{dt} $ 是状态对时间的导数。</li>
+<li>$ A $ 是状态转移矩阵（通常是方阵）。</li>
+<li>$ B $ 是输入矩阵。</li>
+<li>$ x(t) $ 是输入（可以是标量或向量）。</li>
+</ul>
+</li>
+<li><p><strong>输出</strong>：<br>$ y(t) &#x3D; C h(t) $<br>（这里我们主要关注状态更新方程的离散化，输出部分直接应用离散后的状态）。</p>
+</li>
+</ul>
+<p>这是一个一阶线性常微分方程（ODE），我们需要求解 $ h(t) $ 的解析解，然后将其离散化。</p>
+<hr>
+<h3 id="2-求解连续微分方程"><a href="#2-求解连续微分方程" class="headerlink" title="2. 求解连续微分方程"></a>2. <strong>求解连续微分方程</strong></h3><p>为了离散化，我们首先需要求解这个ODE的通解。假设初始条件为 $ h(t_0) &#x3D; h_0 $，输入 $ x(t) $ 是已知的。</p>
+<h4 id="1-齐次方程的解"><a href="#1-齐次方程的解" class="headerlink" title="(1) 齐次方程的解"></a>(1) 齐次方程的解</h4><p>先考虑齐次情况（无输入项，即 $ x(t) &#x3D; 0 $）：<br>$ h’(t) &#x3D; A h(t) $<br>这是一个标准的线性齐次ODE，其解为：<br>$$<br>h(t) &#x3D; e^{A (t - t_0)} h_0<br>$$<br>其中 $ e^{At} $ 是矩阵指数，定义为：<br>$$<br>e^{At} &#x3D; I + At + \frac{(At)^2}{2!} + \frac{(At)^3}{3!} + \cdots &#x3D; \sum_{k&#x3D;0}^\infty \frac{(At)^k}{k!}<br>$$<br>这是状态的自然演化，受初始条件 $ h_0 $ 和矩阵 $ A $ 控制。</p>
+<h4 id="2-非齐次方程的解"><a href="#2-非齐次方程的解" class="headerlink" title="(2) 非齐次方程的解"></a>(2) 非齐次方程的解</h4><p>现在加入输入项 $ B x(t) $，完整的方程是：<br>$ h’(t) &#x3D; A h(t) + B x(t) $<br>非齐次线性ODE的通解是<strong>齐次解</strong>加上<strong>特解</strong>。使用<strong>变分常数法</strong>求解：</p>
+<ul>
+<li><p>假设特解形式为 $ h_p(t) &#x3D; e^{At} v(t) $，其中 $ v(t) $ 是待定函数。</p>
+</li>
+<li><p>代入原方程：<br>$$<br>h_p’(t) &#x3D; A e^{At} v(t) + e^{At} v’(t)<br>$$<br>$$<br>h_p’(t) &#x3D; A h_p(t) + B x(t)<br>$$<br>得到：<br>$$<br>A e^{At} v(t) + e^{At} v’(t) &#x3D; A e^{At} v(t) + B x(t)<br>$$<br>两边消去 $ A e^{At} v(t) $：<br>$$<br>e^{At} v’(t) &#x3D; B x(t)<br>$$<br>$$<br>v’(t) &#x3D; e^{-At} B x(t)<br>$$</p>
+</li>
+<li><p>积分求 $ v(t) $：<br>$$<br>v(t) &#x3D; \int_{t_0}^t e^{-A\tau} B x(\tau) d\tau + v(t_0)<br>$$<br>（$ v(t_0) $ 是常数，由初始条件决定）。</p>
+</li>
+<li><p>代回特解：<br>$$<br>h_p(t) &#x3D; e^{At} v(t) &#x3D; e^{At} \left( \int_{t_0}^t e^{-A\tau} B x(\tau) d\tau + v(t_0) \right)<br>$$</p>
+</li>
+<li><p>通解：<br>$$<br>h(t) &#x3D; h_h(t) + h_p(t) &#x3D; e^{A(t - t_0)} h_0 + e^{At} \int_{t_0}^t e^{-A\tau} B x(\tau) d\tau<br>$$<br>调整积分项：<br>$$<br>h(t) &#x3D; e^{A(t - t_0)} h_0 + \int_{t_0}^t e^{A(t - \tau)} B x(\tau) d\tau<br>$$<br>（通过变量替换 $ s &#x3D; t - \tau $ 可验证等价性）。</p>
+</li>
+</ul>
+<h4 id="通解公式"><a href="#通解公式" class="headerlink" title="通解公式"></a>通解公式</h4><p>最终，连续SSM的状态解为：<br>$$<br>h(t) &#x3D; e^{A(t - t_0)} h_0 + \int_{t_0}^t e^{A(t - \tau)} B x(\tau) d\tau<br>$$</p>
+<ul>
+<li>第一项：初始状态随时间演化。</li>
+<li>第二项：输入 $ x(t) $ 在时间区间 $ [t_0, t] $ 内的累积影响。</li>
+</ul>
+<hr>
+<h3 id="3-离散化：零阶保持（ZOH）"><a href="#3-离散化：零阶保持（ZOH）" class="headerlink" title="3. 离散化：零阶保持（ZOH）"></a>3. <strong>离散化：零阶保持（ZOH）</strong></h3><p>在离散时间序列中，假设时间步长为 $ \Delta $，输入 $ x(t) $ 在每个区间 $ [t_{n-1}, t_n) $ 内是常数（即 $ x(t) &#x3D; x_{n-1} $），我们需要计算 $ h(t_n) $。</p>
+<h4 id="设置时间点"><a href="#设置时间点" class="headerlink" title="设置时间点"></a>设置时间点</h4><ul>
+<li>$ t_0 &#x3D; 0 $，$ t_1 &#x3D; \Delta $，$ t_2 &#x3D; 2\Delta $，…，$ t_n &#x3D; n\Delta $。</li>
+<li>初始状态 $ h(0) &#x3D; h_0 $。</li>
+<li>目标：求 $ h(t_1) $、$ h(t_2) $ 等。</li>
+</ul>
+<h4 id="计算-h-Delta"><a href="#计算-h-Delta" class="headerlink" title="计算 $ h(\Delta) $"></a>计算 $ h(\Delta) $</h4><p>令 $ t &#x3D; \Delta $，$ t_0 &#x3D; 0 $：<br>$$<br>h(\Delta) &#x3D; e^{A\Delta} h_0 + \int_0^\Delta e^{A(\Delta - \tau)} B x(\tau) d\tau<br>$$<br>假设 $ x(\tau) &#x3D; x_0 $（常数，零阶保持假设）：<br>$$<br>h(\Delta) &#x3D; e^{A\Delta} h_0 + \int_0^\Delta e^{A(\Delta - \tau)} B x_0 d\tau<br>$$</p>
+<h4 id="积分计算"><a href="#积分计算" class="headerlink" title="积分计算"></a>积分计算</h4><p>令 $ s &#x3D; \Delta - \tau $，则 $ d\tau &#x3D; -ds $，积分限从 $ \tau &#x3D; 0 $ 到 $ \Delta $ 变为 $ s &#x3D; \Delta $ 到 $ 0 $：<br>$$<br>\int_0^\Delta e^{A(\Delta - \tau)} B x_0 d\tau &#x3D; \int_\Delta^0 e^{As} B x_0 (-ds) &#x3D; \int_0^\Delta e^{As} B x_0 ds<br>$$<br>因为 $ x_0 $ 是常数，提出积分外：<br>$$<br>\int_0^\Delta e^{As} ds B x_0<br>$$<br>计算积分：<br>$$<br>\int_0^\Delta e^{As} ds &#x3D; A^{-1} (e^{A\Delta} - I)<br>$$<br>（假设 $ A $ 可逆，若不可逆则需用伪逆或更广义形式）。<br>因此：<br>$$<br>h(\Delta) &#x3D; e^{A\Delta} h_0 + A^{-1} (e^{A\Delta} - I) B x_0<br>$$</p>
+<h4 id="离散递推"><a href="#离散递推" class="headerlink" title="离散递推"></a>离散递推</h4><p>定义：</p>
+<ul>
+<li>$ h_n &#x3D; h(n\Delta) $</li>
+<li>$ \bar{A} &#x3D; e^{A\Delta} $（离散状态转移矩阵）</li>
+<li>$ \bar{B} &#x3D; A^{-1} (e^{A\Delta} - I) B $（离散输入矩阵）</li>
+</ul>
+<p>则：<br>$$<br>h_1 &#x3D; \bar{A} h_0 + \bar{B} x_0<br>$$<br>推广到任意时间步：<br>$$<br>h_n &#x3D; \bar{A} h_{n-1} + \bar{B} x_{n-1}<br>$$</p>
+<hr>
+<h3 id="4-离散化公式"><a href="#4-离散化公式" class="headerlink" title="4. 离散化公式"></a>4. <strong>离散化公式</strong></h3><p>最终离散化的SSM为：</p>
+<ul>
+<li><strong>状态更新</strong>：<br>$ h_t &#x3D; \bar{A} h_{t-1} + \bar{B} x_t $</li>
+<li><strong>输出</strong>：<br>$ y_t &#x3D; C h_t $<br>其中：</li>
+<li>$ \bar{A} &#x3D; e^{A\Delta} $</li>
+<li>$ \bar{B} &#x3D; A^{-1} (e^{A\Delta} - I) B $</li>
+</ul>
+<hr>
+<h3 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5. 注意事项"></a>5. <strong>注意事项</strong></h3><ul>
+<li>**步长 $ \Delta $**：在S4、Mamba等模型中，$ \Delta $ 可以是可学习的参数，动态调整离散化精度。</li>
+<li>**矩阵指数 $ e^{A\Delta} $**：实际计算中通过数值方法（如对角化或Pade近似）实现。</li>
+<li>**不可逆 $ A $**：若 $ A $ 不可逆，$ \bar{B} $ 的定义需调整，通常直接参数化 $ \bar{A} $ 和 $ \bar{B} $ 而非严格依赖 $ A^{-1} $。</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>离散化SSM的求解过程：</p>
+<ol>
+<li>从连续方程 $ h’(t) &#x3D; A h(t) + B x(t) $ 出发，求通解：<br>$$<br>h(t) &#x3D; e^{A(t - t_0)} h_0 + \int_{t_0}^t e^{A(t - \tau)} B x(\tau) d\tau<br>$$</li>
+<li>假设输入在每个时间步内常数（ZOH），计算 $ h(\Delta) $：<br>$$<br>h(\Delta) &#x3D; e^{A\Delta} h_0 + A^{-1} (e^{A\Delta} - I) B x_0<br>$$</li>
+<li>提取离散参数 $ \bar{A} $ 和 $ \bar{B} $，得到递归形式：<br>$$<br>h_t &#x3D; \bar{A} h_{t-1} + \bar{B} x_t<br>$$</li>
+</ol>
+<h2 id="ssm与其它序列模型的比较"><a href="#ssm与其它序列模型的比较" class="headerlink" title="ssm与其它序列模型的比较"></a>ssm与其它序列模型的比较</h2><h3 id="1-RNN（循环神经网络）"><a href="#1-RNN（循环神经网络）" class="headerlink" title="(1) RNN（循环神经网络）"></a><strong>(1) RNN（循环神经网络）</strong></h3><ul>
 <li><p><strong>基本结构</strong>：<br>$$<br>h_t &#x3D; \sigma(W_h h_{t-1} + W_x x_t + b)<br>$$</p>
 <ul>
 <li>通过隐藏状态 $ h_t $ 传递历史信息。</li>
