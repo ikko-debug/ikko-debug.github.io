@@ -407,7 +407,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -447,7 +447,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -462,6 +462,156 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/04/04/mysql%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5elasticsearch/">
+                            mysql数据导入elasticsearch
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            首先创建索引：
+12345678910111213141516171819curl -XPUT -u elastic:密码 IP:9200/索引名 -H &#x27;Content-Type: application/json&#x27; -d &#x27;&#123;    &quot;settings&quot;: &#123;        &quot;number_of_shards...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Apr 04 2023 14:22:39 GMT+0800">
+                
+                    2023-04-04
+                
+            </span>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/elasticsearch/">elasticsearch</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/04/04/mysql%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5elasticsearch/">Read more<span class="seo-reader-text">mysql数据导入elasticsearch</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/">
+                            记录navicat12连接mysql 2048
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            原因是mysql8版本修改了密钥认证方式，需要进行修改
+mysql -u root -p
+ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘password.’ PASSWORD EXPIRE NEVER;
+这样会输出ERROR 1396 (HY000): Operation ALTER USER failed for ‘root‘@’localhos...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Mar 26 2023 23:00:00 GMT+0800">
+                
+                    2023-03-26
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2023/03/26/navicat%E8%BF%9E%E6%8E%A5mysql-2048/">Read more<span class="seo-reader-text">记录navicat12连接mysql 2048</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                            数据库操作记录
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            老是忘记数据库许多基本操作，开个贴记录一下
+数据库一些基本操作truncate table删除一个表中所有的数据注意truncate删除数据后是不可以rollback的。
+从数据库一列提取无重复数据插入另一张表12INSERT INTO search_policygrade (policy_grade)SELECT DISTINCT policy_grade FROM search_poli...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Mar 21 2023 22:31:38 GMT+0800">
+                
+                    2023-03-21
+                
+            </span>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/mysql/">mysql</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/">Read more<span class="seo-reader-text">数据库操作记录</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -783,11 +933,11 @@ Bulk API 是 Elasticsearch 提供的一种批量执行多个索引、删除或�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        26 posts in total
+                        29 posts in total
                     </span>
                     
                         <span>
-                            47.2k words in total
+                            53.5k words in total
                         </span>
                     
                 </p>
