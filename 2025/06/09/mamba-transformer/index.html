@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ikko">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://ikko-debug.github.io/2025/06/09/mamba-transformer/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mamba-transformer">
+<meta property="og:url" content="http://ikko-debug.github.io/2025/06/09/mamba-transformer/index.html">
+<meta property="og:site_name" content="IKKO">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-06-09T05:47:33.000Z">
+<meta property="article:modified_time" content="2025-12-17T12:43:12.340Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-P5152X2PGJ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P5152X2PGJ');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/idea.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/idea.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/idea.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            mamba-transformer | IKKO
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"G-P5152X2PGJ"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                IKKO
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">mamba-transformer</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-06-09 13:47:33</span>
+        <span class="mobile">2025-06-09 13:47:33</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-12-17 20:43:12</span>
+            <span class="mobile">2025-12-17 20:43:12</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h3 id="什么是特征融合？"><a href="#什么是特征融合？" class="headerlink" title="什么是特征融合？"></a>什么是特征融合？</h3><p><strong>特征融合</strong> 是一种将来自多个源头或多种表示的特征信息组合成一个统一、更具信息量、更鲁棒的特征表示的过程，目的是为了提高机器学习模型的性能（如准确性、稳定性）。</p>
+<p>这里的“多个源头”可以指：</p>
+<ul>
+<li>**多模态数据 (Multimodal Data)**：来自不同类型传感器或数据源的信息。这是最经典的应用场景。<ul>
+<li><strong>例子</strong>：自动驾驶中，融合<strong>摄像头</strong>（视觉图像）、<strong>激光雷达 LiDAR</strong>（3D点云）和<strong>毫米波雷达 RADAR</strong>（速度信息）的特征，来更精确地识别障碍物。</li>
+</ul>
+</li>
+<li><strong>不同网络层的特征</strong>: 在深度学习中，一个模型的不同层级会学到不同抽象程度的特征。<ul>
+<li><strong>例子</strong>：浅层网络学习到边缘、颜色等细节特征，深层网络学习到轮廓、形状等高级语义特征。将它们融合可以兼顾细节和整体。</li>
+</ul>
+</li>
+<li><strong>不同模型的特征</strong>: 用多个不同的模型处理同一个数据，然后融合它们的特征。<ul>
+<li><strong>例子</strong>：用一个模型专注于提取纹理特征，另一个模型专注于提取形状特征，然后将两者融合。</li>
+</ul>
+</li>
+</ul>
+<h3 id="为什么要进行特征融合？"><a href="#为什么要进行特征融合？" class="headerlink" title="为什么要进行特征融合？"></a>为什么要进行特征融合？</h3><p>核心目标是 <strong>“取长补短，强强联合”</strong>，从而获得比任何单一特征更好的效果。</p>
+<ol>
+<li><strong>信息互补</strong>：不同的特征源往往包含互补的信息。例如，摄像头在雨雾天效果会变差，但激光雷达受影响较小；激光雷达难以识别颜色（如红绿灯），而摄像头可以。融合两者就能在各种环境下都表现得更好。</li>
+<li>**提高鲁棒性 (Robustness)**：当某个数据源（或模态）出现噪声、损坏或丢失时，融合了其他来源信息的模型依然能够正常工作，不会因为“单点故障”而完全失效。</li>
+<li>**提升准确性 (Accuracy)**：融合后的特征维度更高、信息量更丰富，可以为模型的最终决策提供更全面的依据，从而做出更精确的判断。</li>
+<li><strong>增强特征表达能力</strong>：融合可以创造出新的、更有判别力的特征，这些特征在原始的单一特征空间中可能并不存在。</li>
+</ol>
+<hr>
+<h3 id="常见的特征融合方法"><a href="#常见的特征融合方法" class="headerlink" title="常见的特征融合方法"></a>常见的特征融合方法</h3><p>特征融合可以发生在模型处理流程的不同阶段，主要分为三类：</p>
+<h4 id="1-早融合-Early-Fusion"><a href="#1-早融合-Early-Fusion" class="headerlink" title="1. 早融合 (Early Fusion)"></a>1. 早融合 (Early Fusion)</h4><p>也叫数据级融合 (Data-level Fusion)。它在整个流程的最前端，直接将原始数据或最基础的特征拼接在一起。</p>
+<ul>
+<li><strong>做法</strong>：将不同特征向量直接连接 (Concatenate) 成一个更长的向量，然后输入给后续的单一模型进行处理。</li>
+<li><strong>比喻</strong>：把所有食材（视觉、听觉信息）一股脑全倒进一个锅里，然后开始烹饪。</li>
+<li><strong>优点</strong>：简单直接，容易实现。</li>
+<li><strong>缺点</strong>：<ul>
+<li>要求数据对齐严格（例如，图像的像素要和点云的点对应）。</li>
+<li>可能会因为某个特征维度过高而“淹没”其他特征。</li>
+<li>没有充分利用每个模态的独有特性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-中间融合-Intermediate-Fusion"><a href="#2-中间融合-Intermediate-Fusion" class="headerlink" title="2. 中间融合 (Intermediate Fusion)"></a>2. 中间融合 (Intermediate Fusion)</h4><p>也叫特征级融合 (Feature-level Fusion)。这是目前在深度学习中最主流、最灵活的方式。</p>
+<ul>
+<li><strong>做法</strong>：为每种数据源设计一个独立的特征提取器（比如一个小的神经网络分支），将它们处理到一定深度、得到各自的高级特征后，再将这些高级特征进行融合。</li>
+<li><strong>比喻</strong>：先把每种食材（牛肉、土豆）分别处理到半熟状态，提炼出各自的精华，然后再放到一起继续烹饪。</li>
+<li><strong>常见融合操作</strong>：<ul>
+<li>**拼接 (Concatenation)**：<code>[特征A, 特征B]</code></li>
+<li>**逐元素相加/相乘 (Element-wise Sum/Multiplication)**：<code>特征A + 特征B</code></li>
+<li>**注意力机制 (Attention Mechanism)**：通过学习权重，动态地决定在当前任务中，应该更“关注”哪个特征源。这是一种非常强大和流行的融合方式。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-晚融合-Late-Fusion"><a href="#3-晚融合-Late-Fusion" class="headerlink" title="3. 晚融合 (Late Fusion)"></a>3. 晚融合 (Late Fusion)</h4><p>也叫决策级融合 (Decision-level Fusion)。它在流程的最后端，直到每个模型都独立做出预测后，才融合它们的结果。</p>
+<ul>
+<li><strong>做法</strong>：为每个特征源训练一个完整的独立模型，得到各自的预测结果（比如分类概率），然后通过投票、取平均值或再训练一个小型模型来综合这些预测，得出最终结论。</li>
+<li><strong>比喻</strong>：请来三位专家（视觉专家、听觉专家、触觉专家），让他们分别给出自己的判断，然后您综合三位专家的意见，做出最后决定。</li>
+<li><strong>优点</strong>：非常灵活，对数据对齐要求低，可以融合异构模型。</li>
+<li><strong>缺点</strong>：没有在特征层面进行深入交互，可能无法发现模态间深层次的关联。</li>
+</ul>
+<h3 id="学术界通常如何进行这种融合？"><a href="#学术界通常如何进行这种融合？" class="headerlink" title="学术界通常如何进行这种融合？"></a>学术界通常如何进行这种融合？</h3><p>学术论文中已经涌现出多种融合 Transformer 和 Mamba 的方法，主要可以归纳为以下几种结构：</p>
+<h4 id="1-并行结构-Parallel-Structure"><a href="#1-并行结构-Parallel-Structure" class="headerlink" title="1. 并行结构 (Parallel Structure)"></a>1. 并行结构 (Parallel Structure)</h4><p>这是最经典的中间融合方式。在模型的一个“块” (Block) 中，输入数据同时流经两个分支：</p>
+<ul>
+<li>一个分支是 Transformer 的多头自注意力 (Multi-head Self-Attention) 模块。</li>
+<li>另一个分支是 Mamba 模块。</li>
+</ul>
+<p>两者分别提取特征后，通过<strong>拼接 (Concatenate)</strong> 或<strong>逐元素相加 (Element-wise Sum)</strong> 的方式将特征向量融合在一起，再送入后续层。</p>
+<ul>
+<li><strong>优点</strong>：可以平等地、同时地捕捉两种不同类型的依赖关系。</li>
+<li><strong>例子</strong>：很多名为 <code>"MambaFormer"</code> 或 <code>"Vision Mamba"</code> 的模型都采用了类似结构。</li>
+</ul>
+<h4 id="2-串行结构-Serial-Structure"><a href="#2-串行结构-Serial-Structure" class="headerlink" title="2. 串行结构 (Serial Structure)"></a>2. 串行结构 (Serial Structure)</h4><p>将 Transformer 块和 Mamba 块串联起来堆叠。</p>
+<ul>
+<li><p><strong>Mamba -&gt; Transformer</strong>：先用 Mamba 高效地处理长序列，对局部信息进行编码和压缩，然后将 Mamba 的输出作为 Transformer 的输入，让 Transformer 在一个更精炼的序列上进行全局关系建模。</p>
+</li>
+<li><p><strong>Transformer -&gt; Mamba</strong>：先用 Transformer 捕捉全局语义信息，然后让 Mamba 在这个富含全局信息的特征上进行序列化的细致处理。</p>
+</li>
+<li><p><strong>优点</strong>：可以形成一种“粗粒度到细粒度”或反之的处理流程。</p>
+</li>
+</ul>
+<h4 id="3-混合与交错结构-Hybrid-amp-Interleaved-Structure"><a href="#3-混合与交错结构-Hybrid-amp-Interleaved-Structure" class="headerlink" title="3. 混合与交错结构 (Hybrid & Interleaved Structure)"></a>3. 混合与交错结构 (Hybrid &amp; Interleaved Structure)</h4><p>不在每个块中都进行融合，而是在整个模型中交错地堆叠 Transformer 块和 Mamba 块。</p>
+<ul>
+<li><strong>做法</strong>：比如，模型的前几层使用 Mamba 块来快速处理输入的长序列，中间几层使用 Transformer 块来深入理解语义关系，最后几层再用 Mamba 块进行整合。</li>
+<li><strong>代表作</strong>：AI21 Labs 的 <strong>Jamba</strong> 模型就是一个著名的例子，它交错地放置 Transformer 和 Mamba 层，并结合了混合专家（MoE）技术。</li>
+</ul>
+<h2 id="杂交品种"><a href="#杂交品种" class="headerlink" title="杂交品种"></a>杂交品种</h2><h3 id="TransMamba（《A-Hybrid-Model-Based-on-Transformer-and-Mamba-for-Enhanced-Sequence-Modeling》）："><a href="#TransMamba（《A-Hybrid-Model-Based-on-Transformer-and-Mamba-for-Enhanced-Sequence-Modeling》）：" class="headerlink" title="TransMamba（《A Hybrid Model Based on Transformer and Mamba for Enhanced Sequence Modeling》）："></a>TransMamba（《A Hybrid Model Based on Transformer and Mamba for Enhanced Sequence Modeling》）：</h3><ul>
+<li><p><strong>核心架构</strong>：结合Transformer编码器（全局特征提取）和Mamba解码器（局部顺序建模），通过特征融合机制整合全局上下文与局部依赖。</p>
+</li>
+<li><p><strong>关键创新</strong>：</p>
+<ul>
+<li>动态切换机制：通过共享参数实现注意力机制（Transformer）和状态空间机制（Mamba）之间的动态切换，增强灵活性和适应性。</li>
+<li>上下文感知：融合机制捕捉局部和全局特征，提升序列建模质量。</li>
+<li>高效性：Mamba的线性复杂度（O(N)）降低长序列计算开销，Transformer编码器保留高质量特征提取。</li>
+</ul>
+</li>
+<li><p><strong>优势</strong>：</p>
+<ul>
+<li>高效处理长序列。</li>
+<li>提升复杂NLP任务性能，优于单独Transformer或Mamba。</li>
+<li>保留并行训练能力，适合大规模数据集。</li>
+</ul>
+</li>
+<li><p><strong>应用</strong>：长文本任务（翻译、摘要）、顺序敏感任务（生成、时间序列）。</p>
+</li>
+<li><p><strong>不足</strong>：融合机制复杂，缺乏具体性能数据，未深入探讨多模态应用。</p>
+</li>
+<li><p><strong>未来方向</strong>：优化特征融合，适配NAR、多模态任务，与SOTA模型比较。</p>
+</li>
+<li></li>
+</ul>
+<h3 id="Jamba（《Jamba-A-Hybrid-Transformer-Mamba-Mixture-of-Experts-Model》）："><a href="#Jamba（《Jamba-A-Hybrid-Transformer-Mamba-Mixture-of-Experts-Model》）：" class="headerlink" title="Jamba（《Jamba: A Hybrid Transformer-Mamba Mixture-of-Experts Model》）："></a>Jamba（《Jamba: A Hybrid Transformer-Mamba Mixture-of-Experts Model》）：</h3><ul>
+<li><strong>核心架构</strong>：结合Transformer和Mamba，采用混合专家（MoE）架构，交替使用注意力层和Mamba层，通过专家选择机制动态分配计算。</li>
+<li><strong>关键创新</strong>：<ul>
+<li>MoE框架：通过稀疏激活的专家模块降低计算成本，平衡Transformer的全局建模与Mamba的线性复杂度。</li>
+<li>交替层设计：Transformer层处理全局依赖，Mamba层处理局部顺序，优化长序列性能。</li>
+<li>高效推理：通过专家路由和Mamba的低复杂度实现高吞吐量。</li>
+</ul>
+</li>
+<li><strong>优势</strong>：<ul>
+<li>在长序列任务中实现高吞吐量和低内存占用。</li>
+<li>性能接近纯Transformer模型，同时显著降低计算成本。</li>
+<li>适合资源受限环境（如边缘设备）。</li>
+</ul>
+</li>
+<li><strong>应用</strong>：长上下文问答、文档处理、实时翻译。</li>
+<li><strong>与NAR关联</strong>：Mamba的线性复杂度可加速NAR生成，MoE框架可提升并行生成质量。</li>
+<li><strong>不足</strong>：MoE训练复杂，专家路由可能导致不稳定，需大量数据优化。</li>
+<li><strong>未来方向</strong>：简化MoE训练，增强NAR适配性，探索多模态扩展。</li>
+</ul>
+<h3 id="Hymba（《Hymba-A-Hybrid-head-Architecture-for-Small-Language-Models》）："><a href="#Hymba（《Hymba-A-Hybrid-head-Architecture-for-Small-Language-Models》）：" class="headerlink" title="Hymba（《Hymba: A Hybrid-head Architecture for Small Language Models》）："></a>Hymba（《Hymba: A Hybrid-head Architecture for Small Language Models》）：</h3><ul>
+<li><p><strong>核心架构</strong>：在同一层并行整合Transformer注意力头和状态空间模型（SSM）头，通过混合头模块同时处理输入，结合可学习元标记（meta tokens）优化性能。</p>
+</li>
+<li><p><strong>关键创新</strong>：</p>
+<ul>
+<li>混合头模块：注意力头提供高分辨率回忆，SSM头实现高效上下文总结， 并行处理提升灵活性。</li>
+<li>可学习元标记：前置于输入序列，存储关键信息，缓解注意力机制的“强制关注”问题，增强任务适配性。</li>
+<li>KV缓存优化：通过跨层键值（KV）缓存共享和局部滑动窗口注意力，减少11.67倍缓存大小，提升3.49倍吞吐量。</li>
+</ul>
+</li>
+<li><p><strong>优势</strong>：</p>
+<ul>
+<li>超越子2B参数模型，甚至优于Llama-3.2-3B（精度高1.32%）。</li>
+<li>内存效率高，适合资源受限设备。</li>
+<li>在常识推理、问答、回忆密集任务中表现优异。</li>
+</ul>
+</li>
+<li><p><strong>应用</strong>：常识推理、问答、实时NLP任务、边缘设备部署。</p>
+</li>
+<li><p><strong>不足</strong>：混合头设计增加模型复杂性，元标记效果需跨领域验证。</p>
+</li>
+<li><p><strong>未来方向</strong>：优化混合头融合，扩展到多模态任务，探索元标记的外部知识整合。</p>
+</li>
+</ul>
+<h3 id="Mamba-2-Hybrid（《An-Empirical-Study-of-Mamba-based-Language-Models》）："><a href="#Mamba-2-Hybrid（《An-Empirical-Study-of-Mamba-based-Language-Models》）：" class="headerlink" title="Mamba-2-Hybrid（《An Empirical Study of Mamba-based Language Models》）："></a>Mamba-2-Hybrid（《An Empirical Study of Mamba-based Language Models》）：</h3><ul>
+<li><p><strong>核心架构</strong>：结合Mamba-2（改进的SSM）和Transformer，交替堆叠注意力层和SSM层，优化长序列建模效率。</p>
+</li>
+<li><p><strong>关键创新</strong>：</p>
+<ul>
+<li>Mamba-2改进：通过结构化状态空间（Structured State Space Duality, SSD）增强SSM的表达能力，接近Transformer的性能。</li>
+<li>混合堆叠：Transformer层捕获全局依赖，Mamba-2层提供高效顺序处理，减少KV缓存需求。</li>
+<li>高效训练：利用Mamba-2的硬件友好性，加速大规模语言建模。</li>
+</ul>
+</li>
+<li><p><strong>优势</strong>：</p>
+<ul>
+<li>比Transformer快，生成速度提升，内存需求低。</li>
+<li>在长序列任务中性能接近或超越Transformer。</li>
+<li>适合大规模语言建模任务。</li>
+</ul>
+</li>
+<li><p><strong>应用</strong>：长上下文语言建模、生成任务、时间序列预测。</p>
+</li>
+<li><p><strong>不足</strong>：混合堆叠可能引入层间不一致，需进一步优化。</p>
+</li>
+<li><p><strong>未来方向</strong>：改进层间融合，适配NAR生成，扩展到多语言任务。</p>
+</li>
+</ul>
+<h2 id="非自回归（NAR）生成著名方法"><a href="#非自回归（NAR）生成著名方法" class="headerlink" title="非自回归（NAR）生成著名方法"></a>非自回归（NAR）生成著名方法</h2><h3 id="NAT（《Non-Autoregressive-Neural-Machine-Translation》）："><a href="#NAT（《Non-Autoregressive-Neural-Machine-Translation》）：" class="headerlink" title="NAT（《Non-Autoregressive Neural Machine Translation》）："></a>NAT（《Non-Autoregressive Neural Machine Translation》）：</h3><ul>
+<li><strong>核心架构</strong>：基于Transformer架构，移除自回归解码，通过生育率预测器（Fertility Predictor）估计目标序列长度，一次性并行生成所有token。</li>
+<li><strong>关键创新</strong>：<ul>
+<li>并行生成：完全非自回归解码，生成速度比自回归模型快15.6倍。</li>
+<li>知识蒸馏：利用自回归模型生成伪数据，简化目标序列依赖，提升NAR性能。</li>
+<li>生育率预测：预测每个源token对应的目标token数量，解决长度不一致问题。</li>
+</ul>
+</li>
+<li><strong>优势</strong>：<ul>
+<li>显著加速生成过程，适合实时翻译场景。</li>
+<li>简化训练数据依赖，提升模型鲁棒性。</li>
+</ul>
+</li>
+<li><strong>应用</strong>：机器翻译（WMT14/16）、文本生成。</li>
+<li><strong>与NAR特性</strong>：奠定NAR生成基础，强调并行性，降低推理延迟。</li>
+<li><strong>不足</strong>：BLEU分数较低（EN→DE仅17.69），对知识蒸馏依赖强，生成质量需改进。</li>
+<li><strong>未来方向</strong>：减少对知识蒸馏的依赖，优化生育率预测，改进生成质量。</li>
+</ul>
+<h3 id="NAT-IR（《Non-Autoregressive-Machine-Translation-with-Iterative-Refinement》）："><a href="#NAT-IR（《Non-Autoregressive-Machine-Translation-with-Iterative-Refinement》）：" class="headerlink" title="NAT-IR（《Non-Autoregressive Machine Translation with Iterative Refinement》）："></a>NAT-IR（《Non-Autoregressive Machine Translation with Iterative Refinement》）：</h3><ul>
+<li><strong>核心架构</strong>：在NAT基础上引入迭代精炼（Iterative Refinement），通过多次并行迭代优化初始生成的序列，结合Transformer架构。</li>
+<li><strong>关键创新</strong>：<ul>
+<li>迭代精炼：通过多轮掩码与预测，逐步修正生成序列，提高质量。</li>
+<li>动态迭代次数：根据任务复杂性调整迭代次数，平衡速度与性能。</li>
+<li>结合知识蒸馏：利用AR模型的伪数据进一步提升精炼效果。</li>
+</ul>
+</li>
+<li><strong>优势</strong>：<ul>
+<li>显著提升BLEU分数（EN→DE达21.61，10次迭代）。</li>
+<li>保留NAR的高效性，同时接近AR模型的生成质量。</li>
+</ul>
+</li>
+<li><strong>应用</strong>：机器翻译、文本摘要、语法错误纠正。</li>
+<li><strong>与NAR特性</strong>：通过迭代弥补NAR生成质量不足，适合需要高精度的场景。</li>
+<li><strong>不足</strong>：多次迭代增加计算开销，需平衡迭代次数与速度。</li>
+<li><strong>未来方向</strong>：优化迭代效率，探索自适应迭代策略，减少对AR伪数据的依赖。</li>
+</ul>
+<h3 id="LevT（《Levenshtein-Transformer》）："><a href="#LevT（《Levenshtein-Transformer》）：" class="headerlink" title="LevT（《Levenshtein Transformer》）："></a>LevT（《Levenshtein Transformer》）：</h3><ul>
+<li><strong>核心架构</strong>：基于Transformer，采用插入与删除操作（Insert and Delete）进行序列生成，通过迭代优化生成目标序列。</li>
+<li><strong>关键创新</strong>：<ul>
+<li>插入与删除解码：通过动态插入新token或删除错误token，逐步精炼序列，解决长度预测问题。</li>
+<li>动态序列编辑：模拟Levenshtein距离的编辑操作，灵活处理序列长度和内容。</li>
+<li>并行训练：保留Transformer的并行训练能力，同时支持NAR生成。</li>
+</ul>
+</li>
+<li><strong>优势</strong>：<ul>
+<li>灵活处理序列长度不一致问题，生成质量高。</li>
+<li>适用于多种任务，生成过程可控。</li>
+</ul>
+</li>
+<li><strong>应用</strong>：机器翻译、文本编辑、语法纠正、对话生成。</li>
+<li><strong>与NAR特性</strong>：通过编辑操作提升NAR生成灵活性，减少对预定义长度的依赖。</li>
+<li><strong>不足</strong>：迭代编辑可能增加推理时间，复杂任务需多次操作。</li>
+<li><strong>未来方向</strong>：减少迭代次数，优化编辑策略，扩展到多模态任务。</li>
+</ul>
+<h3 id="CMLM（《Conditional-Masked-Language-Model》）："><a href="#CMLM（《Conditional-Masked-Language-Model》）：" class="headerlink" title="CMLM（《Conditional Masked Language Model》）："></a>CMLM（《Conditional Masked Language Model》）：</h3><ul>
+<li><strong>核心架构</strong>：基于掩码语言模型（MLM），通过条件掩码预测（Conditional Masking）并行生成序列，结合Transformer架构。</li>
+<li><strong>关键创新</strong>：<ul>
+<li>掩码与预测：随机掩码部分token并预测，多次迭代优化序列，模拟BERT的训练方式。</li>
+<li>条件依赖建模：利用条件上下文预测掩码token，增强生成一致性。</li>
+<li>并行生成：一次性预测所有掩码token，保持NAR的高效性。</li>
+</ul>
+</li>
+<li><strong>优势</strong>：<ul>
+<li>提高生成质量，BLEU分数接近AR模型。</li>
+<li>灵活适应多种序列生成任务。</li>
+</ul>
+</li>
+<li><strong>应用</strong>：机器翻译、文本摘要、对话系统。</li>
+<li><strong>与NAR特性</strong>：通过掩码预测提升NAR生成质量，保留并行生成优势。</li>
+<li><strong>不足</strong>：对初始掩码策略敏感，迭代次数可能影响速度。</li>
+<li><strong>未来方向</strong>：优化掩码策略，减少迭代需求，结合预训练模型提升性能。</li>
+</ul>
+<h3 id="简要概述"><a href="#简要概述" class="headerlink" title="简要概述"></a>简要概述</h3><p><strong>论文标题</strong>：FourierNAT: A Fourier-Mixing-Based Non-Autoregressive Transformer for Parallel Sequence Generation<br><strong>发表时间</strong>：2025年3月4日（初版），2025年4月15日（修订版）<br><strong>来源</strong>：arXiv:2503.07630  <a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.07630"><i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><strong>作者</strong>：Andrew Kiruluta 等  </p>
+<p><strong>FourierNAT</strong> 是一种新颖的非自回归Transformer（NAT）架构，旨在通过傅里叶变换（Fourier-based mixing）实现并行序列生成，解决传统NAT在捕获全局依赖关系上的不足。该方法通过在解码器中使用离散傅里叶变换（DFT）混合序列维度的标记嵌入，并结合学习到的频域门控机制（frequency-domain gating），高效传播上下文信息，无需显式的自回归步骤。</p>
+<hr>
+<h3 id="1-研究背景"><a href="#1-研究背景" class="headerlink" title="1. 研究背景"></a>1. 研究背景</h3><ul>
+<li><strong>非自回归Transformer（NAT）的挑战</strong>：NAT通过并行生成序列显著降低推理延迟，但由于缺乏自回归机制，难以捕捉全局依赖关系，导致生成质量（例如连贯性）低于自回归Transformer（AT）。</li>
+<li><strong>傅里叶变换的应用</strong>：傅里叶变换（FFT）因其高效的全局混合能力，已在某些Transformer变体（如FNet）中用于编码器，但尚未广泛应用于NAT解码器。</li>
+</ul>
+<h3 id="2-主要贡献"><a href="#2-主要贡献" class="headerlink" title="2. 主要贡献"></a>2. 主要贡献</h3><ul>
+<li><strong>提出FourierNAT架构</strong>：<ul>
+<li>在NAT解码器中引入 <strong>FourierMixing子层</strong>，通过一维快速傅里叶变换（1D FFT）沿序列维度混合标记嵌入，结合学习到的实部/虚部门控机制（real/imag gating），处理全局序列依赖。</li>
+<li>将频域操作与标准交叉注意力模块（cross-attention）和前馈投影（feed-forward projection）结合，支持并行生成标记，同时缓解NAT常见的连贯性问题。</li>
+</ul>
+</li>
+<li><strong>自适应依赖建模</strong>：<ul>
+<li>学习到的频域参数使模型能够自适应地聚焦于长距离或短距离依赖，部分缓解NAT在单次生成中的连贯性差距。</li>
+</ul>
+</li>
+<li><strong>高效实现</strong>：<ul>
+<li>使用Fairseq框架实现，实验在8个NVIDIA V100 GPU（32GB）上运行，批大小为4096标记，最大更新步数为WMT14 En-De的200k–300k步，CNN/DailyMail为160k步。</li>
+<li>可选择性地使用知识蒸馏（Knowledge Distillation）从自回归Transformer基线中稳定NAT训练并提高流畅度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-方法细节"><a href="#3-方法细节" class="headerlink" title="3. 方法细节"></a>3. 方法细节</h3><ul>
+<li><strong>FourierMixing子层</strong>：<ul>
+<li>输入：初始占位符嵌入（placeholder embeddings，零或掩码嵌入），并行馈送到每层。</li>
+<li>过程：沿序列维度应用1D FFT，学习实部/虚部门控，应用逆FFT（iFFT），并添加位置嵌入（positional embeddings）。</li>
+<li>数学公式：论文提供了频域操作如何替换或补充非自回归解码器中自注意力的详细数学推导。</li>
+</ul>
+</li>
+<li><strong>训练设置</strong>：<ul>
+<li>优化器：Adam，β₂=0.98，预热4000步后学习率按逆平方根衰减。</li>
+<li>数据集：WMT14 En-De（机器翻译），CNN/DailyMail（摘要）。</li>
+<li>可选知识蒸馏：从自回归Transformer基线蒸馏以提升性能。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-实验结果"><a href="#4-实验结果" class="headerlink" title="4. 实验结果"></a>4. 实验结果</h3><ul>
+<li><strong>性能</strong>：<ul>
+<li>在WMT14 En-De和CNN/DailyMail基准上，FourierNAT与领先的NAT基线（如Mask-Predict、Levenshtein Transformer）相比具有竞争力，生成质量接近自回归Transformer。</li>
+<li>频域操作有效缓解了NAT的连贯性问题，生成的序列更具上下文一致性。</li>
+</ul>
+</li>
+<li><strong>速度</strong>：<ul>
+<li>相比自回归基线，FourierNAT在解码速度上显著提升（具体加速倍数未明确，但优于AT）。</li>
+<li>与其他NAT方法相比，FourierNAT在单次或极少次生成中处理全局混合，减少了迭代需求。</li>
+</ul>
+</li>
+<li><strong>与其他方法的对比</strong>：<ul>
+<li>相较于Mask-Predict（多轮精炼）和Levenshtein Transformer（并行插入/删除），FourierNAT通过频域混合在更少的生成轮次中实现全局依赖建模。</li>
+<li>相较于FNet（仅编码器使用FFT），FourierNAT将傅里叶混合扩展到解码器，专为NAT设计。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-创新点"><a href="#5-创新点" class="headerlink" title="5. 创新点"></a>5. 创新点</h3><ul>
+<li><strong>频域混合</strong>：首次在NAT解码器中系统性地应用傅里叶变换，取代传统自注意力机制，降低对显式自回归步骤的依赖。</li>
+<li><strong>单次生成</strong>：通过频域门控机制，FourierNAT在单次生成中高效捕获全局依赖，减少多轮迭代的需要。</li>
+<li><strong>计算效率</strong>：频域操作（FFT）具有准线性复杂度，结合并行生成，显著降低推理时间，适合大规模语言模型（LLM）的推理任务。</li>
+</ul>
+<h3 id="6-局限性与未来方向"><a href="#6-局限性与未来方向" class="headerlink" title="6. 局限性与未来方向"></a>6. 局限性与未来方向</h3><ul>
+<li><strong>局限性</strong>：<ul>
+<li>频域操作的计算复杂性虽低于自注意力的O(N²)，但仍需优化以适配超长序列。</li>
+<li>实验主要聚焦于机器翻译和摘要任务，需进一步验证在其他序列生成任务（如语音合成、图像生成）中的效果。</li>
+</ul>
+</li>
+<li><strong>未来方向</strong>：<ul>
+<li>探索更高效的频域操作实现，降低计算开销。</li>
+<li>将FourierNAT扩展到多模态任务或更复杂的生成场景。</li>
+<li>结合其他混合模型（如自回归与非自回归结合）进一步提升性能。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="与序列模型结合的关联性"><a href="#与序列模型结合的关联性" class="headerlink" title="与序列模型结合的关联性"></a>与序列模型结合的关联性</h3><p>虽然FourierNAT本身未明确结合RNN等序列模型，但其频域混合机制可视为一种隐式的序列建模方式：</p>
+<ul>
+<li><strong>傅里叶变换的全局混合</strong>：通过FFT，FourierNAT在频域中捕获序列的全局依赖，部分弥补了NAT在序列建模上的不足，类似于RNN的长距离依赖建模。</li>
+<li><strong>与RNN的潜在联系</strong>：如论文“Transformers are RNNs”所述，Transformer与RNN存在理论联系。FourierNAT的频域操作可看作一种高效的“伪序列”处理方式，未来可能结合显式的RNN模块进一步增强序列建模。<a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.16236"><i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<hr>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>FourierNAT通过在非自回归Transformer解码器中引入傅里叶变换混合，提供了一种高效的并行序列生成方法，显著提升了NAT的速度和连贯性。其创新的频域门控机制使模型能够自适应地处理长短距离依赖，在WMT14 En-De和CNN/DailyMail基准上表现优异。该研究为频域操作在NAT中的应用开辟了新方向，展示了加速并行文本生成的潜力。</p>
+<p><strong>参考文献</strong>：</p>
+<ul>
+<li>FourierNAT: A Fourier-Mixing-Based Non-Autoregressive Transformer for Parallel Sequence Generation<a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.07630"><i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention<a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.16236"><i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> mamba-transformer</li>
+        <li><strong>Author:</strong> Ikko</li>
+        <li><strong>Created at
+                :</strong> 2025-06-09 13:47:33</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-12-17 20:43:12
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://ikko-debug.github.io/2025/06/09/mamba-transformer/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/07/21/new-about-transformer/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">new-about-transformer</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/03/31/mamba/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">mamba</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '55ccec7ba873a504625f',
+                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
+                    repo: 'gittalk',
+                    owner: 'ikko-debug',
+                    admin: ['ikko-debug'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">mamba-transformer</div>
+		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88%EF%BC%9F"><span class="nav-text">什么是特征融合？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88%EF%BC%9F"><span class="nav-text">为什么要进行特征融合？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88%E6%96%B9%E6%B3%95"><span class="nav-text">常见的特征融合方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E6%9C%AF%E7%95%8C%E9%80%9A%E5%B8%B8%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E8%BF%99%E7%A7%8D%E8%9E%8D%E5%90%88%EF%BC%9F"><span class="nav-text">学术界通常如何进行这种融合？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E4%BA%A4%E5%93%81%E7%A7%8D"><span class="nav-text">杂交品种</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TransMamba%EF%BC%88%E3%80%8AA-Hybrid-Model-Based-on-Transformer-and-Mamba-for-Enhanced-Sequence-Modeling%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">TransMamba（《A Hybrid Model Based on Transformer and Mamba for Enhanced Sequence Modeling》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jamba%EF%BC%88%E3%80%8AJamba-A-Hybrid-Transformer-Mamba-Mixture-of-Experts-Model%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">Jamba（《Jamba: A Hybrid Transformer-Mamba Mixture-of-Experts Model》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hymba%EF%BC%88%E3%80%8AHymba-A-Hybrid-head-Architecture-for-Small-Language-Models%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">Hymba（《Hymba: A Hybrid-head Architecture for Small Language Models》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mamba-2-Hybrid%EF%BC%88%E3%80%8AAn-Empirical-Study-of-Mamba-based-Language-Models%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">Mamba-2-Hybrid（《An Empirical Study of Mamba-based Language Models》）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E8%87%AA%E5%9B%9E%E5%BD%92%EF%BC%88NAR%EF%BC%89%E7%94%9F%E6%88%90%E8%91%97%E5%90%8D%E6%96%B9%E6%B3%95"><span class="nav-text">非自回归（NAR）生成著名方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NAT%EF%BC%88%E3%80%8ANon-Autoregressive-Neural-Machine-Translation%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">NAT（《Non-Autoregressive Neural Machine Translation》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAT-IR%EF%BC%88%E3%80%8ANon-Autoregressive-Machine-Translation-with-Iterative-Refinement%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">NAT-IR（《Non-Autoregressive Machine Translation with Iterative Refinement》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LevT%EF%BC%88%E3%80%8ALevenshtein-Transformer%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">LevT（《Levenshtein Transformer》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMLM%EF%BC%88%E3%80%8AConditional-Masked-Language-Model%E3%80%8B%EF%BC%89%EF%BC%9A"><span class="nav-text">CMLM（《Conditional Masked Language Model》）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E8%A6%81%E6%A6%82%E8%BF%B0"><span class="nav-text">简要概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="nav-text">1. 研究背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE"><span class="nav-text">2. 主要贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E7%BB%86%E8%8A%82"><span class="nav-text">3. 方法细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-text">4. 实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%88%9B%E6%96%B0%E7%82%B9"><span class="nav-text">5. 创新点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%B1%80%E9%99%90%E6%80%A7%E4%B8%8E%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="nav-text">6. 局限性与未来方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%BB%93%E5%90%88%E7%9A%84%E5%85%B3%E8%81%94%E6%80%A7"><span class="nav-text">与序列模型结合的关联性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        30 posts in total
+                    </span>
+                    
+                        <span>
+                            56.2k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/masonry.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
+</body>
+
+</html>

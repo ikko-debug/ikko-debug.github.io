@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ikko">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://ikko-debug.github.io/2023/03/02/十四届蓝桥杯模拟赛/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十四届蓝桥杯模拟赛">
+<meta property="og:url" content="http://ikko-debug.github.io/2023/03/02/%E5%8D%81%E5%9B%9B%E5%B1%8A%E8%93%9D%E6%A1%A5%E6%9D%AF%E6%A8%A1%E6%8B%9F%E8%B5%9B/index.html">
+<meta property="og:site_name" content="IKKO">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2023-03-02T14:56:56.000Z">
+<meta property="article:modified_time" content="2025-12-17T12:43:12.341Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="刷题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-P5152X2PGJ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P5152X2PGJ');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/idea.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/idea.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/idea.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            十四届蓝桥杯模拟赛 | IKKO
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"G-P5152X2PGJ"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                IKKO
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="/images/1.jpg" alt="十四届蓝桥杯模拟赛" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">十四届蓝桥杯模拟赛</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-02 22:56:56</span>
+        <span class="mobile">2023-03-02 22:56:56</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-12-17 20:43:12</span>
+            <span class="mobile">2025-12-17 20:43:12</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%88%B7%E9%A2%98/">刷题</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>请找到一个大于 2022 的最小数，这个数转换成十六进制之后，所有的数位（不含前导 0）都为字母（A 到 F）。<br>　　请将这个数的十进制形式作为答案提交。<br>AAA转化为十进制即可</p>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>在 Excel 中，列的名称使用英文字母的组合。前 26 列用一个字母，依次为 A 到 Z，接下来 26*26 列使用两个字母的组合，依次为 AA 到 ZZ。<br>　　请问第 2022 列的名称是什么？</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;g&#x27;</span>,<span class="string">&#x27;h&#x27;</span>,<span class="string">&#x27;i&#x27;</span>,<span class="string">&#x27;j&#x27;</span>,<span class="string">&#x27;k&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;m&#x27;</span>,<span class="string">&#x27;n&#x27;</span>,<span class="string">&#x27;o&#x27;</span>,<span class="string">&#x27;p&#x27;</span>,<span class="string">&#x27;q&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="string">&#x27;s&#x27;</span>,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;u&#x27;</span>,<span class="string">&#x27;v&#x27;</span>,<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;x&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;z&#x27;</span>]</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line">q=<span class="number">2022</span>-<span class="number">26</span>*<span class="number">26</span>-<span class="number">26</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">        <span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> count==q:</span><br><span class="line">                <span class="built_in">print</span>(a[i],a[k],a[l])</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>b y t</p>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><p>对于一个日期，我们可以计算出年份的各个数位上的数字之和，也可以分别计算月和日的各位数字之和。请问从 1900 年 1 月 1 日至 9999 年 12 月 31 日，总共有多少天，年份的数位数字之和等于月的数位数字之和加日的数位数字之和。<br>　　例如，2022年11月13日满足要求，因为 2+0+2+2&#x3D;(1+1)+(1+3) 。<br>　　请提交满足条件的日期的总数量。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line">begin =dt.date(<span class="number">1900</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">end = dt.date(<span class="number">9999</span>,<span class="number">12</span>,<span class="number">31</span>)</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">countx</span>(<span class="params">n</span>):</span><br><span class="line">     <span class="comment">#将数字作为字符串输入</span></span><br><span class="line">    listx = []</span><br><span class="line">    listx = <span class="built_in">list</span>(n) <span class="comment">#将字符串转换为列表</span></span><br><span class="line">    s = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(listx)):</span><br><span class="line">        s+= <span class="built_in">int</span>(listx[i]) <span class="comment">#将字符转换为整数型,并累加列表中的每个数字</span></span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>((end - begin).days+<span class="number">1</span>):</span><br><span class="line">    day = begin + dt.timedelta(days=i)</span><br><span class="line">    nian = <span class="built_in">str</span>(day.year)</span><br><span class="line">    w = <span class="built_in">str</span>(day.month)</span><br><span class="line">    da = <span class="built_in">str</span>(day.day)</span><br><span class="line">    count1 = countx(nian)</span><br><span class="line">    count2 = countx(da)+countx(w)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> count1 == count2:</span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(count) </span><br></pre></td></tr></table></figure></div>
+<p>70910</p>
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><p>小蓝有 30 个数，分别为：99, 22, 51, 63, 72, 61, 20, 88, 40, 21, 63, 30, 11, 18, 99, 12, 93, 16, 7, 53, 64, 9, 28, 84, 34, 96, 52, 82, 51, 77 。<br>　　小蓝可以在这些数中取出两个序号不同的数，共有 30*29&#x2F;2&#x3D;435 种取法。<br>　　请问这 435 种取法中，有多少种取法取出的两个数的乘积大于等于 2022 。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">99</span>, <span class="number">22</span>, <span class="number">51</span>, <span class="number">63</span>, <span class="number">72</span>, <span class="number">61</span>, <span class="number">20</span>, <span class="number">88</span>, <span class="number">40</span>, <span class="number">21</span>, <span class="number">63</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">18</span>, <span class="number">99</span>, <span class="number">12</span>, <span class="number">93</span>, <span class="number">16</span>, <span class="number">7</span>, <span class="number">53</span>, <span class="number">64</span>, <span class="number">9</span>, <span class="number">28</span>, <span class="number">84</span>, <span class="number">34</span>, <span class="number">96</span>, <span class="number">52</span>, <span class="number">82</span>, <span class="number">51</span>, <span class="number">77</span>]</span><br><span class="line">count=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">29</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">        <span class="keyword">if</span> (a[i]*a[j])&gt;=<span class="number">2022</span>:</span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(count)</span><br></pre></td></tr></table></figure></div>
+<p>189</p>
+<h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><p>小蓝有一个 30 行 60 列的数字矩阵，矩阵中的每个数都是 0 或 1 。 110010000011111110101001001001101010111011011011101001111110 010000000001010001101100000010010110001111100010101100011110 001011101000100011111111111010000010010101010111001000010100 101100001101011101101011011001000110111111010000000110110000 010101100100010000111000100111100110001110111101010011001011 010011011010011110111101111001001001010111110001101000100011 101001011000110100001101011000000110110110100100110111101011 101111000000101000111001100010110000100110001001000101011001 001110111010001011110000001111100001010101001110011010101110 001010101000110001011111001010111111100110000011011111101010 011111100011001110100101001011110011000101011000100111001011 011010001101011110011011111010111110010100101000110111010110 001110000111100100101110001011101010001100010111110111011011 111100001000001100010110101100111001001111100100110000001101 001110010000000111011110000011000010101000111000000110101101 100100011101011111001101001010011111110010111101000010000111 110010100110101100001101111101010011000110101100000110001010 110101101100001110000100010001001010100010110100100001000011 100100000100001101010101001101000101101000000101111110001010 101101011010101000111110110000110100000010011111111100110010 101111000100000100011000010001011111001010010001010110001010 001010001110101010000100010011101001010101101101010111100101 001111110000101100010111111100000100101010000001011101100001 101011110010000010010110000100001010011111100011011000110010 011110010100011101100101111101000001011100001011010001110011 000101000101000010010010110111000010101111001101100110011100 100011100110011111000110011001111100001110110111001001000111 111011000110001000110111011001011110010010010110101000011111 011110011110110110011011001011010000100100101010110000010011 010011110011100101010101111010001001001111101111101110011101 如果从一个标为 1 的位置可以通过上下左右走到另一个标为 1 的位置，则称两个位置连通。与某一个标为 1 的位置连通的所有位置（包括自己）组成一个连通分块。 请问矩阵中最大的连通分块有多大？</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">m,n,flag</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> n&lt;<span class="number">0</span> <span class="keyword">or</span> m&lt;<span class="number">0</span> <span class="keyword">or</span> m&gt;<span class="number">29</span> <span class="keyword">or</span> n&gt;<span class="number">59</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> flag[m][n]==<span class="number">1</span> <span class="keyword">or</span> a[m][n]==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line">    flag[m][n] = <span class="number">1</span>   </span><br><span class="line">    dfs(m-<span class="number">1</span>,n,flag)</span><br><span class="line">    dfs(m,n-<span class="number">1</span>,flag)</span><br><span class="line">    dfs(m+<span class="number">1</span>,n,flag)</span><br><span class="line">    dfs(m,n+<span class="number">1</span>,flag)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line">m = <span class="string">&#x27;&#x27;&#x27;110010000011111110101001001001101010111011011011101001111110</span></span><br><span class="line"><span class="string">010000000001010001101100000010010110001111100010101100011110</span></span><br><span class="line"><span class="string">001011101000100011111111111010000010010101010111001000010100</span></span><br><span class="line"><span class="string">101100001101011101101011011001000110111111010000000110110000</span></span><br><span class="line"><span class="string">010101100100010000111000100111100110001110111101010011001011</span></span><br><span class="line"><span class="string">010011011010011110111101111001001001010111110001101000100011</span></span><br><span class="line"><span class="string">101001011000110100001101011000000110110110100100110111101011</span></span><br><span class="line"><span class="string">101111000000101000111001100010110000100110001001000101011001</span></span><br><span class="line"><span class="string">001110111010001011110000001111100001010101001110011010101110</span></span><br><span class="line"><span class="string">001010101000110001011111001010111111100110000011011111101010</span></span><br><span class="line"><span class="string">011111100011001110100101001011110011000101011000100111001011</span></span><br><span class="line"><span class="string">011010001101011110011011111010111110010100101000110111010110</span></span><br><span class="line"><span class="string">001110000111100100101110001011101010001100010111110111011011</span></span><br><span class="line"><span class="string">111100001000001100010110101100111001001111100100110000001101</span></span><br><span class="line"><span class="string">001110010000000111011110000011000010101000111000000110101101</span></span><br><span class="line"><span class="string">100100011101011111001101001010011111110010111101000010000111</span></span><br><span class="line"><span class="string">110010100110101100001101111101010011000110101100000110001010</span></span><br><span class="line"><span class="string">110101101100001110000100010001001010100010110100100001000011</span></span><br><span class="line"><span class="string">100100000100001101010101001101000101101000000101111110001010</span></span><br><span class="line"><span class="string">101101011010101000111110110000110100000010011111111100110010</span></span><br><span class="line"><span class="string">101111000100000100011000010001011111001010010001010110001010</span></span><br><span class="line"><span class="string">001010001110101010000100010011101001010101101101010111100101</span></span><br><span class="line"><span class="string">001111110000101100010111111100000100101010000001011101100001</span></span><br><span class="line"><span class="string">101011110010000010010110000100001010011111100011011000110010</span></span><br><span class="line"><span class="string">011110010100011101100101111101000001011100001011010001110011</span></span><br><span class="line"><span class="string">000101000101000010010010110111000010101111001101100110011100</span></span><br><span class="line"><span class="string">100011100110011111000110011001111100001110110111001001000111</span></span><br><span class="line"><span class="string">111011000110001000110111011001011110010010010110101000011111</span></span><br><span class="line"><span class="string">011110011110110110011011001011010000100100101010110000010011</span></span><br><span class="line"><span class="string">010011110011100101010101111010001001001111101111101110011101&#x27;&#x27;&#x27;</span></span><br><span class="line">a1= m.split(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">a = [[<span class="built_in">int</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> row] <span class="keyword">for</span> row <span class="keyword">in</span> a1]</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line">max1 = <span class="number">0</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>):</span><br><span class="line">        <span class="keyword">if</span> a[i][j]==<span class="number">1</span>:</span><br><span class="line">            flag = [[<span class="number">0</span>] * <span class="number">60</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>)]</span><br><span class="line">            dfs(i,j,flag)</span><br><span class="line">            <span class="comment">#max1 = max(max1,flag.count(1))</span></span><br><span class="line">            max1 = <span class="built_in">max</span>(max1,<span class="built_in">sum</span>([<span class="built_in">sum</span>(row) <span class="keyword">for</span> row <span class="keyword">in</span> flag]))</span><br><span class="line">        </span><br><span class="line"><span class="built_in">print</span>(max1)</span><br></pre></td></tr></table></figure></div>
+<p>或者</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">m,n,flag</span>):</span><br><span class="line">    <span class="keyword">if</span> flag[m][n]==<span class="number">1</span> <span class="keyword">or</span> a[m][n]==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    flag[m][n]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> m&gt;<span class="number">0</span>  :<span class="comment">#向上</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        dfs(m-<span class="number">1</span>,n,flag)</span><br><span class="line">    <span class="keyword">if</span> n&gt;<span class="number">0</span>  :<span class="comment">#想左</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        dfs(m,n-<span class="number">1</span>,flag)</span><br><span class="line">    <span class="keyword">if</span> m&lt;<span class="number">29</span>  :<span class="comment">#想下</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        dfs(m+<span class="number">1</span>,n,flag)</span><br><span class="line">    <span class="keyword">if</span> n&lt;<span class="number">59</span>  :<span class="comment">#想→</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        dfs(m,n+<span class="number">1</span>,flag)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>148</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>小蓝正在学习一门神奇的语言，这门语言中的单词都是由小写英文字母组 成，有些单词很长，远远超过正常英文单词的长度。小蓝学了很长时间也记不住一些单词，他准备不再完全记忆这些单词，而是根据单词中哪个字母出现得最多来分辨单词。</p>
+<p>现在，请你帮助小蓝，给了一个单词后，帮助他找到出现最多的字母和这 个字母出现的次数。</p>
+<h4 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a>输入描述</h4><p>输入一行包含一个单词，单词只由小写英文字母组成。</p>
+<p>对于所有的评测用例，输入的单词长度不超过 1000。</p>
+<h4 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a>输出描述</h4><p>输出两行，第一行包含一个英文字母，表示单词中出现得最多的字母是哪 个。如果有多个字母出现的次数相等，输出字典序最小的那个。</p>
+<p>第二行包含一个整数，表示出现得最多的那个字母在单词中出现的次数。<br>import os<br>import sys<br>zimu &#x3D; input()<br>max1 &#x3D; 0<br>max2 &#x3D; ‘a’</p>
+<h4 id="请在此输入您的代码"><a href="#请在此输入您的代码" class="headerlink" title="请在此输入您的代码"></a>请在此输入您的代码</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>*<span class="number">26</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">  <span class="keyword">if</span> max1&lt;zimu.count(<span class="built_in">chr</span>( i+<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>) )):</span><br><span class="line">    max1 = zimu.count(<span class="built_in">chr</span>( i+<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>) ))</span><br><span class="line">    max2 = <span class="built_in">chr</span>( i+<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>) )</span><br><span class="line"><span class="built_in">print</span>(max2)</span><br><span class="line"><span class="built_in">print</span>(max1)</span><br></pre></td></tr></table></figure></div>
+<p>本题不难，需要注意的点在于 ord()   返回字符对应的ASCII码  cha()   返回ASCII码对应的字符，这点与c语言不同</p>
+<h2 id="简单题"><a href="#简单题" class="headerlink" title="简单题"></a>简单题</h2><p>蓝给学生们组织了一场考试，卷面总分为 100 分，每个学生的得分都是一个 0 到 100 的整数。</p>
+<p>如果得分至少是 60 分，则称为及格。如果得分至少为 85 分，则称为优秀。</p>
+<p>请计算及格率和优秀率，用百分数表示，百分号前的部分四舍五入保留整数。</p>
+<p>输入描述<br>输入的第一行包含一个整数<br>n 行，每行包含一个 0 至 100 的整数，表示一个学生的得分。</p>
+<p>输出描述<br>输出两行，每行一个百分数，分别表示及格率和优秀率。百分号前的部分 四舍五入保留整数。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">n = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">well,ok=<span class="number">0</span>,<span class="number">0</span></span><br><span class="line"><span class="comment"># 请在此输入您的代码</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    a=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    <span class="keyword">if</span> a&gt;=<span class="number">85</span>:</span><br><span class="line">        well+=<span class="number">1</span></span><br><span class="line">        ok+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> a&gt;=<span class="number">60</span>:</span><br><span class="line">        ok+=<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&#123;:.0f&#125;%&quot;</span>.<span class="built_in">format</span>(<span class="number">100</span>*ok/n))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&#123;:.0f&#125;%&quot;</span>.<span class="built_in">format</span>(<span class="number">100</span>*well/n))</span><br></pre></td></tr></table></figure></div>
+<p>此题需要注意蓝桥杯常考的print格式化输出，考前需要复习 <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45726327/article/details/115042863?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167808177916782427448558%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167808177916782427448558&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-115042863-null-null.142%5Ev73%5Einsert_down3,201%5Ev4%5Eadd_ask,239%5Ev2%5Einsert_chatgpt&utm_term=python%20format&spm=1018.2226.3001.4187" >format语法<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="小蓝在玩一个寻宝游戏"><a href="#小蓝在玩一个寻宝游戏" class="headerlink" title="小蓝在玩一个寻宝游戏,"></a>小蓝在玩一个寻宝游戏,</h2><p>游戏在一条笔直的道路上进行, 道路被分成了 n 个方格, 依次编号 1 至 n, 每个方格上都有一个宝物, 宝物的分值是一个整数 (包括正数、负数和零), 当进入一个方格时即获得方格中宝物的分值。小蓝可 以获得的总分值是他从方格中获得的分值之和。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_prime</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">if</span> x &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">int</span>(math.sqrt(x))+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> x % i == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">int</span>(math.sqrt(x))+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> x % i == <span class="number">0</span> <span class="keyword">and</span> is_prime(i):</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">n = <span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">a = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split()))</span><br><span class="line">f = [<span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>)] * (n+<span class="number">1</span>)</span><br><span class="line">f[<span class="number">1</span>] = a[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n+<span class="number">1</span>):</span><br><span class="line">    x = i + find(n-i)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, x+<span class="number">1</span>):</span><br><span class="line">        f[j] = <span class="built_in">max</span>(f[j], f[i]+a[j-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(f[n])</span><br></pre></td></tr></table></figure></div>
+<p>此题最后一个测试用例超时了，蓝桥杯官方也不给具体测试用例，相似的代码c++能通过。<br>需要注意的是求质数，0，1，2都不是质数，求质因数可能是这个数本身</p>
+<h2 id="某国赛真题"><a href="#某国赛真题" class="headerlink" title="某国赛真题"></a>某国赛真题</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/1.jpg"
+                      alt="原题" title="真题"
+                ><br>解法，此题需要约数个数定理<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2.jpg"
+                      alt="定理" title="定理"
+                ><br>pi应为素数<br>示例代码：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">要进行质因数分解</span></span><br><span class="line"><span class="string">随后用到求约数个数的公式：</span></span><br><span class="line"><span class="string">（每个质数的次幂+1）相乘</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 阶乘约数</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">100的阶乘，可表示为1x2x3...x100</span></span><br><span class="line"><span class="string">因此可以对参与阶乘的2,3,4,5,6到100进行质因数分解</span></span><br><span class="line"><span class="string">既然质因数分解的数最高也就100</span></span><br><span class="line"><span class="string">那么定义n = 100，也就是要质因数分解的最大的数，就能收集到所需的质数了。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"> </span><br><span class="line">n = <span class="number">100</span></span><br><span class="line">p = [<span class="number">2</span>]     <span class="comment"># 质数集,其中2</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, n + <span class="number">1</span>):</span><br><span class="line">    j = <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> j &lt; i:</span><br><span class="line">        <span class="keyword">if</span> i % j == <span class="number">0</span>:      <span class="comment"># 如果有比 i 小的数可以将i整除，就表示i为合数，break结束循环，就不会把i加入质数集中.</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        j += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        p.append(i)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">m = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> p:</span><br><span class="line">    m[i] = <span class="number">1</span>  <span class="comment"># 每个质数初始为1，对应公式：”(某一质数的次数 + 1) * (某二质数的次数 + 1)“   中的1。</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n + <span class="number">1</span>):</span><br><span class="line">                             <span class="comment"># 遍历 [2, 100]    对应100的阶乘为1x2x3...x100。</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> p:              <span class="comment"># 遍历质数，将每个参与100阶乘中相乘的数都质因数分解一下。# （比如 6 分解成 2*3 ，12 分解成 2*2*3）</span></span><br><span class="line">        <span class="keyword">if</span> j &gt; i:            <span class="comment"># 当所遍历到的质数比要进行质因数分解的数要大时，就直接结束这一层for j in p循环。</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">while</span> i % j == <span class="number">0</span>:    <span class="comment"># 这里是看 i 可以被 &quot;当前 j&quot; 整除多少次，</span></span><br><span class="line">                             <span class="comment"># 当 i 不能再被 &quot;当前 j&quot; 整除时,while循环结束,</span></span><br><span class="line">                             <span class="comment"># for j in p循环继续尝试下一个j，直到j &gt; i，满足if条件，break</span></span><br><span class="line">            i //= j</span><br><span class="line"> </span><br><span class="line">            m[j] += <span class="number">1</span>        <span class="comment"># 让对应的质数个数 + 1</span></span><br><span class="line"> </span><br><span class="line">s = <span class="number">1</span>   <span class="comment"># 定义一个变量s,用于接收相乘得出的约数个数。（因为是相乘，所以s要等于1）</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> m.values():        <span class="comment"># 所有质因子的个数相乘，就是约数个数了。</span></span><br><span class="line">    s *= i</span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure></div>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 十四届蓝桥杯模拟赛</li>
+        <li><strong>Author:</strong> Ikko</li>
+        <li><strong>Created at
+                :</strong> 2023-03-02 22:56:56</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-12-17 20:43:12
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://ikko-debug.github.io/2023/03/02/十四届蓝桥杯模拟赛/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%88%B7%E9%A2%98/">#刷题</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">数据库操作记录</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/03/02/es/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">es</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '55ccec7ba873a504625f',
+                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
+                    repo: 'gittalk',
+                    owner: 'ikko-debug',
+                    admin: ['ikko-debug'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">十四届蓝桥杯模拟赛</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-text">1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-text">2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-text">3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-text">4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5"><span class="nav-text">5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%A2%98"><span class="nav-text">简单题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E8%93%9D%E5%9C%A8%E7%8E%A9%E4%B8%80%E4%B8%AA%E5%AF%BB%E5%AE%9D%E6%B8%B8%E6%88%8F"><span class="nav-text">小蓝在玩一个寻宝游戏,</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%90%E5%9B%BD%E8%B5%9B%E7%9C%9F%E9%A2%98"><span class="nav-text">某国赛真题</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        30 posts in total
+                    </span>
+                    
+                        <span>
+                            56.2k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/masonry.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.2/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
+</body>
+
+</html>
