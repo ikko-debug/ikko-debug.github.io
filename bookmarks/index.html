@@ -129,7 +129,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://ikko-debug.github.io/2023/01/03/django-tips/"/>
+    <link rel="canonical" href="http://ikko-debug.github.io/bookmarks/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -138,15 +138,15 @@
     
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="django tips">
-<meta property="og:url" content="http://ikko-debug.github.io/2023/01/03/django-tips/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="书签（你自定义的标题）">
+<meta property="og:url" content="http://ikko-debug.github.io/bookmarks/index.html">
 <meta property="og:site_name" content="IKKO">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2023-01-03T07:41:05.000Z">
-<meta property="article:modified_time" content="2025-12-17T12:43:12.339Z">
+<meta property="article:published_time" content="2023-05-14T03:45:14.000Z">
+<meta property="article:modified_time" content="2025-12-21T06:05:16.797Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -171,7 +171,7 @@
     
     <title>
         
-            django tips | IKKO
+            书签（你自定义的标题） | IKKO
         
     </title>
 
@@ -351,7 +351,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class=""
+                                <a class="active"
                                    href="/bookmarks/"
                                         >
                                     <i class="fa-solid fa-bookmark fa-fw"></i>
@@ -491,7 +491,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
                            href="/bookmarks/"
                         >
                             <span>
@@ -538,245 +538,307 @@
 			
 
 			<div class="main-content">
-				<div class="post-page-container flex relative justify-between box-border w-full h-full">
-	<div class="article-content-container">
+				<div class="py-8 sm:py-0">
 
-		<div class="article-title relative w-full">
-			
-			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">django tips</h1>
-			</div>
-			
+
+	<h1 class="page-title-header">
+		书签（你自定义的标题）
+	</h1>
+	<div class="flex flex-col md:flex-row gap-6 md:gap-12 w-full">
+
+
+		<!-- Left Sidebar - Categories -->
+		<div class="w-full md:w-48 shrink-0 md:sticky md:top-[var(--navbar-height)] h-fit sm:py-6">
+			<nav class="flex md:block overflow-x-auto scrollbar-hide pb-4 md:pb-0 gap-2">
+				
+				<a href="#分类名称" class="whitespace-nowrap md:whitespace-normal block px-3 py-2 rounded-lg 
+                   hover:bg-second-background-color hover:text-primary hover:scale-102 
+                   transition-all duration-200 border border-transparent 
+                   hover:border-second-background-color
+                          shrink-0 font-medium
+                          bookmark-nav-item"
+                   data-category="分类名称">
+					<i class="fa-regular fa-folder mr-2 w-6 h-6"></i>
+					分类名称
+				</a>
+				
+				<a href="#ai" class="whitespace-nowrap md:whitespace-normal block px-3 py-2 rounded-lg 
+                   hover:bg-second-background-color hover:text-primary hover:scale-102 
+                   transition-all duration-200 border border-transparent 
+                   hover:border-second-background-color
+                          shrink-0 font-medium
+                          bookmark-nav-item"
+                   data-category="ai">
+					<i class="fa-regular fa-tools mr-2 w-6 h-6"></i>
+					AI
+				</a>
+				
+				<a href="#资源" class="whitespace-nowrap md:whitespace-normal block px-3 py-2 rounded-lg 
+                   hover:bg-second-background-color hover:text-primary hover:scale-102 
+                   transition-all duration-200 border border-transparent 
+                   hover:border-second-background-color
+                          shrink-0 font-medium
+                          bookmark-nav-item"
+                   data-category="资源">
+					<i class="fa-regular fa-book mr-2 w-6 h-6"></i>
+					资源
+				</a>
+				
+			</nav>
 		</div>
 
-		
-		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
-			</div>
-			<div class="info flex flex-col justify-between">
-				<div class="author flex items-center">
-					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+		<!-- Right Content - Bookmarks -->
+		<div class="flex-1 max-w-full">
+			
+			<section id="分类名称" class="mb-12">
+				<h2 class="text-2xl font-semibold text-second-text-color mb-4 pb-2 border-b border-border-color">
+					分类名称
+				</h2>
+
+				<div class="grid gap-6 lg:grid-cols-2">
 					
-					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					<a href="链接地址" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="图标链接" alt="书签名称" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											书签名称
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										书签描述
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
 					
 				</div>
-				<div class="meta-info">
-					<div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-01-03 15:41:05</span>
-        <span class="mobile">2023-01-03 15:41:05</span>
-        <span class="hover-info">Created</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-12-17 20:43:12</span>
-            <span class="mobile">2025-12-17 20:43:12</span>
-            <span class="hover-info">Updated</span>
-        </span>
-    
+			</section>
+			
+			<section id="ai" class="mb-12">
+				<h2 class="text-2xl font-semibold text-second-text-color mb-4 pb-2 border-b border-border-color">
+					AI
+				</h2>
 
-    
-    
-
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>762 Words</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 Mins</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
-
+				<div class="grid gap-6 lg:grid-cols-2">
+					
+					<a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://chat.openai.com/favicon.ico" alt="ChatGPT" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											ChatGPT
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										OpenAI 的 AI 对话助手
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+					<a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://www.anthropic.com/favicon.ico" alt="Claude" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											Claude
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										Anthropic 的 AI 对话助手
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+					<a href="https://grok.com/" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://grok.com/favicon.ico" alt="Grok" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											Grok
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										Microsoft 的 AI 对话助手
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+					<a href="https://gemini.google/" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://gemini.google/favicon.ico" alt="Gemini" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											Gemini
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										Google 的 AI 对话助手
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+					<a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://huggingface.co/favicon.ico" alt="Hugging Face" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											Hugging Face
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										AI 模型和数据集平台
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
 				</div>
-			</div>
-		</div>
-		
-
-		
-
-
-		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h4 id="创建虚拟环境stu"><a href="#创建虚拟环境stu" class="headerlink" title="创建虚拟环境stu"></a>创建虚拟环境stu</h4><p>python -m  venv stu<br>stu&#x2F;Scripts&#x2F;Activate    #启动虚拟环境<br>cd crashcourse</p>
-<h4 id="新建django项目"><a href="#新建django项目" class="headerlink" title="新建django项目"></a>新建django项目</h4><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install django</span><br><span class="line">django-admin startproject xxx</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="新建django-app"><a href="#新建django-app" class="headerlink" title="新建django app"></a>新建django app</h4><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp xxx</span><br></pre></td></tr></table></figure></div>
-<h4 id="启动django"><a href="#启动django" class="headerlink" title="启动django"></a>启动django</h4><p> .\manage.py runserver<br> python manage.py runserver</p>
-<h4 id="配置数据库："><a href="#配置数据库：" class="headerlink" title="配置数据库："></a>配置数据库：</h4> <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> DATABASES = &#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.mysql&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;bookstoredb&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;USER&#x27;</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;PASSWORD&#x27;</span>: <span class="string">&#x27;123456&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;HOST&#x27;</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;PORT&#x27;</span>: <span class="string">&#x27;3306&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="创建超级用户"><a href="#创建超级用户" class="headerlink" title="创建超级用户"></a>创建超级用户</h4><p>python manage.py createsuperuser</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line">random.randint(<span class="number">1</span>,<span class="number">120</span>)</span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(models.Model): </span><br><span class="line">    first_name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    last_name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    ==</span><br><span class="line">CREATE TABLE myapp_person (</span><br><span class="line">    <span class="string">&quot;id&quot;</span> serial NOT NULL PRIMARY KEY,</span><br><span class="line">    <span class="string">&quot;first_name&quot;</span> varchar(<span class="number">30</span>) NOT NULL,</span><br><span class="line">    <span class="string">&quot;last_name&quot;</span> varchar(<span class="number">30</span>) NOT NULL</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
-<h4 id="数据库更新："><a href="#数据库更新：" class="headerlink" title="数据库更新："></a>数据库更新：</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure></div>
-<p>ot Found: &#x2F;favicon.ico  #访问网页时找不到图标</p>
-<p>使用表单模板<br>您只需将表单实例放到模板的上下文中即可。因此，如果您的表单在上下文中叫 form ，那么  将渲染它相应的 &lt;label&gt; 和 &lt;input&gt; 元素。<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.2/topics/forms/" >https://docs.djangoproject.com/zh-hans/3.2/topics/forms/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>使用表单中的值：</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.core.mail <span class="keyword">import</span> send_mail</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> form.is_valid():</span><br><span class="line">    subject = form.cleaned_data[<span class="string">&#x27;subject&#x27;</span>]</span><br><span class="line">    message = form.cleaned_data[<span class="string">&#x27;message&#x27;</span>]</span><br><span class="line">    sender = form.cleaned_data[<span class="string">&#x27;sender&#x27;</span>]</span><br><span class="line">    cc_myself = form.cleaned_data[<span class="string">&#x27;cc_myself&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    recipients = [<span class="string">&#x27;info@example.com&#x27;</span>]</span><br><span class="line">    <span class="keyword">if</span> cc_myself:</span><br><span class="line">        recipients.append(sender)</span><br><span class="line"></span><br><span class="line">    send_mail(subject, message, sender, recipients)</span><br><span class="line">    <span class="keyword">return</span> HttpResponseRedirect(<span class="string">&#x27;/thanks/&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
-<p>Meta 选项<br>使用内部 Meta类 来给模型赋予元数据，就像：</p>
-<p>from django.db import models</p>
-<p>class Ox(models.Model):<br>    horn_length &#x3D; models.IntegerField()</p>
-<pre><code>class Meta:
-    ordering = [&quot;horn_length&quot;]
-    verbose_name_plural = &quot;oxen&quot;
-</code></pre>
-<p>模型的元数据即“所有不是字段的东西”，比如排序选项（ ordering ），数据库表名（ db_table ），或是阅读友好的单复数名（ verbose_name 和 verbose_name_plural ）。这些都不是必须的，并且在模型当中添加 Meta类 也完全是可选的。</p>
-<p>在 模型可选参数参考 中列出了 Meta 可使用的全部选项。</p>
-<h4 id="Model-signals-models信号机制"><a href="#Model-signals-models信号机制" class="headerlink" title="Model signals  -models信号机制"></a>Model signals  -models信号机制</h4><p> 2     pre_init                    # django的modal执行其构造方法前，自动触发<br> 3     post_init                   # django的modal执行其构造方法后，自动触发<br> 4     pre_save                    # django的modal对象保存前，自动触发<br> 5     post_save                   # django的modal对象保存后，自动触发<br> 6     pre_delete                  # django的modal对象删除前，自动触发<br> 7     post_delete                 # django的modal对象删除后，自动触发<br> 8     m2m_changed                 # django的modal中使用m2m字段操作第三张表（add,remove,clear）前后，自动触发<br> 9     class_prepared              # 程序启动时，检测已注册的app中modal类，对于每一个类，自动触发<br>10 Management signals<br>11     pre_migrate                 # 执行migrate命令前，自动触发  </p>
-<p>12     post_migrate                # 执行migrate命令后，自动触发<br>13 Request&#x2F;response signals<br>14     request_started             # 请求到来前，自动触发<br>15     request_finished            # 请求结束后，自动触发<br>16     got_request_exception       # 请求异常后，自动触发<br>17 Test signals<br>18     setting_changed             # 使用test测试修改配置文件时，自动触发<br>19     template_rendered           # 使用test测试渲染模板时，自动触发<br>20 Database Wrappers<br>21     connection_created          # 创建数据库连接时，自动触发  </p>
-<p>数据库为空需要null &#x3D; True,blank &#x3D; True<br>bootstrap将页面12等分，copy class里内容 div来确定比例<br>limit_choices_to&#x3D;{‘pid__exact’: 0}<br>province &#x3D; models.ForeignKey(<br>        “china”, blank&#x3D;True, null&#x3D;True, verbose_name&#x3D;’省份’, limit_choices_to&#x3D;{‘id__in’: [‘11’, ‘12’, ‘13’]}<br>    )</p>
-
-		</div>
-
-		
-		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-			<div class="article-copyright-info-container">
-    <ul>
-        <li><strong>Title:</strong> django tips</li>
-        <li><strong>Author:</strong> Ikko</li>
-        <li><strong>Created at
-                :</strong> 2023-01-03 15:41:05</li>
-        
-            <li>
-                <strong>Updated at
-                    :</strong> 2025-12-17 20:43:12
-            </li>
-        
-        <li>
-            <strong>Link:</strong> http://ikko-debug.github.io/2023/01/03/django-tips/
-        </li>
-        <li>
-            <strong>
-                License:
-            </strong>
-            
-
-            
-                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
-            
-        </li>
-    </ul>
-</div>
-
-		</div>
-		
-
-		
-
-		
-
-		
-		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			</section>
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2023/01/03/%E5%B0%86tsv%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5elastic-search%E6%95%B0%E6%8D%AE%E5%BA%93/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">将tsv文件导入elastic search数据库</span>
-						<span class="post-nav-item">Prev posts</span>
-					</span>
-				</a>
-			</div>
-			
-			
-			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2023/01/03/markdown/">
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">markdown基本语法</span>
-						<span class="post-nav-item">Next posts</span>
-					</span>
-					<span class="right arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-right"></i>
-					</span>
-				</a>
-			</div>
+			<section id="资源" class="mb-12">
+				<h2 class="text-2xl font-semibold text-second-text-color mb-4 pb-2 border-b border-border-color">
+					资源
+				</h2>
+
+				<div class="grid gap-6 lg:grid-cols-2">
+					
+					<a href="https://z-lib.fm" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://z-lib.fm/favicon.ico" alt="Z-librarty" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											Z-librarty
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										免费电子书资源库
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+					<a href="http://fancyerii.github.io/2024/02/20/pmpp/" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://z-lib.fm/favicon.ico" alt="PMPP" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											PMPP
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										《Programming Massively Parallel Processors Fourth Edition》学习
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+					<a href="https://leetcode.com/" target="_blank" rel="noopener noreferrer" class="group block">
+						<div class="p-5 rounded-xl redefine-box-shadow-flat transition-all duration-300
+                                      hover:transform hover:-translate-y-1">
+							<div class="flex items-center gap-5">
+								<div class="w-12 h-12 rounded-xl overflow-hidden bg-second-background-color shrink-0
+                                                transform group-hover:scale-105 transition-transform duration-300">
+									<img src="https://leetcode.com/favicon.ico" alt="leetcode" class="w-full h-full object-cover" onerror="this.src='/images/bookmark-placeholder.svg'">
+								</div>
+								<div class="flex-1 min-w-0 flex flex-col gap-1">
+									<div class="flex items-center justify-between">
+										<h3 class="font-medium text-second-text-color group-hover:text-primary transition-colors">
+											leetcode
+										</h3>
+										<i class="fa-regular fa-arrow-right text-third-text-color opacity-0 group-hover:opacity-100 -translate-x-1
+                                                      group-hover:translate-x-0 transition-all duration-300"></i>
+									</div>
+									<p class="text-sm text-third-text-color line-clamp-2">
+										编程题库网站
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					
+				</div>
+			</section>
 			
 		</div>
-		
-
-
-		
-		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-			<div class="comments-container mt-10 w-full ">
-    <div id="comment-anchor" class="w-full h-2.5"></div>
-    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
-        Comments
-    </div>
-    
-
-        
-            
-    <div id="gitalk-container"></div>
-    <script data-swup-reload-script
-            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
-    <script data-swup-reload-script>
-
-        function loadGitalk() {
-            let __gitalk__pathname = decodeURI(location.pathname);
-            const __gitalk__pathnameLength = __gitalk__pathname.length;
-            const __gitalk__pathnameMaxLength = 50;
-            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
-                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
-            }
-
-            try {
-                Gitalk && new Gitalk({
-                    clientID: '55ccec7ba873a504625f',
-                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
-                    repo: 'gittalk',
-                    owner: 'ikko-debug',
-                    admin: ['ikko-debug'],
-                    id: __gitalk__pathname,
-                    language: 'en',
-                    proxy: 'https://github.com/login/oauth/access_token'
-                }).render('gitalk-container');
-
-            } catch (e) {
-                window.Gitalk = null;
-            }
-        }
-
-        if ('true') {
-            const loadGitalkTimeout = setTimeout(() => {
-                loadGitalk();
-                clearTimeout(loadGitalkTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadGitalk);
-        }
-    </script>
-
-
-
-        
-    
-</div>
-
-		</div>
-		
 	</div>
 
-	
-	<div class="toc-content-container">
-		<div class="post-toc-wrap">
-	<div class="post-toc">
-		<div class="toc-title">On this page</div>
-		<div class="page-title">django tips</div>
-		
-
-	</div>
-</div>
-	</div>
-	
 </div>
 			</div>
 
@@ -859,26 +921,6 @@
 		</div>
 	</div>
 
-	
-	<div class="post-tools">
-		<div class="post-tools-container">
-	<ul class="article-tools-list">
-		<!-- TOC aside toggle -->
-		
-		<li class="right-bottom-tools page-aside-toggle">
-			<i class="fa-regular fa-outdent"></i>
-		</li>
-		
-
-		<!-- go comment -->
-		
-		<li class="go-comment">
-			<i class="fa-regular fa-comments"></i>
-		</li>
-		
-	</ul>
-</div>
-	</div>
 	
 
 	<div class="right-side-tools-container">
@@ -970,7 +1012,6 @@
         containers: ["#swup"],
     });
 </script>
-
 
 
 
