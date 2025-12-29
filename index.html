@@ -680,7 +680,7 @@ mjx-container[display="true"] + br {
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -688,7 +688,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -727,12 +727,12 @@ mjx-container[display="true"] + br {
                 <div class="author flex flex-col justify-center my-2.5 mx-0">
     <div class="name">Ikko</div>
     
-        <div class="label">Lv3</div>
+        <div class="label">Lv4</div>
     
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -740,7 +740,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -755,6 +755,103 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/12/24/cuda/">
+                            cuda
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言CUDA 编程需要理解线程与硬件的物理映射，并优化显存（Global Memory）访问以提升性能。
+
+一、 核心映射理解 Grid/Block/Thread 在物理资源上的占用情况。
+
+
+
+软件层级 (Software)
+硬件真身 (Hardware)
+说明
+
+
+
+Grid
+Device (GPU)
+对应显存 (Global Memory)。所有线程可见，但访问延迟较高。
+
+
+Bloc...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Dec 24 2025 14:46:57 GMT+0800">
+                
+                    2025-12-24
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/12/24/cuda/">Read more<span class="seo-reader-text">cuda</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/12/23/PMPP/">
+                            PMPP读书笔记
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Dec 23 2025 01:06:12 GMT+0800">
+                
+                    2025-12-23
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/12/23/PMPP/">Read more<span class="seo-reader-text">PMPP读书笔记</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -877,8 +974,12 @@ mjx-container[display="true"] + br {
                     <div class="home-article-content markdown-body">
                         
                             
-                            直线上最多的点数这题有两个坑。1.首先不能用double存斜率，必须是化简字符形式，并且如此做还能解决斜率为无穷大的情况。2.对于每个i，每轮要清空map矩阵。因为在遍历i时已经把能和i共线的点遍历完了，若不清空则会出现平行线问题。
-12345678910111213141516171819202122232425262728293031323334353637383940414243444...
+                            递归怎么写又写错一道递归，于是乎总结一下递归的写法。
+
+假设函数已经写好了
+当前节点该怎么做
+找“最小不需要处理的情况”
+return 用来“兑现函数定义”12345678910111213141516171819202122232425262728/** * Definition for a binary tree node. * struct TreeNode { *     int v...
                         
                     </div>
 
@@ -892,6 +993,18 @@ mjx-container[display="true"] + br {
             </span>
         </span>
         
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
         
     </div>
 
@@ -1165,105 +1278,11 @@ Query (Q)
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/03/11/HYMBA/">
-                            HYMBA论文粗总结
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Hymba：小型语言模型的新标杆——融合SSM与Attention的混合架构状态空间模型（SSM，如Mamba）以线性复杂度崭露头角，但其回忆能力不足。2025年ICLR，NVIDIA团队提出了Hymba，一种小型语言模型（LM），通过创新的“混合头”（Hybrid-Head）架构，巧妙融合SSM和Attention。
-一、SSM（状态空间模型）的结构SSM是一种基于控制论的序列建模方法，M...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Mar 11 2025 14:51:10 GMT+0800">
-                
-                    2025-03-11
-                
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/ICLR-oral/">ICLR oral</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/03/11/HYMBA/">Read more<span class="seo-reader-text">HYMBA论文粗总结</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/02/20/MHA/">
-                            MHA
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            MHA 和 GQA 中 Q、K、V 分割的区别解析
-1. 图3的详细解析1.1 整体布局Figure 3 | Kernel design for NSAThe kernel loads queries by GQA groups (Grid Loop), fetches corresponding sparse KV blocks (Inner Loop), and performs att...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Feb 20 2025 16:19:18 GMT+0800">
-                
-                    2025-02-20
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/02/20/MHA/">Read more<span class="seo-reader-text">MHA</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa-regular fa-angle-right"></i></a>
+	<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1289,11 +1308,11 @@ Query (Q)
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        30 posts in total
+                        32 posts in total
                     </span>
                     
                         <span>
-                            56.1k words in total
+                            58.8k words in total
                         </span>
                     
                 </p>
