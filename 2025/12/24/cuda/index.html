@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-12-24T06:46:57.000Z">
-<meta property="article:modified_time" content="2026-01-18T06:39:36.288Z">
+<meta property="article:modified_time" content="2026-01-22T13:27:35.874Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -633,7 +633,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -684,8 +684,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-01-18 14:39:36</span>
-            <span class="mobile">2026-01-18 14:39:36</span>
+            <span class="desktop">2026-01-22 21:27:35</span>
+            <span class="mobile">2026-01-22 21:27:35</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -696,12 +696,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>8k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>29 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>37 Mins</span>
         </span>
     
     
@@ -1306,74 +1306,126 @@ mjx-container[display="true"] + br {
 <li><strong>使用 Tiling</strong>：每个数据从全局内存读取后，在共享内存中被 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="2.371ex" height="1.595ex" role="img" focusable="false" viewBox="0 -683 1048 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g></g></g></svg></mjx-container> 个线程重复使用 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="2.371ex" height="1.595ex" role="img" focusable="false" viewBox="0 -683 1048 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g></g></g></svg></mjx-container> 次，实现了 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="3.484ex" height="1.937ex" role="img" focusable="false" viewBox="0 -833.9 1539.8 855.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="mn" transform="translate(1136.2,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container> 倍的重用</li>
 </ul>
 <p>这种局部性优化是 GPU 编程中提升内存受限应用性能的核心技术。</p>
-<h3 id="1D-Blocktiling"><a href="#1D-Blocktiling" class="headerlink" title="1D Blocktiling"></a>1D Blocktiling</h3><h2 id="向量化访存-Vectorized-Memory-Access"><a href="#向量化访存-Vectorized-Memory-Access" class="headerlink" title="向量化访存(Vectorized Memory Access)"></a>向量化访存(Vectorized Memory Access)</h2><p>向量化访存是通过单条指令加载或存储多个连续数据（如 128 位数据）的技术，旨在进一步压榨带宽并减少指令发射开销。</p>
+<h2 id="突破串行限制：双缓冲与流水线优化"><a href="#突破串行限制：双缓冲与流水线优化" class="headerlink" title="突破串行限制：双缓冲与流水线优化"></a>突破串行限制：双缓冲与流水线优化</h2><h3 id="瓶颈分析：串行执行的代价"><a href="#瓶颈分析：串行执行的代价" class="headerlink" title="瓶颈分析：串行执行的代价"></a>瓶颈分析：串行执行的代价</h3><p>在基础的 Shared Memory Tiling 实现中，Kernel 的执行流程是典型的<strong>同步-阻塞循环</strong>：</p>
 <ol>
-<li>核心原理</li>
+<li><strong>Load</strong>: 从 Global Memory 加载数据到 Shared Memory。</li>
+<li><strong>Sync</strong>: <code>__syncthreads()</code> 等待数据就绪。</li>
+<li><strong>Compute</strong>: 基于 Shared Memory 进行矩阵乘计算。</li>
+<li><strong>Sync</strong>: <code>__syncthreads()</code> 等待计算完成，准备下一轮加载。</li>
 </ol>
-<p>在 CUDA 中，使用向量数据类型（如 float4, int4）可以触发底层硬件的向量加载指令（如 LD.E.128）。</p>
-<p>单条指令效率：一条 float4 加载指令代替四条标量 float 指令。这减少了指令解码器的压力。</p>
-<p>对齐要求：向量化类型要求地址必须是其大小的整数倍。例如，float4 要求起始地址必须能被 16 字节整除。若地址未对齐，将导致非法内存访问或性能严重回退。</p>
-<p>硬件上限：当前 GPU 架构单线程单次访存的最大宽度通常为 128 位 (16 字节)。</p>
-<ol start="2">
-<li>为何 float3 性能较差？</li>
-</ol>
-<p>float3 占用 12 字节，这并非 2 的幂次。</p>
-<p>指令拆分：由于没有原生 96 位指令，编译器通常将其拆分为一次 64 位（float2）和一次 32 位（float）加载。</p>
-<p>对齐失准：在一个 Warp 中，线程 i 访问 data[i] 时，每个线程的起始地址相对于 Warp 边界会产生偏移，导致无法合并为一个连续的 128 字节事务，进而引发严重的访存发散。</p>
-<p>七、 内存布局优化：AoS 与 SoA<br>数据在内存中的排布方式直接决定了合并访问（Coalescing）的成败。</p>
+<p>从系统架构的视角，这种执行模式导致了严重的**硬件资源闲置 (Underutilization)**：</p>
+<ul>
+<li>当 <strong>Memory Unit (LD/ST)</strong> 忙于搬运数据时，计算核心 (<strong>ALU/Tensor Core</strong>) 处于空闲状态，等待 IO 结束。</li>
+<li>当计算核心满载运转时，内存带宽却处于闲置状态。</li>
+</ul>
+<p>用一个形象的比喻：厨师（ALU）必须等仓库管理员（Memory Unit）搬完所有食材（Load），才能开始切菜（Compute）。在搬运的数百个时钟周期里，案板是空的，厨师停工无事可做。</p>
+<p>这种串行模式限制了 GPU 的 <strong>计算与访存重叠 (Overlap)</strong> 能力，无法充分掩盖长达数百个时钟周期的访存延迟。</p>
+<h3 id="核心原理：软件流水线化-Software-Pipelining"><a href="#核心原理：软件流水线化-Software-Pipelining" class="headerlink" title="核心原理：软件流水线化 (Software Pipelining)"></a>核心原理：软件流水线化 (Software Pipelining)</h3><p>为了打破这一瓶颈，我们引入<strong>双缓冲 (Double Buffering)</strong> 技术。其核心思想是构建一个<strong>软件流水线</strong>，利用 GPU 的 <strong>指令级并行 (Instruction Level Parallelism, ILP)</strong> 能力，实现”搬运”和”计算”的真正并发。</p>
+<h4 id="Ping-Pong-缓冲区设计"><a href="#Ping-Pong-缓冲区设计" class="headerlink" title="Ping-Pong 缓冲区设计"></a>Ping-Pong 缓冲区设计</h4><p>我们分配两份物理 Shared Memory 空间（Buffer 0 和 Buffer 1），分别称为 <strong>Ping-Pong Buffer</strong>：</p>
+<ul>
+<li><strong>Buffer 0 (Ping)</strong>: 当前时刻用于<strong>计算</strong>的活跃缓冲区。所有线程都在消费其数据。</li>
+<li><strong>Buffer 1 (Pong)</strong>: 当前时刻用于<strong>异步预取</strong>的阴影缓冲区，为下一轮循环提前准备数据。</li>
+</ul>
+<h4 id="硬件视角的时序增益"><a href="#硬件视角的时序增益" class="headerlink" title="硬件视角的时序增益"></a>硬件视角的时序增益</h4><p>通过指令重排，我们可以使总执行时间趋近于计算和访存中较大的一方，而非两者的简单相加：</p>
+<p>$$\text{Total Time} \approx \sum_{k} \max(\text{Time}<em>{\text{compute}, k}, \text{Time}</em>{\text{memory}, k+1})$$</p>
+<p>而在串行模式下，总时间为：</p>
+<p>$$\text{Total Time}<em>{\text{serial}} = \sum</em>{k} (\text{Time}<em>{\text{load}, k} + \text{Time}</em>{\text{compute}, k})$$</p>
+<p><strong>流水线重叠效果示意图：</strong></p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Time: ---------------------------------------------------------&gt;</span><br><span class="line">[Memory Unit]: [Load Tile 1] [Load Tile 2] [Load Tile 3] [...]</span><br><span class="line">[ALU  Unit ]:                [Comp Tile 1] [Comp Tile 2] [Comp Tile 3]</span><br><span class="line">                             &lt;--- Overlap (掩盖延迟) ---&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个理想情况下，Memory Unit 在搬运下一批数据，而 ALU 正在计算前一批数据。两个独立的硬件单元形成了流水线的两个阶段。</p>
+<h3 id="代码实现：基于寄存器预取的软件流水线"><a href="#代码实现：基于寄存器预取的软件流水线" class="headerlink" title="代码实现：基于寄存器预取的软件流水线"></a>代码实现：基于寄存器预取的软件流水线</h3><p>在 NVIDIA Ampere 架构（A100）之前，通用的实现方案是利用**寄存器预取 (Register Prefetching)**。这种方式巧妙地将寄存器作为”中转站”，在执行当前阶段计算的同时，异步启动下一阶段的访存请求。</p>
+<h4 id="内存布局：双倍-Shared-Memory"><a href="#内存布局：双倍-Shared-Memory" class="headerlink" title="内存布局：双倍 Shared Memory"></a>内存布局：双倍 Shared Memory</h4><p>首先需要将 Shared Memory 的容量翻倍，并通常加上 <code>+1</code> 的 Padding 以避免银行冲突 (Bank Conflicts)：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [2] 代表 Ping-Pong 两个缓冲区阶段</span></span><br><span class="line">__shared__ <span class="type">float</span> As[<span class="number">2</span>][BLOCK_SIZE][BLOCK_SIZE + <span class="number">1</span>];</span><br><span class="line">__shared__ <span class="type">float</span> Bs[<span class="number">2</span>][BLOCK_SIZE][BLOCK_SIZE + <span class="number">1</span>];</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Kernel-核心逻辑"><a href="#Kernel-核心逻辑" class="headerlink" title="Kernel 核心逻辑"></a>Kernel 核心逻辑</h4><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">sgemm_double_buffered</span><span class="params">(<span class="type">float</span> *A, <span class="type">float</span> *B, <span class="type">float</span> *C, </span></span></span><br><span class="line"><span class="params"><span class="function">                                      <span class="type">int</span> M, <span class="type">int</span> N, <span class="type">int</span> K)</span> </span>{</span><br><span class="line">    <span class="comment">// ... (索引计算与 Shared Memory 声明) ...</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// --- Prologue (流水线启动预热) ---</span></span><br><span class="line">    <span class="comment">// 先加载第 0 块数据到缓冲区 0</span></span><br><span class="line">    <span class="built_in">load_gmem_to_smem</span>(As[<span class="number">0</span>], Bs[<span class="number">0</span>], <span class="comment">/* tile 0 indices */</span>);</span><br><span class="line">    __syncthreads();</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> read_stage_idx = <span class="number">0</span>;   <span class="comment">// 当前计算用的缓冲区索引</span></span><br><span class="line">    <span class="type">int</span> write_stage_idx = <span class="number">1</span>;  <span class="comment">// 当前加载用的缓冲区索引</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 寄存器预取中转变量 (这是利用 ILP 的关键)</span></span><br><span class="line">    <span class="type">float</span> load_a, load_b;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// --- Main Loop ---</span></span><br><span class="line">    <span class="comment">// 注意：循环次数比原始少 1，因为最后一块数据在 Epilogue 处理</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; K - BLOCK_SIZE; k += BLOCK_SIZE) {</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Step 1: 发出"未来订单" (Global Memory -&gt; Register)</span></span><br><span class="line">        <span class="comment">// 该加载指令发出后立即返回，数据在后台由 DMA 引擎异步搬运</span></span><br><span class="line">        <span class="type">int</span> next_k = k + BLOCK_SIZE;</span><br><span class="line">        load_a = A[<span class="comment">/* index for next_k */</span>]; </span><br><span class="line">        load_b = B[<span class="comment">/* index for next_k */</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Step 2: "消费当下的数据" (Compute on Current SMEM)</span></span><br><span class="line">        <span class="comment">// 在后台搬运数据的同时，ALU 正在计算前一轮加载好的数据</span></span><br><span class="line">        <span class="built_in">compute_tile</span>(As[read_stage_idx], Bs[read_stage_idx], tmp);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Step 3: 同步点 1</span></span><br><span class="line">        <span class="comment">// 确保 read_stage 的计算已完成，</span></span><br><span class="line">        <span class="comment">// 同时隐含等待 load_a/b 数据从显存返回寄存器</span></span><br><span class="line">        __syncthreads();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Step 4: 填入缓冲区 (Register -&gt; Shared Memory)</span></span><br><span class="line">        <span class="comment">// 将预取回来的数据写入 write_stage，为下一轮循环准备 SMEM 数据</span></span><br><span class="line">        As[write_stage_idx][ty][tx] = load_a;</span><br><span class="line">        Bs[write_stage_idx][ty][tx] = load_b;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Step 5: 同步点 2</span></span><br><span class="line">        <span class="comment">// 确保 write_stage 已被填满，以便下一轮迭代可以安全读取</span></span><br><span class="line">        __syncthreads();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Step 6: 乒乓交换 (Ping-Pong Swap)</span></span><br><span class="line">        <span class="comment">// 通过位翻转快速交换缓冲区角色：0 &lt;-&gt; 1</span></span><br><span class="line">        read_stage_idx ^= <span class="number">1</span>;</span><br><span class="line">        write_stage_idx ^= <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// --- Epilogue (收尾阶段) ---</span></span><br><span class="line">    <span class="comment">// 计算流水线中最后剩余的一块数据（循环里预取了但没算）</span></span><br><span class="line">    <span class="built_in">compute_tile</span>(As[read_stage_idx], Bs[read_stage_idx], tmp);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 完成结果写回全局内存...</span></span><br><span class="line">    <span class="keyword">if</span> (row &lt; M &amp;&amp; col &lt; N) </span><br><span class="line">        C[...] = tmp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="机制深究：Consumer-Producer-动态平衡"><a href="#机制深究：Consumer-Producer-动态平衡" class="headerlink" title="机制深究：Consumer-Producer 动态平衡"></a>机制深究：Consumer-Producer 动态平衡</h3><p>这种设计通过物理空间的冗余（多一倍的 Shared Memory），巧妙地解决了 <strong>Read-After-Write (RAW)</strong> 的数据依赖冲突。</p>
+<p>我们可以将其理解为一种细粒度的 <strong>生产者-消费者模型</strong>：</p>
+<ul>
+<li><p>**消费阶段 (Consumer)**：<code>read_stage</code> 的缓冲区始终处于”Full &amp; Valid”状态。所有线程都在读取并消费其中的数据，执行计算。</p>
+</li>
+<li><p>**生产阶段 (Producer)**：<code>write_stage</code> 的缓冲区处于”Deprecated/Empty”状态，等待接收新数据。Store 单元（来自寄存器）源源不断地填充它。</p>
+</li>
+<li><p>**交换瞬间 (Swap)**：通过位运算 <code>idx ^= 1</code>，原先”消费殆尽”的缓冲区瞬间变身为”接收区”，而刚被填满的缓冲区升格为下一轮的”计算区”。</p>
+</li>
+</ul>
+<p>在这个动态平衡中，<strong>Memory Unit 和 ALU 两条流水线始终保持了相对独立的执行节奏</strong>，只在 <code>__syncthreads()</code> 处进行强制同步，其他时间互不干扰。</p>
+<h3 id="现代演进"><a href="#现代演进" class="headerlink" title="现代演进"></a>现代演进</h3><p>双缓冲技术以<strong>一倍 Shared Memory 空间的代价</strong>（Space），换取了计算与访存的时间重叠（Time）。这是解决 <strong>Memory Bound</strong> 问题的经典且高效的硬件优化手段。</p>
+<p>在 <strong>NVIDIA Ampere (A100)</strong> 及之后的架构中，CUDA 引入了 <code>cp.async</code> (Asynchronous Copy) 指令。相比寄存器预取，其优势包括：</p>
 <ol>
-<li>AoS (Array of Structures)</li>
+<li><strong>绕过寄存器</strong>：数据直接从全局内存旁路推送到共享内存，避免了寄存器中转。</li>
+<li><strong>降低压强</strong>：显著减少了寄存器堆 (Register File) 的占用和访问竞争。</li>
+<li><strong>硬件栅栏</strong>：配合 <code>cuda::memcpy_async</code> 和 <code>__syncwarp()</code> 等同步屏障，流水线效率更优。</li>
 </ol>
-<p>结构：struct { float r, g, b; } pixels[N];</p>
-<p>内存排列：r g b | r g b | r g b …</p>
-<p>GPU 劣势：当线程 i 读取 pixels[i].r 时，相邻线程读取的地址间隔了 g 和 b。这种不连续访问会导致合并访问失败，极大浪费带宽。</p>
-<ol start="2">
-<li>SoA (Structure of Arrays)</li>
-</ol>
-<p>结构：struct { float r[N], g[N], b[N]; } pixels;</p>
-<p>内存排列：r r r … | g g g … | b b b …</p>
-<p>GPU 优势：相邻线程读取 pixels.r[i] 时，物理地址是完全连续的。这能触发完美的内存合并，是 GPU 编程的首选布局。</p>
-<p>八、 并行规约 (Parallel Reduction)<br>并行规约（如求和、最大值）是并行算法中分治法（Divide and Conquer）的典型应用。</p>
-<ol>
-<li>分治累加逻辑</li>
-</ol>
-<p>传统的串行累加复杂度为 O(n)，而并行规约通过树状结构将复杂度降低至 O(logn)。</p>
-<p>迭代折半：每一轮迭代，参与计算的线程数减半。活跃线程将数组后半部分的值加到前半部分对应位置。</p>
-<p>同步要求：在共享内存中进行规约时，每轮迭代后必须调用 __syncthreads()，以确保所有线程都完成了当前层级的计算。</p>
-<ol start="2">
-<li>线程束洗牌 (Warp Shuffle) 优化</li>
-</ol>
-<p>当规约步长降至 32（即进入同一个 Warp）时，可以使用硬件级别的线程束洗牌函数 __shfl_down_sync()。</p>
-<p>寄存器交换：数据直接在 Warp 内的寄存器间传递，无需经过共享内存。</p>
-<p>零同步开销：Warp 内指令天然同步执行，无需 __syncthreads()。</p>
-<p>边界处理：__shfl_down_sync 若超出 Warp 边界（Lane ID &gt; 31），会自动返回原值，逻辑鲁棒性强。</p>
-<ol start="3">
-<li>实现策略对比：Atomic vs. Two-Pass</li>
-</ol>
-<p>Smem Atomic Reduce：每个 Block 计算局部和，最后通过 atomicAdd 汇总到全局地址。</p>
-<p>优点：实现简单，单个 Kernel 解决。</p>
-<p>缺点：当 Block 极多时，全局原子操作会导致硬件排队冲突。</p>
-<p>Two-Pass Reduce：第一遍计算各 Block 的局部和并存入中间数组，第二遍再启动 Kernel 对中间数组进行规约。</p>
-<p>优点：无原子冲突，逻辑确定。</p>
-<p>缺点：需要额外的 Kernel 发射和访存开销。适用于数据量极大、原子冲突显著的场景。</p>
-<p>九、 共享内存 Bank Conflict<br>共享内存被划分为 32 个存储体（Banks），旨在实现并行访问。</p>
-<ol>
-<li>冲突原理</li>
-</ol>
-<p>映射规则：数据按 4 字节轮询映射到 32 个 Bank。Bank_ID = (Address / 4) % 32。</p>
-<p>冲突定义：当一个 Warp 内的多个线程同时访问同一个 Bank 里的不同地址时，会发生 Bank Conflict，导致访问被串行化。</p>
-<ol start="2">
-<li>2D 数组中的典型冲突</li>
-</ol>
-<p>在处理宽为 32 的倍数的 2D 数组时，按列访问（Column-wise Access）是性能杀手：</p>
-<p>现象：tile[row][col] 访问时，如果宽度为 32，则 tile[i][0] 和 tile[i+1][0] 的地址间隔正好是 32 个 float，意味着它们会映射到同一个 Bank。</p>
-<p>后果：整个 Warp 的 32 个线程会全部撞在同一个 Bank 上，造成 32 路冲突。</p>
-<ol start="3">
-<li>Padding 优化</li>
-</ol>
-<p>通过在声明时增加一列（如 [32][33]），可以强制改变数据的物理映射。</p>
-<p>原理：每行末尾多出一个占位符，使下一行的起始位置在 Bank 中产生位移。</p>
-<p>效果：原本垂直对齐的“列”在物理 Bank 中变成了斜向分布，从而消除了冲突。</p>
+<p>然而，<strong>深刻理解”寄存器预取”这一手工流水线逻辑，依然是每一位 AI Infra 工程师掌握高性能编程的基石</strong>。它不仅传授了优化思想，更锻炼了对 GPU 硬件执行流程的深层直觉。</p>
+<hr>
+<p><strong>参考文献：</strong></p>
+<ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">NVIDIA CUDA Programming Guide<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://github.com/NVIDIA/cutlass">CUTLASS: Fast Linear Algebra in CUDA C++<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<h3 id="硬件视角的时序图"><a href="#硬件视角的时序图" class="headerlink" title="硬件视角的时序图"></a>硬件视角的时序图</h3><p>通过指令重排，我们可以达成以下效果：</p>
+<p>$$<br>\text{Total Time} \approx \sum \max(\text{Time}<em>{\text{compute}}, \text{Time}</em>{\text{memory}})<br>$$</p>
+<p>而不是简单的两者相加。</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Time: --------------------------------------------------&gt;</span><br><span class="line">[Load Unit]: [Load Tile 1] [Load Tile 2] [Load Tile 3] ...</span><br><span class="line">[ALU Unit ]: [Comp Tile 0] [Comp Tile 1] [Comp Tile 2] ...</span><br><span class="line">             &lt;--- Overlap (掩盖延迟) ---&gt;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h3 id="1D-Blocktiling"><a href="#1D-Blocktiling" class="headerlink" title="1D Blocktiling"></a>1D Blocktiling</h3><h2 id="向量化访存-Vectorized-Memory-Access"><a href="#向量化访存-Vectorized-Memory-Access" class="headerlink" title="向量化访存 (Vectorized Memory Access)"></a>向量化访存 (Vectorized Memory Access)</h2><p>向量化访存是通过单条指令加载或存储多个连续数据（如 128 位数据）的技术，旨在进一步压榨带宽并减少指令发射开销。</p>
+<h3 id="1-核心原理"><a href="#1-核心原理" class="headerlink" title="1. 核心原理"></a>1. 核心原理</h3><p>在 CUDA 中，使用向量数据类型（如 float4, int4）可以触发底层硬件的向量加载指令（如 LD.E.128）。</p>
+<ul>
+<li><strong>单条指令效率</strong>：一条 float4 加载指令代替四条标量 float 指令。这减少了指令解码器的压力。</li>
+<li><strong>对齐要求</strong>：向量化类型要求地址必须是其大小的整数倍。例如，float4 要求起始地址必须能被 16 字节整除。若地址未对齐，将导致非法内存访问或性能严重回退。</li>
+<li><strong>硬件上限</strong>：当前 GPU 架构单线程单次访存的最大宽度通常为 128 位 (16 字节)。</li>
+</ul>
+<h3 id="2-为何-float3-性能较差？"><a href="#2-为何-float3-性能较差？" class="headerlink" title="2. 为何 float3 性能较差？"></a>2. 为何 float3 性能较差？</h3><p>float3 占用 12 字节，这并非 2 的幂次。</p>
+<ul>
+<li><strong>指令拆分</strong>：由于没有原生 96 位指令，编译器通常将其拆分为一次 64 位（float2）和一次 32 位（float）加载。</li>
+<li><strong>对齐失准</strong>：在一个 Warp 中，线程 i 访问 data[i] 时，每个线程的起始地址相对于 Warp 边界会产生偏移，导致无法合并为一个连续的 128 字节事务，进而引发严重的访存发散。</li>
+</ul>
+<hr>
+<h2 id="内存布局优化：AoS-与-SoA"><a href="#内存布局优化：AoS-与-SoA" class="headerlink" title="内存布局优化：AoS 与 SoA"></a>内存布局优化：AoS 与 SoA</h2><p>数据在内存中的排布方式直接决定了合并访问（Coalescing）的成败。</p>
+<h3 id="1-AoS-Array-of-Structures"><a href="#1-AoS-Array-of-Structures" class="headerlink" title="1. AoS (Array of Structures)"></a>1. AoS (Array of Structures)</h3><p><strong>结构</strong>：<code>struct { float r, g, b; } pixels[N];</code></p>
+<p><strong>内存排列</strong>：r g b | r g b | r g b …</p>
+<p><strong>GPU 劣势</strong>：当线程 i 读取 <code>pixels[i].r</code> 时，相邻线程读取的地址间隔了 g 和 b。这种不连续访问会导致合并访问失败，极大浪费带宽。</p>
+<h3 id="2-SoA-Structure-of-Arrays"><a href="#2-SoA-Structure-of-Arrays" class="headerlink" title="2. SoA (Structure of Arrays)"></a>2. SoA (Structure of Arrays)</h3><p><strong>结构</strong>：<code>struct { float r[N], g[N], b[N]; } pixels;</code></p>
+<p><strong>内存排列</strong>：r r r … | g g g … | b b b …</p>
+<p><strong>GPU 优势</strong>：相邻线程读取 <code>pixels.r[i]</code> 时，物理地址是完全连续的。这能触发完美的内存合并，是 GPU 编程的首选布局。</p>
+<hr>
+<h2 id="并行规约-Parallel-Reduction"><a href="#并行规约-Parallel-Reduction" class="headerlink" title="并行规约 (Parallel Reduction)"></a>并行规约 (Parallel Reduction)</h2><p>并行规约（如求和、最大值）是并行算法中分治法（Divide and Conquer）的典型应用。</p>
+<h3 id="1-分治累加逻辑"><a href="#1-分治累加逻辑" class="headerlink" title="1. 分治累加逻辑"></a>1. 分治累加逻辑</h3><p>传统的串行累加复杂度为 O(n)，而并行规约通过树状结构将复杂度降低至 O(logn)。</p>
+<ul>
+<li><strong>迭代折半</strong>：每一轮迭代，参与计算的线程数减半。活跃线程将数组后半部分的值加到前半部分对应位置。</li>
+<li><strong>同步要求</strong>：在共享内存中进行规约时，每轮迭代后必须调用 <code>__syncthreads()</code>，以确保所有线程都完成了当前层级的计算。</li>
+</ul>
+<h3 id="2-线程束洗牌-Warp-Shuffle-优化"><a href="#2-线程束洗牌-Warp-Shuffle-优化" class="headerlink" title="2. 线程束洗牌 (Warp Shuffle) 优化"></a>2. 线程束洗牌 (Warp Shuffle) 优化</h3><p>当规约步长降至 32（即进入同一个 Warp）时，可以使用硬件级别的线程束洗牌函数 <code>__shfl_down_sync()</code>。</p>
+<ul>
+<li><strong>寄存器交换</strong>：数据直接在 Warp 内的寄存器间传递，无需经过共享内存。</li>
+<li><strong>零同步开销</strong>：Warp 内指令天然同步执行，无需 <code>__syncthreads()</code>。</li>
+<li><strong>边界处理</strong>：<code>__shfl_down_sync</code> 若超出 Warp 边界（Lane ID &gt; 31），会自动返回原值，逻辑鲁棒性强。</li>
+</ul>
+<h3 id="3-实现策略对比"><a href="#3-实现策略对比" class="headerlink" title="3. 实现策略对比"></a>3. 实现策略对比</h3><p><strong>Smem Atomic Reduce</strong>：每个 Block 计算局部和，最后通过 atomicAdd 汇总到全局地址。</p>
+<ul>
+<li><strong>优点</strong>：实现简单，单个 Kernel 解决。</li>
+<li><strong>缺点</strong>：当 Block 极多时，全局原子操作会导致硬件排队冲突。</li>
+</ul>
+<p><strong>Two-Pass Reduce</strong>：第一遍计算各 Block 的局部和并存入中间数组，第二遍再启动 Kernel 对中间数组进行规约。</p>
+<ul>
+<li><strong>优点</strong>：无原子冲突，逻辑确定。</li>
+<li><strong>缺点</strong>：需要额外的 Kernel 发射和访存开销。适用于数据量极大、原子冲突显著的场景。</li>
+</ul>
+<hr>
+<h2 id="共享内存-Bank-Conflict"><a href="#共享内存-Bank-Conflict" class="headerlink" title="共享内存 Bank Conflict"></a>共享内存 Bank Conflict</h2><p>共享内存被划分为 32 个存储体（Banks），旨在实现并行访问。</p>
+<h3 id="1-冲突原理"><a href="#1-冲突原理" class="headerlink" title="1. 冲突原理"></a>1. 冲突原理</h3><p><strong>映射规则</strong>：数据按 4 字节轮询映射到 32 个 Bank。<code>Bank_ID = (Address / 4) % 32</code>。</p>
+<p>当多个线程读写同一个 Bank 中的数据时，会由硬件把内存读写请求拆分成 conflict-free requests，进行顺序读写。特别地，当一个 Warp 中的所有线程读写同一个地址时，会触发 broadcast 机制，此时不会退化成顺序读写。</p>
+<p><strong>注</strong>：触发 broadcast 机制的条件是多个线程读写同一地址（不需要 All）。</p>
+<p>在访问 Shared Memory 时，因多个线程读写同一个 Bank 中的不同数据地址，导致 Shared Memory 并发读写退化成顺序读写的现象叫做 <strong>Bank Conflict</strong>。</p>
+<h3 id="2-2D-数组中的典型冲突"><a href="#2-2D-数组中的典型冲突" class="headerlink" title="2. 2D 数组中的典型冲突"></a>2. 2D 数组中的典型冲突</h3><p>在处理宽为 32 的倍数的 2D 数组时，按列访问（Column-wise Access）是性能杀手：</p>
+<p><strong>现象</strong>：<code>tile[row][col]</code> 访问时，如果宽度为 32，则 <code>tile[i][0]</code> 和 <code>tile[i+1][0]</code> 的地址间隔正好是 32 个 float，意味着它们会映射到同一个 Bank。<br><strong>后果</strong>：整个 Warp 的 32 个线程会全部撞在同一个 Bank 上，造成 32 路冲突。</p>
+<h3 id="3-Padding-优化"><a href="#3-Padding-优化" class="headerlink" title="3. Padding 优化"></a>3. Padding 优化</h3><p>通过在声明时增加一列（如 <code>[32][33]</code>），可以强制改变数据的物理映射。</p>
+<p><strong>原理</strong>：每行末尾多出一个占位符，使下一行的起始位置在 Bank 中产生位移。</p>
+<p><strong>效果</strong>：原本垂直对齐的”列”在物理 Bank 中变成了斜向分布，从而消除了冲突。</p>
 
 		</div>
 
@@ -1388,7 +1440,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-01-18 14:39:36
+                    :</strong> 2026-01-22 21:27:35
             </li>
         
         <li>
@@ -1417,11 +1469,23 @@ mjx-container[display="true"] + br {
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/01/26/bianyi/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">AI编译器</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
 				<a class="next" rel="next" href="/2025/12/23/PMPP/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">PMPP读书笔记</span>
+						<span class="post-nav-title-item truncate max-w-48">ncu nsight</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -1501,7 +1565,7 @@ mjx-container[display="true"] + br {
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">cuda</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%98%A0%E5%B0%84"><span class="nav-text">核心映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Warp-%E7%BA%BF%E7%A8%8B%E6%9D%9F"><span class="nav-text">Warp (线程束)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%88%86%E6%94%AF-Control-Divergence"><span class="nav-text">控制分支 (Control Divergence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%BA%A6%E6%9D%9F%E4%B8%8E%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="nav-text">资源约束与占用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-vs-GPU-%E5%AF%84%E5%AD%98%E5%99%A8%E8%AE%BE%E8%AE%A1%E5%AF%B9%E6%AF%94"><span class="nav-text">CPU vs GPU 寄存器设计对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E4%B8%8E%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-text">内存层级与变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E8%AF%AD%E6%B3%95%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1. 内存语法、作用域与生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%A9%E7%90%86%E5%AE%9E%E7%8E%B0"><span class="nav-text">2. 线程私有变量的物理实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E5%86%85%E5%AD%98%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8E%E9%99%B7%E9%98%B1"><span class="nav-text">3. 本地内存的特性与陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%9A%84%E5%8D%8F%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-text">4. 共享内存的协作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-text">5. 全局内存的持久性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%B5%84%E6%BA%90%E9%A2%84%E7%AE%97%E5%8E%9F%E5%88%99"><span class="nav-text">6. 程序员的资源预算原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-1D-%E5%88%B0-Memory-Coalescing"><span class="nav-text">从 1D 到 Memory Coalescing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1D-%E7%B4%A2%E5%BC%95%E8%AE%A1%E7%AE%97"><span class="nav-text">1. 1D 索引计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%85%E5%AD%98%E5%90%88%E5%B9%B6-Memory-Coalescing"><span class="nav-text">2. 内存合并 (Memory Coalescing)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grid-Stride-Loop"><span class="nav-text">Grid-Stride Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-%E7%9F%A9%E9%98%B5%E4%B8%8E-Flattening"><span class="nav-text">2D 矩阵与 Flattening</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9D%90%E6%A0%87%E6%98%A0%E5%B0%84-Mapping"><span class="nav-text">1. 坐标映射 (Mapping)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9C%B0%E5%9D%80%E5%8E%8B%E6%89%81-Flattening"><span class="nav-text">2. 地址压扁 (Flattening)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Naive-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. Naive GEMM 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-text">4. 性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Roofline-%E6%A8%A1%E5%9E%8B"><span class="nav-text">Roofline 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E6%8C%87%E6%A0%87"><span class="nav-text">1. 核心指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%80%A7%E8%83%BD%E6%A8%A1%E5%9E%8B"><span class="nav-text">2. 性能模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90"><span class="nav-text">3. 瓶颈分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tiled-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">tiled GEMM 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E8%AF%BB"><span class="nav-text">代码详细解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Row-Major-Layout-%E8%A1%8C%E4%B8%BB%E5%BA%8F%E5%B8%83%E5%B1%80"><span class="nav-text">Row-Major Layout (行主序布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tiling-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%9A%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E6%B5%81%E9%87%8F%E5%87%8F%E5%B0%91%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="nav-text">Tiling 性能分析：全局内存流量减少的数学推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1D-Blocktiling"><span class="nav-text">1D Blocktiling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96%E8%AE%BF%E5%AD%98-Vectorized-Memory-Access"><span class="nav-text">向量化访存(Vectorized Memory Access)</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%98%A0%E5%B0%84"><span class="nav-text">核心映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Warp-%E7%BA%BF%E7%A8%8B%E6%9D%9F"><span class="nav-text">Warp (线程束)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%88%86%E6%94%AF-Control-Divergence"><span class="nav-text">控制分支 (Control Divergence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%BA%A6%E6%9D%9F%E4%B8%8E%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="nav-text">资源约束与占用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-vs-GPU-%E5%AF%84%E5%AD%98%E5%99%A8%E8%AE%BE%E8%AE%A1%E5%AF%B9%E6%AF%94"><span class="nav-text">CPU vs GPU 寄存器设计对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E4%B8%8E%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-text">内存层级与变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E8%AF%AD%E6%B3%95%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1. 内存语法、作用域与生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%A9%E7%90%86%E5%AE%9E%E7%8E%B0"><span class="nav-text">2. 线程私有变量的物理实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E5%86%85%E5%AD%98%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8E%E9%99%B7%E9%98%B1"><span class="nav-text">3. 本地内存的特性与陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%9A%84%E5%8D%8F%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-text">4. 共享内存的协作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-text">5. 全局内存的持久性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%B5%84%E6%BA%90%E9%A2%84%E7%AE%97%E5%8E%9F%E5%88%99"><span class="nav-text">6. 程序员的资源预算原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-1D-%E5%88%B0-Memory-Coalescing"><span class="nav-text">从 1D 到 Memory Coalescing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1D-%E7%B4%A2%E5%BC%95%E8%AE%A1%E7%AE%97"><span class="nav-text">1. 1D 索引计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%85%E5%AD%98%E5%90%88%E5%B9%B6-Memory-Coalescing"><span class="nav-text">2. 内存合并 (Memory Coalescing)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grid-Stride-Loop"><span class="nav-text">Grid-Stride Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-%E7%9F%A9%E9%98%B5%E4%B8%8E-Flattening"><span class="nav-text">2D 矩阵与 Flattening</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9D%90%E6%A0%87%E6%98%A0%E5%B0%84-Mapping"><span class="nav-text">1. 坐标映射 (Mapping)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9C%B0%E5%9D%80%E5%8E%8B%E6%89%81-Flattening"><span class="nav-text">2. 地址压扁 (Flattening)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Naive-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. Naive GEMM 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-text">4. 性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Roofline-%E6%A8%A1%E5%9E%8B"><span class="nav-text">Roofline 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E6%8C%87%E6%A0%87"><span class="nav-text">1. 核心指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%80%A7%E8%83%BD%E6%A8%A1%E5%9E%8B"><span class="nav-text">2. 性能模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90"><span class="nav-text">3. 瓶颈分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tiled-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">tiled GEMM 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E8%AF%BB"><span class="nav-text">代码详细解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Row-Major-Layout-%E8%A1%8C%E4%B8%BB%E5%BA%8F%E5%B8%83%E5%B1%80"><span class="nav-text">Row-Major Layout (行主序布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tiling-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%9A%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E6%B5%81%E9%87%8F%E5%87%8F%E5%B0%91%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="nav-text">Tiling 性能分析：全局内存流量减少的数学推导</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AA%81%E7%A0%B4%E4%B8%B2%E8%A1%8C%E9%99%90%E5%88%B6%EF%BC%9A%E5%8F%8C%E7%BC%93%E5%86%B2%E4%B8%8E%E6%B5%81%E6%B0%B4%E7%BA%BF%E4%BC%98%E5%8C%96"><span class="nav-text">突破串行限制：双缓冲与流水线优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90%EF%BC%9A%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="nav-text">瓶颈分析：串行执行的代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E8%BD%AF%E4%BB%B6%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%8C%96-Software-Pipelining"><span class="nav-text">核心原理：软件流水线化 (Software Pipelining)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%AF%84%E5%AD%98%E5%99%A8%E9%A2%84%E5%8F%96%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="nav-text">代码实现：基于寄存器预取的软件流水线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%88%B6%E6%B7%B1%E7%A9%B6%EF%BC%9AConsumer-Producer-%E5%8A%A8%E6%80%81%E5%B9%B3%E8%A1%A1"><span class="nav-text">机制深究：Consumer-Producer 动态平衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E6%BC%94%E8%BF%9B"><span class="nav-text">现代演进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%A7%86%E8%A7%92%E7%9A%84%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-text">硬件视角的时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1D-Blocktiling"><span class="nav-text">1D Blocktiling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96%E8%AE%BF%E5%AD%98-Vectorized-Memory-Access"><span class="nav-text">向量化访存 (Vectorized Memory Access)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-text">1. 核心原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%BA%E4%BD%95-float3-%E6%80%A7%E8%83%BD%E8%BE%83%E5%B7%AE%EF%BC%9F"><span class="nav-text">2. 为何 float3 性能较差？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96%EF%BC%9AAoS-%E4%B8%8E-SoA"><span class="nav-text">内存布局优化：AoS 与 SoA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-AoS-Array-of-Structures"><span class="nav-text">1. AoS (Array of Structures)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SoA-Structure-of-Arrays"><span class="nav-text">2. SoA (Structure of Arrays)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%A7%84%E7%BA%A6-Parallel-Reduction"><span class="nav-text">并行规约 (Parallel Reduction)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%86%E6%B2%BB%E7%B4%AF%E5%8A%A0%E9%80%BB%E8%BE%91"><span class="nav-text">1. 分治累加逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E6%9D%9F%E6%B4%97%E7%89%8C-Warp-Shuffle-%E4%BC%98%E5%8C%96"><span class="nav-text">2. 线程束洗牌 (Warp Shuffle) 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9E%E7%8E%B0%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94"><span class="nav-text">3. 实现策略对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98-Bank-Conflict"><span class="nav-text">共享内存 Bank Conflict</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%B2%E7%AA%81%E5%8E%9F%E7%90%86"><span class="nav-text">1. 冲突原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2D-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%B8%E5%9E%8B%E5%86%B2%E7%AA%81"><span class="nav-text">2. 2D 数组中的典型冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Padding-%E4%BC%98%E5%8C%96"><span class="nav-text">3. Padding 优化</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -1528,11 +1592,11 @@ mjx-container[display="true"] + br {
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        32 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            67.6k words in total
+                            73.7k words in total
                         </span>
                     
                 </p>

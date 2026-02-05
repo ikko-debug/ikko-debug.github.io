@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ikko">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://ikko-debug.github.io/2026/02/05/suanzi/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算子实例">
+<meta property="og:url" content="http://ikko-debug.github.io/2026/02/05/suanzi/index.html">
+<meta property="og:site_name" content="IKKO">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-02-05T05:56:54.000Z">
+<meta property="article:modified_time" content="2026-02-05T06:00:07.793Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-P5152X2PGJ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P5152X2PGJ');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/idea.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/idea.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/idea.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            算子实例 | IKKO
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"G-P5152X2PGJ"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"},"Bookmarks":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"never","show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                IKKO
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    BOOKMARKS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                BOOKMARKS
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">算子实例</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-02-05 13:56:54</span>
+        <span class="mobile">2026-02-05 13:56:54</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-05 14:07</span>
+            <span class="mobile">2026-02-05 14:07</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="头文件和宏定义"><a href="#头文件和宏定义" class="headerlink" title="头文件和宏定义"></a>头文件和宏定义</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cuda_fp16.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../tester/utils.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BLOCK_SIZE 256</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="1-Warp-级归约操作"><a href="#1-Warp-级归约操作" class="headerlink" title="1. Warp 级归约操作"></a>1. Warp 级归约操作</h2><h3 id="Warp-Reduce-Sum"><a href="#Warp-Reduce-Sum" class="headerlink" title="Warp Reduce Sum"></a>Warp Reduce Sum</h3><p>在 32 个线程内快速求和（不需要 Shared Memory）</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__device__ __forceinline__ T <span class="title">warpReduceSum</span><span class="params">(T val)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 0xffffffff 表示 Warp 里所有 32 个线程都参与</span></span><br><span class="line">    <span class="comment">// 每次折叠一半: 16 -&gt; 8 -&gt; 4 -&gt; 2 -&gt; 1</span></span><br><span class="line">    <span class="comment">// 除2等同于右移1位</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> offset = warpSize / <span class="number">2</span>; offset &gt; <span class="number">0</span>; offset &gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// &quot;当前值&quot; + &quot;offset个偏移量位置&quot;</span></span><br><span class="line">        val += __shfl_down_sync(<span class="number">0xffffffff</span>, val, offset);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Warp-Reduce-Max"><a href="#Warp-Reduce-Max" class="headerlink" title="Warp Reduce Max"></a>Warp Reduce Max</h3><p>辅助函数：Warp 内求最大值</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__device__ __forceinline__ T <span class="title">warpReduceMax</span><span class="params">(T val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> offset = <span class="number">16</span>; offset &gt; <span class="number">0</span>; offset &gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        T temp = __shfl_down_sync(<span class="number">0xffffffff</span>, val, offset);</span><br><span class="line">        <span class="keyword">if</span> (temp &gt; val) val = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="2-Block-级归约操作"><a href="#2-Block-级归约操作" class="headerlink" title="2. Block 级归约操作"></a>2. Block 级归约操作</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__device__ __forceinline__ T <span class="title">blockReduceSum</span><span class="params">(T val)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (blockDim.x &lt;= warpSize) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">warpReduceSum</span>(val);</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="comment">// 静态分配共享内存，用来存放每个 Warp 的总和</span></span><br><span class="line">    <span class="comment">// 一个 Block 最多 32 个 Warps</span></span><br><span class="line">    <span class="type">static</span> __shared__ T shared[<span class="number">32</span>]; </span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> lane = threadIdx.x % warpSize;  <span class="comment">// Warp内排第几 (0-31)</span></span><br><span class="line">    <span class="type">int</span> wid  = threadIdx.x / warpSize;  <span class="comment">// 第几个 Warp</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每个 Warp 内部先归并</span></span><br><span class="line">    val = <span class="built_in">warpReduceSum</span>(val);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Warp 0把结果写到 Shared Memory</span></span><br><span class="line">    <span class="keyword">if</span> (lane == <span class="number">0</span>) &#123;</span><br><span class="line">        shared[wid] = val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待所有 Warp 写完</span></span><br><span class="line">    __syncthreads();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 由第一个 Warp (warp 0) 负责把 Shared Memory 里的数加起来</span></span><br><span class="line">    <span class="comment">// 只有前 (blockDim.x / 32) 个线程需要读取数据</span></span><br><span class="line">    val = (threadIdx.x &lt; blockDim.x / warpSize) ? shared[lane] : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一个 Warp 再次做 Warp Reduce </span></span><br><span class="line">    <span class="keyword">if</span> (wid == <span class="number">0</span>) &#123;</span><br><span class="line">        val = <span class="built_in">warpReduceSum</span>(val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="3-矩阵迹的计算"><a href="#3-矩阵迹的计算" class="headerlink" title="3. 矩阵迹的计算"></a>3. 矩阵迹的计算</h2><h3 id="迹的核函数"><a href="#迹的核函数" class="headerlink" title="迹的核函数"></a>迹的核函数</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">traceKernel</span><span class="params">(<span class="type">const</span> T* __restrict__ input, <span class="type">size_t</span> rows, <span class="type">size_t</span> cols, <span class="type">size_t</span> n, T* out)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这里的 stride 是整个 Grid 一次能处理的数据量</span></span><br><span class="line">    <span class="type">size_t</span> idx = blockIdx.x * blockDim.x + threadIdx.x;</span><br><span class="line">    <span class="type">size_t</span> stride = blockDim.x * gridDim.x;  <span class="comment">// 一个 Grid 的总线程数</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// local sum for each thread in register</span></span><br><span class="line">    T local_sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 防止一个 Grid 处理不完</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = idx; i &lt; n; i += stride) &#123;</span><br><span class="line">        <span class="comment">// i * cols + i 是对角线元素的物理索引</span></span><br><span class="line">        local_sum += input[i * cols + i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Block 内部归并</span></span><br><span class="line">    local_sum = <span class="built_in">blockReduceSum</span>(local_sum);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只有 Block 的 Thread 0 负责写回 Global Memory</span></span><br><span class="line">    <span class="comment">// 极大减少 atomicAdd 的竞争</span></span><br><span class="line">    <span class="keyword">if</span> (threadIdx.x == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">atomicAdd</span>(out, local_sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Host-端迹的计算函数"><a href="#Host-端迹的计算函数" class="headerlink" title="Host 端迹的计算函数"></a>Host 端迹的计算函数</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="title">trace</span><span class="params">(<span class="type">const</span> std::vector&lt;T&gt;&amp; h_input, <span class="type">size_t</span> rows, <span class="type">size_t</span> cols)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (rows == <span class="number">0</span> || cols == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">T</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">size_t</span> n = std::<span class="built_in">min</span>(rows, cols);</span><br><span class="line">  <span class="type">size_t</span> total_elems = rows * cols;</span><br><span class="line"></span><br><span class="line">  T* d_input = <span class="literal">nullptr</span>;</span><br><span class="line">  T* d_out = <span class="literal">nullptr</span>;</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_input, total_elems * <span class="built_in">sizeof</span>(T)));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_out, <span class="built_in">sizeof</span>(T)));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemcpy</span>(d_input, h_input.<span class="built_in">data</span>(), total_elems * <span class="built_in">sizeof</span>(T), cudaMemcpyHostToDevice));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemset</span>(d_out, <span class="number">0</span>, <span class="built_in">sizeof</span>(T)));</span><br><span class="line"></span><br><span class="line">  <span class="function">dim3 <span class="title">block</span><span class="params">(BLOCK_SIZE)</span></span>;</span><br><span class="line">  <span class="function">dim3 <span class="title">grid</span><span class="params">((n + BLOCK_SIZE - <span class="number">1</span>) / BLOCK_SIZE)</span></span>;</span><br><span class="line">  traceKernel&lt;T&gt;&lt;&lt;&lt;grid, block&gt;&gt;&gt;(d_input, rows, cols, n, d_out);</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaGetLastError</span>());</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaDeviceSynchronize</span>());</span><br><span class="line"></span><br><span class="line">  T h_out = <span class="built_in">T</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemcpy</span>(&amp;h_out, d_out, <span class="built_in">sizeof</span>(T), cudaMemcpyDeviceToHost));</span><br><span class="line"></span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaFree</span>(d_input));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaFree</span>(d_out));</span><br><span class="line">  <span class="keyword">return</span> h_out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4-注意力机制-类型转换"><a href="#4-注意力机制-类型转换" class="headerlink" title="4. 注意力机制 - 类型转换"></a>4. 注意力机制 - 类型转换</h2><h3 id="float-类型转换"><a href="#float-类型转换" class="headerlink" title="float 类型转换"></a>float 类型转换</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__device__ __forceinline__ <span class="type">float</span> <span class="title">to_float</span><span class="params">(T v)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line">__device__ __forceinline__ <span class="type">float</span> <span class="built_in">to_float</span>&lt;<span class="type">float</span>&gt;(<span class="type">float</span> v) &#123;</span><br><span class="line">  <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line">__device__ __forceinline__ <span class="type">float</span> <span class="built_in">to_float</span>&lt;half&gt;(half v) &#123;</span><br><span class="line">  <span class="keyword">return</span> __half2float(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="反向类型转换"><a href="#反向类型转换" class="headerlink" title="反向类型转换"></a>反向类型转换</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__device__ __forceinline__ T <span class="title">from_float</span><span class="params">(<span class="type">float</span> v)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line">__device__ __forceinline__ <span class="type">float</span> <span class="built_in">from_float</span>&lt;<span class="type">float</span>&gt;(<span class="type">float</span> v) &#123;</span><br><span class="line">  <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line">__device__ __forceinline__ half <span class="built_in">from_float</span>&lt;half&gt;(<span class="type">float</span> v) &#123;</span><br><span class="line">  <span class="keyword">return</span> __float2half(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="5-朴素注意力实现"><a href="#5-朴素注意力实现" class="headerlink" title="5. 朴素注意力实现"></a>5. 朴素注意力实现</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">native_attention_kernel</span><span class="params">(<span class="type">const</span> T* q, <span class="type">const</span> T* k, <span class="type">const</span> T* v, T* o,</span></span></span><br><span class="line"><span class="params"><span class="function">                                        <span class="type">int</span> batch_size, <span class="type">int</span> target_seq_len, <span class="type">int</span> src_seq_len,</span></span></span><br><span class="line"><span class="params"><span class="function">                                        <span class="type">int</span> query_heads, <span class="type">int</span> kv_heads, <span class="type">int</span> head_dim, <span class="type">bool</span> is_causal)</span> </span>&#123;</span><br><span class="line">  <span class="type">size_t</span> idx = blockIdx.x * blockDim.x + threadIdx.x;</span><br><span class="line">  <span class="type">const</span> <span class="type">size_t</span> o_elems = batch_size * target_seq_len * query_heads * head_dim;</span><br><span class="line">  <span class="keyword">if</span> (idx &gt;= o_elems) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 线性索引 -&gt; (b, t, qh, d)</span></span><br><span class="line">  <span class="type">int</span> d = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(idx % head_dim);</span><br><span class="line">  <span class="type">size_t</span> tmp = idx / head_dim;</span><br><span class="line">  <span class="type">int</span> qh = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(tmp % query_heads);</span><br><span class="line">  tmp /= query_heads;</span><br><span class="line">  <span class="type">int</span> t = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(tmp % target_seq_len);</span><br><span class="line">  <span class="type">int</span> b = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(tmp / target_seq_len);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// GQA: query head -&gt; kv head</span></span><br><span class="line">  <span class="type">int</span> kv_h = (qh * kv_heads) / query_heads;</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="type">float</span> scale = <span class="number">1.0f</span> / <span class="built_in">sqrtf</span>(<span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(head_dim));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Step 1: 计算 max score (数值稳定)</span></span><br><span class="line">  <span class="type">float</span> max_score = -INFINITY;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> sk = <span class="number">0</span>; sk &lt; src_seq_len; ++sk) &#123;</span><br><span class="line">    <span class="keyword">if</span> (is_causal &amp;&amp; sk &gt; t) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">const</span> T* q_ptr = q + (((b * target_seq_len + t) * query_heads + qh) * head_dim);</span><br><span class="line">    <span class="type">const</span> T* k_ptr = k + (((b * src_seq_len + sk) * kv_heads + kv_h) * head_dim);</span><br><span class="line">    <span class="type">float</span> dot = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; head_dim; ++i) &#123;</span><br><span class="line">      dot += <span class="built_in">to_float</span>(q_ptr[i]) * <span class="built_in">to_float</span>(k_ptr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">float</span> score = dot * scale;</span><br><span class="line">    <span class="keyword">if</span> (score &gt; max_score) &#123;</span><br><span class="line">      max_score = score;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Step 2: 计算 softmax 分母</span></span><br><span class="line">  <span class="type">float</span> denom = <span class="number">0.0f</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> sk = <span class="number">0</span>; sk &lt; src_seq_len; ++sk) &#123;</span><br><span class="line">    <span class="keyword">if</span> (is_causal &amp;&amp; sk &gt; t) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">const</span> T* q_ptr = q + (((b * target_seq_len + t) * query_heads + qh) * head_dim);</span><br><span class="line">    <span class="type">const</span> T* k_ptr = k + (((b * src_seq_len + sk) * kv_heads + kv_h) * head_dim);</span><br><span class="line">    <span class="type">float</span> dot = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; head_dim; ++i) &#123;</span><br><span class="line">      dot += <span class="built_in">to_float</span>(q_ptr[i]) * <span class="built_in">to_float</span>(k_ptr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">float</span> score = dot * scale;</span><br><span class="line">    denom += <span class="built_in">expf</span>(score - max_score);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (denom == <span class="number">0.0f</span>) &#123;</span><br><span class="line">    o[idx] = <span class="built_in">from_float</span>&lt;T&gt;(<span class="number">0.0f</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Step 3: 计算加权和 (输出元素)</span></span><br><span class="line">  <span class="type">float</span> out_val = <span class="number">0.0f</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> sk = <span class="number">0</span>; sk &lt; src_seq_len; ++sk) &#123;</span><br><span class="line">    <span class="keyword">if</span> (is_causal &amp;&amp; sk &gt; t) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">const</span> T* q_ptr = q + (((b * target_seq_len + t) * query_heads + qh) * head_dim);</span><br><span class="line">    <span class="type">const</span> T* k_ptr = k + (((b * src_seq_len + sk) * kv_heads + kv_h) * head_dim);</span><br><span class="line">    <span class="type">const</span> T* v_ptr = v + (((b * src_seq_len + sk) * kv_heads + kv_h) * head_dim);</span><br><span class="line">    <span class="type">float</span> dot = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; head_dim; ++i) &#123;</span><br><span class="line">      dot += <span class="built_in">to_float</span>(q_ptr[i]) * <span class="built_in">to_float</span>(k_ptr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">float</span> score = dot * scale;</span><br><span class="line">    <span class="type">float</span> w = <span class="built_in">expf</span>(score - max_score) / denom;</span><br><span class="line">    out_val += w * <span class="built_in">to_float</span>(v_ptr[d]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  o[idx] = <span class="built_in">from_float</span>&lt;T&gt;(out_val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="6-Flash-Attention-V1"><a href="#6-Flash-Attention-V1" class="headerlink" title="6. Flash Attention V1"></a>6. Flash Attention V1</h2><h3 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">flash_attention_v1_kernel</span><span class="params">(<span class="type">const</span> T* Q, <span class="type">const</span> T* K, <span class="type">const</span> T* V, T* O,</span></span></span><br><span class="line"><span class="params"><span class="function">                                          <span class="type">int</span> batch_size, <span class="type">int</span> target_seq_len, <span class="type">int</span> src_seq_len,</span></span></span><br><span class="line"><span class="params"><span class="function">                                          <span class="type">int</span> query_heads, <span class="type">int</span> kv_heads, <span class="type">int</span> head_dim, </span></span></span><br><span class="line"><span class="params"><span class="function">                                          <span class="type">bool</span> is_causal, <span class="type">float</span> scale)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 每个 Block 处理一个 Query 向量 (1 x head_dim)</span></span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> q_idx = blockIdx.x;</span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> tid = threadIdx.x;  <span class="comment">// 线程处理 d 维中的一个分量</span></span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> q_vecs = batch_size * target_seq_len * query_heads;</span><br><span class="line">  <span class="keyword">if</span> (q_idx &gt;= q_vecs || tid &gt;= head_dim) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 线性索引 -&gt; (b, t, qh)</span></span><br><span class="line">  <span class="type">int</span> tmp = q_idx;</span><br><span class="line">  <span class="type">int</span> qh = tmp % query_heads;</span><br><span class="line">  tmp /= query_heads;</span><br><span class="line">  <span class="type">int</span> t = tmp % target_seq_len;</span><br><span class="line">  <span class="type">int</span> b = tmp / target_seq_len;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// GQA: query head -&gt; kv head</span></span><br><span class="line">  <span class="type">int</span> kv_h = (qh * kv_heads) / query_heads;</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> T* q_ptr = Q + q_idx * head_dim;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将当前 Block 负责的 Q 向量加载到寄存器</span></span><br><span class="line">  <span class="type">float</span> q_val = <span class="built_in">to_float</span>(q_ptr[tid]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Online Softmax 统计量</span></span><br><span class="line">  <span class="type">float</span> m_i = -INFINITY;</span><br><span class="line">  <span class="type">float</span> l_i = <span class="number">0.0f</span>;</span><br><span class="line">  <span class="type">float</span> o_i = <span class="number">0.0f</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Shared Memory 存放 K、V 以及点积结果</span></span><br><span class="line">  <span class="keyword">extern</span> __shared__ <span class="type">float</span> s_mem[];</span><br><span class="line">  <span class="type">float</span>* s_k = s_mem;                          <span class="comment">// head_dim</span></span><br><span class="line">  <span class="type">float</span>* s_v = s_mem + head_dim;               <span class="comment">// head_dim</span></span><br><span class="line">  <span class="type">float</span>* s_scalar = s_mem + <span class="number">2</span> * head_dim;      <span class="comment">// 1 float</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; src_seq_len; ++j) &#123;</span><br><span class="line">    <span class="keyword">if</span> (is_causal &amp;&amp; j &gt; t) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> T* k_ptr = K + (((b * src_seq_len + j) * kv_heads + kv_h) * head_dim);</span><br><span class="line">    <span class="type">const</span> T* v_ptr = V + (((b * src_seq_len + j) * kv_heads + kv_h) * head_dim);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载 K 和 V 到 Shared Memory</span></span><br><span class="line">    s_k[tid] = <span class="built_in">to_float</span>(k_ptr[tid]);</span><br><span class="line">    s_v[tid] = <span class="built_in">to_float</span>(v_ptr[tid]);</span><br><span class="line">    __syncthreads();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算点积 S = Q * K^T (使用 blockReduceSum 提高精度)</span></span><br><span class="line">    <span class="type">float</span> score = q_val * s_k[tid];</span><br><span class="line">    <span class="type">float</span> dot = <span class="built_in">blockReduceSum</span>(score);</span><br><span class="line">    <span class="keyword">if</span> (tid == <span class="number">0</span>) &#123;</span><br><span class="line">      s_scalar[<span class="number">0</span>] = dot * scale;</span><br><span class="line">    &#125;</span><br><span class="line">    __syncthreads();</span><br><span class="line">    dot = s_scalar[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Online Softmax 更新</span></span><br><span class="line">    <span class="type">float</span> m_prev = m_i;</span><br><span class="line">    <span class="type">float</span> l_prev = l_i;</span><br><span class="line">    </span><br><span class="line">    m_i = <span class="built_in">fmaxf</span>(m_prev, dot);</span><br><span class="line">    <span class="type">float</span> p_prev = <span class="built_in">expf</span>(m_prev - m_i);</span><br><span class="line">    <span class="type">float</span> p_curr = <span class="built_in">expf</span>(dot - m_i);</span><br><span class="line">    l_i = l_prev * p_prev + p_curr;</span><br><span class="line">    o_i = o_i * p_prev + p_curr * s_v[tid];</span><br><span class="line"></span><br><span class="line">    __syncthreads();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (l_i &gt; <span class="number">0.0f</span>) &#123;</span><br><span class="line">    o_i /= l_i;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    o_i = <span class="number">0.0f</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  O[q_idx * head_dim + tid] = <span class="built_in">from_float</span>&lt;T&gt;(o_i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Host-端-Flash-Attention-函数"><a href="#Host-端-Flash-Attention-函数" class="headerlink" title="Host 端 Flash Attention 函数"></a>Host 端 Flash Attention 函数</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">flashAttention</span><span class="params">(<span class="type">const</span> std::vector&lt;T&gt;&amp; h_q, <span class="type">const</span> std::vector&lt;T&gt;&amp; h_k,</span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="type">const</span> std::vector&lt;T&gt;&amp; h_v, std::vector&lt;T&gt;&amp; h_o,</span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="type">int</span> batch_size, <span class="type">int</span> target_seq_len, <span class="type">int</span> src_seq_len, </span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="type">int</span> query_heads, <span class="type">int</span> kv_heads, <span class="type">int</span> head_dim, <span class="type">bool</span> is_causal)</span> </span>&#123;       </span><br><span class="line">  <span class="keyword">if</span> (batch_size &lt;= <span class="number">0</span> || target_seq_len &lt;= <span class="number">0</span> || src_seq_len &lt;= <span class="number">0</span> || </span><br><span class="line">      query_heads &lt;= <span class="number">0</span> || kv_heads &lt;= <span class="number">0</span> || head_dim &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">    h_o.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="type">size_t</span> q_elems = batch_size * target_seq_len * query_heads * head_dim;</span><br><span class="line">  <span class="type">const</span> <span class="type">size_t</span> k_elems = batch_size * src_seq_len * kv_heads * head_dim;</span><br><span class="line">  <span class="type">const</span> <span class="type">size_t</span> v_elems = k_elems;</span><br><span class="line">  <span class="type">const</span> <span class="type">size_t</span> o_elems = q_elems;</span><br><span class="line"></span><br><span class="line">  h_o.<span class="built_in">resize</span>(o_elems);</span><br><span class="line"></span><br><span class="line">  T* d_q = <span class="literal">nullptr</span>;</span><br><span class="line">  T* d_k = <span class="literal">nullptr</span>;</span><br><span class="line">  T* d_v = <span class="literal">nullptr</span>;</span><br><span class="line">  T* d_o = <span class="literal">nullptr</span>;</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_q, q_elems * <span class="built_in">sizeof</span>(T)));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_k, k_elems * <span class="built_in">sizeof</span>(T)));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_v, v_elems * <span class="built_in">sizeof</span>(T)));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMalloc</span>(&amp;d_o, o_elems * <span class="built_in">sizeof</span>(T)));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Host -&gt; Device: 拷贝 Q/K/V 到 GPU，并清空输出</span></span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemcpy</span>(d_q, h_q.<span class="built_in">data</span>(), q_elems * <span class="built_in">sizeof</span>(T), cudaMemcpyHostToDevice));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemcpy</span>(d_k, h_k.<span class="built_in">data</span>(), k_elems * <span class="built_in">sizeof</span>(T), cudaMemcpyHostToDevice));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemcpy</span>(d_v, h_v.<span class="built_in">data</span>(), v_elems * <span class="built_in">sizeof</span>(T), cudaMemcpyHostToDevice));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemset</span>(d_o, <span class="number">0</span>, o_elems * <span class="built_in">sizeof</span>(T)));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Device kernel launch: flash attention v1 (每个 block 处理一个 query 向量)</span></span><br><span class="line">  <span class="function">dim3 <span class="title">block</span><span class="params">(head_dim)</span></span>;  <span class="comment">// 一个 Block 处理全部 head_dim 维度</span></span><br><span class="line">  <span class="function">dim3 <span class="title">grid</span><span class="params">(batch_size * target_seq_len * query_heads)</span></span>;</span><br><span class="line">  <span class="type">size_t</span> shared_bytes = (<span class="number">2</span> * head_dim + <span class="number">1</span>) * <span class="built_in">sizeof</span>(<span class="type">float</span>);</span><br><span class="line">  <span class="type">float</span> scale = <span class="number">1.0f</span> / <span class="built_in">sqrtf</span>(<span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(head_dim));</span><br><span class="line">  flash_attention_v1_kernel&lt;T&gt;&lt;&lt;&lt;grid, block, shared_bytes&gt;&gt;&gt;(</span><br><span class="line">    d_q, d_k, d_v, d_o,</span><br><span class="line">    batch_size, target_seq_len, src_seq_len,</span><br><span class="line">    query_heads, kv_heads, head_dim, is_causal, scale);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaGetLastError</span>());</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaDeviceSynchronize</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Device -&gt; Host: 拷回输出结果</span></span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaMemcpy</span>(h_o.<span class="built_in">data</span>(), d_o, o_elems * <span class="built_in">sizeof</span>(T), cudaMemcpyDeviceToHost));</span><br><span class="line"></span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaFree</span>(d_q));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaFree</span>(d_k));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaFree</span>(d_v));</span><br><span class="line">  <span class="built_in">RUNTIME_CHECK</span>(<span class="built_in">cudaFree</span>(d_o));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="7-显式模板实例化"><a href="#7-显式模板实例化" class="headerlink" title="7. 显式模板实例化"></a>7. 显式模板实例化</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// REQUIRED FOR LINKING WITH TESTER.O</span></span><br><span class="line"><span class="comment">// DO NOT MODIFY THIS SECTION</span></span><br><span class="line"><span class="keyword">template</span> <span class="type">int</span> <span class="built_in">trace</span>&lt;<span class="type">int</span>&gt;(<span class="type">const</span> std::vector&lt;<span class="type">int</span>&gt;&amp;, <span class="type">size_t</span>, <span class="type">size_t</span>);</span><br><span class="line"><span class="keyword">template</span> <span class="type">float</span> <span class="built_in">trace</span>&lt;<span class="type">float</span>&gt;(<span class="type">const</span> std::vector&lt;<span class="type">float</span>&gt;&amp;, <span class="type">size_t</span>, <span class="type">size_t</span>);</span><br><span class="line"><span class="keyword">template</span> <span class="type">void</span> <span class="built_in">flashAttention</span>&lt;<span class="type">float</span>&gt;(<span class="type">const</span> std::vector&lt;<span class="type">float</span>&gt;&amp;, <span class="type">const</span> std::vector&lt;<span class="type">float</span>&gt;&amp;,</span><br><span class="line">  <span class="type">const</span> std::vector&lt;<span class="type">float</span>&gt;&amp;, std::vector&lt;<span class="type">float</span>&gt;&amp;,</span><br><span class="line">  <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">bool</span>);</span><br><span class="line"><span class="keyword">template</span> <span class="type">void</span> <span class="built_in">flashAttention</span>&lt;half&gt;(<span class="type">const</span> std::vector&lt;half&gt;&amp;, <span class="type">const</span> std::vector&lt;half&gt;&amp;,</span><br><span class="line">  <span class="type">const</span> std::vector&lt;half&gt;&amp;, std::vector&lt;half&gt;&amp;,</span><br><span class="line">  <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>, <span class="type">bool</span>);</span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 算子实例</li>
+        <li><strong>Author:</strong> Ikko</li>
+        <li><strong>Created at
+                :</strong> 2026-02-05 13:56:54</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2026-02-05 14:00:07
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://ikko-debug.github.io/2026/02/05/suanzi/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/01/26/bianyi/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">AI编译器</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '55ccec7ba873a504625f',
+                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
+                    repo: 'gittalk',
+                    owner: 'ikko-debug',
+                    admin: ['ikko-debug'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">算子实例</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E5%92%8C%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">头文件和宏定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Warp-%E7%BA%A7%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C"><span class="nav-text">1. Warp 级归约操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Warp-Reduce-Sum"><span class="nav-text">Warp Reduce Sum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warp-Reduce-Max"><span class="nav-text">Warp Reduce Max</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Block-%E7%BA%A7%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C"><span class="nav-text">2. Block 级归约操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%9F%A9%E9%98%B5%E8%BF%B9%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-text">3. 矩阵迹的计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%B9%E7%9A%84%E6%A0%B8%E5%87%BD%E6%95%B0"><span class="nav-text">迹的核函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Host-%E7%AB%AF%E8%BF%B9%E7%9A%84%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0"><span class="nav-text">Host 端迹的计算函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">4. 注意力机制 - 类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#float-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">float 类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">反向类型转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%9C%B4%E7%B4%A0%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%AE%9E%E7%8E%B0"><span class="nav-text">5. 朴素注意力实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Flash-Attention-V1"><span class="nav-text">6. Flash Attention V1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%87%BD%E6%95%B0"><span class="nav-text">核函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Host-%E7%AB%AF-Flash-Attention-%E5%87%BD%E6%95%B0"><span class="nav-text">Host 端 Flash Attention 函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%98%BE%E5%BC%8F%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-text">7. 显式模板实例化</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        34 posts in total
+                    </span>
+                    
+                        <span>
+                            73.7k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog "></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/masonry.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/bookmarkNav.js" ></script>
+
+	
+</body>
+
+</html>
