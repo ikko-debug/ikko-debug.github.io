@@ -688,7 +688,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -740,7 +740,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -755,6 +755,47 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/03/16/nf4/">
+                            nf4反量化实现与优化
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            测试~&#x2F;Learning-CUDA目录下
+1234567891011121314151617# 默认 bf16make nf4# 显式指定 dtypemake nf4 DTYPE=fp16make nf4 DTYPE=bf16# 简写（等价于上面的 DTYPE）make nf4 fp16make nf4 bf16# 指定 GPUmake nf4 CUDA_DEVICE=7make ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Mar 16 2026 14:05:49 GMT+0800">
+                
+                    2026-03-16
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2026/03/16/nf4/">Read more<span class="seo-reader-text">nf4反量化实现与优化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -863,6 +904,7 @@ mjx-container[display="true"] + br {
 
 
 
+
 软件层级 (Software)
 硬件真身 (Hardware)
 说明
@@ -875,7 +917,7 @@ Device (GPU)
 
 
 Block
-SM (...
+SM ...
                         
                     </div>
 
@@ -1228,60 +1270,6 @@ return 用来“兑现函数定义”1234567891011121314151617181920212223242526
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/03/26/MLA/">
-                            KV Cache and MLA
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            在 Decoder-only 的 Transformer 模型（如 GPT、DeepSeek-V3） 中，KV Cache 的核心作用正是为了 避免重复计算历史 token 的 Key 和 Value，从而实现高效的自回归生成。
-
-背景 自回归attention机制
-1. 核心分工
-
-
-组件
-角色
-自回归中的关键设计
-
-
-
-Query (Q)
-当前Token的“问题”
-仅由最新生成的Toke...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Mar 26 2025 14:15:55 GMT+0800">
-                
-                    2025-03-26
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/03/26/MLA/">Read more<span class="seo-reader-text">KV Cache and MLA</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1312,11 +1300,11 @@ Query (Q)
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        34 posts in total
+                        35 posts in total
                     </span>
                     
                         <span>
-                            79.9k words in total
+                            87.7k words in total
                         </span>
                     
                 </p>

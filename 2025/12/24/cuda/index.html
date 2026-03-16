@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-12-24T06:46:57.000Z">
-<meta property="article:modified_time" content="2026-02-12T03:34:01.688Z">
+<meta property="article:modified_time" content="2026-03-16T17:25:27.624Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -633,7 +633,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -684,8 +684,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-12 11:34:01</span>
-            <span class="mobile">2026-02-12 11:34:01</span>
+            <span class="desktop">2026-03-17 01:25:27</span>
+            <span class="mobile">2026-03-17 01:25:27</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -696,12 +696,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>10.1k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>11k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>38 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>41 Mins</span>
         </span>
     
     
@@ -723,6 +723,7 @@ mjx-container[display="true"] + br {
 			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CUDA 编程需要理解线程与硬件的物理映射，并优化显存（Global Memory）访问以提升性能。</p>
 <hr>
 <h2 id="核心映射"><a href="#核心映射" class="headerlink" title="核心映射"></a>核心映射</h2><p>Grid/Block/Thread 在物理资源上的占用情况。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/jinbooooom/ai-infra-hpc/main/02hpc/05cuda/assets/readme/image-20241226154917460.png" alt="CUDA 存储层级示意图"></p>
 <table>
 <thead>
 <tr>
@@ -1055,39 +1056,51 @@ mjx-container[display="true"] + br {
 </li>
 </ul>
 <hr>
-<h2 id="内存层级与变量声明"><a href="#内存层级与变量声明" class="headerlink" title="内存层级与变量声明"></a>内存层级与变量声明</h2><p>程序员通过不同的声明方式,在物理硬件上划分了资源的使用。在 GPU 中,一个 <code>int a</code> 变成什么完全取决于你把它写在了哪里,以及加了什么前缀。</p>
+<h2 id="内存层级与变量声明"><a href="#内存层级与变量声明" class="headerlink" title="内存层级与变量声明"></a>内存层级与变量声明</h2><p>通过不同的声明方式,在物理硬件上划分了资源的使用。在 GPU 中,一个 <code>int a</code> 变成什么完全取决于你把它写在了哪里,以及加了什么前缀。</p>
 <h3 id="1-内存语法、作用域与生命周期"><a href="#1-内存语法、作用域与生命周期" class="headerlink" title="1. 内存语法、作用域与生命周期"></a>1. 内存语法、作用域与生命周期</h3><table>
 <thead>
 <tr>
-<th>声明语法</th>
-<th>物理存储位置</th>
-<th>作用域 (Scope)</th>
-<th>生命周期 (Lifetime)</th>
+<th align="center">修饰符</th>
+<th align="center">变量名称</th>
+<th align="center">存储器</th>
+<th align="center">作用域</th>
+<th align="center">生命周期</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong><code>int var;</code></strong> (核函数内)</td>
-<td>寄存器或本地内存</td>
-<td>单个线程私有</td>
-<td>随线程启动而生,随线程结束而灭</td>
+<td align="center"></td>
+<td align="center"><code>float var</code></td>
+<td align="center">寄存器</td>
+<td align="center">线程</td>
+<td align="center">线程</td>
 </tr>
 <tr>
-<td><strong><code>__shared__ int var;</code></strong></td>
-<td>共享内存 (SRAM)</td>
-<td>同一线程块内所有线程</td>
-<td>随线程块启动而生,随块结束而灭</td>
+<td align="center"></td>
+<td align="center"><code>float var[100]</code></td>
+<td align="center">本地</td>
+<td align="center">线程</td>
+<td align="center">线程</td>
 </tr>
 <tr>
-<td><strong><code>__device__ int var;</code></strong></td>
-<td>全局内存 (DRAM)</td>
-<td>所有网格(所有线程)</td>
-<td>随整个程序运行期间持续存在</td>
+<td align="center"><code>__shared__</code></td>
+<td align="center"><code>float var*</code></td>
+<td align="center">共享</td>
+<td align="center">块</td>
+<td align="center">块</td>
 </tr>
 <tr>
-<td><strong><code>int array[10];</code></strong></td>
-<td>本地内存 (DRAM)</td>
-<td>单个线程私有</td>
-<td>随线程存在(通常因寄存器溢出)</td>
+<td align="center"><code>__device__</code></td>
+<td align="center"><code>float var*</code></td>
+<td align="center">全局</td>
+<td align="center">全局</td>
+<td align="center">应用程序</td>
+</tr>
+<tr>
+<td align="center"><code>__constant__</code></td>
+<td align="center"><code>float var*</code></td>
+<td align="center">常量</td>
+<td align="center">全局</td>
+<td align="center">应用程序</td>
 </tr>
 </tbody></table>
 <p>Register (SRAM-like)<br>   ↓<br>L1/L2/L3 Cache  ← SRAM<br>   ↓<br>Main Memory     ← DRAM<br>   ↓<br>SSD/HDD</p>
@@ -1139,6 +1152,67 @@ mjx-container[display="true"] + br {
 •	capacity sensitive
 </code></pre>
 <p>GPU：<br>    •	bandwidth bound<br>    •	massive parallel read</p>
+<p>设备存储器的重要特征：</p>
+<table>
+<thead>
+<tr>
+<th align="center">存储器</th>
+<th align="center">片上/片外</th>
+<th align="center">缓存</th>
+<th align="center">存取</th>
+<th align="center">范围</th>
+<th align="center">生命周期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">寄存器</td>
+<td align="center">片上</td>
+<td align="center">n/a</td>
+<td align="center">R/W</td>
+<td align="center">一个线程</td>
+<td align="center">线程</td>
+</tr>
+<tr>
+<td align="center">本地</td>
+<td align="center">片外</td>
+<td align="center">1.0以上有</td>
+<td align="center">R/W</td>
+<td align="center">一个线程</td>
+<td align="center">线程</td>
+</tr>
+<tr>
+<td align="center">共享</td>
+<td align="center">片上</td>
+<td align="center">n/a</td>
+<td align="center">R/W</td>
+<td align="center">块内所有线程</td>
+<td align="center">块</td>
+</tr>
+<tr>
+<td align="center">全局</td>
+<td align="center">片外</td>
+<td align="center">1.0以上有</td>
+<td align="center">R/W</td>
+<td align="center">所有线程+主机</td>
+<td align="center">主机配置</td>
+</tr>
+<tr>
+<td align="center">常量</td>
+<td align="center">片外</td>
+<td align="center">Yes</td>
+<td align="center">R</td>
+<td align="center">所有线程+主机</td>
+<td align="center">主机配置</td>
+</tr>
+<tr>
+<td align="center">纹理</td>
+<td align="center">片外</td>
+<td align="center">Yes</td>
+<td align="center">R</td>
+<td align="center">所有线程+主机</td>
+<td align="center">主机配置</td>
+</tr>
+</tbody></table>
 <h3 id="2-线程私有变量的物理实现"><a href="#2-线程私有变量的物理实现" class="headerlink" title="2. 线程私有变量的物理实现"></a>2. 线程私有变量的物理实现</h3><p>当在核函数内声明 <code>float x = 0.5f;</code> 时,物理实质为:</p>
 <ul>
 <li><strong>重复分配</strong>: 如果启动了 100 万个线程,GPU 的寄存器堆里会瞬间为每个线程划出空间</li>
@@ -1197,13 +1271,109 @@ mjx-container[display="true"] + br {
 <li><strong>数据重用</strong>: 通过共享内存减少冗余的全局内存访问</li>
 <li><strong>同步要求</strong>: <code>__syncthreads()</code> 确保块内所有线程在逻辑上达成同步</li>
 </ul>
-<h3 id="5-全局内存的持久性"><a href="#5-全局内存的持久性" class="headerlink" title="5. 全局内存的持久性"></a>5. 全局内存的持久性</h3><p>使用 <code>__device__</code> 或 <code>__constant__</code> 在核函数外部声明的变量在多次核函数调用间保持不变,行为类似于 CPU 程序中的全局变量:</p>
+<h3 id="5-常量内存与广播访问"><a href="#5-常量内存与广播访问" class="headerlink" title="5. 常量内存与广播访问"></a>5. 常量内存与广播访问</h3><p>常量内存（<code>__constant__</code>）适合存放只读、小尺寸、会被大量线程重复使用的数据；共享内存（<code>__shared__</code>）则适合线程块内部的数据协作。二者最关键的区别在于访问模式优化方向完全不同。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>常量内存 (Constant Memory)</th>
+<th>共享内存 (Shared Memory)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>作用</strong></td>
+<td>存放只读数据（kernel 中不会修改）</td>
+<td>用于线程块内部的数据共享</td>
+</tr>
+<tr>
+<td><strong>访问权限</strong></td>
+<td>GPU 线程只读，CPU 可写</td>
+<td>GPU 线程可读可写</td>
+</tr>
+<tr>
+<td><strong>作用范围</strong></td>
+<td>所有线程、所有 block 可访问</td>
+<td>仅同一个 block 内线程可访问</td>
+</tr>
+<tr>
+<td><strong>生命周期</strong></td>
+<td>kernel 执行期间一直存在</td>
+<td>block 执行期间存在</td>
+</tr>
+<tr>
+<td><strong>大小限制</strong></td>
+<td>通常 64KB</td>
+<td>每个 SM 一般 48KB-100KB+（架构相关）</td>
+</tr>
+<tr>
+<td><strong>访问速度</strong></td>
+<td>有常量缓存（constant cache），广播访问非常快</td>
+<td>接近寄存器速度（若无 bank conflict）</td>
+</tr>
+<tr>
+<td><strong>访问模式</strong></td>
+<td>同一 warp 访问同一地址效率最高（广播）</td>
+<td>任意访问，但需避免 bank conflict</td>
+</tr>
+<tr>
+<td><strong>典型用途</strong></td>
+<td>参数表、查找表、固定系数</td>
+<td>block 内中间计算数据、tile 数据</td>
+</tr>
+</tbody></table>
+<p>常量内存只有在 broadcast 时才快。如果 warp 内访问不同地址，就会明显变慢。这是因为常量内存的硬件设计目标是“广播优化”，而不是“并行多地址访问优化”。核心原因在于 constant cache 的访问机制。</p>
+<p>下面从 warp 执行模型、constant cache 结构、实际执行流程三个角度说明。</p>
+<h4 id="5-1-Warp-是常量内存访问的基本观察单位"><a href="#5-1-Warp-是常量内存访问的基本观察单位" class="headerlink" title="5.1 Warp 是常量内存访问的基本观察单位"></a>5.1 Warp 是常量内存访问的基本观察单位</h4><p>GPU 线程不是完全独立执行的，而是 32 个线程组成一个 warp，同步执行同一条指令。例如：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = coeff[i];</span><br></pre></td></tr></table></figure></div>
+
+<p>warp 内 32 个线程会同时执行这条 load 指令。关键问题是：这 32 个线程访问的是不是同一个地址。</p>
+<h4 id="5-2-Constant-cache-的设计是广播"><a href="#5-2-Constant-cache-的设计是广播" class="headerlink" title="5.2 Constant cache 的设计是广播"></a>5.2 Constant cache 的设计是广播</h4><p>如果 warp 中所有线程都访问同一个地址：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">thread0  -&gt; coeff[5]</span><br><span class="line">thread1  -&gt; coeff[5]</span><br><span class="line">thread2  -&gt; coeff[5]</span><br><span class="line">...</span><br><span class="line">thread31 -&gt; coeff[5]</span><br></pre></td></tr></table></figure></div>
+
+<p>GPU 只需要读取一次 <code>coeff[5]</code>，然后把结果广播给整个 warp。因此这种访问模式非常快。</p>
+<h4 id="5-3-Warp-内地址分散时会退化为多次-transaction"><a href="#5-3-Warp-内地址分散时会退化为多次-transaction" class="headerlink" title="5.3 Warp 内地址分散时会退化为多次 transaction"></a>5.3 Warp 内地址分散时会退化为多次 transaction</h4><p>如果访问模式变成：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">thread0  -&gt; coeff[0]</span><br><span class="line">thread1  -&gt; coeff[1]</span><br><span class="line">thread2  -&gt; coeff[2]</span><br><span class="line">...</span><br><span class="line">thread31 -&gt; coeff[31]</span><br></pre></td></tr></table></figure></div>
+
+<p>constant cache 无法一次广播，硬件会把这一次 warp load 拆成多个 transaction。warp 内有多少个不同地址，就需要多少次 transaction，因此延迟会显著上升。</p>
+<p>CUDA Programming Guide 对此的表述是：一个 warp 对常量内存的访问，会按照其中不同地址的数量被服务为对应数量的 transaction。</p>
+<table>
+<thead>
+<tr>
+<th>warp 访问模式</th>
+<th>transaction 数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32 线程读同一地址</td>
+<td>1</td>
+</tr>
+<tr>
+<td>32 线程读 2 个地址</td>
+<td>2</td>
+</tr>
+<tr>
+<td>32 线程读 32 个地址</td>
+<td>32</td>
+</tr>
+</tbody></table>
+<h4 id="5-4-为什么-global-memory-不会表现成这样"><a href="#5-4-为什么-global-memory-不会表现成这样" class="headerlink" title="5.4 为什么 global memory 不会表现成这样"></a>5.4 为什么 global memory 不会表现成这样</h4><p>global memory 主要依赖 memory coalescing。例如：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">thread0 -&gt; A[0]</span><br><span class="line">thread1 -&gt; A[1]</span><br><span class="line">thread2 -&gt; A[2]</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
+
+<p>如果地址连续，GPU 会把多个线程的请求合并成少量大事务。因此 global memory 更适合连续访问；constant memory 则更适合同地址广播访问。</p>
+<p>可以把 CUDA 中几种典型存储的设计哲学概括为：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">constant memory = broadcast optimized</span><br><span class="line">global memory   = coalesced sequential access optimized</span><br><span class="line">shared memory   = programmable cache</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="5-5-一个直接的优化判断"><a href="#5-5-一个直接的优化判断" class="headerlink" title="5.5 一个直接的优化判断"></a>5.5 一个直接的优化判断</h4><p>如果你看到这样的代码：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">value = table[threadIdx.x];</span><br></pre></td></tr></table></figure></div>
+
+<p>而 <code>table</code> 放在 constant memory 中，这通常是很差的访问模式，因为一个 warp 内线程大概率在访问不同地址。此时更适合考虑使用 shared memory 或 global memory。</p>
+<h3 id="6-全局内存的持久性"><a href="#6-全局内存的持久性" class="headerlink" title="6. 全局内存的持久性"></a>6. 全局内存的持久性</h3><p>使用 <code>__device__</code> 或 <code>__constant__</code> 在核函数外部声明的变量在多次核函数调用间保持不变,行为类似于 CPU 程序中的全局变量:</p>
 <ul>
 <li><strong>生命周期</strong>: 从程序启动到终止</li>
 <li><strong>初始化</strong>: 由 CPU 端通过 CUDA Runtime API 控制</li>
 <li><strong>释放</strong>: 显式调用 <code>cudaFree()</code> 或程序终止时释放</li>
 </ul>
-<h3 id="6-程序员的资源预算原则"><a href="#6-程序员的资源预算原则" class="headerlink" title="6. 程序员的资源预算原则"></a>6. 程序员的资源预算原则</h3><p>CUDA 编程不仅涉及逻辑设计,更涉及<strong>资源预算</strong>:</p>
+<h3 id="7-程序员的资源预算原则"><a href="#7-程序员的资源预算原则" class="headerlink" title="7. 程序员的资源预算原则"></a>7. 程序员的资源预算原则</h3><p>CUDA 编程不仅涉及逻辑设计,更涉及<strong>资源预算</strong>:</p>
 <ol>
 <li><strong>频繁使用的标量</strong>: 放入寄存器(默认写法)</li>
 <li><strong>块内需交换的数据</strong>: 声明为 <code>__shared__</code></li>
@@ -1489,7 +1659,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-02-12 11:34:01
+                    :</strong> 2026-03-17 01:25:27
             </li>
         
         <li>
@@ -1614,7 +1784,7 @@ mjx-container[display="true"] + br {
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">cuda</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%98%A0%E5%B0%84"><span class="nav-text">核心映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Warp-%E7%BA%BF%E7%A8%8B%E6%9D%9F"><span class="nav-text">Warp (线程束)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%88%86%E6%94%AF-Control-Divergence"><span class="nav-text">控制分支 (Control Divergence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%BA%A6%E6%9D%9F%E4%B8%8E%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="nav-text">资源约束与占用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-vs-GPU-%E5%AF%84%E5%AD%98%E5%99%A8%E8%AE%BE%E8%AE%A1%E5%AF%B9%E6%AF%94"><span class="nav-text">CPU vs GPU 寄存器设计对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E4%B8%8E%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-text">内存层级与变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E8%AF%AD%E6%B3%95%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1. 内存语法、作用域与生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-CPU-%E4%B8%8E-GPU-%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E5%AF%B9%E5%BA%94"><span class="nav-text">1.1 CPU 与 GPU 内存层级对应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%A9%E7%90%86%E5%AE%9E%E7%8E%B0"><span class="nav-text">2. 线程私有变量的物理实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E5%86%85%E5%AD%98%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8E%E9%99%B7%E9%98%B1"><span class="nav-text">3. 本地内存的特性与陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%9A%84%E5%8D%8F%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-text">4. 共享内存的协作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-text">5. 全局内存的持久性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%B5%84%E6%BA%90%E9%A2%84%E7%AE%97%E5%8E%9F%E5%88%99"><span class="nav-text">6. 程序员的资源预算原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-1D-%E5%88%B0-Memory-Coalescing"><span class="nav-text">从 1D 到 Memory Coalescing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1D-%E7%B4%A2%E5%BC%95%E8%AE%A1%E7%AE%97"><span class="nav-text">1. 1D 索引计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%85%E5%AD%98%E5%90%88%E5%B9%B6-Memory-Coalescing"><span class="nav-text">2. 内存合并 (Memory Coalescing)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grid-Stride-Loop"><span class="nav-text">Grid-Stride Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-%E7%9F%A9%E9%98%B5%E4%B8%8E-Flattening"><span class="nav-text">2D 矩阵与 Flattening</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9D%90%E6%A0%87%E6%98%A0%E5%B0%84-Mapping"><span class="nav-text">1. 坐标映射 (Mapping)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9C%B0%E5%9D%80%E5%8E%8B%E6%89%81-Flattening"><span class="nav-text">2. 地址压扁 (Flattening)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Naive-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. Naive GEMM 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-text">4. 性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Roofline-%E6%A8%A1%E5%9E%8B"><span class="nav-text">Roofline 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E6%8C%87%E6%A0%87"><span class="nav-text">1. 核心指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%80%A7%E8%83%BD%E6%A8%A1%E5%9E%8B"><span class="nav-text">2. 性能模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90"><span class="nav-text">3. 瓶颈分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tiled-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">tiled GEMM 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E8%AF%BB"><span class="nav-text">代码详细解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Row-Major-Layout-%E8%A1%8C%E4%B8%BB%E5%BA%8F%E5%B8%83%E5%B1%80"><span class="nav-text">Row-Major Layout (行主序布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tiling-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%9A%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E6%B5%81%E9%87%8F%E5%87%8F%E5%B0%91%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="nav-text">Tiling 性能分析：全局内存流量减少的数学推导</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AA%81%E7%A0%B4%E4%B8%B2%E8%A1%8C%E9%99%90%E5%88%B6%EF%BC%9A%E5%8F%8C%E7%BC%93%E5%86%B2%E4%B8%8E%E6%B5%81%E6%B0%B4%E7%BA%BF%E4%BC%98%E5%8C%96"><span class="nav-text">突破串行限制：双缓冲与流水线优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90%EF%BC%9A%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="nav-text">瓶颈分析：串行执行的代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E8%BD%AF%E4%BB%B6%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%8C%96-Software-Pipelining"><span class="nav-text">核心原理：软件流水线化 (Software Pipelining)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%AF%84%E5%AD%98%E5%99%A8%E9%A2%84%E5%8F%96%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="nav-text">代码实现：基于寄存器预取的软件流水线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%88%B6%E6%B7%B1%E7%A9%B6%EF%BC%9AConsumer-Producer-%E5%8A%A8%E6%80%81%E5%B9%B3%E8%A1%A1"><span class="nav-text">机制深究：Consumer-Producer 动态平衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E6%BC%94%E8%BF%9B"><span class="nav-text">现代演进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%A7%86%E8%A7%92%E7%9A%84%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-text">硬件视角的时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1D-Blocktiling"><span class="nav-text">1D Blocktiling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96%E8%AE%BF%E5%AD%98-Vectorized-Memory-Access"><span class="nav-text">向量化访存 (Vectorized Memory Access)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-text">1. 核心原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%BA%E4%BD%95-float3-%E6%80%A7%E8%83%BD%E8%BE%83%E5%B7%AE%EF%BC%9F"><span class="nav-text">2. 为何 float3 性能较差？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96%EF%BC%9AAoS-%E4%B8%8E-SoA"><span class="nav-text">内存布局优化：AoS 与 SoA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-AoS-Array-of-Structures"><span class="nav-text">1. AoS (Array of Structures)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SoA-Structure-of-Arrays"><span class="nav-text">2. SoA (Structure of Arrays)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%A7%84%E7%BA%A6-Parallel-Reduction"><span class="nav-text">并行规约 (Parallel Reduction)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%86%E6%B2%BB%E7%B4%AF%E5%8A%A0%E9%80%BB%E8%BE%91"><span class="nav-text">1. 分治累加逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E6%9D%9F%E6%B4%97%E7%89%8C-Warp-Shuffle-%E4%BC%98%E5%8C%96"><span class="nav-text">2. 线程束洗牌 (Warp Shuffle) 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9E%E7%8E%B0%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94"><span class="nav-text">3. 实现策略对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98-Bank-Conflict"><span class="nav-text">共享内存 Bank Conflict</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%B2%E7%AA%81%E5%8E%9F%E7%90%86"><span class="nav-text">1. 冲突原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2D-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%B8%E5%9E%8B%E5%86%B2%E7%AA%81"><span class="nav-text">2. 2D 数组中的典型冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Padding-%E4%BC%98%E5%8C%96"><span class="nav-text">3. Padding 优化</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%98%A0%E5%B0%84"><span class="nav-text">核心映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Warp-%E7%BA%BF%E7%A8%8B%E6%9D%9F"><span class="nav-text">Warp (线程束)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%88%86%E6%94%AF-Control-Divergence"><span class="nav-text">控制分支 (Control Divergence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%BA%A6%E6%9D%9F%E4%B8%8E%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="nav-text">资源约束与占用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-vs-GPU-%E5%AF%84%E5%AD%98%E5%99%A8%E8%AE%BE%E8%AE%A1%E5%AF%B9%E6%AF%94"><span class="nav-text">CPU vs GPU 寄存器设计对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E4%B8%8E%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-text">内存层级与变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E8%AF%AD%E6%B3%95%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1. 内存语法、作用域与生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-CPU-%E4%B8%8E-GPU-%E5%86%85%E5%AD%98%E5%B1%82%E7%BA%A7%E5%AF%B9%E5%BA%94"><span class="nav-text">1.1 CPU 与 GPU 内存层级对应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%A9%E7%90%86%E5%AE%9E%E7%8E%B0"><span class="nav-text">2. 线程私有变量的物理实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E5%86%85%E5%AD%98%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8E%E9%99%B7%E9%98%B1"><span class="nav-text">3. 本地内存的特性与陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%9A%84%E5%8D%8F%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-text">4. 共享内存的协作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%B8%B8%E9%87%8F%E5%86%85%E5%AD%98%E4%B8%8E%E5%B9%BF%E6%92%AD%E8%AE%BF%E9%97%AE"><span class="nav-text">5. 常量内存与广播访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-text">6. 全局内存的持久性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%B5%84%E6%BA%90%E9%A2%84%E7%AE%97%E5%8E%9F%E5%88%99"><span class="nav-text">7. 程序员的资源预算原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-1D-%E5%88%B0-Memory-Coalescing"><span class="nav-text">从 1D 到 Memory Coalescing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1D-%E7%B4%A2%E5%BC%95%E8%AE%A1%E7%AE%97"><span class="nav-text">1. 1D 索引计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%85%E5%AD%98%E5%90%88%E5%B9%B6-Memory-Coalescing"><span class="nav-text">2. 内存合并 (Memory Coalescing)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grid-Stride-Loop"><span class="nav-text">Grid-Stride Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-%E7%9F%A9%E9%98%B5%E4%B8%8E-Flattening"><span class="nav-text">2D 矩阵与 Flattening</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9D%90%E6%A0%87%E6%98%A0%E5%B0%84-Mapping"><span class="nav-text">1. 坐标映射 (Mapping)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9C%B0%E5%9D%80%E5%8E%8B%E6%89%81-Flattening"><span class="nav-text">2. 地址压扁 (Flattening)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Naive-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. Naive GEMM 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-text">4. 性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Roofline-%E6%A8%A1%E5%9E%8B"><span class="nav-text">Roofline 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E6%8C%87%E6%A0%87"><span class="nav-text">1. 核心指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%80%A7%E8%83%BD%E6%A8%A1%E5%9E%8B"><span class="nav-text">2. 性能模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90"><span class="nav-text">3. 瓶颈分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tiled-GEMM-%E5%AE%9E%E7%8E%B0"><span class="nav-text">tiled GEMM 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E8%AF%BB"><span class="nav-text">代码详细解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Row-Major-Layout-%E8%A1%8C%E4%B8%BB%E5%BA%8F%E5%B8%83%E5%B1%80"><span class="nav-text">Row-Major Layout (行主序布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tiling-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%9A%E5%85%A8%E5%B1%80%E5%86%85%E5%AD%98%E6%B5%81%E9%87%8F%E5%87%8F%E5%B0%91%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="nav-text">Tiling 性能分析：全局内存流量减少的数学推导</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AA%81%E7%A0%B4%E4%B8%B2%E8%A1%8C%E9%99%90%E5%88%B6%EF%BC%9A%E5%8F%8C%E7%BC%93%E5%86%B2%E4%B8%8E%E6%B5%81%E6%B0%B4%E7%BA%BF%E4%BC%98%E5%8C%96"><span class="nav-text">突破串行限制：双缓冲与流水线优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%93%B6%E9%A2%88%E5%88%86%E6%9E%90%EF%BC%9A%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="nav-text">瓶颈分析：串行执行的代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E8%BD%AF%E4%BB%B6%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%8C%96-Software-Pipelining"><span class="nav-text">核心原理：软件流水线化 (Software Pipelining)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%AF%84%E5%AD%98%E5%99%A8%E9%A2%84%E5%8F%96%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="nav-text">代码实现：基于寄存器预取的软件流水线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%88%B6%E6%B7%B1%E7%A9%B6%EF%BC%9AConsumer-Producer-%E5%8A%A8%E6%80%81%E5%B9%B3%E8%A1%A1"><span class="nav-text">机制深究：Consumer-Producer 动态平衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E6%BC%94%E8%BF%9B"><span class="nav-text">现代演进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%A7%86%E8%A7%92%E7%9A%84%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-text">硬件视角的时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1D-Blocktiling"><span class="nav-text">1D Blocktiling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96%E8%AE%BF%E5%AD%98-Vectorized-Memory-Access"><span class="nav-text">向量化访存 (Vectorized Memory Access)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-text">1. 核心原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%BA%E4%BD%95-float3-%E6%80%A7%E8%83%BD%E8%BE%83%E5%B7%AE%EF%BC%9F"><span class="nav-text">2. 为何 float3 性能较差？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96%EF%BC%9AAoS-%E4%B8%8E-SoA"><span class="nav-text">内存布局优化：AoS 与 SoA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-AoS-Array-of-Structures"><span class="nav-text">1. AoS (Array of Structures)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SoA-Structure-of-Arrays"><span class="nav-text">2. SoA (Structure of Arrays)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%A7%84%E7%BA%A6-Parallel-Reduction"><span class="nav-text">并行规约 (Parallel Reduction)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%86%E6%B2%BB%E7%B4%AF%E5%8A%A0%E9%80%BB%E8%BE%91"><span class="nav-text">1. 分治累加逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E6%9D%9F%E6%B4%97%E7%89%8C-Warp-Shuffle-%E4%BC%98%E5%8C%96"><span class="nav-text">2. 线程束洗牌 (Warp Shuffle) 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9E%E7%8E%B0%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94"><span class="nav-text">3. 实现策略对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98-Bank-Conflict"><span class="nav-text">共享内存 Bank Conflict</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%86%B2%E7%AA%81%E5%8E%9F%E7%90%86"><span class="nav-text">1. 冲突原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2D-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%B8%E5%9E%8B%E5%86%B2%E7%AA%81"><span class="nav-text">2. 2D 数组中的典型冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Padding-%E4%BC%98%E5%8C%96"><span class="nav-text">3. Padding 优化</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -1641,11 +1811,11 @@ mjx-container[display="true"] + br {
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        34 posts in total
+                        35 posts in total
                     </span>
                     
                         <span>
-                            79.9k words in total
+                            87.7k words in total
                         </span>
                     
                 </p>
