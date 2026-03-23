@@ -129,7 +129,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://ikko-debug.github.io/2023/01/03/将tsv文件导入elastic-search数据库/"/>
+    <link rel="canonical" href="http://ikko-debug.github.io/2026/03/19/大模型/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -139,14 +139,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="将tsv文件导入elastic search数据库">
-<meta property="og:url" content="http://ikko-debug.github.io/2023/01/03/%E5%B0%86tsv%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5elastic-search%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:title" content="大模型">
+<meta property="og:url" content="http://ikko-debug.github.io/2026/03/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="IKKO">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2023-01-03T11:17:24.000Z">
-<meta property="article:modified_time" content="2025-12-17T12:43:12.342Z">
+<meta property="article:published_time" content="2026-03-19T04:08:12.000Z">
+<meta property="article:modified_time" content="2026-03-23T16:41:33.365Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -171,7 +171,7 @@
     
     <title>
         
-            将tsv文件导入elastic search数据库 | IKKO
+            大模型 | IKKO
         
     </title>
 
@@ -544,7 +544,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">将tsv文件导入elastic search数据库</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">大模型</h1>
 			</div>
 			
 		</div>
@@ -565,15 +565,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-01-03 19:17:24</span>
-        <span class="mobile">2023-01-03 19:17:24</span>
+        <span class="desktop">2026-03-19 12:08:12</span>
+        <span class="mobile">2026-03-19 12:08:12</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-12-17 20:43:12</span>
-            <span class="mobile">2025-12-17 20:43:12</span>
+            <span class="desktop">2026-03-24 00:41:33</span>
+            <span class="mobile">2026-03-24 00:41:33</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -584,12 +584,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>526 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.3k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
         </span>
     
     
@@ -608,18 +608,52 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>使用 Elasticsearch 的 bulk API 来将 TSV 文件导入 Elasticsearch 数据库。</p>
-<p>Bulk API 是 Elasticsearch 提供的一种批量执行多个索引、删除或更新操作的方法。使用它可以大幅度提高数据导入的效率。</p>
-<p>1.要使用 bulk API 将 TSV 文件导入 Elasticsearch 数据库，：</p>
-<p>2.将 TSV 文件转换为 JSON 格式。可以使用 Python 等语言的 csv 库将 TSV 文件读入内存并转换为 JSON 格式。</p>
-<p>3.使用 HTTP 客户端（如 Python 的 requests 库）向 Elasticsearch 的 _bulk API 发送 POST 请求。请求的数据是之前转换的 JSON 格式的数据。</p>
-<p>等待 Elasticsearch 完成数据导入。</p>
-<p>下面是一个使用 Python 和 requests 库将 TSV 文件导入 Elasticsearch 的示例代码：</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import csv</span><br><span class="line">import json</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line"># 读入 TSV 文件并转换为 JSON 格式</span><br><span class="line">documents = []</span><br><span class="line">with open(&#x27;data.tsv&#x27;, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as tsv_file:</span><br><span class="line">    reader = csv.DictReader(tsv_file, delimiter=&#x27;\t&#x27;)</span><br><span class="line">    for row in reader:</span><br><span class="line">        documents.append(row)</span><br><span class="line"></span><br><span class="line"># 使用 bulk API 将数据导入 Elasticsearch</span><br><span class="line">bulk_data = &#x27;&#x27;</span><br><span class="line">for doc in documents:</span><br><span class="line">    action_and_meta = &#123;</span><br><span class="line">        &#x27;index&#x27;: &#123;</span><br><span class="line">            &#x27;_index&#x27;: &#x27;my_index&#x27;,</span><br><span class="line">            &#x27;_type&#x27;: &#x27;my_type&#x27;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    bulk_data += json.dumps(action_and_meta) + &#x27;\n&#x27;</span><br><span class="line">    bulk_data += json.dumps(doc) + &#x27;\n&#x27;</span><br><span class="line"></span><br><span class="line">headers = &#123;&#x27;Content-Type&#x27;: &#x27;application/x-ndjson&#x27;&#125;</span><br><span class="line">response = requests.post(&#x27;http://localhost:9200/_bulk&#x27;, data=bulk_data, headers=headers)</span><br><span class="line"></span><br><span class="line">if response.status_code != 200:</span><br><span class="line">    raise Exception(&#x27;Failed to index data&#x27;)</span><br></pre></td></tr></table></figure></div>
-<p>上述代码仅作为示例，可能需要根据自己的需求修改。例如，可能需要调整 _index 和 _type 的值，以确定导入的数据存储在哪个索引和类型中。</p>
-<p>为了提高效率，bulk API 会批量执行多个操作，而不是每个操作都发送一次请求。所以，你需要将每个操作的信息和数据都拼接到一起，再发送一次请求。</p>
-<p>在使用 bulk API 导入数据时，你需要使用 application&#x2F;x-ndjson 的 Content-Type。</p>
-<p>如果 TSV 文件较大，你可能还需要考虑分批导入。例如，每次只导入一个文件的一部分，而不是一次性将整个文件导入。这样可以减少内存占用，避免导入过程中的超时等问题。</p>
+			<h2 id="大模型参数量和显存的换算关系"><a href="#大模型参数量和显存的换算关系" class="headerlink" title="大模型参数量和显存的换算关系"></a><a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/612046818/answer/3438795176" >大模型参数量和显存的换算关系<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></h2><h3 id="1B参数对应多少G显存？"><a href="#1B参数对应多少G显存？" class="headerlink" title="1B参数对应多少G显存？"></a><strong>1B参数对应多少G显存？</strong></h3><p>B和G都是十亿（1000M或1024M）的意思，M是100万的意思，平时说模型参数有<strong>x</strong>B就是说有<strong>x</strong>十亿个参数，平时说显存有多少G&#x2F;M是说有多少G&#x2F;M个<strong>字节</strong>（byte），1个字节&#x3D;8比特（bit），那么，1B模型参数对应多少G内存和参数的精度有关，如果是全精度训练（fp32），一个参数对应32比特，也就是4个字节，参数换算到显存的时候要乘4，也就是1B模型参数对应4G显存，如果是fp16或者bf16就是乘2，1B模型参数对应2G显存。</p>
+<h3 id="训练时的显存开销"><a href="#训练时的显存开销" class="headerlink" title="训练时的显存开销"></a>训练时的显存开销</h3><p>除了模型参数本身外，训练时的显存开销还有这几个部分：</p>
+<ul>
+<li>梯度：一个参数对应一个梯度值，所以梯度所占显存是参数的1倍</li>
+<li>优化器状态：取决于优化器的具体类型，如果是裸SGD就不需要额外显存开销，如果是带一阶动量（momentum）的SGD就是1倍，如果是Adam的话就要在momentum的基础上加上二阶动量，优化器状态所占显存就是参数的2倍。</li>
+</ul>
+<p>小结：假设我们全参数微调训练一个参数量为1b(十亿参数)的大模型，优化器为Adam，精度为fp32，忽略数据和hidden states部分的显存占用，那么显存占用为：参数的4G+梯度的4G+优化器状态的8G，共16G。如果是bf16精度训练则要减半，就是8G。如果是混合精度训练则根据各部分的精度调整计算过程。</p>
+<p>按照Zomi PPT 中的说法：大模型混合精度训练过程中，使用 BF16 进行前向传递，FP32 反向传递梯度信息；优化器更新模型参数时，使用 FP32 优化器状态、FP32 的梯度来更新模型参数。</p>
+<p>在一次训练迭代中，每个可训练参数都对应 1 个梯度，2个优化器状态（Adam）。设模型参数量为 φ(FP16)，那么梯度的参数量为  2φ(FP32)，Adam 优化器的参数量为 4φ(FP32)。</p>
+<p>训练总内存 &#x3D; 模型内存(φ) + 梯度内存(2φ) + 优化器内存(4φ) + 激活内存(Xφ) + 其他内存(1.X φ)</p>
+<h4 id="激活值的数据占了显存的大头"><a href="#激活值的数据占了显存的大头" class="headerlink" title="激活值的数据占了显存的大头"></a>激活值的数据占了显存的大头</h4><p>LLAMA-13B 模型权重为 25GB，8倍为200GB，200GB&#x2F;64GB≈3.2，理论上可以放在单机八卡的一个 NPU 节点。为什么 LLAMA-13B 一般最小资源需要两个节点 16卡？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/assets/readme/image-20250318102003888.png"
+                      alt="image-20250318102003888"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/assets/readme/image-20250318102026582.png"
+                      alt="image-20250318102026582"
+                ></p>
+<h4 id="激活值"><a href="#激活值" class="headerlink" title="激活值"></a>激活值</h4><p>激活值是神经网络前向传播时，各层神经元经过非线性函数（如ReLU）处理后的输出张量。例如：</p>
+<ul>
+<li>卷积层输出的特征图（Feature Maps）</li>
+<li>全连接层的中间结果</li>
+<li>注意力机制中的注意力矩阵（如Transformer）</li>
+</ul>
+<p>在反向传播计算梯度时，需根据链式法则复用前向传播的激活值。</p>
+<h3 id="推理时的显存开销"><a href="#推理时的显存开销" class="headerlink" title="推理时的显存开销"></a>推理时的显存开销</h3><p>神经网络推理（Inference）阶段，没有优化器状态和梯度信息，也不需要保存中间激活。因此推理阶段占用的显存要远远远小于训练阶段。</p>
+<p>模型推理阶段，占用显存大头是模型参数，一次推理过程中，每个可训练参数都对应 1 个梯度，设模型参数量为 φ，使用 float16 来进行推理，模型参数占用的显存大概是  2φ bytes 。</p>
+<p>训练总内存 &#x3D; 模型内存(φ) + 其他内存(0.X φ)</p>
+<h2 id="MFU-Model-FLOPS-Utilization）"><a href="#MFU-Model-FLOPS-Utilization）" class="headerlink" title="MFU(Model FLOPS Utilization）"></a>MFU(Model FLOPS Utilization）</h2><p>定义: 即模型算力利用率，是指模型一次前反向计算消耗的矩阵算力与机器（如GPU）算力的比值。重要性: 它直接反映了模型在训练过程中对计算资源的有效利用程度。在大模型训练中，提高MFU是优化训练效率的关键手段之一。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/assets/readme/image-20250318103310346.png"
+                      alt="image-20250318103310346"
+                ></p>
+<p>MFU的值受到多种因素的影响，包括但不限于：</p>
+<p>模型架构: 不同架构的模型在分布式训练中的算力利用率可能存在显著差异。例如，Transformer架构的模型由于其并行性和矩阵运算密集的特点，通常能够在分布式训练中实现较高的MFU。</p>
+<p>分布式训练策略: 包括数据并行、模型并行、流水线并行等不同的并行策略，以及这些策略的具体实现方式（如梯度累积、张量并行等），都会对MFU产生重要影响。</p>
+<p>硬件环境: GPU型号、数量、网络连接速度、显存大小等硬件因素都会限制分布式训练的性能和算力利用率。</p>
+<p>软件优化: 包括编译器优化、库函数优化、自动混合精度训练等软件层面的优化措施，也能在一定程度上提升MFU。</p>
+<p>数据集和批次大小: 数据集的大小和复杂性，以及训练时使用的批次大小，都会影响每次迭代中的计算量和算力利用率。</p>
 
 		</div>
 
@@ -627,18 +661,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 将tsv文件导入elastic search数据库</li>
+        <li><strong>Title:</strong> 大模型</li>
         <li><strong>Author:</strong> Ikko</li>
         <li><strong>Created at
-                :</strong> 2023-01-03 19:17:24</li>
+                :</strong> 2026-03-19 12:08:12</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-12-17 20:43:12
+                    :</strong> 2026-03-24 00:41:33
             </li>
         
         <li>
-            <strong>Link:</strong> http://ikko-debug.github.io/2023/01/03/将tsv文件导入elastic-search数据库/
+            <strong>Link:</strong> http://ikko-debug.github.io/2026/03/19/大模型/
         </li>
         <li>
             <strong>
@@ -663,23 +697,11 @@
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2023/01/06/python-tips/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">python-tips</span>
-						<span class="post-nav-item">Prev posts</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2023/01/03/django-tips/">
+				<a class="next" rel="next" href="/2026/03/16/nf4/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">django tips</span>
+						<span class="post-nav-title-item truncate max-w-48">nf4反量化实现与优化</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -758,8 +780,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">将tsv文件导入elastic search数据库</div>
-		
+		<div class="page-title">大模型</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%E9%87%8F%E5%92%8C%E6%98%BE%E5%AD%98%E7%9A%84%E6%8D%A2%E7%AE%97%E5%85%B3%E7%B3%BB"><span class="nav-text">大模型参数量和显存的换算关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1B%E5%8F%82%E6%95%B0%E5%AF%B9%E5%BA%94%E5%A4%9A%E5%B0%91G%E6%98%BE%E5%AD%98%EF%BC%9F"><span class="nav-text">1B参数对应多少G显存？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%97%B6%E7%9A%84%E6%98%BE%E5%AD%98%E5%BC%80%E9%94%80"><span class="nav-text">训练时的显存开销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86%E6%97%B6%E7%9A%84%E6%98%BE%E5%AD%98%E5%BC%80%E9%94%80"><span class="nav-text">推理时的显存开销</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MFU-Model-FLOPS-Utilization%EF%BC%89"><span class="nav-text">MFU(Model FLOPS Utilization）</span></a></li></ol>
 
 	</div>
 </div>

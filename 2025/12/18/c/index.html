@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-12-17T16:29:04.000Z">
-<meta property="article:modified_time" content="2026-03-06T14:35:58.063Z">
+<meta property="article:modified_time" content="2026-03-23T16:41:33.365Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -633,7 +633,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">36</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -684,8 +684,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-03-06 22:35:58</span>
-            <span class="mobile">2026-03-06 22:35:58</span>
+            <span class="desktop">2026-03-24 00:41:33</span>
+            <span class="mobile">2026-03-24 00:41:33</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -696,12 +696,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>14 Mins</span>
         </span>
     
     
@@ -825,6 +825,7 @@ mjx-container[display="true"] + br {
 <div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>{</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; dp;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">while</span>(!dp.<span class="built_in">empty</span>()&amp;&amp;nums[dp.<span class="built_in">back</span>()]&lt;=nums[i]){</span><br><span class="line">                dp.<span class="built_in">pop_back</span>();</span><br><span class="line">            }</span><br><span class="line">            dp.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="keyword">if</span>(dp.<span class="built_in">front</span>()&lt;=i-k){</span><br><span class="line">                dp.<span class="built_in">pop_front</span>();</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(i&gt;=k<span class="number">-1</span>) result.<span class="built_in">push_back</span>(nums[dp.<span class="built_in">front</span>()]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>
 <p>注意stack 或 queue只有push<br>deque有push_front push_back pop_front pop_back</p>
 <h3 id="指针和引用"><a href="#指针和引用" class="headerlink" title="指针和引用"></a>指针和引用</h3><p>Node* a<br>“a 是一个指向 Node 的指针”<br>a 存放的是 Node 的地址<br>Node&amp; a<br>“a 是一个 Node 的引用”<br>a 是某个 Node 的别名</p>
+<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>unordered_set<int> s(nums.begin(), nums.end());<br>从 nums.begin() 开始，到 nums.end() 结束（不包含 end），把这段范围的数据拿来初始化</int></p>
 <h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><h3 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h3><p>#include <unordered_map><br>注意value不一定是int<br>std::unordered_map&lt;key_type, value_type&gt; map_name;</unordered_map></p>
 <h3 id="哈希表遍历"><a href="#哈希表遍历" class="headerlink" title="哈希表遍历"></a>哈希表遍历</h3><p>c++17</p>
 <div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp; [key, vec] : map) {</span><br><span class="line">    result.<span class="built_in">push_back</span>(vec);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
@@ -863,6 +864,96 @@ mjx-container[display="true"] + br {
 <h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><h3 id="string-substr-size-t-pos-size-t-len-const"><a href="#string-substr-size-t-pos-size-t-len-const" class="headerlink" title="string substr(size_t pos, size_t len) const;"></a>string substr(size_t pos, size_t len) const;</h3><p>从下标 pos 开始，取 len 个字符</p>
 <div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">"abcdef"</span>;</span><br><span class="line">string t = s.<span class="built_in">substr</span>(<span class="number">3</span>); <span class="comment">// "def"</span></span><br><span class="line">s.<span class="built_in">substr</span>(start, end - start + <span class="number">1</span>)</span><br></pre></td></tr></table></figure></div>
 <h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">temp</span>(n, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(m, <span class="number">0</span>));</span><br></pre></td></tr></table></figure></div>
+<h2 id="CPU-和-GPU-的动静态内存总结"><a href="#CPU-和-GPU-的动静态内存总结" class="headerlink" title="CPU 和 GPU 的动静态内存总结"></a>CPU 和 GPU 的动静态内存总结</h2><h3 id="CPU-内存"><a href="#CPU-内存" class="headerlink" title="CPU 内存"></a>CPU 内存</h3><h4 id="动态内存"><a href="#动态内存" class="headerlink" title="动态内存"></a>动态内存</h4><ul>
+<li><strong>定义</strong>：程序运行时通过动态分配函数（如 <code>malloc</code>、<code>calloc</code>、<code>realloc</code> 或 <code>new</code>）分配的内存。</li>
+<li><strong>特点</strong>：<ul>
+<li>需要手动分配和释放。</li>
+<li>生命周期由程序员控制，使用完后需要调用 <code>free</code> 或 <code>delete</code> 释放。</li>
+<li>适合需要灵活分配大小的场景。</li>
+</ul>
+</li>
+<li><strong>使用方式</strong>：<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C 风格</span></span><br><span class="line"><span class="type">int</span>* ptr = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(<span class="type">int</span>) * <span class="number">10</span>); <span class="comment">// 分配 10 个 int</span></span><br><span class="line"><span class="built_in">free</span>(ptr); <span class="comment">// 释放内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C++ 风格</span></span><br><span class="line"><span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>]; <span class="comment">// 分配 10 个 int</span></span><br><span class="line"><span class="keyword">delete</span>[] arr; <span class="comment">// 释放内存</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="静态内存"><a href="#静态内存" class="headerlink" title="静态内存"></a>静态内存</h4><ul>
+<li><strong>定义</strong>：静态内存是程序编译时分配的内存，通常包括全局变量、静态变量和常量。</li>
+<li><strong>特点</strong>：<ul>
+<li>生命周期贯穿程序运行始终。</li>
+<li>编译时分配，运行时不可更改大小。</li>
+<li>适合需要长期存储且大小固定的数据。</li>
+</ul>
+</li>
+<li><strong>使用方式</strong>：<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> x = <span class="number">10</span>; <span class="comment">// 静态变量</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> y = <span class="number">20</span>;  <span class="comment">// 常量</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="GPU-内存"><a href="#GPU-内存" class="headerlink" title="GPU 内存"></a>GPU 内存</h3><h4 id="动态内存-1"><a href="#动态内存-1" class="headerlink" title="动态内存"></a>动态内存</h4><ul>
+<li><strong>定义</strong>：通过 CUDA 或 OpenCL 等 API 在 GPU 上分配的内存。</li>
+<li><strong>特点</strong>：<ul>
+<li>需要手动分配和释放。</li>
+<li>使用 <code>cudaMalloc</code> 或 <code>cudaFree</code> 等函数管理。</li>
+<li>适合需要在 GPU 上存储大规模数据的场景。</li>
+</ul>
+</li>
+<li><strong>使用方式</strong>：<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span>* d_array;</span><br><span class="line"><span class="built_in">cudaMalloc</span>((<span class="type">void</span>**)&amp;d_array, <span class="built_in">sizeof</span>(<span class="type">float</span>) * <span class="number">100</span>); <span class="comment">// 分配 100 个 float</span></span><br><span class="line"><span class="built_in">cudaFree</span>(d_array); <span class="comment">// 释放内存</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="静态内存-1"><a href="#静态内存-1" class="headerlink" title="静态内存"></a>静态内存</h4><ul>
+<li><strong>定义</strong>：GPU 程序中编译时分配的内存，通常包括常量内存和共享内存。</li>
+<li><strong>特点</strong>：<ul>
+<li>常量内存：只读，生命周期贯穿程序运行。</li>
+<li>共享内存：线程块内共享，生命周期为线程块的执行时间。</li>
+</ul>
+</li>
+<li><strong>使用方式</strong>：<ul>
+<li><strong>常量内存</strong>：<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__constant__ <span class="type">float</span> const_data[<span class="number">256</span>]; <span class="comment">// 声明常量内存</span></span><br><span class="line"><span class="built_in">cudaMemcpyToSymbol</span>(const_data, host_data, <span class="built_in">sizeof</span>(<span class="type">float</span>) * <span class="number">256</span>); <span class="comment">// 拷贝数据到常量内存</span></span><br></pre></td></tr></table></figure></div></li>
+<li><strong>共享内存</strong>：<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">kernel</span><span class="params">()</span> </span>{</span><br><span class="line">    __shared__ <span class="type">float</span> shared_data[<span class="number">256</span>]; <span class="comment">// 声明共享内存</span></span><br><span class="line">    <span class="comment">// 使用共享内存</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="对比总结"><a href="#对比总结" class="headerlink" title="对比总结"></a>对比总结</h3><table>
+<thead>
+<tr>
+<th><strong>属性</strong></th>
+<th><strong>CPU 动态内存</strong></th>
+<th><strong>CPU 静态内存</strong></th>
+<th><strong>GPU 动态内存</strong></th>
+<th><strong>GPU 静态内存</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>分配时机</strong></td>
+<td>运行时</td>
+<td>编译时</td>
+<td>运行时</td>
+<td>编译时</td>
+</tr>
+<tr>
+<td><strong>生命周期</strong></td>
+<td>手动控制</td>
+<td>程序运行期间</td>
+<td>手动控制</td>
+<td>线程块或程序运行期间</td>
+</tr>
+<tr>
+<td><strong>分配方式</strong></td>
+<td><code>malloc</code> / <code>new</code></td>
+<td>全局/静态变量</td>
+<td><code>cudaMalloc</code></td>
+<td><code>__constant__</code> / <code>__shared__</code></td>
+</tr>
+<tr>
+<td><strong>释放方式</strong></td>
+<td><code>free</code> / <code>delete</code></td>
+<td>自动释放</td>
+<td><code>cudaFree</code></td>
+<td>自动释放</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>动态数据</td>
+<td>长期存储、固定大小数据</td>
+<td>大规模数据</td>
+<td>常量或线程块内共享数据</td>
+</tr>
+</tbody></table>
+
 		</div>
 
 		
@@ -876,7 +967,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-03-06 22:35:58
+                    :</strong> 2026-03-24 00:41:33
             </li>
         
         <li>
@@ -1001,7 +1092,7 @@ mjx-container[display="true"] + br {
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">c++</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0%E8%A1%A8"><span class="nav-text">常见排序算法概述表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%A0%86"><span class="nav-text">最大堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%A0%86"><span class="nav-text">最小堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pair"><span class="nav-text">pair</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-text">滑动窗口最大值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8"><span class="nav-text">指针和引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="nav-text">哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0"><span class="nav-text">构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E9%81%8D%E5%8E%86"><span class="nav-text">哈希表遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E8%A1%A5%E5%85%85"><span class="nav-text">常见用法补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E8%A1%A5%E5%85%85-1"><span class="nav-text">常见用法补充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stl"><span class="nav-text">stl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#end"><span class="nav-text">end()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda"><span class="nav-text">lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nth-element%E5%BF%AB%E9%80%9F%E6%B1%82%E7%AC%ACk%E5%A4%A7%E5%80%BC"><span class="nav-text">nth_element快速求第k大值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda-1"><span class="nav-text">lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="nav-text">二进制相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A42"><span class="nav-text">除2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#move"><span class="nav-text">move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%99%A8"><span class="nav-text">复制构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E7%89%88%E5%8C%96"><span class="nav-text">函数模版化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector-%E2%80%9C%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-text">vector “管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string-substr-size-t-pos-size-t-len-const"><span class="nav-text">string substr(size_t pos, size_t len) const;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-text">二维数组</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0%E8%A1%A8"><span class="nav-text">常见排序算法概述表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%A0%86"><span class="nav-text">最大堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%A0%86"><span class="nav-text">最小堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pair"><span class="nav-text">pair</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-text">滑动窗口最大值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8"><span class="nav-text">指针和引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E5%85%B8"><span class="nav-text">字典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="nav-text">哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0"><span class="nav-text">构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E9%81%8D%E5%8E%86"><span class="nav-text">哈希表遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E8%A1%A5%E5%85%85"><span class="nav-text">常见用法补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E8%A1%A5%E5%85%85-1"><span class="nav-text">常见用法补充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stl"><span class="nav-text">stl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#end"><span class="nav-text">end()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda"><span class="nav-text">lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nth-element%E5%BF%AB%E9%80%9F%E6%B1%82%E7%AC%ACk%E5%A4%A7%E5%80%BC"><span class="nav-text">nth_element快速求第k大值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda-1"><span class="nav-text">lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="nav-text">二进制相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A42"><span class="nav-text">除2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#move"><span class="nav-text">move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%99%A8"><span class="nav-text">复制构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E7%89%88%E5%8C%96"><span class="nav-text">函数模版化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector-%E2%80%9C%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-text">vector “管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string-substr-size-t-pos-size-t-len-const"><span class="nav-text">string substr(size_t pos, size_t len) const;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-text">二维数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E5%92%8C-GPU-%E7%9A%84%E5%8A%A8%E9%9D%99%E6%80%81%E5%86%85%E5%AD%98%E6%80%BB%E7%BB%93"><span class="nav-text">CPU 和 GPU 的动静态内存总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E5%86%85%E5%AD%98"><span class="nav-text">CPU 内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-%E5%86%85%E5%AD%98"><span class="nav-text">GPU 内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="nav-text">对比总结</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -1028,11 +1119,11 @@ mjx-container[display="true"] + br {
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        35 posts in total
+                        36 posts in total
                     </span>
                     
                         <span>
-                            87.7k words in total
+                            90.3k words in total
                         </span>
                     
                 </p>
