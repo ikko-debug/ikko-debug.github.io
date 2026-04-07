@@ -680,7 +680,7 @@ mjx-container[display="true"] + br {
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -688,7 +688,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">36</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -732,7 +732,7 @@ mjx-container[display="true"] + br {
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -740,7 +740,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">36</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -755,6 +755,189 @@ mjx-container[display="true"] + br {
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/03/31/%E6%89%8B%E6%92%95attention/">
+                            手撕attention
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            手撕 Attention这篇用两个版本把 Scaled Dot-Product Attention 从零实现一遍：
+
+纯 Python 版：方便看清楚每一步数学细节。
+PyTorch 版：直接可用于训练和推理。
+
+先回顾公式（单头）：
+$$\text{Attention}(Q, K, V) &#x3D; \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}} ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Mar 31 2026 14:22:08 GMT+0800">
+                
+                    2026-03-31
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2026/03/31/%E6%89%8B%E6%92%95attention/">Read more<span class="seo-reader-text">手撕attention</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/03/31/vllm/">
+                            vllm
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            特性1）PagedAttention把 KV Cache 按 block&#x2F;page 管理，而不是给每个请求预留一整段连续显存，减少碎片，提高显存利用率。 ￼
+2）Continuous batching不是等一批请求凑齐再跑，而是在每个 decode step 动态加入新请求、移除完成请求，让 GPU 一直尽量满载。 ￼
+3）Automatic Prefix Caching相同前缀 ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Mar 31 2026 00:07:25 GMT+0800">
+                
+                    2026-03-31
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2026/03/31/vllm/">Read more<span class="seo-reader-text">vllm</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/03/29/qwen/">
+                            qwen部署
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            环境与部署1234567conda create -n vllm-qwen python=3.11 -yconda activate vllm-qwenpython -m pip install -U pip setuptools wheelpip install -U vllmpip install -U &quot;transformers&gt;=4.56.0,&lt;5&quot; ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Mar 29 2026 17:23:18 GMT+0800">
+                
+                    2026-03-29
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2026/03/29/qwen/">Read more<span class="seo-reader-text">qwen部署</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/03/24/mianjing/">
+                            C++面经
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                             构造函数初始化列表与构造函数体内赋值的区别
+先看两种写法：
+class A {public:    A(int x) : a(x) {}   &#x2F;&#x2F; 初始化列表private:    int a;};
+class A {public:    A(int x) {        a &#x3D; x;           &#x2F;&#x2F; 构造函数体内赋值    }...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Mar 24 2026 15:40:54 GMT+0800">
+                
+                    2026-03-24
+                
+            </span>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E9%9D%A2%E7%BB%8F/">面经</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2026/03/24/mianjing/">Read more<span class="seo-reader-text">C++面经</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1021,254 +1204,6 @@ SM ...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/12/18/c/">
-                            c++
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            常见排序算法概述表
-
-
-排序算法
-时间复杂度（平均）
-时间复杂度（最坏）
-空间复杂度
-是否稳定
-适用场景/特点
-
-
-
-冒泡排序
-
-
-
-是
-简单，适合小数据量
-
-
-选择排序
-
-
-
-否
-简单，交换次数少
-
-
-插入排序
-
-
-
-是
-适合部分有序、小数据量
-
-
-希尔排序
-
-
-
-否
-改进插入排序，较快
-
-
-快速排序
-
-
-
-否
-实际应用最广泛
-
-
-归并排序
-
-
-
-是
-稳定，适合大数据
-
-
-堆排序
-
-
-
-否...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Dec 18 2025 00:29:04 GMT+0800">
-                
-                    2025-12-18
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/12/18/c/">Read more<span class="seo-reader-text">c++</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/08/11/%E7%AE%97%E6%B3%95/">
-                            刷题记录
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            递归怎么写又写错一道递归，于是乎总结一下递归的写法。
-
-假设函数已经写好了
-当前节点该怎么做
-找“最小不需要处理的情况”
-return 用来“兑现函数定义”12345678910111213141516171819202122232425262728/** * Definition for a binary tree node. * struct TreeNode { *     int v...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Aug 11 2025 14:06:55 GMT+0800">
-                
-                    2025-08-11
-                
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2025/08/11/%E7%AE%97%E6%B3%95/">Read more<span class="seo-reader-text">刷题记录</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/07/21/new-about-transformer/">
-                            new-about-transformer
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            发现自己对transformer的理解有些偏颇，开此文章记录一下。
-输入设句子有 T 个 token，embedding 维度为 d：
-输入 embedding 矩阵是一个大小为 T × d 的矩阵每一行表示一个 token 的向量（也就是你说的“每一层”可以理解为“每一个 token 的表示”）
-12345678X = [  x_1    → token 1  x_2    → token...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Jul 21 2025 14:33:12 GMT+0800">
-                
-                    2025-07-21
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/07/21/new-about-transformer/">Read more<span class="seo-reader-text">new-about-transformer</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/06/09/mamba-transformer/">
-                            mamba-transformer
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            什么是特征融合？特征融合 是一种将来自多个源头或多种表示的特征信息组合成一个统一、更具信息量、更鲁棒的特征表示的过程，目的是为了提高机器学习模型的性能（如准确性、稳定性）。
-这里的“多个源头”可以指：
-
-**多模态数据 (Multimodal Data)**：来自不同类型传感器或数据源的信息。这是最经典的应用场景。
-例子：自动驾驶中，融合摄像头（视觉图像）、激光雷达 LiDAR（3D点云）和...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Jun 09 2025 13:47:33 GMT+0800">
-                
-                    2025-06-09
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/06/09/mamba-transformer/">Read more<span class="seo-reader-text">mamba-transformer</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1299,11 +1234,11 @@ return 用来“兑现函数定义”1234567891011121314151617181920212223242526
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        36 posts in total
+                        40 posts in total
                     </span>
                     
                         <span>
-                            90.3k words in total
+                            104k words in total
                         </span>
                     
                 </p>
