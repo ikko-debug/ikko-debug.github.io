@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ikko">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://ikko-debug.github.io/2026/03/24/mianjing/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++面经">
+<meta property="og:url" content="http://ikko-debug.github.io/2026/03/24/mianjing/index.html">
+<meta property="og:site_name" content="IKKO">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-03-24T07:40:54.000Z">
+<meta property="article:modified_time" content="2026-04-25T14:00:05.542Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-P5152X2PGJ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P5152X2PGJ');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/idea.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/idea.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/idea.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++面经 | IKKO
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"G-P5152X2PGJ"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"},"Bookmarks":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"never","show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                IKKO
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    BOOKMARKS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                BOOKMARKS
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">C++面经</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-03-24 15:40:54</span>
+        <span class="mobile">2026-03-24 15:40:54</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-04-25 22:05</span>
+            <span class="mobile">2026-04-25 22:05</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E9%9D%A2%E7%BB%8F/">面经</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p> 构造函数初始化列表与构造函数体内赋值的区别</p>
+<p>先看两种写法：</p>
+<p>class A {<br>public:<br>    A(int x) : a(x) {}   &#x2F;&#x2F; 初始化列表<br>private:<br>    int a;<br>};</p>
+<p>class A {<br>public:<br>    A(int x) {<br>        a &#x3D; x;           &#x2F;&#x2F; 构造函数体内赋值<br>    }<br>private:<br>    int a;<br>};</p>
+<p>本质区别</p>
+<p>初始化列表是“直接构造”成员。<br>构造函数体内赋值，是成员先被默认构造，再被赋值。</p>
+<p>对于内置类型比如 int，看起来差别不大。<br>但对于类对象，差别很明显：</p>
+<p>class B {<br>public:<br>    B(int x) {}<br>};</p>
+<p>class A {<br>public:<br>    A(int x) : b(x) {}   &#x2F;&#x2F; 直接调用 B(int)<br>private:<br>    B b;<br>};</p>
+<p>如果写成：</p>
+<p>class A {<br>public:<br>    A(int x) {<br>        b &#x3D; B(x);        &#x2F;&#x2F; 先默认构造 b，再赋值<br>    }<br>private:<br>    B b;<br>};</p>
+<p>这要求 B 必须能默认构造，还多一次赋值，效率和语义都差一些。</p>
+<p>哪些情况必须用初始化列表</p>
+<p>1）const 成员</p>
+<p>class A {<br>public:<br>    A(int x) : a(x) {}<br>private:<br>    const int a;<br>};</p>
+<p>const 对象一旦构造完就不能再赋值，所以只能在初始化列表里初始化。</p>
+<p>2）引用成员</p>
+<p>class A {<br>public:<br>    A(int&amp; x) : ref(x) {}<br>private:<br>    int&amp; ref;<br>};</p>
+<p>引用必须在定义时绑定，不能先空着后面再赋值。</p>
+<p>3）没有默认构造函数的成员对象</p>
+<p>class B {<br>public:<br>    B(int x) {}<br>};</p>
+<p>class A {<br>public:<br>    A(int x) : b(x) {}<br>private:<br>    B b;<br>};</p>
+<p>初始化顺序</p>
+<p>注意：成员真正的初始化顺序，取决于声明顺序，不取决于初始化列表顺序。</p>
+<p>class A {<br>public:<br>    A() : b(2), a(1) {}<br>private:<br>    int a;<br>    int b;<br>};</p>
+<p>这里还是先初始化 a，再初始化 b，因为声明里 a 在前。</p>
+<p>面试总结版</p>
+<p>初始化列表是在对象创建时直接构造成员，构造函数体内赋值则是成员先默认构造再赋值。<br>对类对象来说，初始化列表通常更高效，而且 const 成员、引用成员、以及没有默认构造函数的成员对象必须使用初始化列表。<br>另外成员初始化顺序由声明顺序决定，不由初始化列表里的书写顺序决定。</p>
+<p>⸻</p>
+<p> 构造函数是否可以放到 private 里面</p>
+<p>可以。</p>
+<p>有什么用</p>
+<p>1）单例模式<br>限制外部随便创建对象。</p>
+<p>class Singleton {<br>private:<br>    Singleton() {}<br>public:<br>    static Singleton&amp; getInstance() {<br>        static Singleton instance;<br>        return instance;<br>    }<br>};</p>
+<p>外部不能 Singleton s;，只能通过 getInstance() 获取。</p>
+<p>2）工厂模式<br>不让用户直接构造，只允许通过静态接口创建。</p>
+<p>class A {<br>private:<br>    A() {}<br>public:<br>    static A create() {<br>        return A();<br>    }<br>};</p>
+<p>面试总结版</p>
+<p>构造函数可以放在 private 里。这样可以控制对象创建，常用于单例模式、工厂模式，或者禁止外部直接实例化对象。</p>
+<p>⸻</p>
+<ol start="6">
+<li>构造函数和析构函数是否可以为虚函数</li>
+</ol>
+<p>构造函数能不能是虚函数</p>
+<p>不能。</p>
+<p>为什么不能</p>
+<p>虚函数依赖虚函数表指针 vptr。<br>而对象在执行构造函数时，本身还没有完全构造好，虚表机制还没稳定建立，所以没法通过虚函数机制去调用“虚构造函数”。</p>
+<p>虚函数调用的前提是对象已经完整建立并且虚表指针已经就绪，而构造函数本身就是在建立对象，因此构造函数不能是虚函数。</p>
+<p>⸻</p>
+<p>析构函数能不能是虚函数</p>
+<p>可以，而且父类经常应该写成虚析构函数。</p>
+<p>例如：</p>
+<p>class Base {<br>public:<br>    virtual ~Base() {<br>        cout &lt;&lt; “Base析构\n”;<br>    }<br>};</p>
+<p>class Derived : public Base {<br>public:<br>    ~Derived() {<br>        cout &lt;&lt; “Derived析构\n”;<br>    }<br>};</p>
+<p>Base* p &#x3D; new Derived();<br>delete p;</p>
+<p>如果基类析构函数不是虚函数，就可能只调用 Base 的析构，不调用 Derived 的析构，导致资源泄露。</p>
+<p>什么时候必须写虚析构函数</p>
+<p>只要这个类打算作为基类，并且可能通过基类指针删除派生类对象，就要把析构函数写成虚函数。</p>
+<p>面试总结版</p>
+<p>构造函数不能是虚函数，因为对象构造时虚表机制还没完全建立。<br>析构函数可以是虚函数，而且如果类要作为多态基类使用，析构函数一般必须是虚函数，否则通过基类指针释放派生类对象时会出现析构不完整的问题。</p>
+<p>⸻</p>
+<ol start="7">
+<li>说明 static 的原理</li>
+</ol>
+<p>static 在 C++ 里要分场景讲</p>
+<p>⸻</p>
+<p>1）修饰局部变量</p>
+<p>void func() {<br>    static int x &#x3D; 0;<br>    x++;<br>    cout &lt;&lt; x &lt;&lt; endl;<br>}</p>
+<p>特点：<br>    •	生命周期是整个程序运行期间<br>    •	作用域仍然只在函数内部<br>    •	只初始化一次</p>
+<p>第一次调用 func() 时初始化，以后不会重复初始化。</p>
+<p>⸻</p>
+<p>2）修饰全局变量 &#x2F; 函数</p>
+<p>static int g_val &#x3D; 10;<br>static void test() {}</p>
+<p>这里的 static 表示内部链接，即只在当前源文件可见，别的 .cpp 文件访问不到。</p>
+<p>⸻</p>
+<p>3）修饰类成员变量</p>
+<p>class A {<br>public:<br>    static int count;<br>};<br>int A::count &#x3D; 0;</p>
+<p>特点：<br>    •	属于类，不属于某个对象<br>    •	所有对象共享一份<br>    •	需要在类外定义一次（C++17 前常见说法，inline static 例外）</p>
+<p>⸻</p>
+<p>4）修饰类成员函数</p>
+<p>class A {<br>public:<br>    static void func() {}<br>};</p>
+<p>特点：<br>    •	属于类，不属于对象<br>    •	没有 this 指针<br>    •	只能访问静态成员，不能直接访问非静态成员</p>
+<p>因为非静态成员需要依赖具体对象，而静态成员函数没有 this。</p>
+<p>⸻</p>
+<p>原理层面怎么说</p>
+<p>static 的核心含义是改变存储周期或链接属性。<br>对局部变量来说，它让变量从栈上短生命周期变成静态存储区的整个程序生命周期，并且只初始化一次。<br>对全局变量和函数来说，它让符号变成内部链接，只在当前编译单元可见。<br>对类成员来说，静态成员属于类本身而不属于对象，因此所有对象共享一份。</p>
+<p>⸻</p>
+<ol start="7">
+<li>介绍 STL 里的 vector</li>
+</ol>
+<p>vector 本质上是动态数组，底层是一段连续内存。</p>
+<p>特点<br>    •	支持随机访问，O(1)<br>    •	尾插尾删效率高，均摊 O(1)<br>    •	中间插入删除效率低，通常 O(n)<br>    •	内存连续，所以缓存友好</p>
+<p>⸻</p>
+<p>常见成员函数</p>
+<p>vector<int> v;<br>v.push_back(1);<br>v.pop_back();<br>v.size();<br>v.capacity();<br>v.empty();<br>v.clear();<br>v.begin();<br>v.end();</p>
+<p>⸻</p>
+<p>size 和 capacity 的区别<br>    •	size()：当前已有元素个数<br>    •	capacity()：当前已分配容量</p>
+<p>vector<int> v;<br>v.push_back(1);</p>
+<p>可能此时：<br>    •	size &#x3D; 1<br>    •	capacity &#x3D; 1 或更大</p>
+<p>⸻</p>
+<p>扩容机制</p>
+<p>当容量不够时，vector 会申请更大内存，把原来的元素搬过去，再释放旧空间。</p>
+<p>这就是为什么 push_back 虽然偶尔会很慢，但均摊复杂度是 O(1)。</p>
+<p>通常扩容会按倍数增长，但标准没有强制必须 2 倍，具体实现跟编译器有关。</p>
+<p>⸻</p>
+<p>为什么 vector 插入中间慢</p>
+<p>因为插入一个元素后，后面的元素都要整体后移。</p>
+<p>为什么迭代器会失效</p>
+<p>因为扩容后，底层内存地址变了，原来的迭代器、指针、引用都可能指向旧地址。</p>
+<p>例如：</p>
+<p>vector<int> v &#x3D; {1,2,3};<br>int* p &#x3D; &amp;v[0];<br>v.push_back(4); &#x2F;&#x2F; 可能扩容</p>
+<p>扩容后 p 可能失效。</p>
+<p>面试总结版</p>
+<p>vector 是 STL 中的动态数组，底层使用连续内存实现，支持 O(1) 随机访问。<br>尾插均摊 O(1)，中间插入删除 O(n)。<br>它有 size 和 capacity 两个概念，容量不足时会扩容并搬迁数据，因此扩容后迭代器、引用和指针可能失效。</p>
+<p>⸻</p>
+<ol start="8">
+<li>智能指针介绍</li>
+</ol>
+<p>C++ 常见智能指针有 3 个：<br>    •	unique_ptr<br>    •	shared_ptr<br>    •	weak_ptr</p>
+<p>它们的目的都是：自动管理堆对象，减少内存泄漏。</p>
+<p>⸻</p>
+<p>1）unique_ptr</p>
+<p>独占所有权，同一时刻只能有一个指针拥有对象。</p>
+<p>unique_ptr<int> p &#x3D; make_unique<int>(10);</p>
+<p>特点：<br>    •	不能拷贝<br>    •	可以移动</p>
+<p>unique_ptr<int> p1 &#x3D; make_unique<int>(10);<br>unique_ptr<int> p2 &#x3D; std::move(p1);</p>
+<p>适合场景：<br>    •	对象只有唯一拥有者<br>    •	替代裸指针管理资源</p>
+<p>⸻</p>
+<p>2）shared_ptr</p>
+<p>共享所有权，多个指针可以共同管理同一对象。<br>底层有引用计数。</p>
+<p>shared_ptr<int> p1 &#x3D; make_shared<int>(10);<br>shared_ptr<int> p2 &#x3D; p1;</p>
+<p>此时引用计数加 1。<br>最后一个 shared_ptr 销毁时，对象才释放。</p>
+<p>⸻</p>
+<p>3）weak_ptr</p>
+<p>weak_ptr 不拥有对象，不增加引用计数。<br>主要用来观察 shared_ptr 管理的对象，解决循环引用问题。</p>
+<p>shared_ptr<int> sp &#x3D; make_shared<int>(10);<br>weak_ptr<int> wp &#x3D; sp;</p>
+<p>想访问时要用：</p>
+<p>if (auto tmp &#x3D; wp.lock()) {<br>    &#x2F;&#x2F; 对象还活着<br>}</p>
+<p>⸻</p>
+<p>循环引用问题</p>
+<p>class B;<br>class A {<br>public:<br>    shared_ptr<B> pb;<br>};<br>class B {<br>public:<br>    shared_ptr<A> pa;<br>};</p>
+<p>A 和 B 互相持有 shared_ptr，引用计数都不会变成 0，对象无法释放。</p>
+<p>解决办法：一边改成 weak_ptr。</p>
+<p>⸻</p>
+<p>面试总结版</p>
+<p>unique_ptr 表示独占所有权，不能拷贝只能移动；<br>shared_ptr 表示共享所有权，底层通过引用计数管理对象生命周期；<br>weak_ptr 不拥有对象，通常配合 shared_ptr 使用，用来打破循环引用或安全观察对象是否仍然存在。</p>
+<p>⸻</p>
+<ol start="9">
+<li>如果智能指针放到多线程中，如何访问共享对象</li>
+</ol>
+<p>这个问题别答偏。<br>重点不是“智能指针一定线程安全”，而是：</p>
+<p>先分清两层安全性</p>
+<p>1）控制块引用计数是否线程安全<br>对于 shared_ptr，引用计数的增减通常是线程安全的。</p>
+<p>也就是说：</p>
+<p>多个线程各自拷贝一份 shared_ptr，对象不会因为计数竞争被提前释放。</p>
+<p>2）被管理对象本身是否线程安全<br>不一定。<br>智能指针只保证“谁来释放对象”这一层，不保证对象内部数据访问安全。</p>
+<p>比如：</p>
+<p>shared_ptr&lt;vector<int>&gt; sp &#x3D; make_shared&lt;vector<int>&gt;();</p>
+<p>多个线程同时 sp-&gt;push_back()，还是有数据竞争。</p>
+<p>⸻</p>
+<p>正确做法</p>
+<p>场景1：多个线程共享读<br>如果只读，通常没问题。</p>
+<p>场景2：多个线程读写<br>要加同步机制，比如：<br>    •	mutex<br>    •	shared_mutex<br>    •	原子变量<br>    •	读写锁</p>
+<p>例如：</p>
+<p>shared_ptr<int> sp &#x3D; make_shared<int>(0);<br>mutex m;</p>
+<p>void func() {<br>    lock_guard<mutex> lock(m);<br>    (*sp)++;<br>}</p>
+<p>⸻</p>
+<p>如果对象生命周期也可能变化</p>
+<p>线程里最好先拷贝一份 shared_ptr，确保对象在当前使用期间不会被释放。</p>
+<p>shared_ptr<MyObj> local &#x3D; global_sp;<br>if (local) {<br>    local-&gt;do_something();<br>}</p>
+<p>如果全局保存的是 weak_ptr，就先 lock()：</p>
+<p>if (auto sp &#x3D; wp.lock()) {<br>    sp-&gt;do_something();<br>}</p>
+<p>⸻</p>
+<p>面试总结版</p>
+<p>在多线程中，shared_ptr 的引用计数增减通常是线程安全的，但它管理的对象本身并不是线程安全的。<br>所以如果多个线程共享访问对象，仍然需要用 mutex 等同步机制保护对象内部状态。<br>另外在线程中使用共享对象时，通常会先拷贝一份 shared_ptr，以保证对象在当前线程使用期间不会被提前释放。</p>
+<p>⸻</p>
+<ol start="10">
+<li>讲解一下动态绑定和静态绑定</li>
+</ol>
+<p>静态绑定</p>
+<p>也叫早绑定。<br>在编译期就确定调用哪个函数。</p>
+<p>典型情况：<br>    •	普通函数<br>    •	重载函数<br>    •	非虚成员函数</p>
+<p>class Base {<br>public:<br>    void func() { cout &lt;&lt; “Base\n”; }<br>};</p>
+<p>class Derived : public Base {<br>public:<br>    void func() { cout &lt;&lt; “Derived\n”; }<br>};</p>
+<p>Base* p &#x3D; new Derived();<br>p-&gt;func();  &#x2F;&#x2F; 调 Base::func</p>
+<p>因为 func 不是虚函数，编译时看 p 的类型是 Base*，就定死了。</p>
+<p>⸻</p>
+<p>动态绑定</p>
+<p>也叫晚绑定。<br>在运行期根据对象真实类型决定调用哪个函数。</p>
+<p>前提：<br>    •	通过基类指针或引用调用<br>    •	函数是虚函数</p>
+<p>class Base {<br>public:<br>    virtual void func() { cout &lt;&lt; “Base\n”; }<br>};</p>
+<p>class Derived : public Base {<br>public:<br>    void func() override { cout &lt;&lt; “Derived\n”; }<br>};</p>
+<p>Base* p &#x3D; new Derived();<br>p-&gt;func();  &#x2F;&#x2F; 调 Derived::func</p>
+<p>这里运行时会通过虚表找到真正该调用的函数。</p>
+<p>⸻</p>
+<p>底层原理</p>
+<p>每个含虚函数的类通常有一张虚函数表 vtable，对象里有一个虚表指针 vptr。<br>调用虚函数时，根据对象实际类型的 vptr 去查表，再跳转到对应函数。</p>
+<p>⸻</p>
+<p>面试总结版</p>
+<p>静态绑定是在编译期确定函数调用目标，典型是普通函数和非虚函数；<br>动态绑定是在运行期根据对象真实类型决定调用哪个函数，依赖虚函数机制实现。<br>动态绑定是 C++ 多态的核心，底层通常通过 vtable 和 vptr 实现。</p>
+<p>⸻</p>
+<ol start="11">
+<li>算法题：Top K 如何用堆实现</li>
+</ol>
+<p>这个很经典。</p>
+<p>⸻</p>
+<p>问题</p>
+<p>给一个数组，找出最大的 Top K 个数。</p>
+<p>例如：</p>
+<p>nums &#x3D; [3,2,1,5,6,4], k &#x3D; 2</p>
+<p>答案是 [6,5]</p>
+<p>⸻</p>
+<p>方法：维护一个大小为 k 的小根堆</p>
+<p>思路<br>    •	先把前 k 个元素放进小根堆<br>    •	之后遍历剩下元素：<br>    •	如果当前元素比堆顶大，说明它更应该进入 Top K<br>    •	弹出堆顶，插入当前元素<br>    •	最后堆里剩下的就是 Top K</p>
+<p>为什么用小根堆？<br>因为堆顶是当前 Top K 中最小的那个，最容易被替换。</p>
+<p>⸻</p>
+<p>复杂度<br>    •	建堆和维护：O(n log k)<br>    •	空间复杂度：O(k)</p>
+<p>这个比全排序 O(n log n) 更适合 k 远小于 n 的情况。</p>
+<p>⸻</p>
+<p>C++ 实现</p>
+<p>#include <iostream><br>#include <vector><br>#include <queue><br>using namespace std;</p>
+<p>vector<int> topK(vector<int>&amp; nums, int k) {<br>    priority_queue&lt;int, vector<int>, greater<int>&gt; minHeap;</p>
+<pre><code>for (int x : nums) &#123;
+    if (minHeap.size() &lt; k) &#123;
+        minHeap.push(x);
+    &#125; else if (x &gt; minHeap.top()) &#123;
+        minHeap.pop();
+        minHeap.push(x);
+    &#125;
+&#125;
+
+vector&lt;int&gt; res;
+while (!minHeap.empty()) &#123;
+    res.push_back(minHeap.top());
+    minHeap.pop();
+&#125;
+return res;
+</code></pre>
+<p>}</p>
+<p>int main() {<br>    vector<int> nums &#x3D; {3, 2, 1, 5, 6, 4};<br>    int k &#x3D; 2;<br>    vector<int> ans &#x3D; topK(nums, k);<br>    for (int x : ans) {<br>        cout &lt;&lt; x &lt;&lt; “ “;<br>    }<br>    return 0;<br>}</p>
+<p>⸻</p>
+<p>如果问“堆排序实现 Top K”怎么答</p>
+<p>严格说：<br>    •	完整堆排序 是先建大根堆，再弹出前 k 次，复杂度通常可写成 O(n + k log n)。<br>    •	但面试中更常说的 Top K 堆解法，一般是大小为 k 的小根堆，复杂度 O(n log k)，更优。</p>
+<p>你可以主动补一句：</p>
+<p>如果是求 Top K，通常不需要把整个数组排完，更优的方法是维护一个大小为 k 的小根堆，复杂度 O(n log k)。如果用完整堆排序，也可以先建大根堆，再取前 k 个最大值。</p>
+<p>⸻</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++面经</li>
+        <li><strong>Author:</strong> Ikko</li>
+        <li><strong>Created at
+                :</strong> 2026-03-24 15:40:54</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2026-04-25 22:00:05
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://ikko-debug.github.io/2026/03/24/mianjing/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E9%9D%A2%E7%BB%8F/">#面经</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/03/29/qwen/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">qwen部署</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/03/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">大模型</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '55ccec7ba873a504625f',
+                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
+                    repo: 'gittalk',
+                    owner: 'ikko-debug',
+                    admin: ['ikko-debug'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">C++面经</div>
+		
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        40 posts in total
+                    </span>
+                    
+                        <span>
+                            109.5k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/masonry.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/bookmarkNav.js" ></script>
+
+	
+</body>
+
+</html>

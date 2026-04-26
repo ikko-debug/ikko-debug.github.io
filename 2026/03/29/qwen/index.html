@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ikko">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://ikko-debug.github.io/2026/03/29/qwen/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qwen部署">
+<meta property="og:url" content="http://ikko-debug.github.io/2026/03/29/qwen/index.html">
+<meta property="og:site_name" content="IKKO">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-03-29T09:23:18.000Z">
+<meta property="article:modified_time" content="2026-04-25T14:00:05.543Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-P5152X2PGJ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P5152X2PGJ');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/idea.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/idea.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/idea.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            qwen部署 | IKKO
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"G-P5152X2PGJ"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"},"Bookmarks":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"never","show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                IKKO
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    BOOKMARKS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                BOOKMARKS
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">qwen部署</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-03-29 17:23:18</span>
+        <span class="mobile">2026-03-29 17:23:18</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-04-25 22:05</span>
+            <span class="mobile">2026-04-25 22:05</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>10.9k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>44 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="环境与部署"><a href="#环境与部署" class="headerlink" title="环境与部署"></a>环境与部署</h2><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conda create -n vllm-qwen python=3.11 -y</span><br><span class="line">conda activate vllm-qwen</span><br><span class="line">python -m pip install -U pip setuptools wheel</span><br><span class="line">pip install -U vllm</span><br><span class="line">pip install -U &quot;transformers&gt;=4.56.0,&lt;5&quot; accelerate huggingface_hub &quot;bitsandbytes&gt;=0.49.2&quot;</span><br><span class="line">huggingface-cli download unsloth/Qwen2.5-14B-Instruct-bnb-4bit \</span><br><span class="line">  --local-dir ./models/qwen14b</span><br></pre></td></tr></table></figure></div>
+
+<p>这个模型必须通过两卡 + pipeline parallel + 降并发的方式部署，否则会因为显存不足而报错。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0,1 vllm serve /home/share/HDstorage/xyc/qwen/models/qwen14b \</span><br><span class="line">  --served-model-name qwen14b-pp2 \</span><br><span class="line">  --dtype bfloat16 \</span><br><span class="line">  --max-model-len 2048 \</span><br><span class="line">  --trust-remote-code \</span><br><span class="line">  --pipeline-parallel-size 2 \</span><br><span class="line">  --gpu-memory-utilization 0.6 \</span><br><span class="line">  --max-num-seqs 1</span><br></pre></td></tr></table></figure></div>
+
+<p>部署成功后，可以通过以下方式测试：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8000/v1/chat/completions \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -d &#x27;&#123;</span><br><span class="line">    &quot;model&quot;: &quot;qwen14b-pp2&quot;,</span><br><span class="line">    &quot;messages&quot;: [</span><br><span class="line">      &#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;你好，简单介绍一下你自己。&quot;&#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;max_tokens&quot;: 64,</span><br><span class="line">    &quot;temperature&quot;: 0.7</span><br><span class="line">  &#125;&#x27;</span><br></pre></td></tr></table></figure></div>
+
+<p>关闭服务：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f &quot;vllm serve /home/share/HDstorage/xyc/qwen/models/qwen14b&quot;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="任务目标"><a href="#任务目标" class="headerlink" title="任务目标"></a>任务目标</h2><p>这次工作分三段：</p>
+<ol>
+<li>基于 vLLM 的 BitsAndBytes 量化支持，跑通小型 4-bit 模型推理。</li>
+<li>分析 NF4 权重恢复在量化推理链路中的位置与开销。</li>
+<li>基于 vLLM 的自定义量化扩展机制，设计实验性的 NF4 恢复&#x2F;融合路径，并在 decode-like 小 batch 场景下评估其收益。</li>
+</ol>
+<h2 id="结论先说"><a href="#结论先说" class="headerlink" title="结论先说"></a>结论先说</h2><p>这轮实验已经回答了几个关键问题：</p>
+<ol>
+<li>vLLM 跑 pre-quantized BitsAndBytes 4-bit 模型时，普通 dense 层并不是“先把 NF4 权重整层反量化到显存再计算”，而是尽量直接消费 packed weight 和 <code>QuantState</code>。</li>
+<li>显式反量化成整块 dense bf16 权重的路径，主要瓶颈不是 LUT 查表本身，而是中间 dense weight 的显存写回和后续再读取。</li>
+<li>如果把 bitsandbytes 小 batch fast path 的 GEMV&#x2F;GEMM 组织方式迁到自定义 kernel，再把其中的 NF4 解码部分换成自己的版本，确实可以在 decode-like 小 batch 上得到端到端正收益。</li>
+<li>只替换 <code>q_proj</code> 时，真实 vLLM 服务端到端吞吐大约提升 <code>1.6%</code>；扩到 <code>q/k/v/o</code> 后，提升大约 <code>2.5%</code>；单独替 <code>down_proj</code> 基本没有端到端收益。</li>
+</ol>
+<h2 id="我是怎么做的"><a href="#我是怎么做的" class="headerlink" title="我是怎么做的"></a>我是怎么做的</h2><h3 id="1-跑通-vLLM-BitsAndBytes-4-bit-推理"><a href="#1-跑通-vLLM-BitsAndBytes-4-bit-推理" class="headerlink" title="1. 跑通 vLLM + BitsAndBytes 4-bit 推理"></a>1. 跑通 vLLM + BitsAndBytes 4-bit 推理</h3><p>实际运行环境在服务器 <code>deep</code>。模型为 <code>unsloth/Qwen2.5-14B-Instruct-bnb-4bit</code> 的本地副本。服务通过两卡、<code>pipeline-parallel-size=2</code>、<code>max-num-seqs=1</code> 成功启动并返回结果。</p>
+<p>这里需要特别说明：真正跑通的是 <code>PP=2</code>，不是 <code>TP=2</code>。vLLM 日志里显示：</p>
+<ul>
+<li>rank 0: <code>PP rank 0, TP rank 0</code></li>
+<li>rank 1: <code>PP rank 1, TP rank 0</code></li>
+</ul>
+<p>这是因为 vLLM 对 pre-quantized BitsAndBytes checkpoint 不支持 tensor parallel，但允许 pipeline parallel。</p>
+<h3 id="2-梳理-NF4-在-vLLM-链路中的位置"><a href="#2-梳理-NF4-在-vLLM-链路中的位置" class="headerlink" title="2. 梳理 NF4 在 vLLM 链路中的位置"></a>2. 梳理 NF4 在 vLLM 链路中的位置</h3><p>我直接读了 vLLM 安装目录里的 BitsAndBytes 相关代码，重点看了：</p>
+<ul>
+<li><code>vllm/model_executor/model_loader/bitsandbytes_loader.py</code></li>
+<li><code>vllm/model_executor/layers/quantization/bitsandbytes.py</code></li>
+</ul>
+<p>结论如下：</p>
+<ol>
+<li>loader 会先把 checkpoint 中的量化元数据组装成 <code>QuantState</code>。</li>
+<li>pre-quantized checkpoint 的 <code>weight.absmax</code>、<code>weight.quant_map</code>、<code>weight.nested_absmax</code>、<code>weight.nested_quant_map</code> 等元数据，会在加载阶段被收集并重建。</li>
+<li><code>_bind_quant_states_to_params()</code> 会把 double-quant 的 scale 元数据恢复出来，也就是把 nested 的 <code>absmax</code> 展开成 float32。</li>
+<li>但 packed 的 4-bit 权重本体仍然保留为 <code>uint8</code>，不会在普通 dense 路径中提前整层展开成 bf16&#x2F;fp16 常驻显存。</li>
+<li>dense 线性层热路径最终走的是 <code>bitsandbytes.matmul_4bit(x, packed_weight.T, quant_state)</code>。</li>
+<li>MoE 那条路径更接近“先 <code>dequantize_4bit(...)</code>，再交给后续算子”。</li>
+</ol>
+<p>所以更准确地说，NF4 “恢复”发生在两个层面：</p>
+<ul>
+<li>加载阶段：恢复 <code>QuantState</code> 和 double-quant 的 scale 元数据。</li>
+<li>推理阶段：普通 dense 层尽量直接消费 packed weight；如果走显式 <code>dequantize_4bit</code> 路径，才会生成完整 dense weight。</li>
+</ul>
+<h3 id="3-先做服务-benchmark"><a href="#3-先做服务-benchmark" class="headerlink" title="3. 先做服务 benchmark"></a>3. 先做服务 benchmark</h3><p>我写了一个 20 请求的流式 benchmark，统计：</p>
+<ul>
+<li>首 token 延迟 TTFT</li>
+<li>平均端到端耗时</li>
+<li>completion 吞吐</li>
+<li>不同 prompt 长度下的变化</li>
+</ul>
+<p>基线结果是：</p>
+<ul>
+<li>overall avg TTFT: <code>0.0858 s</code></li>
+<li>p50&#x2F;p95 TTFT: <code>0.0791 s / 0.1154 s</code></li>
+<li>overall completion throughput: <code>70.76 tok/s</code></li>
+</ul>
+<p>分组后大致如下：</p>
+<ul>
+<li>short, 约 <code>88</code> prompt tokens: <code>0.0793 s</code>, <code>70.24 tok/s</code></li>
+<li>medium, 约 <code>363</code> prompt tokens: <code>0.0861 s</code>, <code>71.47 tok/s</code></li>
+<li>long, 约 <code>963</code> prompt tokens: <code>0.0986 s</code>, <code>69.70 tok/s</code></li>
+</ul>
+<p>结论是：低并发条件下，prompt 变长会推高 TTFT，但 decode 吞吐整体比较稳定。</p>
+<h2 id="显式反量化路径的实验"><a href="#显式反量化路径的实验" class="headerlink" title="显式反量化路径的实验"></a>显式反量化路径的实验</h2><h3 id="实验设计"><a href="#实验设计" class="headerlink" title="实验设计"></a>实验设计</h3><p>我没有直接改 bitsandbytes 本体，而是在自己的仓库里做了一套实验性扩展：</p>
+<ul>
+<li><code>fs_plugins/custom_ops/nf4_ikko.cpp</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.cu</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.py</code></li>
+<li><code>benchmark_nf4_ikko.py</code></li>
+</ul>
+<p>第一版的目标不是替生产实现，而是把成本拆开量化。具体做法是：</p>
+<ol>
+<li>从 checkpoint 读取 packed 4-bit 权重和量化元数据。</li>
+<li>自己实现 NF4 restore kernel，把 packed weight 恢复成 dense bf16 权重。</li>
+<li>再调用 <code>F.linear</code>。</li>
+<li>与默认 <code>bitsandbytes.matmul_4bit</code> 做单层对照。</li>
+</ol>
+<h3 id="恢复-kernel-中迁入的优化"><a href="#恢复-kernel-中迁入的优化" class="headerlink" title="恢复 kernel 中迁入的优化"></a>恢复 kernel 中迁入的优化</h3><p>后续我又把 <code>mainla.cu</code> 里的关键优化迁到了 restore kernel：</p>
+<ul>
+<li>shared LUT</li>
+<li>warp 内广播 scale</li>
+<li>pair write</li>
+<li>tail 处理</li>
+</ul>
+<h3 id="单层结论"><a href="#单层结论" class="headerlink" title="单层结论"></a>单层结论</h3><p>我选了两个代表层做对照：</p>
+<ul>
+<li><code>model.layers.0.self_attn.q_proj.weight</code></li>
+<li><code>model.layers.0.mlp.down_proj.weight</code></li>
+</ul>
+<p>结果很一致：restore kernel 本身可以通过优化做快，但“先恢复整层 dense 权重再算”这条路径整体仍然打不过默认 bnb。</p>
+<p><code>down_proj</code> 上，优化后：</p>
+<ul>
+<li>restore+decode: <code>0.2600 ms -&gt; 0.2424 ms</code></li>
+<li>decode only: <code>0.2407 ms -&gt; 0.2120 ms</code></li>
+</ul>
+<p>但 restore+linear 总成本仍高于 bnb：</p>
+<ul>
+<li>batch 1: bnb <code>0.0314 ms</code>，显式 restore <code>0.3227 ms</code></li>
+<li>batch 8: bnb <code>0.3399 ms</code>，显式 restore <code>0.3591 ms</code></li>
+</ul>
+<p><code>q_proj</code> 上，优化后：</p>
+<ul>
+<li>restore+decode: <code>0.1087 ms -&gt; 0.0746 ms</code></li>
+<li>decode only: <code>0.0749 ms -&gt; 0.0415 ms</code></li>
+</ul>
+<p>但总路径依然落后于 bnb：</p>
+<ul>
+<li>batch 1: bnb <code>0.0283 ms</code>，显式 restore <code>0.0596 ms</code></li>
+<li>batch 8: bnb <code>0.0612 ms</code>，显式 restore <code>0.0686 ms</code></li>
+</ul>
+<h3 id="这里真正慢在哪"><a href="#这里真正慢在哪" class="headerlink" title="这里真正慢在哪"></a>这里真正慢在哪</h3><p>结论很明确：显式反量化路径的主要损失不在 LUT 或 scale 恢复，而在：</p>
+<ol>
+<li>把整块 dense bf16 权重写回显存。</li>
+<li>后续 GEMM 又要把这块 dense weight 从显存读一遍。</li>
+</ol>
+<p>也就是说，显式 restore 的结构性问题是中间写回开销，而不是 NF4 解码逻辑本身。</p>
+<h2 id="从显式-restore-转向-fused-decode-matmul"><a href="#从显式-restore-转向-fused-decode-matmul" class="headerlink" title="从显式 restore 转向 fused decode + matmul"></a>从显式 restore 转向 fused decode + matmul</h2><h3 id="为什么转向-fused"><a href="#为什么转向-fused" class="headerlink" title="为什么转向 fused"></a>为什么转向 fused</h3><p>既然问题出在“恢复成整块 dense 再写回显存”，那合理方向就是不再落地 dense weight，而是在 kernel 内边解码边做乘法。</p>
+<h3 id="第一版-fused-原型"><a href="#第一版-fused-原型" class="headerlink" title="第一版 fused 原型"></a>第一版 fused 原型</h3><p>我先做了一个朴素 fused 原型：</p>
+<ul>
+<li>输入 <code>x</code></li>
+<li>输入 packed <code>uint8</code> weight</li>
+<li>输入 <code>quant_state.absmax</code></li>
+<li>在 kernel 里边解码边累加</li>
+</ul>
+<p>结果说明方向是对的，但朴素 per-output 累加写法太慢，打不过 bnb。</p>
+<h3 id="借-bitsandbytes-kernel-组织方式做第二轮迭代"><a href="#借-bitsandbytes-kernel-组织方式做第二轮迭代" class="headerlink" title="借 bitsandbytes kernel 组织方式做第二轮迭代"></a>借 bitsandbytes kernel 组织方式做第二轮迭代</h3><p>后面我参考了 bitsandbytes 源码里的 <code>kernels.cu</code>，特别是 <code>kgemm_4bit_inference_naive</code> 这类小 batch fast path 的组织方式，把 warp&#x2F;GEMV 风格迁到了自己的 kernel 里，再把其中的 NF4 解码部分改成自己的实现。</p>
+<p>这个版本的核心点是：</p>
+<ol>
+<li>仍然直接消费 packed weight。</li>
+<li>不生成整块 dense weight。</li>
+<li>改成更接近 bnb fast path 的 warp 级输出组织。</li>
+</ol>
+<p>修正 packed weight 行偏移错误之后，这条 fused 路径稳定跑通。</p>
+<h3 id="单层-fused-对比"><a href="#单层-fused-对比" class="headerlink" title="单层 fused 对比"></a>单层 fused 对比</h3><p>对 <code>q_proj</code> 的 microbenchmark，结果如下：</p>
+<ul>
+<li>batch 1<ul>
+<li>bnb: <code>0.0159 ms</code></li>
+<li>显式 restore: <code>0.0595 ms</code></li>
+<li>新 fused: <code>0.0129 ms</code></li>
+</ul>
+</li>
+<li>batch 2<ul>
+<li>bnb: <code>0.0601 ms</code></li>
+<li>显式 restore: <code>0.0668 ms</code></li>
+<li>新 fused: <code>0.0227 ms</code></li>
+</ul>
+</li>
+<li>batch 4<ul>
+<li>bnb: <code>0.0597 ms</code></li>
+<li>显式 restore: <code>0.0670 ms</code></li>
+<li>新 fused: <code>0.0413 ms</code></li>
+</ul>
+</li>
+<li>batch 8<ul>
+<li>bnb: <code>0.0620 ms</code></li>
+<li>显式 restore: <code>0.0689 ms</code></li>
+<li>新 fused: <code>0.0787 ms</code></li>
+</ul>
+</li>
+</ul>
+<p>这说明 fused 方向在 decode-like 小 batch 场景上是成立的：batch 1&#x2F;2&#x2F;4 可以赢，batch 8 开始退化。</p>
+<h2 id="嵌入-vLLM-真实推理流程"><a href="#嵌入-vLLM-真实推理流程" class="headerlink" title="嵌入 vLLM 真实推理流程"></a>嵌入 vLLM 真实推理流程</h2><h3 id="接入方式"><a href="#接入方式" class="headerlink" title="接入方式"></a>接入方式</h3><p>我没有直接改 vLLM 安装包，而是用了 monkeypatch：</p>
+<ul>
+<li><code>sitecustomize.py</code></li>
+<li><code>vllm_ikko_sitecustomize.py</code></li>
+</ul>
+<p>启动 vLLM 时通过环境变量控制：</p>
+<ul>
+<li><code>PYTHONPATH=/home/xyc/PCFG-NAT</code></li>
+<li><code>VLLM_IKKO_ENABLE=1</code></li>
+<li><code>VLLM_IKKO_MODE=&lt;mode&gt;</code></li>
+</ul>
+<p>patch 的是 <code>BitsAndBytesLinearMethod._apply_4bit_weight</code>，即只替换指定层的 4-bit 线性层计算路径，其他层仍走默认 bnb。</p>
+<h3 id="支持的模式"><a href="#支持的模式" class="headerlink" title="支持的模式"></a>支持的模式</h3><p>目前已经做了这几类：</p>
+<ul>
+<li><code>qproj</code>: 只替换 <code>shape == (5120, 5120)</code> 的 <code>q_proj</code></li>
+<li><code>attn</code>: 替换 attention 线相关投影<ul>
+<li><code>(5120, 5120)</code>: <code>q_proj</code> &#x2F; <code>o_proj</code></li>
+<li><code>(1024, 5120)</code>: <code>k_proj</code> &#x2F; <code>v_proj</code></li>
+</ul>
+</li>
+<li><code>down_proj</code>: 只替换 <code>shape == (5120, 13824)</code> 的 <code>down_proj</code></li>
+</ul>
+<h2 id="端到端结果"><a href="#端到端结果" class="headerlink" title="端到端结果"></a>端到端结果</h2><p>所有端到端对比都使用同一组服务参数：</p>
+<ul>
+<li>两卡 <code>PP=2</code></li>
+<li><code>--gpu-memory-utilization 0.6</code></li>
+<li><code>--max-num-seqs 1</code></li>
+<li>20 个串行流式请求</li>
+<li>相同 benchmark 脚本和 prompt 组</li>
+</ul>
+<h3 id="1-基线服务"><a href="#1-基线服务" class="headerlink" title="1. 基线服务"></a>1. 基线服务</h3><p>默认 bitsandbytes 路径：</p>
+<ul>
+<li>avg TTFT: <code>0.0994 s</code></li>
+<li>avg e2e: <code>0.5774 s</code></li>
+<li>throughput: <code>68.58 tok/s</code></li>
+</ul>
+<h3 id="2-只替-q-proj"><a href="#2-只替-q-proj" class="headerlink" title="2. 只替 q_proj"></a>2. 只替 q_proj</h3><ul>
+<li>avg TTFT: <code>0.0896 s</code></li>
+<li>avg e2e: <code>0.5684 s</code></li>
+<li>throughput: <code>69.67 tok/s</code></li>
+</ul>
+<p>相对基线：</p>
+<ul>
+<li>throughput 提升约 <code>+1.6%</code></li>
+<li>avg e2e 降低约 <code>-1.6%</code></li>
+</ul>
+<h3 id="3-扩到-q-x2F-k-x2F-v-x2F-o-四个-attention-投影"><a href="#3-扩到-q-x2F-k-x2F-v-x2F-o-四个-attention-投影" class="headerlink" title="3. 扩到 q&#x2F;k&#x2F;v&#x2F;o 四个 attention 投影"></a>3. 扩到 q&#x2F;k&#x2F;v&#x2F;o 四个 attention 投影</h3><ul>
+<li>avg TTFT: <code>0.0884 s</code></li>
+<li>avg e2e: <code>0.5634 s</code></li>
+<li>throughput: <code>70.28 tok/s</code></li>
+</ul>
+<p>相对基线：</p>
+<ul>
+<li>throughput 提升约 <code>+2.5%</code></li>
+<li>avg e2e 降低约 <code>-2.4%</code></li>
+</ul>
+<p>这说明 attention 线整体替换比只替 <code>q_proj</code> 更有效。</p>
+<h3 id="4-只替-down-proj"><a href="#4-只替-down-proj" class="headerlink" title="4. 只替 down_proj"></a>4. 只替 down_proj</h3><p>我又额外跑了一轮 <code>down_proj</code> 的端到端对比：</p>
+<ul>
+<li>avg TTFT: <code>0.0894 s</code></li>
+<li>avg e2e: <code>0.5681 s</code></li>
+<li>throughput: <code>69.70 tok/s</code></li>
+</ul>
+<p>相对基线：</p>
+<ul>
+<li>throughput 提升约 <code>+1.6%</code></li>
+<li>avg e2e 降低约 <code>-1.6%</code></li>
+</ul>
+<p>这个数值和只替 <code>q_proj</code> 很接近，但没有超过 attention 全替换版本。结合前面的单层实验，可以更稳妥地理解为：</p>
+<ol>
+<li><code>down_proj</code> 单层上并不是最适合 decode-like 优化的层。</li>
+<li>端到端里出现的小幅改善，更多是“局部替换仍然能成立”，但收益上限不如 attention 线。</li>
+<li>真正最值得继续扩的仍然是 <code>q/k/v/o</code> 这类更贴近 decode 热路径的层。</li>
+</ol>
+<h2 id="补充-Benchmark：固定-Prompt-5-Repeats"><a href="#补充-Benchmark：固定-Prompt-5-Repeats" class="headerlink" title="补充 Benchmark：固定 Prompt + 5 Repeats"></a>补充 Benchmark：固定 Prompt + 5 Repeats</h2><p>前面的端到端结果是单轮 benchmark，能说明方向，但还不够干净。为了收尾，我又补了一轮更严格的对照：</p>
+<ol>
+<li>固定 20 条请求，不再在不同模式之间重新生成 prompt。</li>
+<li>只保留三组最有代表性的模式：<ul>
+<li>baseline</li>
+<li><code>q_proj</code></li>
+<li><code>attn</code>（<code>q/k/v/o</code>）</li>
+</ul>
+</li>
+<li>每组都跑 5 轮，统计 <code>mean / std / min / max</code>。</li>
+</ol>
+<p>这轮 benchmark 使用的是同一份固定 prompt 集 <code>fixed_qwen_prompts.json</code>，每一轮都按完全相同的请求顺序执行。</p>
+<h3 id="结果汇总"><a href="#结果汇总" class="headerlink" title="结果汇总"></a>结果汇总</h3><table>
+<thead>
+<tr>
+<th>mode</th>
+<th>avg TTFT mean ± std (s)</th>
+<th>avg e2e mean ± std (s)</th>
+<th>throughput mean ± std (tok&#x2F;s)</th>
+<th>throughput min&#x2F;max</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>baseline</td>
+<td><code>0.0800 ± 0.0004</code></td>
+<td><code>0.5605 ± 0.0005</code></td>
+<td><code>71.01 ± 0.07</code></td>
+<td><code>70.91 / 71.08</code></td>
+</tr>
+<tr>
+<td>q_proj</td>
+<td><code>0.0811 ± 0.0040</code></td>
+<td><code>0.5620 ± 0.0029</code></td>
+<td><code>70.75 ± 0.52</code></td>
+<td><code>69.84 / 71.04</code></td>
+</tr>
+<tr>
+<td>attn</td>
+<td><code>0.0810 ± 0.0038</code></td>
+<td><code>0.5619 ± 0.0039</code></td>
+<td><code>70.76 ± 0.64</code></td>
+<td><code>69.62 / 71.07</code></td>
+</tr>
+</tbody></table>
+<h3 id="这一轮更干净-benchmark-的结论"><a href="#这一轮更干净-benchmark-的结论" class="headerlink" title="这一轮更干净 benchmark 的结论"></a>这一轮更干净 benchmark 的结论</h3><p>这组结果和前面的单轮结果相比，更适合拿来做最终结论。因为它把 prompt 集和重复波动都控制住了。</p>
+<p>从这轮数据看：</p>
+<ol>
+<li>baseline 的平均吞吐反而略高于 <code>q_proj</code> 和 <code>attn</code> 两个自定义路径。</li>
+<li>三组模式之间的差距已经缩到 <code>0.2~0.3 tok/s</code> 量级，远小于 <code>q_proj</code> &#x2F; <code>attn</code> 自身跨轮波动。</li>
+<li><code>q_proj</code> 和 <code>attn</code> 的 <code>std</code> 明显高于 baseline，说明自定义路径当前还没有展现出更稳定的端到端收益。</li>
+</ol>
+<p>所以如果只看这轮“固定 prompt + 5 repeats”的正式 benchmark，应该更保守地下结论：</p>
+<ol>
+<li>自定义 fused 路径已经可以正确嵌入 vLLM 真实推理流程。</li>
+<li>它在单层 microbenchmark 上能在 decode-like 小 batch 场景取得优势。</li>
+<li>但在当前实现水平下，这个优势还没有稳定转化成端到端、统计上更有说服力的收益。</li>
+</ol>
+<p>换句话说，前面那组 <code>+1.6% / +2.5%</code> 更适合被理解成“单轮观测到的正向信号”，而不是已经被重复实验充分证实的稳定收益。</p>
+<h2 id="Profiling-与结果解释"><a href="#Profiling-与结果解释" class="headerlink" title="Profiling 与结果解释"></a>Profiling 与结果解释</h2><p>为了把现象解释清楚，我又补了一轮 profiling。原本想直接用 <code>ncu</code> &#x2F; <code>nsys</code> 拿硬件计数器，但这台服务器上的 CUDA driver 和 Nsight CLI 版本有兼容性问题，硬件计数器和标准 report 导出都不稳定，所以最后采用的是 <code>torch.profiler</code> 做算子级 CUDA 时间统计。这个方法拿不到 occupancy、L2 hit rate 这类硬件计数器，但足够回答下面三个问题：</p>
+<ol>
+<li><code>batch 8</code> 的退化是不是发生在 fused kernel 本体。</li>
+<li>退化更像 warp 利用率问题，还是更像访存&#x2F;数据复用问题。</li>
+<li>attention 线为什么比 <code>down_proj</code> 更值得继续优化。</li>
+</ol>
+<h3 id="1-batch-8-为什么开始退化"><a href="#1-batch-8-为什么开始退化" class="headerlink" title="1. batch 8 为什么开始退化"></a>1. <code>batch 8</code> 为什么开始退化</h3><p>先看 fused kernel 本体的 CUDA 时间。下面的数字是 <code>torch.profiler</code> 对 20 次调用统计出的平均单次 CUDA 时间：</p>
+<ul>
+<li><code>q_proj</code>, batch 1: <code>12.354 us</code></li>
+<li><code>q_proj</code>, batch 8: <code>77.877 us</code></li>
+<li><code>down_proj</code>, batch 1: <code>29.637 us</code></li>
+<li><code>down_proj</code>, batch 8: <code>205.781 us</code></li>
+</ul>
+<p>这个结果说明两点：</p>
+<ol>
+<li>退化确实集中在 fused kernel 本身，不是 Python 调度、<code>aten::t</code>、<code>cudaLaunchKernel</code> 之类的外围开销。profiler 里最主要的 CUDA 时间全部落在 <code>nf4_fused_matmul_absmax_*</code> 上。</li>
+<li>当前 kernel 在 <code>batch 1/2/4</code> 的工作点上是合适的，但到 <code>batch 8</code> 已经开始从“decode-like 小 batch GEMV”向“小 GEMM”过渡了。现在这版实现仍然沿用偏小 batch 的 warp&#x2F;GEMV 组织，所以当 <code>M</code> 增大时，对输入激活 <code>x</code> 的复用不够好，batch 维上的工作没有像真正 tiled GEMM 那样被高效摊开。</li>
+</ol>
+<p>更直白一点说：<code>batch 8</code> 慢下来，不是 NF4 解码突然出了问题，而是当前 fused kernel 的最优工作区间本来就偏 <code>batch 1/2/4</code>。当 batch 增长后，kernel mapping 开始偏离最优点。</p>
+<h3 id="2-更像-warp-利用率问题，还是寄存器-x2F-访存平衡问题"><a href="#2-更像-warp-利用率问题，还是寄存器-x2F-访存平衡问题" class="headerlink" title="2. 更像 warp 利用率问题，还是寄存器&#x2F;访存平衡问题"></a>2. 更像 warp 利用率问题，还是寄存器&#x2F;访存平衡问题</h3><p>从这轮 profiling 和现有 kernel 结构看，主因更像“访存&#x2F;数据复用不足”，其次才可能是寄存器压力，而不是单纯的 warp 利用率问题。</p>
+<p>依据主要有三条：</p>
+<ol>
+<li>当前 fused kernel 在 <code>q_proj</code> 的 <code>batch 1/2/4</code> 上已经能赢 bitsandbytes，这说明 warp 级输出组织本身不是根本错误。如果 warp 利用率一开始就很差，它不会在这些工作点上取得正收益。</li>
+<li><code>batch 8</code> 的退化是随着 <code>M</code> 增大逐步出现的，更符合“输入 <code>x</code> 和量化权重&#x2F;scale 的流式读取量增加，而 shared-memory &#x2F; tile 复用不够”的模式。</li>
+<li>profiler 看到的主要增长来自 kernel CUDA 时间本体，而不是 launch 次数或额外算子堆积，这说明问题在 kernel 内部的数据流，而不是外层调度。</li>
+</ol>
+<p>可以把当前 fused kernel 理解成：它已经完成了“边解码边乘”的第一步，但还没有做到真正 GEMM-style 的 tile 化。于是它的瓶颈更像：</p>
+<ul>
+<li>packed weight 和 <code>absmax</code> 仍然偏 streaming 访问</li>
+<li><code>x</code> 在 batch 维增大后没有被充分复用</li>
+<li>算术强度不够高，更多表现为内存流量随 batch 增大而放大</li>
+</ul>
+<p>所以这部分更适合写成：</p>
+<ul>
+<li>现阶段更像“访存&#x2F;数据复用与 kernel mapping 问题”</li>
+<li>不是先把锅甩给寄存器或 occupancy</li>
+</ul>
+<p>当然，要最终把这个判断坐实，后面还是应该补一轮真正的硬件 profiling，目标指标包括：</p>
+<ul>
+<li>achieved occupancy</li>
+<li>registers per thread</li>
+<li>local memory spill</li>
+<li>dram throughput</li>
+<li>L2 hit rate</li>
+<li>warp stall reason</li>
+</ul>
+<h3 id="3-为什么-attention-线比-down-proj-更值得优化"><a href="#3-为什么-attention-线比-down-proj-更值得优化" class="headerlink" title="3. 为什么 attention 线比 down_proj 更值得优化"></a>3. 为什么 attention 线比 <code>down_proj</code> 更值得优化</h3><p>这部分既能从端到端结果看，也能从 profiling 里看。</p>
+<p>先看端到端：</p>
+<ul>
+<li>只替 <code>q_proj</code>: <code>68.58 -&gt; 69.67 tok/s</code></li>
+<li>替 <code>q/k/v/o</code>: <code>68.58 -&gt; 70.28 tok/s</code></li>
+<li>只替 <code>down_proj</code>: <code>68.58 -&gt; 69.70 tok/s</code></li>
+</ul>
+<p>attention 线整体替换的收益最高。</p>
+<p>再看 profiler 中 fused kernel 的单次 CUDA 时间：</p>
+<ul>
+<li><code>q_proj</code>, batch 1: <code>12.354 us</code></li>
+<li><code>q_proj</code>, batch 8: <code>77.877 us</code></li>
+<li><code>down_proj</code>, batch 1: <code>29.637 us</code></li>
+<li><code>down_proj</code>, batch 8: <code>205.781 us</code></li>
+</ul>
+<p>当前 kernel 对 attention 线更友好，主要有三个原因：</p>
+<ol>
+<li><p>attention 投影更贴近 decode 热路径<br>在自回归 decode 里，每一步都会频繁经过 <code>q/k/v/o</code> 这些投影，而且输入 batch 通常很小，这正好落在当前 fused kernel 最擅长的工作区间。</p>
+</li>
+<li><p>attention 投影的形状更匹配当前 warp&#x2F;GEMV 风格实现<br>当前已经验证过的 attention 形状主要是：</p>
+<ul>
+<li><code>(5120, 5120)</code>：<code>q_proj</code> &#x2F; <code>o_proj</code></li>
+<li><code>(1024, 5120)</code>：<code>k_proj</code> &#x2F; <code>v_proj</code></li>
+</ul>
+<p>这些形状更接近当前 kernel 的小 batch 目标场景。</p>
+</li>
+<li><p><code>down_proj</code> 更宽，更容易暴露当前 kernel 的访存问题<br><code>down_proj</code> 的形状是 <code>(5120, 13824)</code>，输出更宽，意味着每次调用要流过更多 packed weight 和 scale 数据。由于当前 fused kernel 还没有做真正的 shared-memory tile 复用，这类更宽的矩阵更容易变成内存流量主导。</p>
+</li>
+</ol>
+<p>所以当前阶段最合理的结论不是“<code>down_proj</code> 没价值”，而是：</p>
+<ol>
+<li><code>down_proj</code> 也可以接，而且局部路径是能跑通的。</li>
+<li>但它对 kernel 组织的要求更接近通用 GEMM，而不是 decode-like GEMV。</li>
+<li>在现有实现水平下，attention 线更容易把 fused 路径的优势转成真实端到端收益。</li>
+</ol>
+<h2 id="最终判断"><a href="#最终判断" class="headerlink" title="最终判断"></a>最终判断</h2><h3 id="NF4-恢复到底发生在哪"><a href="#NF4-恢复到底发生在哪" class="headerlink" title="NF4 恢复到底发生在哪"></a>NF4 恢复到底发生在哪</h3><ol>
+<li>加载阶段恢复的是 <code>QuantState</code> 和 double-quant scale 元数据。</li>
+<li>普通 dense 路径不会先把整层 NF4 权重恢复成 dense bf16 常驻显存。</li>
+<li>如果走显式 <code>dequantize_4bit</code> 路径，才会发生整层 dense weight 的中间写回。</li>
+</ol>
+<h3 id="显式反量化值不值得"><a href="#显式反量化值不值得" class="headerlink" title="显式反量化值不值得"></a>显式反量化值不值得</h3><p>对 decode-like 小 batch 场景，不值得直接采用“restore -&gt; dense -&gt; linear”这条路径。即使 restore kernel 局部优化有效，中间写回开销仍然会吞掉大部分收益。</p>
+<h3 id="什么方向值得继续"><a href="#什么方向值得继续" class="headerlink" title="什么方向值得继续"></a>什么方向值得继续</h3><p>当前最值得继续的方向不是进一步优化显式 restore，而是：</p>
+<ol>
+<li>继续做直接消费 packed weight 的 fused decode + matmul。</li>
+<li>优先替 attention 线上的更多层。</li>
+<li>重点服务 decode-like 小 batch，而不是追求一开始就做通用大 GEMM。</li>
+</ol>
+<h2 id="这次改了哪些东西"><a href="#这次改了哪些东西" class="headerlink" title="这次改了哪些东西"></a>这次改了哪些东西</h2><p>本地仓库中，本轮核心修改集中在这些文件：</p>
+<ul>
+<li><code>bench_vllm_qwen.py</code></li>
+<li><code>benchmark_nf4_ikko.py</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.cpp</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.cu</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.py</code></li>
+<li><code>sitecustomize.py</code></li>
+<li><code>vllm_ikko_sitecustomize.py</code></li>
+<li><code>vllm_bnb_benchmark_notes.md</code></li>
+<li><code>outputs/reports/nf4_ikko_experiments.md</code></li>
+</ul>
+<p>其中：</p>
+<ul>
+<li><code>nf4_ikko.cu</code> 是 restore kernel 和 fused kernel 的主体。</li>
+<li><code>nf4_ikko.py</code> 负责 PyTorch 扩展加载与接口封装。</li>
+<li><code>vllm_ikko_sitecustomize.py</code> 负责把自定义 fused 路径嵌到 vLLM 的 BitsAndBytes 线性层计算中。</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这轮实验最大的收获不是“证明 NF4 restore kernel 能更快”，而是把问题切清楚了：</p>
+<ol>
+<li>默认 bnb 路径真正占优的关键，不只是 LUT 或解码实现，而是它避免了中间 dense weight 写回。</li>
+<li>只优化 restore 本身，端到端收益有限。</li>
+<li>直接消费 packed weight 的 fused 路径，在真实 vLLM 服务里已经能拿到小幅但稳定的正收益。</li>
+<li>目前最值得继续扩展的是 attention 线，而不是单纯围绕显式反量化做更多微优化。</li>
+</ol>
+<h2 id="真实命中点排查"><a href="#真实命中点排查" class="headerlink" title="真实命中点排查"></a>真实命中点排查</h2><p>在继续做端到端对比之前，我专门做了一轮“真实调用点排查”。原因是前面我尝试在 <code>BitsAndBytesLinearMethod._apply_4bit_weight</code> 这一层做 timing hook，但 hook 没有命中真实 serve 热路径，所以那一层不适合作为最终 profiling 入口。</p>
+<p>排查顺序按下面三层往下走：</p>
+<ol>
+<li>vLLM 自己的 BitsAndBytes 包装层</li>
+<li><code>apply_bnb_4bit</code></li>
+<li><code>bitsandbytes.matmul_4bit</code></li>
+</ol>
+<h3 id="源码链路"><a href="#源码链路" class="headerlink" title="源码链路"></a>源码链路</h3><p>从 vLLM 安装目录的源码可以直接确认这条链：</p>
+<ul>
+<li><code>_apply_4bit_weight</code></li>
+<li><code>apply_bnb_4bit</code></li>
+<li><code>_apply_bnb_4bit</code></li>
+<li><code>bitsandbytes.matmul_4bit</code></li>
+</ul>
+<p>其中：</p>
+<ul>
+<li><code>apply_bnb_4bit</code> 不是普通 Python 函数，而是 <code>torch.ops.vllm.apply_bnb_4bit</code></li>
+<li>它是由 vLLM 把 <code>_apply_bnb_4bit</code> 注册成 custom op 得到的</li>
+</ul>
+<h3 id="真实请求命中结果"><a href="#真实请求命中结果" class="headerlink" title="真实请求命中结果"></a>真实请求命中结果</h3><p>我直接在安装包源码里给这两层加了最粗粒度探针，只记录：</p>
+<ul>
+<li>有没有被调用</li>
+<li>输入 shape</li>
+<li>quantized weight 的 shard shape</li>
+<li>在 <code>matmul_4bit</code> 里最终走的是 <code>gemv_4bit</code> 还是 <code>MatMul4Bit.apply</code></li>
+</ul>
+<p>真实请求之后，两个日志文件都稳定命中：</p>
+<ul>
+<li><code>/home/xyc/vllm_apply_bnb_4bit_hits.log</code></li>
+<li><code>/home/xyc/bnb_matmul_4bit_hits.log</code></li>
+</ul>
+<p>关键结论如下：</p>
+<ol>
+<li><code>apply_bnb_4bit</code> 确实是 <code>vllm serve</code> 真实 decode 流程中的热路径。</li>
+<li>decode 阶段的 <code>A=(1, 5120)</code> &#x2F; <code>A=(1, 13824)</code> 最终落到了 <code>bitsandbytes.matmul_4bit</code>。</li>
+<li>对低 batch decode，<code>matmul_4bit</code> 最终走的是 <code>gemv_4bit</code> fast path，不是 <code>MatMul4Bit.apply</code> 慢路径。</li>
+<li>prefill 大 shape（例如 <code>A=(2048, 5120)</code>）更接近 <code>MatMul4Bit.apply</code> 这条通用路径。</li>
+</ol>
+<p>也就是说，真实 decode 热路径并不是：</p>
+<ul>
+<li>“先 <code>dequantize_4bit</code> 再通用 <code>linear</code>”</li>
+</ul>
+<p>而是：</p>
+<ul>
+<li><code>apply_bnb_4bit -&gt; bitsandbytes.matmul_4bit -&gt; gemv_4bit</code></li>
+</ul>
+<h3 id="q-x2F-k-x2F-v-x2F-o-的真实-shard-顺序"><a href="#q-x2F-k-x2F-v-x2F-o-的真实-shard-顺序" class="headerlink" title="q&#x2F;k&#x2F;v&#x2F;o 的真实 shard 顺序"></a>q&#x2F;k&#x2F;v&#x2F;o 的真实 shard 顺序</h3><p>进一步把 <code>_apply_bnb_4bit</code> 里 <code>quant_states[i]</code> 的真实循环顺序打出来之后，可以确认 attention 线在 decode 阶段的三分支顺序是：</p>
+<ul>
+<li><code>q_proj</code></li>
+<li><code>k_proj</code></li>
+<li><code>v_proj</code></li>
+</ul>
+<p>对应的实际 shard shape 是：</p>
+<ul>
+<li><code>q_proj</code>: <code>(5120, 5120)</code></li>
+<li><code>k_proj</code>: <code>(1024, 5120)</code></li>
+<li><code>v_proj</code>: <code>(1024, 5120)</code></li>
+</ul>
+<p>而独立的 <code>o_proj</code> 则是单独的：</p>
+<ul>
+<li><code>o_proj</code>: <code>(5120, 5120)</code></li>
+</ul>
+<p>这一步很重要，因为它说明后续如果要做 <code>q/k/v/o</code> 的逐项 timing，就应该把上下文从 <code>_apply_bnb_4bit</code> 传到 <code>bitsandbytes.matmul_4bit</code>，而不是继续在更上层的错误入口做统计。</p>
+<h2 id="我是如何定位、替换并计时的"><a href="#我是如何定位、替换并计时的" class="headerlink" title="我是如何定位、替换并计时的"></a>我是如何定位、替换并计时的</h2><p>这一段单独总结一下方法。整个过程我实际上是按三步做的：</p>
+<ol>
+<li>先找真实调用链</li>
+<li>再选替换点</li>
+<li>最后做计时</li>
+</ol>
+<h3 id="1-我是怎么找到-vLLM-调-bnb-的"><a href="#1-我是怎么找到-vLLM-调-bnb-的" class="headerlink" title="1. 我是怎么找到 vLLM 调 bnb 的"></a>1. 我是怎么找到 vLLM 调 bnb 的</h3><p>最开始先读 vLLM 里 BitsAndBytes 相关代码，入口是：</p>
+<ul>
+<li><code>vllm/model_executor/layers/quantization/bitsandbytes.py</code></li>
+</ul>
+<p>从这里可以先看到高层结构：</p>
+<ul>
+<li><code>BitsAndBytesLinearMethod._apply_4bit_weight(...)</code></li>
+<li>它会调 <code>apply_bnb_4bit(...)</code></li>
+<li>这个名字虽然像 Python 函数，但实际注册成了 <code>torch.ops.vllm.apply_bnb_4bit</code></li>
+</ul>
+<p>然后继续顺着看 bitsandbytes 本身，在：</p>
+<ul>
+<li><code>bitsandbytes/autograd/_functions.py</code></li>
+</ul>
+<p>里可以确认：</p>
+<ul>
+<li><code>bitsandbytes.matmul_4bit(...)</code></li>
+<li>decode-like 小 batch 时会优先走 <code>gemv_4bit</code></li>
+<li>大 shape 才更容易落到 <code>MatMul4Bit.apply</code></li>
+</ul>
+<p>但光读代码还不够，因为 <code>vllm serve</code> 的真实 worker 路径不一定和最初猜的 Python 层入口一致。所以接下来做的不是先计时，而是先打最粗粒度的“命中探针”。</p>
+<p>我在远端安装包里直接加了最简单的日志，只记录：</p>
+<ul>
+<li>有没有被调用</li>
+<li>输入 shape</li>
+<li>weight shard shape</li>
+<li>最终走的是 <code>gemv_4bit</code> 还是 <code>MatMul4Bit.apply</code></li>
+</ul>
+<p>具体加在这两个位置：</p>
+<ul>
+<li>vLLM 的 <code>bitsandbytes.py</code> 里，给 <code>apply_bnb_4bit</code> &#x2F; <code>_apply_bnb_4bit</code> 打日志</li>
+<li>bitsandbytes 的 <code>_functions.py</code> 里，给 <code>matmul_4bit</code> 打日志</li>
+</ul>
+<p>真实请求跑完后，日志文件稳定命中：</p>
+<ul>
+<li><code>/home/xyc/vllm_apply_bnb_4bit_hits.log</code></li>
+<li><code>/home/xyc/bnb_matmul_4bit_hits.log</code></li>
+</ul>
+<p>这样就能确认真实 decode 热路径是：</p>
+<ol>
+<li><code>BitsAndBytesLinearMethod._apply_4bit_weight</code></li>
+<li><code>apply_bnb_4bit</code></li>
+<li><code>_apply_bnb_4bit</code></li>
+<li><code>bitsandbytes.matmul_4bit</code></li>
+<li><code>gemv_4bit</code></li>
+</ol>
+<p>也就是说，真实低 batch decode 不是走通用的 <code>dequantize_4bit + linear</code>，而是走 bnb 的 <code>gemv_4bit</code> fast path。</p>
+<h3 id="2-我是怎么替换的"><a href="#2-我是怎么替换的" class="headerlink" title="2. 我是怎么替换的"></a>2. 我是怎么替换的</h3><p>替换我做过两种方式。</p>
+<p>第一种是早期的猴补丁：</p>
+<ul>
+<li><code>sitecustomize.py</code></li>
+<li><code>vllm_ikko_sitecustomize.py</code></li>
+</ul>
+<p>这条路适合快速试验，但后来验证发现，它不能稳定命中 <code>vllm serve</code> 的真实 worker 热路径，所以后面的正式分析没有继续依赖它。</p>
+<p>第二种是直接改远端已安装包，这才是后面真正用于确认和实验的主线。</p>
+<p>我在远端这两个文件里做了替换逻辑：</p>
+<ul>
+<li>vLLM 的 <code>bitsandbytes.py</code></li>
+<li>bitsandbytes 的 <code>_functions.py</code></li>
+</ul>
+<p>替换策略不是全局替换，而是只在目标形状上切换：</p>
+<ul>
+<li><code>(5120, 5120)</code> 对应 <code>q_proj/o_proj</code></li>
+<li><code>(1024, 5120)</code> 对应 <code>k_proj/v_proj</code></li>
+</ul>
+<p>真正的自定义实现仍然放在本地仓库：</p>
+<ul>
+<li><code>fs_plugins/custom_ops/nf4_ikko.cu</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.cpp</code></li>
+<li><code>fs_plugins/custom_ops/nf4_ikko.py</code></li>
+</ul>
+<p>然后在远端 <code>matmul_4bit</code> 的真实命中点上做条件分支：</p>
+<ul>
+<li>baseline：继续走原始 <code>gemv_4bit</code></li>
+<li>patch：如果是 attention 投影的目标 shape，就切到 <code>matmul_4bit_ikko</code></li>
+<li>其他层全部保持原样</li>
+</ul>
+<p>这样做的好处是：</p>
+<ul>
+<li>调用链没变</li>
+<li>只替换真实热路径里的局部算子</li>
+<li>baseline 和 patch 的系统环境几乎一致，更便于对比</li>
+</ul>
+<h3 id="3-我是怎么计时的"><a href="#3-我是怎么计时的" class="headerlink" title="3. 我是怎么计时的"></a>3. 我是怎么计时的</h3><p>计时也分三层。</p>
+<p>第一层是命中确认，不计时间。<br>这是为了避免在错误入口上做 profiling。先只记录：</p>
+<ul>
+<li>有没有被调用</li>
+<li><code>x</code> shape</li>
+<li><code>qweight</code> shape</li>
+<li>shard 顺序</li>
+</ul>
+<p>靠这个先确认：</p>
+<ul>
+<li><code>q/k/v</code> 三个 shard 在真实 <code>_apply_bnb_4bit</code> 里的顺序</li>
+<li><code>o_proj</code> 是单独一个 <code>(5120, 5120)</code> 调用</li>
+<li>decode 阶段最终落在 <code>gemv_4bit</code></li>
+</ul>
+<p>第二层是在真实命中点做聚合计时。</p>
+<p>命中点确认之后，我在 bitsandbytes 的 <code>_functions.py</code> 里给 <code>matmul_4bit</code> 加了 CUDA event 计时。做法是：</p>
+<ul>
+<li>进入 <code>matmul_4bit</code> 前记录 <code>torch.cuda.Event</code></li>
+<li>返回后再记录一个 event</li>
+<li><code>torch.cuda.synchronize()</code> 后取 elapsed time</li>
+<li>按 layer kind 聚合</li>
+</ul>
+<p>为了让 <code>matmul_4bit</code> 知道当前是哪一个 projection，我先在 vLLM 那层把当前 shard 标成：</p>
+<ul>
+<li><code>q_proj</code></li>
+<li><code>k_proj</code></li>
+<li><code>v_proj</code></li>
+<li><code>o_proj</code></li>
+</ul>
+<p>然后把这个上下文传给 bitsandbytes 层。这样 <code>matmul_4bit</code> 内部就知道这次调用属于哪个 projection，最后每个 worker 进程把统计写到 JSON，例如：</p>
+<ul>
+<li><code>/home/xyc/proj_baseline_eager.*.json</code></li>
+<li><code>/home/xyc/proj_attn_eager.*.json</code></li>
+</ul>
+<p>再把多个 worker 的 JSON 聚合，得到：</p>
+<ul>
+<li><code>q_proj</code></li>
+<li><code>k_proj</code></li>
+<li><code>v_proj</code></li>
+<li><code>o_proj</code></li>
+<li>合成后的 <code>per-token projection time</code></li>
+</ul>
+<p>第三层是和端到端 benchmark 对齐。</p>
+<p>端到端我单独用 <code>bench_vllm_qwen.py</code> 跑固定 prompt、重复多轮。这样最终手里有两组数据：</p>
+<ol>
+<li>局部真实命中点时间<ul>
+<li>projection time 到底降了多少</li>
+</ul>
+</li>
+<li>端到端系统时间<ul>
+<li>throughput &#x2F; e2e 到底有没有跟着降</li>
+</ul>
+</li>
+</ol>
+<p>靠这两组数据，才能最后判断：</p>
+<ul>
+<li>kernel 接入是否真的生效</li>
+<li>局部优化有没有传导到系统收益</li>
+<li>如果没有，问题是在 kernel 本身还是系统其他部分</li>
+</ul>
+<h3 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h3><p>整个过程可以压成四步：</p>
+<ol>
+<li>先从 vLLM 的 <code>bitsandbytes.py</code> 和 bitsandbytes 的 <code>_functions.py</code> 读调用链</li>
+<li>再在远端真实安装包里加命中日志，确认 <code>vllm serve</code> decode 真正走到 <code>matmul_4bit -&gt; gemv_4bit</code></li>
+<li>然后只在这个真实命中点上做条件替换，把 attention 投影切到自定义 fused kernel</li>
+<li>最后在这个真实命中点上做 CUDA event 聚合计时，再和固定 prompt 的端到端 benchmark 对比</li>
+</ol>
+<h2 id="Attention-Projection-时间对比"><a href="#Attention-Projection-时间对比" class="headerlink" title="Attention Projection 时间对比"></a>Attention Projection 时间对比</h2><p>在确认真实命中点之后，我又做了一轮更直接的实验：</p>
+<ol>
+<li>把 <code>q/k/v/o</code> 的上下文从 vLLM 的 <code>_apply_bnb_4bit</code> 传到 <code>bitsandbytes.matmul_4bit</code></li>
+<li>在 <code>matmul_4bit</code> 这个真实热路径上聚合 decode 阶段的 CUDA 时间</li>
+<li>做两组对比：<ul>
+<li>baseline</li>
+<li>attn patch</li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么这里用了辅助配置"><a href="#为什么这里用了辅助配置" class="headerlink" title="为什么这里用了辅助配置"></a>为什么这里用了辅助配置</h3><p>这里有一个必须说明的点。</p>
+<p>如果直接在生产态配置下给 <code>matmul_4bit</code> 内联插入 CUDA event timing，vLLM 的 <code>torch.compile</code> &#x2F; cudagraph &#x2F; capture 流程会在 warmup 阶段报错。因此：</p>
+<ul>
+<li>调用链的确认，是在生产态配置下完成的</li>
+<li>时间聚合，则放到辅助观测配置下完成：<code>--enforce-eager</code></li>
+</ul>
+<p>这个配置不适合拿来代表最终 e2e 性能，但非常适合回答一个更具体的问题：</p>
+<ul>
+<li>“真实命中点上的 attention projection 时间，到底降了没有？”</li>
+</ul>
+<h3 id="baseline-vs-attn-patch"><a href="#baseline-vs-attn-patch" class="headerlink" title="baseline vs attn patch"></a>baseline vs attn patch</h3><p>两边都使用同一份固定 prompt 集，并只统计 decode 阶段命中的 <code>q/k/v/o</code> 投影时间。</p>
+<p>结果如下，单位都是 <code>ms_per_token_row</code>：</p>
+<table>
+<thead>
+<tr>
+<th>projection</th>
+<th>baseline</th>
+<th>attn patch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>q_proj</code></td>
+<td><code>0.03298 ms</code></td>
+<td><code>0.01560 ms</code></td>
+</tr>
+<tr>
+<td><code>k_proj</code></td>
+<td><code>0.01964 ms</code></td>
+<td><code>0.01088 ms</code></td>
+</tr>
+<tr>
+<td><code>v_proj</code></td>
+<td><code>0.02114 ms</code></td>
+<td><code>0.01024 ms</code></td>
+</tr>
+<tr>
+<td><code>o_proj</code></td>
+<td><code>0.03620 ms</code></td>
+<td><code>0.01151 ms</code></td>
+</tr>
+</tbody></table>
+<p>把四项加总得到：</p>
+<ul>
+<li>baseline per-token projection time: <code>0.10997 ms</code></li>
+<li>attn patch per-token projection time: <code>0.04824 ms</code></li>
+</ul>
+<p>也就是：</p>
+<ul>
+<li>每 token 的 attention projection 总时间下降了 <code>0.06173 ms</code></li>
+<li>降幅约 <code>56.1%</code></li>
+</ul>
+<h3 id="这说明什么"><a href="#这说明什么" class="headerlink" title="这说明什么"></a>这说明什么</h3><p>这个结果非常关键，因为它回答了一个此前没有分清的问题：</p>
+<ol>
+<li>attention projection 这一项本身，确实明显下降了。</li>
+<li>所以问题不在“kernel 根本没接进去”。</li>
+<li>如果 e2e benchmark 仍然没有稳定改善，那么更大的问题就在系统别处，而不是 attention projection 本身。</li>
+</ol>
+<p>换句话说，当前结论应该分两层：</p>
+<ul>
+<li><code>kernel / projection 子系统层面</code>：优化是成立的，而且降幅很明显</li>
+<li><code>serve 端到端层面</code>：收益还没有稳定穿透整条系统链路</li>
+</ul>
+<p>这也把后续方向收窄了：</p>
+<ol>
+<li>继续提升 attention 覆盖率是合理的，但不是唯一问题。</li>
+<li>需要进一步量化非 attention 层、框架调度、prefill 路径以及其他 decode 固定开销。</li>
+<li>如果 projection 已经降了 50% 以上而 e2e 没明显跟上，那真正拖慢整体的部分已经不再是 attention projection 本身。</li>
+</ol>
+<h2 id="理论收益上限-vs-实测收益"><a href="#理论收益上限-vs-实测收益" class="headerlink" title="理论收益上限 vs 实测收益"></a>理论收益上限 vs 实测收益</h2><p>在确认了 <code>per-token projection time</code> 的真实下降之后，可以进一步算一个很关键的量：</p>
+<ul>
+<li>即便 attention projection 优化完全兑现到 decode 阶段，理论上最多能给端到端 completion 吞吐带来多大提升？</li>
+</ul>
+<h3 id="1-baseline-的-decode-per-token-总时间"><a href="#1-baseline-的-decode-per-token-总时间" class="headerlink" title="1. baseline 的 decode per-token 总时间"></a>1. baseline 的 decode per-token 总时间</h3><p>用前面“固定 prompt + 5 repeats”的 baseline completion 吞吐：</p>
+<ul>
+<li>baseline throughput: <code>71.01 tok/s</code></li>
+</ul>
+<p>把它换算成每个输出 token 的平均时间：</p>
+<ul>
+<li>baseline decode per-token total time &#x3D; <code>1000 / 71.01 ≈ 14.08 ms/token</code></li>
+</ul>
+<p>也就是说，从系统视角看，baseline 每生成一个 token，大约要花 <code>14.08 ms</code>。</p>
+<h3 id="2-projection-优化带来的理论可回收时间"><a href="#2-projection-优化带来的理论可回收时间" class="headerlink" title="2. projection 优化带来的理论可回收时间"></a>2. projection 优化带来的理论可回收时间</h3><p>前面的真实命中点 timing 已经算出：</p>
+<ul>
+<li>baseline per-token projection time: <code>0.10997 ms</code></li>
+<li>attn patch per-token projection time: <code>0.04824 ms</code></li>
+</ul>
+<p>所以 attention projection 这部分每个 token 实际减少了：</p>
+<ul>
+<li><code>0.10997 - 0.04824 = 0.06173 ms/token</code></li>
+</ul>
+<h3 id="3-理论收益上限"><a href="#3-理论收益上限" class="headerlink" title="3. 理论收益上限"></a>3. 理论收益上限</h3><p>如果假设：</p>
+<ol>
+<li>这 <code>0.06173 ms/token</code> 能无损地全部体现在 decode 总时间上</li>
+<li>其他所有部分都完全不变</li>
+<li>没有新增任何框架开销、同步开销或集成成本</li>
+</ol>
+<p>那么新的理论最优 decode 时间应为：</p>
+<ul>
+<li><code>14.08 - 0.06173 = 14.02 ms/token</code></li>
+</ul>
+<p>对应的理论最优吞吐约为：</p>
+<ul>
+<li><code>1000 / 14.02 ≈ 71.32 tok/s</code></li>
+</ul>
+<p>相对 baseline 的理论上限提升约为：</p>
+<ul>
+<li><code>(14.08 - 14.02) / 14.08 ≈ 0.44%</code></li>
+</ul>
+<p>也可以直接理解成：</p>
+<ul>
+<li>即便 attention projection 这一项已经降了 <code>56.1%</code></li>
+<li>但它在整个 decode token 时间里原本只占 <code>0.10997 / 14.08 ≈ 0.78%</code></li>
+<li>所以它能带来的端到端理论上限，本来就只有大约 <code>0.44%</code></li>
+</ul>
+<h3 id="4-和实际-benchmark-的对照"><a href="#4-和实际-benchmark-的对照" class="headerlink" title="4. 和实际 benchmark 的对照"></a>4. 和实际 benchmark 的对照</h3><p>更干净的 5 repeats benchmark 结果是：</p>
+<ul>
+<li>baseline: <code>71.01 ± 0.07 tok/s</code></li>
+<li>attn: <code>70.76 ± 0.64 tok/s</code></li>
+</ul>
+<p>所以实测上：</p>
+<ul>
+<li>实际没有出现稳定正收益</li>
+<li>反而比 baseline 低了大约 <code>0.25 tok/s</code></li>
+<li>约为 <code>-0.35%</code></li>
+</ul>
+<p>把这个结果和理论上限放在一起看，就很容易理解了：</p>
+<ol>
+<li>attention projection 优化本身是成立的，而且在真实命中点上降幅很大。</li>
+<li>但它在 decode 总时间中所占比例本来就很小，因此理论收益上限只有 <code>0.44%</code> 左右。</li>
+<li>这个量级已经接近甚至低于系统级 benchmark 的自然波动和额外集成开销。</li>
+<li>所以最终没有在 e2e benchmark 里形成稳定提升，是完全合理的。</li>
+</ol>
+<h3 id="5-这一步真正说明了什么"><a href="#5-这一步真正说明了什么" class="headerlink" title="5. 这一步真正说明了什么"></a>5. 这一步真正说明了什么</h3><p>这一步最大的价值不是证明“优化失败”，而是把问题定量化了：</p>
+<ol>
+<li>attention projection 不是没有优化成功，而是它对整体 decode token 时间的贡献太小。</li>
+<li>即使局部减少了一半以上，这一项对全局吞吐的理论影响仍然不到 <code>0.5%</code>。</li>
+<li>这意味着如果想在端到端上看到稳定、明显的收益，下一步必须优化更大头的部分，而不是继续只盯着 attention projection。</li>
+</ol>
+<h2 id="理论上限与实际收益"><a href="#理论上限与实际收益" class="headerlink" title="理论上限与实际收益"></a>理论上限与实际收益</h2><p>既然已经确认了 attention projection 总项确实下降，下一步自然要回答：</p>
+<ol>
+<li>baseline 的 decode per-token 总时间是多少？</li>
+<li>如果只优化了 attention projection，这个优化理论上最多能带来多大收益？</li>
+<li>实验里最终测到的实际收益是多少？</li>
+</ol>
+<h3 id="1-baseline-的-decode-per-token-总时间-1"><a href="#1-baseline-的-decode-per-token-总时间-1" class="headerlink" title="1. baseline 的 decode per-token 总时间"></a>1. baseline 的 decode per-token 总时间</h3><p>用固定 prompt、5 次重复 benchmark 里的 baseline completion 吞吐：</p>
+<ul>
+<li>throughput: <code>71.01 tok/s</code></li>
+</ul>
+<p>可以直接换算得到 decode 每生成 1 个 token 的平均时间：</p>
+<ul>
+<li>baseline decode per-token total time &#x3D; <code>1 / 71.01 s</code></li>
+<li>约等于 <code>14.08 ms/token</code></li>
+</ul>
+<p>这就是 baseline 的整体 decode 时间预算。</p>
+<h3 id="2-attention-projection-优化的理论收益上限"><a href="#2-attention-projection-优化的理论收益上限" class="headerlink" title="2. attention projection 优化的理论收益上限"></a>2. attention projection 优化的理论收益上限</h3><p>前面已经量到，在真实命中点上：</p>
+<ul>
+<li>baseline per-token projection time: <code>0.10997 ms</code></li>
+<li>attn patch per-token projection time: <code>0.04824 ms</code></li>
+</ul>
+<p>所以 attention projection 这一项实际节省的是：</p>
+<ul>
+<li><code>0.10997 - 0.04824 = 0.06173 ms/token</code></li>
+</ul>
+<p>把这个节省量放到 baseline 的总 decode 时间预算里：</p>
+<ul>
+<li>theoretical max speedup &#x3D; <code>0.06173 / 14.08</code></li>
+<li>约等于 <code>0.44%</code></li>
+</ul>
+<p>也就是说，即使把 attention projection 这一项的优化完全、无损地传导到端到端 decode，理论收益上限也只有大约：</p>
+<ul>
+<li><code>0.44%</code></li>
+</ul>
+<p>这个数字很关键，因为它解释了为什么前面虽然看到 projection 本身降了很多，但 e2e benchmark 仍然不明显。</p>
+<h3 id="3-实验里测到的实际收益"><a href="#3-实验里测到的实际收益" class="headerlink" title="3. 实验里测到的实际收益"></a>3. 实验里测到的实际收益</h3><p>固定 prompt、5 次重复 benchmark 的端到端结果是：</p>
+<ul>
+<li>baseline throughput: <code>71.01 ± 0.07 tok/s</code></li>
+<li>attn throughput: <code>70.76 ± 0.64 tok/s</code></li>
+</ul>
+<p>换成相对 baseline 的实际收益：</p>
+<ul>
+<li>throughput 变化约为 <code>-0.35%</code></li>
+</ul>
+<p>对应的平均端到端时延：</p>
+<ul>
+<li>baseline avg e2e: <code>0.5605 ± 0.0005 s</code></li>
+<li>attn avg e2e: <code>0.5619 ± 0.0039 s</code></li>
+</ul>
+<p>相对变化约为：</p>
+<ul>
+<li>avg e2e 变化约为 <code>+0.25%</code></li>
+</ul>
+<h3 id="4-这一组数字的含义"><a href="#4-这一组数字的含义" class="headerlink" title="4. 这一组数字的含义"></a>4. 这一组数字的含义</h3><p>把三组数字放在一起看：</p>
+<ul>
+<li>baseline decode total: <code>14.08 ms/token</code></li>
+<li>projection 节省量: <code>0.06173 ms/token</code></li>
+<li>理论上限: <code>0.44%</code></li>
+<li>实际测得: <code>-0.35%</code> throughput，基本落在“没有稳定收益”的区间</li>
+</ul>
+<p>所以现在可以更清楚地下结论：</p>
+<ol>
+<li>attention projection 确实优化成功了。</li>
+<li>但它在整个 decode 总时间里只占很小一部分。</li>
+<li>因此，即使这一项下降了 <code>56%</code>，折算到整体 decode 上，理论收益上限也只有不到 <code>0.5%</code>。</li>
+<li>这已经足以解释为什么端到端 benchmark 看不到稳定提升。</li>
+</ol>
+<p>换句话说，当前不是“优化没生效”，而是：</p>
+<ul>
+<li>优化生效了</li>
+<li>但覆盖到的系统时间占比还不够大</li>
+<li>所以总体收益天花板本来就很低</li>
+</ul>
+<h2 id="Decode-时间拆分：projection-vs-non-projection"><a href="#Decode-时间拆分：projection-vs-non-projection" class="headerlink" title="Decode 时间拆分：projection vs non-projection"></a>Decode 时间拆分：projection vs non-projection</h2><p>为了把最后一个问题闭环，还需要再做一个简单但关键的拆分：</p>
+<ul>
+<li>total decode per-token time</li>
+<li>projection time</li>
+<li>non-projection time</li>
+</ul>
+<p>其中：</p>
+<ul>
+<li><code>non-projection time = total decode per-token time - projection time</code></li>
+</ul>
+<p>这样就能直接回答：</p>
+<ul>
+<li>除了“attention projection 预算太小”之外，是否还有额外系统开销把收益吃掉了？</li>
+</ul>
+<h3 id="1-baseline-的拆分"><a href="#1-baseline-的拆分" class="headerlink" title="1. baseline 的拆分"></a>1. baseline 的拆分</h3><p>前面已经有两组 baseline 数据：</p>
+<ul>
+<li>baseline total decode per-token time: <code>14.08 ms/token</code></li>
+<li>baseline per-token projection time: <code>0.10997 ms/token</code></li>
+</ul>
+<p>所以 baseline 的 non-projection time 是：</p>
+<ul>
+<li><code>14.08 - 0.10997 = 13.97 ms/token</code></li>
+</ul>
+<p>更精确一点，按前文同样的换算口径：</p>
+<ul>
+<li>baseline total decode per-token time: <code>1000 / 71.01 ≈ 14.0825 ms/token</code></li>
+<li>baseline non-projection time: <code>14.0825 - 0.10997 ≈ 13.9725 ms/token</code></li>
+</ul>
+<h3 id="2-attn-patch-的拆分"><a href="#2-attn-patch-的拆分" class="headerlink" title="2. attn patch 的拆分"></a>2. attn patch 的拆分</h3><p>attn patch 对应的数据是：</p>
+<ul>
+<li>attn throughput: <code>70.76 tok/s</code></li>
+<li>attn total decode per-token time: <code>1000 / 70.76 ≈ 14.1323 ms/token</code></li>
+<li>attn per-token projection time: <code>0.04824 ms/token</code></li>
+</ul>
+<p>所以 attn patch 的 non-projection time 是：</p>
+<ul>
+<li><code>14.1323 - 0.04824 ≈ 14.0841 ms/token</code></li>
+</ul>
+<h3 id="3-拆分结果对照"><a href="#3-拆分结果对照" class="headerlink" title="3. 拆分结果对照"></a>3. 拆分结果对照</h3><p>把两边并排放在一起：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>total decode</th>
+<th>projection</th>
+<th>non-projection</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>baseline</td>
+<td><code>14.0825 ms/token</code></td>
+<td><code>0.10997 ms/token</code></td>
+<td><code>13.9725 ms/token</code></td>
+</tr>
+<tr>
+<td>attn patch</td>
+<td><code>14.1323 ms/token</code></td>
+<td><code>0.04824 ms/token</code></td>
+<td><code>14.0841 ms/token</code></td>
+</tr>
+</tbody></table>
+<p>对应变化量：</p>
+<ul>
+<li>projection 下降：<code>0.10997 - 0.04824 = 0.06173 ms/token</code></li>
+<li>non-projection 上升：<code>14.0841 - 13.9725 = 0.1116 ms/token</code></li>
+<li>total 反而增加：<code>14.1323 - 14.0825 = 0.0498 ms/token</code></li>
+</ul>
+<h3 id="4-这组数字说明什么"><a href="#4-这组数字说明什么" class="headerlink" title="4. 这组数字说明什么"></a>4. 这组数字说明什么</h3><p>这组拆分把整件事说得比较完整了：</p>
+<ol>
+<li>attention projection 这一项本身确实明显下降了，节省了 <code>0.06173 ms/token</code>。</li>
+<li>但与此同时，non-projection 部分反而增加了约 <code>0.1116 ms/token</code>。</li>
+<li>因此在总账上，节省掉的 projection 时间不仅被完全吃掉了，还额外多出了一点系统开销。</li>
+</ol>
+<p>也就是说，当前结果并不只是“projection 预算太小”，还包括：</p>
+<ul>
+<li>接入自定义 kernel 之后，系统的非 projection 部分出现了少量额外成本</li>
+</ul>
+<p>这类额外成本可能来自：</p>
+<ul>
+<li>不同 kernel dispatch 带来的额外调度成本</li>
+<li>与原始 bnb <code>gemv_4bit</code> fast path 不同的 runtime 行为</li>
+<li>框架层集成、同步、launch、capture 兼容性差异</li>
+<li>更细粒度算子替换之后，原有重叠与流水被轻微打破</li>
+</ul>
+<h3 id="5-最终闭环"><a href="#5-最终闭环" class="headerlink" title="5. 最终闭环"></a>5. 最终闭环</h3><p>因此，这轮实验的闭环结论可以写成：</p>
+<ol>
+<li>attention projection 优化本身是有效的，而且在真实命中点上下降了约 <code>56.1%</code>。</li>
+<li>但这一项在 baseline decode 总时间里本来只占不到 <code>1%</code>，理论收益上限只有约 <code>0.44%</code>。</li>
+<li>同时，接入自定义 kernel 后，non-projection 部分又增加了大约 <code>0.11 ms/token</code> 的额外系统开销。</li>
+<li>于是最终端到端收益被完全抵消，clean benchmark 里看不到稳定提升。</li>
+</ol>
+<p>需要说明的是，这里的 projection time 来自辅助观测配置下的真实命中点 timing，而 total decode time 来自固定 prompt、5 次重复的 clean benchmark；两者口径不完全相同，因此这个拆分更适合用来做系统解释，而不是把每一位小数都当成绝对精确值。</p>
+<h2 id="额外开销排查：到底可疑在哪"><a href="#额外开销排查：到底可疑在哪" class="headerlink" title="额外开销排查：到底可疑在哪"></a>额外开销排查：到底可疑在哪</h2><p>在做完上面的时间拆分之后，还需要进一步问一句：</p>
+<ul>
+<li>这部分看起来像 <code>+0.11 ms/token</code> 的 non-projection 开销，到底最可疑的是哪一层？</li>
+</ul>
+<p>这里我先做了一轮代码级排查，而不是继续猜。</p>
+<h3 id="1-已经基本排除的部分"><a href="#1-已经基本排除的部分" class="headerlink" title="1. 已经基本排除的部分"></a>1. 已经基本排除的部分</h3><p>有一类开销虽然存在，但不太可能解释 clean benchmark 里的端到端结果：</p>
+<ul>
+<li>profiling 用的 <code>torch.cuda.Event</code></li>
+<li><code>end.synchronize()</code></li>
+<li>JSON dump &#x2F; atexit 写文件</li>
+</ul>
+<p>这些逻辑确实存在于远端安装包里的 bitsandbytes <code>_functions.py</code> 改动中，但它们都挂在显式环境变量后面：</p>
+<ul>
+<li><code>VLLM_IKKO_PROFILE_PROJ=1</code></li>
+</ul>
+<p>只有做 projection timing 时才会启用。也就是说，它们会影响辅助观测配置下的 timing，但不应该进入最终那轮 clean benchmark。</p>
+<p>所以 clean benchmark 里的额外系统成本，主因大概率不是 profiling 插桩残留。</p>
+<h3 id="2-目前最可疑的真实来源"><a href="#2-目前最可疑的真实来源" class="headerlink" title="2. 目前最可疑的真实来源"></a>2. 目前最可疑的真实来源</h3><p>现在最可疑的一点，其实在自定义 op 的 Python 包装层里。</p>
+<p><code>fused_matmul_4bit_ikko(...)</code> 这一层当前的实现是：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packed_weight = _as_cuda_contiguous(packed_weight_t.t().contiguous(), torch.uint8)</span><br></pre></td></tr></table></figure></div>
+
+<p>也就是说，在每次调用时，它都会对输入的 packed weight 做：</p>
+<ol>
+<li><code>.t()</code></li>
+<li><code>.contiguous()</code></li>
+<li><code>_as_cuda_contiguous(...)</code></li>
+</ol>
+<p>如果 <code>packed_weight_t</code> 在 vLLM &#x2F; bitsandbytes 的真实调用点上本来不是目标布局，那么这里就可能在每次 projection 调用时引入一次额外的 packed-weight 重排或拷贝。</p>
+<p>这件事的性质和前面分析的“projection 算子内部时间”不一样：</p>
+<ul>
+<li>projection timing 统计的是 <code>matmul_4bit</code> 这一调用本身的时间</li>
+<li>但如果包装层为了适配自定义 kernel 做了额外 layout 处理，它可能带来额外的显存流量和 runtime 成本</li>
+<li>这正是最像“收益被系统侧吃掉”的那类问题</li>
+</ul>
+<p>因此，当前最强的怀疑对象不是 NF4 decode 本身，而是：</p>
+<ul>
+<li>自定义 fused kernel 仍然没有直接吃到 vLLM &#x2F; bnb 真实路径上的原生 packed layout</li>
+<li>中间为了适配接口，发生了额外的 transpose &#x2F; contiguous &#x2F; copy</li>
+</ul>
+<h3 id="3-第二可疑来源"><a href="#3-第二可疑来源" class="headerlink" title="3. 第二可疑来源"></a>3. 第二可疑来源</h3><p>除了 weight layout 适配之外，第二可疑来源是接入方式本身：</p>
+<ul>
+<li>现在 patch 是在 bitsandbytes 的 Python <code>matmul_4bit</code> 包装层做条件分支</li>
+<li>命中 attention shape 后再转到自定义扩展</li>
+</ul>
+<p>这意味着即使 projection 算子本体更快，仍然可能引入：</p>
+<ul>
+<li>额外的 Python dispatch 分支</li>
+<li>不同于原始 <code>gemv_4bit</code> fast path 的 runtime 行为</li>
+<li>与 cudagraph &#x2F; compile &#x2F; capture 协同不如原生路径</li>
+</ul>
+<p>这类成本通常不大，但在理论收益上限只有 <code>0.44%</code> 的前提下，已经足够把端到端收益吃光。</p>
+<h3 id="4-当前阶段最合理的判断"><a href="#4-当前阶段最合理的判断" class="headerlink" title="4. 当前阶段最合理的判断"></a>4. 当前阶段最合理的判断</h3><p>基于现有代码排查，可以先下一个相对稳妥的判断：</p>
+<ol>
+<li>额外开销的主因不像 profiling 插桩残留。</li>
+<li>最可疑的真实来源，是自定义 op 包装层里对 packed weight 的 <code>transpose + contiguous</code> 适配。</li>
+<li>第二可疑来源，是在 Python 包装层切换路径，而不是像原生 bnb 那样直接落到更紧的 native fast path。</li>
+</ol>
+<p>也就是说，这部分额外系统成本更像是：</p>
+<ul>
+<li>layout 适配成本</li>
+<li>接入层 runtime 成本</li>
+</ul>
+<p>而不是：</p>
+<ul>
+<li>NF4 恢复 kernel 本身太慢</li>
+</ul>
+<h3 id="5-如果要继续验证，最值得做的一件事"><a href="#5-如果要继续验证，最值得做的一件事" class="headerlink" title="5. 如果要继续验证，最值得做的一件事"></a>5. 如果要继续验证，最值得做的一件事</h3><p>下一步最有价值的单点验证不是继续改 kernel，而是直接改接口：</p>
+<ul>
+<li>避免 <code>packed_weight_t.t().contiguous()</code></li>
+<li>直接让自定义 kernel 消费 vLLM &#x2F; bitsandbytes 当前真实命中的 packed layout</li>
+</ul>
+<p>如果这样改完之后，端到端表现明显改善，那么就能基本确认：</p>
+<ul>
+<li>被吃掉的收益，主要就是 layout 适配和接入层成本</li>
+</ul>
+<h3 id="6-一个最小验证：直接吃当前-packed-layout"><a href="#6-一个最小验证：直接吃当前-packed-layout" class="headerlink" title="6. 一个最小验证：直接吃当前 packed layout"></a>6. 一个最小验证：直接吃当前 packed layout</h3><p>针对上面的第一嫌疑，我又专门做了一轮最小验证：</p>
+<ul>
+<li>不改算法</li>
+<li>不加新优化</li>
+<li>只把 kernel 接口改成直接消费当前 <code>packed_weight_t</code> 的布局</li>
+<li>目标是验证：去掉 <code>t().contiguous()</code> 这一步之后，额外系统成本能不能明显下降</li>
+</ul>
+<p>这轮修改新增了一条 direct-layout 路径：</p>
+<ul>
+<li><code>fused_matmul_4bit_ikko_direct(...)</code></li>
+<li>对应 CUDA 实现：<code>nf4_fused_matmul_absmax_transposed_kernel</code></li>
+</ul>
+<p>它和原来的 copy 版 fused path 的区别只有一个：</p>
+<ul>
+<li>原版：先 <code>packed_weight_t.t().contiguous()</code>，再交给 fused kernel</li>
+<li>direct 版：直接吃当前 <code>packed_weight_t</code> 的原始布局</li>
+</ul>
+<p>也就是说，这轮实验只验证“去掉 layout 适配”这一件事，没有引入新的算法变化。</p>
+<p>在 <code>q_proj</code> 上的单层 microbenchmark 结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>batch</th>
+<th>bnb</th>
+<th>fused(copy)</th>
+<th>fused(direct layout)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>0.01759 ms</code></td>
+<td><code>0.01308 ms</code></td>
+<td><code>0.04872 ms</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>0.06081 ms</code></td>
+<td><code>0.02292 ms</code></td>
+<td><code>0.08468 ms</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>0.06072 ms</code></td>
+<td><code>0.04186 ms</code></td>
+<td><code>0.15874 ms</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>0.06302 ms</code></td>
+<td><code>0.07926 ms</code></td>
+<td><code>0.30421 ms</code></td>
+</tr>
+</tbody></table>
+<p>这组结果说明：</p>
+<ol>
+<li>“直接吃当前 packed layout” 这件事本身并没有自动减少开销。</li>
+<li>相反，这个 direct-layout 版本比原来的 copy 版 fused kernel 明显更慢。</li>
+<li>这意味着此前怀疑的 <code>t().contiguous()</code> 虽然可疑，但它至少不是一个可以靠“简单去掉”就收回收益的成本点。</li>
+</ol>
+<p>更准确地说，问题不只是“有没有 copy”，还包括：</p>
+<ul>
+<li>当前自定义 kernel 的访存组织，本身就是围绕转置后的 row-major packed layout 写的</li>
+<li>一旦直接吃原始 <code>packed_weight_t</code> 布局，访存模式会明显变差</li>
+<li>所以虽然少了一步显式布局转换，但 kernel 内部的 global memory 访问更不友好，反而总体更慢</li>
+</ul>
+<p>因此，这轮最小验证给出的结论是：</p>
+<ul>
+<li>额外系统成本不能靠“直接去掉 <code>t().contiguous()</code>”这一招简单消除</li>
+<li>如果真要把 layout 适配成本收回来，必须连 kernel 的访存组织一起改，而不是只改接口</li>
+</ul>
+<h3 id="7-对“第二可疑来源”的验证：Python-包装层分支是不是主因"><a href="#7-对“第二可疑来源”的验证：Python-包装层分支是不是主因" class="headerlink" title="7. 对“第二可疑来源”的验证：Python 包装层分支是不是主因"></a>7. 对“第二可疑来源”的验证：Python 包装层分支是不是主因</h3><p>前面还有一个第二嫌疑：</p>
+<ul>
+<li>patch 现在是在 bitsandbytes 的 Python <code>matmul_4bit</code> 包装层里做条件分支</li>
+<li>再从这里转到自定义 extension</li>
+</ul>
+<p>这个路径确实比原生 <code>gemv_4bit</code> fast path 多了一层 runtime &#x2F; dispatch，所以需要单独验证：</p>
+<ul>
+<li>额外开销到底是不是主要来自这层 Python 分支？</li>
+</ul>
+<p>为了把这个问题拆干净，我没有继续用 <code>vllm serve</code> 做整机实验，而是做了一个单层 wrapper-mode benchmark，只测 <code>q_proj</code> 的 decode-like 小 batch。这个实验固定同一个输入和同一个 <code>matmul_4bit</code> 调用点，只改三种模式：</p>
+<ol>
+<li><p><code>baseline</code></p>
+<ul>
+<li>原始 bnb 路径</li>
+<li>不传 projection 上下文</li>
+<li>不走任何 patch</li>
+</ul>
+</li>
+<li><p><code>shim</code></p>
+<ul>
+<li>走同样的 projection 上下文和 Python 条件判断</li>
+<li>但最终仍然落回原始 bnb <code>gemv_4bit</code></li>
+<li>也就是说，它只保留“接入层分支”，不切换到自定义 kernel</li>
+</ul>
+</li>
+<li><p><code>patch</code></p>
+<ul>
+<li>走同样的 projection 上下文和 Python 条件判断</li>
+<li>命中后切到自定义 fused kernel</li>
+</ul>
+</li>
+</ol>
+<p>如果 <code>shim</code> 明显慢于 <code>baseline</code>，就说明 Python 包装层这点分支本身就已经很贵。<br>如果 <code>shim ≈ baseline</code>，而 <code>patch</code> 才和它们拉开，那就说明真正的成本主要在自定义 op 路径，而不是那几行 Python 判断。</p>
+<p><code>q_proj</code> 的结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>batch</th>
+<th>baseline</th>
+<th>shim</th>
+<th>patch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>0.02289 ms</code></td>
+<td><code>0.01973 ms</code></td>
+<td><code>0.03404 ms</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>0.06114 ms</code></td>
+<td><code>0.06057 ms</code></td>
+<td><code>0.06058 ms</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>0.06084 ms</code></td>
+<td><code>0.06091 ms</code></td>
+<td><code>0.06086 ms</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>0.06250 ms</code></td>
+<td><code>0.06253 ms</code></td>
+<td><code>0.06256 ms</code></td>
+</tr>
+</tbody></table>
+<p>更关键的是差值：</p>
+<ul>
+<li>batch 1:<ul>
+<li><code>shim - baseline = -0.00317 ms</code></li>
+<li><code>patch - baseline = +0.01114 ms</code></li>
+</ul>
+</li>
+<li>batch 2:<ul>
+<li><code>shim - baseline = -0.00057 ms</code></li>
+<li><code>patch - baseline = -0.00056 ms</code></li>
+</ul>
+</li>
+<li>batch 4:<ul>
+<li><code>shim - baseline = +0.00008 ms</code></li>
+<li><code>patch - baseline = +0.00003 ms</code></li>
+</ul>
+</li>
+<li>batch 8:<ul>
+<li><code>shim - baseline = +0.00003 ms</code></li>
+<li><code>patch - baseline = +0.00006 ms</code></li>
+</ul>
+</li>
+</ul>
+<p>这组结果可以很直接地说明：</p>
+<ol>
+<li><code>shim</code> 几乎贴着 <code>baseline</code>，说明 Python 包装层那点 projection 分支本身不是主要成本来源。</li>
+<li>至少在单层 <code>matmul_4bit</code> 这个粒度上，“多一层 Python 条件判断”带来的成本基本可以忽略。</li>
+<li>因此，第二可疑来源虽然在系统层面仍可能影响 capture &#x2F; graph 协同，但它不是当前额外开销的主要解释。</li>
+</ol>
+<p>换句话说，这轮验证把“第二嫌疑”明显降级了：</p>
+<ul>
+<li>Python 包装层分支不是主要问题</li>
+<li>更值得继续怀疑的，仍然是自定义 kernel 路径本身的 layout &#x2F; 访存 &#x2F; runtime 组织</li>
+</ul>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> qwen部署</li>
+        <li><strong>Author:</strong> Ikko</li>
+        <li><strong>Created at
+                :</strong> 2026-03-29 17:23:18</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2026-04-25 22:00:05
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://ikko-debug.github.io/2026/03/29/qwen/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/03/31/vllm/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">vllm</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/03/24/mianjing/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">C++面经</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '55ccec7ba873a504625f',
+                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
+                    repo: 'gittalk',
+                    owner: 'ikko-debug',
+                    admin: ['ikko-debug'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">qwen部署</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%B8%8E%E9%83%A8%E7%BD%B2"><span class="nav-text">环境与部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E7%9B%AE%E6%A0%87"><span class="nav-text">任务目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA%E5%85%88%E8%AF%B4"><span class="nav-text">结论先说</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84"><span class="nav-text">我是怎么做的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%B7%91%E9%80%9A-vLLM-BitsAndBytes-4-bit-%E6%8E%A8%E7%90%86"><span class="nav-text">1. 跑通 vLLM + BitsAndBytes 4-bit 推理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%A2%B3%E7%90%86-NF4-%E5%9C%A8-vLLM-%E9%93%BE%E8%B7%AF%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-text">2. 梳理 NF4 在 vLLM 链路中的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%85%88%E5%81%9A%E6%9C%8D%E5%8A%A1-benchmark"><span class="nav-text">3. 先做服务 benchmark</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E5%8F%8D%E9%87%8F%E5%8C%96%E8%B7%AF%E5%BE%84%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="nav-text">显式反量化路径的实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1"><span class="nav-text">实验设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D-kernel-%E4%B8%AD%E8%BF%81%E5%85%A5%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-text">恢复 kernel 中迁入的优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%B1%82%E7%BB%93%E8%AE%BA"><span class="nav-text">单层结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E9%87%8C%E7%9C%9F%E6%AD%A3%E6%85%A2%E5%9C%A8%E5%93%AA"><span class="nav-text">这里真正慢在哪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%98%BE%E5%BC%8F-restore-%E8%BD%AC%E5%90%91-fused-decode-matmul"><span class="nav-text">从显式 restore 转向 fused decode + matmul</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BD%AC%E5%90%91-fused"><span class="nav-text">为什么转向 fused</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%89%88-fused-%E5%8E%9F%E5%9E%8B"><span class="nav-text">第一版 fused 原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%9F-bitsandbytes-kernel-%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F%E5%81%9A%E7%AC%AC%E4%BA%8C%E8%BD%AE%E8%BF%AD%E4%BB%A3"><span class="nav-text">借 bitsandbytes kernel 组织方式做第二轮迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%B1%82-fused-%E5%AF%B9%E6%AF%94"><span class="nav-text">单层 fused 对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5-vLLM-%E7%9C%9F%E5%AE%9E%E6%8E%A8%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-text">嵌入 vLLM 真实推理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">接入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-text">支持的模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%BB%93%E6%9E%9C"><span class="nav-text">端到端结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%BA%BF%E6%9C%8D%E5%8A%A1"><span class="nav-text">1. 基线服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%AA%E6%9B%BF-q-proj"><span class="nav-text">2. 只替 q_proj</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%89%A9%E5%88%B0-q-x2F-k-x2F-v-x2F-o-%E5%9B%9B%E4%B8%AA-attention-%E6%8A%95%E5%BD%B1"><span class="nav-text">3. 扩到 q&#x2F;k&#x2F;v&#x2F;o 四个 attention 投影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%AA%E6%9B%BF-down-proj"><span class="nav-text">4. 只替 down_proj</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85-Benchmark%EF%BC%9A%E5%9B%BA%E5%AE%9A-Prompt-5-Repeats"><span class="nav-text">补充 Benchmark：固定 Prompt + 5 Repeats</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E6%B1%87%E6%80%BB"><span class="nav-text">结果汇总</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E4%B8%80%E8%BD%AE%E6%9B%B4%E5%B9%B2%E5%87%80-benchmark-%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="nav-text">这一轮更干净 benchmark 的结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Profiling-%E4%B8%8E%E7%BB%93%E6%9E%9C%E8%A7%A3%E9%87%8A"><span class="nav-text">Profiling 与结果解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-batch-8-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%80%E5%A7%8B%E9%80%80%E5%8C%96"><span class="nav-text">1. batch 8 为什么开始退化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9B%B4%E5%83%8F-warp-%E5%88%A9%E7%94%A8%E7%8E%87%E9%97%AE%E9%A2%98%EF%BC%8C%E8%BF%98%E6%98%AF%E5%AF%84%E5%AD%98%E5%99%A8-x2F-%E8%AE%BF%E5%AD%98%E5%B9%B3%E8%A1%A1%E9%97%AE%E9%A2%98"><span class="nav-text">2. 更像 warp 利用率问题，还是寄存器&#x2F;访存平衡问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88-attention-%E7%BA%BF%E6%AF%94-down-proj-%E6%9B%B4%E5%80%BC%E5%BE%97%E4%BC%98%E5%8C%96"><span class="nav-text">3. 为什么 attention 线比 down_proj 更值得优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%88%A4%E6%96%AD"><span class="nav-text">最终判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NF4-%E6%81%A2%E5%A4%8D%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E5%9C%A8%E5%93%AA"><span class="nav-text">NF4 恢复到底发生在哪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E5%8F%8D%E9%87%8F%E5%8C%96%E5%80%BC%E4%B8%8D%E5%80%BC%E5%BE%97"><span class="nav-text">显式反量化值不值得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%96%B9%E5%90%91%E5%80%BC%E5%BE%97%E7%BB%A7%E7%BB%AD"><span class="nav-text">什么方向值得继续</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E6%94%B9%E4%BA%86%E5%93%AA%E4%BA%9B%E4%B8%9C%E8%A5%BF"><span class="nav-text">这次改了哪些东西</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E5%91%BD%E4%B8%AD%E7%82%B9%E6%8E%92%E6%9F%A5"><span class="nav-text">真实命中点排查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E9%93%BE%E8%B7%AF"><span class="nav-text">源码链路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E8%AF%B7%E6%B1%82%E5%91%BD%E4%B8%AD%E7%BB%93%E6%9E%9C"><span class="nav-text">真实请求命中结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q-x2F-k-x2F-v-x2F-o-%E7%9A%84%E7%9C%9F%E5%AE%9E-shard-%E9%A1%BA%E5%BA%8F"><span class="nav-text">q&#x2F;k&#x2F;v&#x2F;o 的真实 shard 顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E3%80%81%E6%9B%BF%E6%8D%A2%E5%B9%B6%E8%AE%A1%E6%97%B6%E7%9A%84"><span class="nav-text">我是如何定位、替换并计时的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%88%91%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%BE%E5%88%B0-vLLM-%E8%B0%83-bnb-%E7%9A%84"><span class="nav-text">1. 我是怎么找到 vLLM 调 bnb 的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%88%91%E6%98%AF%E6%80%8E%E4%B9%88%E6%9B%BF%E6%8D%A2%E7%9A%84"><span class="nav-text">2. 我是怎么替换的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%88%91%E6%98%AF%E6%80%8E%E4%B9%88%E8%AE%A1%E6%97%B6%E7%9A%84"><span class="nav-text">3. 我是怎么计时的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-text">一句话总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention-Projection-%E6%97%B6%E9%97%B4%E5%AF%B9%E6%AF%94"><span class="nav-text">Attention Projection 时间对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%87%8C%E7%94%A8%E4%BA%86%E8%BE%85%E5%8A%A9%E9%85%8D%E7%BD%AE"><span class="nav-text">为什么这里用了辅助配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#baseline-vs-attn-patch"><span class="nav-text">baseline vs attn patch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E8%AF%B4%E6%98%8E%E4%BB%80%E4%B9%88"><span class="nav-text">这说明什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E6%94%B6%E7%9B%8A%E4%B8%8A%E9%99%90-vs-%E5%AE%9E%E6%B5%8B%E6%94%B6%E7%9B%8A"><span class="nav-text">理论收益上限 vs 实测收益</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-baseline-%E7%9A%84-decode-per-token-%E6%80%BB%E6%97%B6%E9%97%B4"><span class="nav-text">1. baseline 的 decode per-token 总时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-projection-%E4%BC%98%E5%8C%96%E5%B8%A6%E6%9D%A5%E7%9A%84%E7%90%86%E8%AE%BA%E5%8F%AF%E5%9B%9E%E6%94%B6%E6%97%B6%E9%97%B4"><span class="nav-text">2. projection 优化带来的理论可回收时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%90%86%E8%AE%BA%E6%94%B6%E7%9B%8A%E4%B8%8A%E9%99%90"><span class="nav-text">3. 理论收益上限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%92%8C%E5%AE%9E%E9%99%85-benchmark-%E7%9A%84%E5%AF%B9%E7%85%A7"><span class="nav-text">4. 和实际 benchmark 的对照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%BF%99%E4%B8%80%E6%AD%A5%E7%9C%9F%E6%AD%A3%E8%AF%B4%E6%98%8E%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-text">5. 这一步真正说明了什么</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E4%B8%8A%E9%99%90%E4%B8%8E%E5%AE%9E%E9%99%85%E6%94%B6%E7%9B%8A"><span class="nav-text">理论上限与实际收益</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-baseline-%E7%9A%84-decode-per-token-%E6%80%BB%E6%97%B6%E9%97%B4-1"><span class="nav-text">1. baseline 的 decode per-token 总时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-attention-projection-%E4%BC%98%E5%8C%96%E7%9A%84%E7%90%86%E8%AE%BA%E6%94%B6%E7%9B%8A%E4%B8%8A%E9%99%90"><span class="nav-text">2. attention projection 优化的理论收益上限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9E%E9%AA%8C%E9%87%8C%E6%B5%8B%E5%88%B0%E7%9A%84%E5%AE%9E%E9%99%85%E6%94%B6%E7%9B%8A"><span class="nav-text">3. 实验里测到的实际收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%BF%99%E4%B8%80%E7%BB%84%E6%95%B0%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-text">4. 这一组数字的含义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decode-%E6%97%B6%E9%97%B4%E6%8B%86%E5%88%86%EF%BC%9Aprojection-vs-non-projection"><span class="nav-text">Decode 时间拆分：projection vs non-projection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-baseline-%E7%9A%84%E6%8B%86%E5%88%86"><span class="nav-text">1. baseline 的拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-attn-patch-%E7%9A%84%E6%8B%86%E5%88%86"><span class="nav-text">2. attn patch 的拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8B%86%E5%88%86%E7%BB%93%E6%9E%9C%E5%AF%B9%E7%85%A7"><span class="nav-text">3. 拆分结果对照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%BF%99%E7%BB%84%E6%95%B0%E5%AD%97%E8%AF%B4%E6%98%8E%E4%BB%80%E4%B9%88"><span class="nav-text">4. 这组数字说明什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%9C%80%E7%BB%88%E9%97%AD%E7%8E%AF"><span class="nav-text">5. 最终闭环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E5%BC%80%E9%94%80%E6%8E%92%E6%9F%A5%EF%BC%9A%E5%88%B0%E5%BA%95%E5%8F%AF%E7%96%91%E5%9C%A8%E5%93%AA"><span class="nav-text">额外开销排查：到底可疑在哪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B7%B2%E7%BB%8F%E5%9F%BA%E6%9C%AC%E6%8E%92%E9%99%A4%E7%9A%84%E9%83%A8%E5%88%86"><span class="nav-text">1. 已经基本排除的部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%9B%AE%E5%89%8D%E6%9C%80%E5%8F%AF%E7%96%91%E7%9A%84%E7%9C%9F%E5%AE%9E%E6%9D%A5%E6%BA%90"><span class="nav-text">2. 目前最可疑的真实来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AC%AC%E4%BA%8C%E5%8F%AF%E7%96%91%E6%9D%A5%E6%BA%90"><span class="nav-text">3. 第二可疑来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%BD%93%E5%89%8D%E9%98%B6%E6%AE%B5%E6%9C%80%E5%90%88%E7%90%86%E7%9A%84%E5%88%A4%E6%96%AD"><span class="nav-text">4. 当前阶段最合理的判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%A6%82%E6%9E%9C%E8%A6%81%E7%BB%A7%E7%BB%AD%E9%AA%8C%E8%AF%81%EF%BC%8C%E6%9C%80%E5%80%BC%E5%BE%97%E5%81%9A%E7%9A%84%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="nav-text">5. 如果要继续验证，最值得做的一件事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%B8%80%E4%B8%AA%E6%9C%80%E5%B0%8F%E9%AA%8C%E8%AF%81%EF%BC%9A%E7%9B%B4%E6%8E%A5%E5%90%83%E5%BD%93%E5%89%8D-packed-layout"><span class="nav-text">6. 一个最小验证：直接吃当前 packed layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%AF%B9%E2%80%9C%E7%AC%AC%E4%BA%8C%E5%8F%AF%E7%96%91%E6%9D%A5%E6%BA%90%E2%80%9D%E7%9A%84%E9%AA%8C%E8%AF%81%EF%BC%9APython-%E5%8C%85%E8%A3%85%E5%B1%82%E5%88%86%E6%94%AF%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B8%BB%E5%9B%A0"><span class="nav-text">7. 对“第二可疑来源”的验证：Python 包装层分支是不是主因</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        40 posts in total
+                    </span>
+                    
+                        <span>
+                            109.5k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/masonry.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/bookmarkNav.js" ></script>
+
+	
+</body>
+
+</html>
