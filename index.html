@@ -688,7 +688,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -740,7 +740,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -765,6 +765,47 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2026/05/04/vllm-1/">
+                            vllm源码学习
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            kv_cache_manager.py路径vllm&#x2F;v1&#x2F;core&#x2F;kv_cache_manager.py
+12345678# 这段代码是 vLLM v1 架构中核心的显存管理层实现。# 它位于调度器（Scheduler）和底层物理显存池（Block Pool）之间，# 主要负责 PagedAttention 机制下的显存块分配、回收，以及 Prefix Cac...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon May 04 2026 13:57:24 GMT+0800">
+                
+                    2026-05-04
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2026/05/04/vllm-1/">Read more<span class="seo-reader-text">vllm源码学习</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2026/03/31/%E6%89%8B%E6%92%95attention/">
                             手撕attention
                         </a>
@@ -779,7 +820,14 @@ mjx-container[display="true"] + br {
 PyTorch 版：直接可用于训练和推理。
 
 先回顾公式（单头）：
-$$\text{Attention}(Q, K, V) &#x3D; \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}} ...
+
+其中：
+
+ 分别是 Query、Key、Value。
+ 是 key 向量维度，用于缩放，避免点积过大。
+ 是可选 mask（例如因果 mask）。
+
+1. ...
                         
                     </div>
 
@@ -1114,7 +1162,7 @@ class A {public:    A(int x) {        a &#x3D; x;           &#x2F;&#x2F; 构造�
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
                         <a href="/2025/12/24/cuda/">
-                            cuda
+                            CUDA
                         </a>
                     </h3>
 
@@ -1157,48 +1205,7 @@ SM ...
         
     </div>
 
-    <a href="/2025/12/24/cuda/">Read more<span class="seo-reader-text">cuda</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/12/23/PMPP/">
-                            ncu nsight
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            1vim gemm_naive.cu
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;cuda_runtime.h...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Dec 23 2025 01:06:12 GMT+0800">
-                
-                    2025-12-23
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/12/23/PMPP/">Read more<span class="seo-reader-text">ncu nsight</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/12/24/cuda/">Read more<span class="seo-reader-text">CUDA</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1208,7 +1215,7 @@ SM ...
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa-regular fa-angle-right"></i></a>
+	<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1234,11 +1241,11 @@ SM ...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        40 posts in total
+                        41 posts in total
                     </span>
                     
                         <span>
-                            109.5k words in total
+                            118.9k words in total
                         </span>
                     
                 </p>

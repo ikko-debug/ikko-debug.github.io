@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ikko">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://ikko-debug.github.io/2026/05/04/vllm-1/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vllm源码学习">
+<meta property="og:url" content="http://ikko-debug.github.io/2026/05/04/vllm-1/index.html">
+<meta property="og:site_name" content="IKKO">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-05-04T05:57:24.000Z">
+<meta property="article:modified_time" content="2026-05-04T06:41:52.090Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-P5152X2PGJ"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P5152X2PGJ');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/idea.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/idea.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/idea.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            vllm源码学习 | IKKO
+        
+    </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"ikko-debug.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[""]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"G-P5152X2PGJ"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/dark.jpg"},"title":"若有恒，何必三更眠五更起 最无益，只怕一日曝十日寒","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"1.5rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":"https://github.com/ikko-debug","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"FriendLinks":{"icon":"fa-solid fa-link","submenus":{"yebao":"https://danmoliuhen.github.io/","wu-22":"https://wu-22.github.io/","jjb":"https://byjiangjb.github.io/"}},"album":{"icon":"fa-solid fa-image","path":"/masonry/"},"Bookmarks":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"never","show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/idea.svg" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                IKKO
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDLINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">
+                                                    YEBAO
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://wu-22.github.io/">
+                                                    WU-22
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://byjiangjb.github.io/">
+                                                    JJB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    ALBUM
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    BOOKMARKS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-FriendLinks"
+                        >
+                            <span>
+                                FRIENDLINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-FriendLinks">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://danmoliuhen.github.io/">YEBAO</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://wu-22.github.io/">WU-22</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://byjiangjb.github.io/">JJB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                ALBUM
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                BOOKMARKS
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">vllm源码学习</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/56D9D2F8A1A04F1D59D48CAD0011E450.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Ikko</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-05-04 13:57:24</span>
+        <span class="mobile">2026-05-04 13:57:24</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-04 14:41:52</span>
+            <span class="mobile">2026-05-04 14:41:52</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>24 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="kv-cache-manager-py"><a href="#kv-cache-manager-py" class="headerlink" title="kv_cache_manager.py"></a>kv_cache_manager.py</h2><p>路径vllm&#x2F;v1&#x2F;core&#x2F;kv_cache_manager.py</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这段代码是 vLLM v1 架构中核心的显存管理层实现。</span></span><br><span class="line"><span class="comment"># 它位于调度器（Scheduler）和底层物理显存池（Block Pool）之间，</span></span><br><span class="line"><span class="comment"># 主要负责 PagedAttention 机制下的显存块分配、回收，以及 Prefix Caching（前缀缓存）功能。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 代码主要由两个类构成：</span></span><br><span class="line"><span class="comment"># 1. KVCacheBlocks：调度器与管理器之间的隔离层</span></span><br><span class="line"><span class="comment"># 2. KVCacheManager：缓存与分配的控制中枢</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KVCacheBlocks</span>:</span><br><span class="line">    <span class="comment"># 这是一个数据类，本质上是对物理显存块列表的封装。</span></span><br><span class="line">    <span class="comment"># 它的作用是隐藏 KVCacheManager 内部的数据结构，</span></span><br><span class="line">    <span class="comment"># 只向上层调度器暴露稳定接口。</span></span><br><span class="line"></span><br><span class="line">    blocks: <span class="built_in">tuple</span>[<span class="type">Sequence</span>[KVCacheBlock], ...]</span><br><span class="line">    <span class="comment"># blocks 是一个元组，支持多个 kv_cache_group。</span></span><br><span class="line">    <span class="comment"># 这么设计是为了兼容未来不同组使用不同 block_size 的架构。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__add__</span>(<span class="params">self, other: <span class="string">&quot;KVCacheBlocks&quot;</span></span>) -&gt; <span class="string">&quot;KVCacheBlocks&quot;</span>:</span><br><span class="line">        <span class="comment"># 把两个 KVCacheBlocks 对象按组拼接起来。</span></span><br><span class="line">        <span class="comment"># 这个操作常用于把新算出的块和已有块合并。</span></span><br><span class="line">        <span class="keyword">return</span> KVCacheBlocks(</span><br><span class="line">            <span class="built_in">tuple</span>(</span><br><span class="line">                <span class="built_in">list</span>(itertools.chain(blk1, blk2))</span><br><span class="line">                <span class="keyword">for</span> blk1, blk2 <span class="keyword">in</span> <span class="built_in">zip</span>(self.blocks, other.blocks)</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"><span class="meta">    @overload</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_block_ids</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        allow_none: <span class="type">Literal</span>[<span class="literal">False</span>] = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="built_in">tuple</span>[<span class="built_in">list</span>[<span class="built_in">int</span>], ...]: ...</span><br><span class="line"></span><br><span class="line"><span class="meta">    @overload</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_block_ids</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        allow_none: <span class="type">Literal</span>[<span class="literal">True</span>] = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="built_in">tuple</span>[<span class="built_in">list</span>[<span class="built_in">int</span>], ...] | <span class="literal">None</span>: ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_block_ids</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        allow_none: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="built_in">tuple</span>[<span class="built_in">list</span>[<span class="built_in">int</span>], ...] | <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># 把 KVCacheBlocks 转换成 block_id 列表，方便调度器读取。</span></span><br><span class="line">        <span class="comment"># 如果 allow_none=True 且所有组都为空，就直接返回 None。</span></span><br><span class="line">        <span class="keyword">if</span> allow_none <span class="keyword">and</span> <span class="built_in">all</span>(<span class="built_in">len</span>(group) == <span class="number">0</span> <span class="keyword">for</span> group <span class="keyword">in</span> self.blocks):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">tuple</span>([blk.block_id <span class="keyword">for</span> blk <span class="keyword">in</span> group] <span class="keyword">for</span> group <span class="keyword">in</span> self.blocks)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_unhashed_block_ids</span>(<span class="params">self</span>) -&gt; <span class="built_in">list</span>[<span class="built_in">int</span>]:</span><br><span class="line">        <span class="comment"># 返回尚未进行哈希，也就是还没有进入前缀缓存管理的块 ID。</span></span><br><span class="line">        <span class="comment"># 这里默认只支持单组场景。</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(self.blocks) == <span class="number">1</span>, <span class="string">&quot;Only one group is supported&quot;</span></span><br><span class="line">        <span class="keyword">return</span> [block.block_id <span class="keyword">for</span> block <span class="keyword">in</span> self.blocks[<span class="number">0</span>] <span class="keyword">if</span> block.block_hash <span class="keyword">is</span> <span class="literal">None</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_unhashed_block_ids_all_groups</span>(<span class="params">self</span>) -&gt; <span class="built_in">list</span>[<span class="built_in">list</span>[<span class="built_in">int</span>]]:</span><br><span class="line">        <span class="comment"># 按组返回未哈希块 ID，并跳过 padding block。</span></span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            [</span><br><span class="line">                block.block_id</span><br><span class="line">                <span class="keyword">for</span> block <span class="keyword">in</span> group</span><br><span class="line">                <span class="keyword">if</span> block.block_hash <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> <span class="keyword">not</span> block.is_null</span><br><span class="line">            ]</span><br><span class="line">            <span class="keyword">for</span> group <span class="keyword">in</span> self.blocks</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">new_empty</span>(<span class="params">self</span>) -&gt; <span class="string">&quot;KVCacheBlocks&quot;</span>:</span><br><span class="line">        <span class="comment"># 创建一个与当前组数一致、但不包含任何块的新对象。</span></span><br><span class="line">        <span class="keyword">return</span> KVCacheBlocks(<span class="built_in">tuple</span>(() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(self.blocks))))</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KVCacheManager</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        kv_cache_config: KVCacheConfig,</span></span><br><span class="line"><span class="params">        max_model_len: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">        hash_block_size: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">        max_num_batched_tokens: <span class="built_in">int</span> | <span class="literal">None</span> = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params">        enable_caching: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        use_eagle: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">        log_stats: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">        enable_kv_cache_events: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">        dcp_world_size: <span class="built_in">int</span> = <span class="number">1</span>,</span></span><br><span class="line"><span class="params">        pcp_world_size: <span class="built_in">int</span> = <span class="number">1</span>,</span></span><br><span class="line"><span class="params">        metrics_collector: KVCacheMetricsCollector | <span class="literal">None</span> = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># KVCacheManager 是管理 KV Cache 生命周期的大脑。</span></span><br><span class="line">        <span class="comment"># 它处理常规生成请求，也兼容投机解码（Speculative Decoding）、</span></span><br><span class="line">        <span class="comment"># 多模态外部缓存接入等复杂场景。</span></span><br><span class="line"></span><br><span class="line">        self.max_model_len = max_model_len</span><br><span class="line">        <span class="comment"># 如果调度器没有传入上限，就回退到 max_model_len。</span></span><br><span class="line">        <span class="keyword">if</span> max_num_batched_tokens <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            max_num_batched_tokens = max_model_len</span><br><span class="line"></span><br><span class="line">        self.enable_caching = enable_caching</span><br><span class="line">        self.use_eagle = use_eagle</span><br><span class="line">        self.log_stats = log_stats</span><br><span class="line">        self.metrics_collector = metrics_collector</span><br><span class="line"></span><br><span class="line">        <span class="comment"># prefix_cache_stats 只在开启日志时创建。</span></span><br><span class="line">        self.prefix_cache_stats = PrefixCacheStats() <span class="keyword">if</span> log_stats <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># coordinator 是真正负责底层 block pool 和 cache 组织的协作者。</span></span><br><span class="line">        self.coordinator = get_kv_cache_coordinator(</span><br><span class="line">            kv_cache_config=kv_cache_config,</span><br><span class="line">            max_model_len=self.max_model_len,</span><br><span class="line">            max_num_batched_tokens=max_num_batched_tokens,</span><br><span class="line">            use_eagle=self.use_eagle,</span><br><span class="line">            enable_caching=self.enable_caching,</span><br><span class="line">            enable_kv_cache_events=enable_kv_cache_events,</span><br><span class="line">            dcp_world_size=dcp_world_size,</span><br><span class="line">            pcp_world_size=pcp_world_size,</span><br><span class="line">            hash_block_size=hash_block_size,</span><br><span class="line">            metrics_collector=self.metrics_collector,</span><br><span class="line">        )</span><br><span class="line">        self.num_kv_cache_groups = <span class="built_in">len</span>(kv_cache_config.kv_cache_groups)</span><br><span class="line">        self.block_pool = self.coordinator.block_pool</span><br><span class="line">        self.kv_cache_config = kv_cache_config</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提前构造一个空 KVCacheBlocks，避免频繁创建空对象带来 GC 开销。</span></span><br><span class="line">        self.empty_kv_cache_blocks = KVCacheBlocks(</span><br><span class="line">            <span class="built_in">tuple</span>(() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.num_kv_cache_groups))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">usage</span>(<span class="params">self</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">        <span class="comment"># 返回当前 KV cache 使用率。</span></span><br><span class="line">        <span class="keyword">return</span> self.block_pool.get_usage()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">make_prefix_cache_stats</span>(<span class="params">self</span>) -&gt; PrefixCacheStats | <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># 读取并重置 prefix cache 的统计信息。</span></span><br><span class="line">        <span class="comment"># 如果没有开启 log_stats，就直接返回 None。</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.log_stats:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        stats = self.prefix_cache_stats</span><br><span class="line">        self.prefix_cache_stats = PrefixCacheStats()</span><br><span class="line">        <span class="keyword">return</span> stats</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_computed_blocks</span>(<span class="params">self, request: Request</span>) -&gt; <span class="built_in">tuple</span>[KVCacheBlocks, <span class="built_in">int</span>]:</span><br><span class="line">        <span class="comment"># 核心机制一：前缀缓存匹配。</span></span><br><span class="line">        <span class="comment"># 当启用了 enable_caching 时，这个方法会在处理新请求前被调用。</span></span><br><span class="line">        <span class="comment"># 它会根据 request.block_hashes 去底层 coordinator 查找是否已经存在</span></span><br><span class="line">        <span class="comment"># 可复用的 KV Cache。</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 典型场景是 System Prompt 复用或多轮对话。</span></span><br><span class="line">        <span class="comment"># 如果命中，就直接返回已经缓存好的物理块列表，以及命中的 token 数量。</span></span><br><span class="line">        <span class="comment"># 这样可以跳过对应前缀的 Attention 计算，从而显著降低首字延迟（TTFT）。</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.enable_caching <span class="keyword">or</span> request.skip_reading_prefix_cache:</span><br><span class="line">            <span class="keyword">return</span> self.empty_kv_cache_blocks, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        max_cache_hit_length = request.num_tokens - <span class="number">1</span></span><br><span class="line">        computed_blocks, num_new_computed_tokens = (</span><br><span class="line">            self.coordinator.find_longest_cache_hit(</span><br><span class="line">                request.block_hashes, max_cache_hit_length</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.log_stats:</span><br><span class="line">            <span class="keyword">assert</span> self.prefix_cache_stats <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">            self.prefix_cache_stats.record(</span><br><span class="line">                num_tokens=request.num_tokens,</span><br><span class="line">                num_hits=num_new_computed_tokens,</span><br><span class="line">                preempted=request.num_preemptions &gt; <span class="number">0</span>,</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.create_kv_cache_blocks(computed_blocks), num_new_computed_tokens</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">allocate_slots</span>(<span class="params"></span></span><br><span class="line"><span class="params">    self,</span></span><br><span class="line"><span class="params">    request: Request,</span></span><br><span class="line"><span class="params">    num_new_tokens: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">    num_new_computed_tokens: <span class="built_in">int</span> = <span class="number">0</span>,</span></span><br><span class="line"><span class="params">    new_computed_blocks: KVCacheBlocks | <span class="literal">None</span> = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params">    num_lookahead_tokens: <span class="built_in">int</span> = <span class="number">0</span>,</span></span><br><span class="line"><span class="params">    num_external_computed_tokens: <span class="built_in">int</span> = <span class="number">0</span>,</span></span><br><span class="line"><span class="params">    delay_cache_blocks: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    num_encoder_tokens: <span class="built_in">int</span> = <span class="number">0</span>,</span></span><br><span class="line"><span class="params">    full_sequence_must_fit: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params"></span>) -&gt; KVCacheBlocks | <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 核心机制二：复杂的槽位分配。</span></span><br><span class="line">    <span class="comment"># 这是整个类里最核心、也最复杂的函数。</span></span><br><span class="line">    <span class="comment"># 它负责为一个请求在当前推理步申请物理显存块。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 代码中把请求在显存中的逻辑布局划分得很细：</span></span><br><span class="line">    <span class="comment"># 已经计算或缓存的部分：</span></span><br><span class="line">    <span class="comment">#   comp      = 当前请求之前已经计算完的 token</span></span><br><span class="line">    <span class="comment">#   new_comp  = 刚刚通过前缀缓存匹配到的 token</span></span><br><span class="line">    <span class="comment">#   ext_comp  = 由外部组件（比如多模态 connector）计算并传入的 token</span></span><br><span class="line">    <span class="comment"># 需要新分配空间的部分：</span></span><br><span class="line">    <span class="comment">#   new       = 当前步骤即将输入或生成的新 token</span></span><br><span class="line">    <span class="comment">#   lookahead = 为投机解码预留的额外槽位，用来存放多个未来草稿 token</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 分配流程可以概括为四步：</span></span><br><span class="line">    <span class="comment"># 1. 容量预检：提前判断 full sequence 是否能放下，避免请求中途 OOM。</span></span><br><span class="line">    <span class="comment"># 2. 清理废弃块：比如滑动窗口外的旧 token。</span></span><br><span class="line">    <span class="comment"># 3. 物理分配：向 block pool 申请真正的物理块。</span></span><br><span class="line">    <span class="comment"># 4. 状态固化：把已经确认的 token 写入前缀缓存池，供后续请求复用。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 当加载外部 KV 数据时，可能没有 new tokens，但仍然需要分配槽位。</span></span><br><span class="line">    <span class="keyword">if</span> num_new_tokens == <span class="number">0</span> <span class="keyword">and</span> num_external_computed_tokens == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(</span><br><span class="line">            <span class="string">&quot;num_new_tokens must be greater than 0 when there are no external computed tokens&quot;</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># new_computed_blocks 为空时，统一用空对象，避免后面写分支判断。</span></span><br><span class="line">    <span class="keyword">if</span> new_computed_blocks <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        new_computed_block_list = new_computed_blocks.blocks</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        new_computed_block_list = self.empty_kv_cache_blocks.blocks</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 统计当前已经计算完成的 token 数量。</span></span><br><span class="line">    num_local_computed_tokens = request.num_computed_tokens + num_new_computed_tokens</span><br><span class="line">    total_computed_tokens = <span class="built_in">min</span>(</span><br><span class="line">        num_local_computed_tokens + num_external_computed_tokens,</span><br><span class="line">        self.max_model_len,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># full_sequence_must_fit 表示：必须提前确认整段序列都能放下。</span></span><br><span class="line">    <span class="keyword">if</span> full_sequence_must_fit:</span><br><span class="line">        full_num_tokens = <span class="built_in">min</span>(request.num_tokens, self.max_model_len)</span><br><span class="line"></span><br><span class="line">        num_blocks_to_allocate = self.coordinator.get_num_blocks_to_allocate(</span><br><span class="line">            request_id=request.request_id,</span><br><span class="line">            num_tokens=full_num_tokens,</span><br><span class="line">            new_computed_blocks=new_computed_block_list,</span><br><span class="line">            num_encoder_tokens=num_encoder_tokens,</span><br><span class="line">            total_computed_tokens=total_computed_tokens,</span><br><span class="line">            num_tokens_main_model=full_num_tokens,</span><br><span class="line">            apply_admission_cap=<span class="literal">True</span>,</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> num_blocks_to_allocate &gt; self.block_pool.get_num_free_blocks():</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 新请求本轮主模型总 token 数。</span></span><br><span class="line">    num_tokens_main_model = total_computed_tokens + num_new_tokens</span><br><span class="line">    <span class="comment"># 需要预留的总槽位数，包含 lookahead。</span></span><br><span class="line">    num_tokens_need_slot = <span class="built_in">min</span>(</span><br><span class="line">        num_tokens_main_model + num_lookahead_tokens, self.max_model_len</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 先释放 attention 不再需要的旧块，比如滑动窗口外的 token。</span></span><br><span class="line">    self.coordinator.remove_skipped_blocks(request.request_id, total_computed_tokens)</span><br><span class="line"></span><br><span class="line">    num_blocks_to_allocate = self.coordinator.get_num_blocks_to_allocate(</span><br><span class="line">        request_id=request.request_id,</span><br><span class="line">        num_tokens=num_tokens_need_slot,</span><br><span class="line">        new_computed_blocks=new_computed_block_list,</span><br><span class="line">        num_encoder_tokens=num_encoder_tokens,</span><br><span class="line">        total_computed_tokens=num_local_computed_tokens + num_external_computed_tokens,</span><br><span class="line">        num_tokens_main_model=num_tokens_main_model,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> num_blocks_to_allocate &gt; self.block_pool.get_num_free_blocks():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果有新算出的前缀块或者外部块，先把它们挂到请求上，避免后续分配失败。</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">        new_computed_block_list <span class="keyword">is</span> <span class="keyword">not</span> self.empty_kv_cache_blocks.blocks</span><br><span class="line">        <span class="keyword">or</span> num_external_computed_tokens &gt; <span class="number">0</span></span><br><span class="line">    ):</span><br><span class="line">        self.coordinator.allocate_new_computed_blocks(</span><br><span class="line">            request_id=request.request_id,</span><br><span class="line">            new_computed_blocks=new_computed_block_list,</span><br><span class="line">            num_local_computed_tokens=num_local_computed_tokens,</span><br><span class="line">            num_external_computed_tokens=num_external_computed_tokens,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 真正分配当前步需要的新块。</span></span><br><span class="line">    new_blocks = self.coordinator.allocate_new_blocks(</span><br><span class="line">        request.request_id,</span><br><span class="line">        num_tokens_need_slot,</span><br><span class="line">        num_tokens_main_model,</span><br><span class="line">        num_encoder_tokens,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果禁用了缓存，或者这是延迟缓存路径，就只返回新块，不写回 prefix cache。</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.enable_caching <span class="keyword">or</span> delay_cache_blocks:</span><br><span class="line">        <span class="keyword">return</span> self.create_kv_cache_blocks(new_blocks)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 只缓存最终确认的 token，避免把可能被 reject 的 draft token 写进去。</span></span><br><span class="line">    num_tokens_to_cache = <span class="built_in">min</span>(</span><br><span class="line">        total_computed_tokens + num_new_tokens,</span><br><span class="line">        request.num_tokens,</span><br><span class="line">    )</span><br><span class="line">    self.coordinator.cache_blocks(request, num_tokens_to_cache)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> self.create_kv_cache_blocks(new_blocks)</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">free</span>(<span class="params">self, request: Request</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 核心机制三：资源回收与维护。</span></span><br><span class="line">    <span class="comment"># 当请求生成完毕或被中止时，将其持有的所有物理块交还给底层池。</span></span><br><span class="line">    self.coordinator.free(request.request_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">remove_skipped_blocks</span>(<span class="params">self, request_id: <span class="built_in">str</span>, total_computed_tokens: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 移除 attention 计算中不再需要的块，并用 null block 替换被删除位置。</span></span><br><span class="line">    self.coordinator.remove_skipped_blocks(request_id, total_computed_tokens)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evict_blocks</span>(<span class="params">self, block_ids: <span class="built_in">set</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 从前缀缓存中驱逐指定块，通常用于缓存池满了之后执行 LRU 式淘汰。</span></span><br><span class="line">    self.block_pool.evict_blocks(block_ids)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reset_prefix_cache</span>(<span class="params">self</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="comment"># 重置 prefix cache。训练权重更新或基准测试时会用到。</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.block_pool.reset_prefix_cache():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> self.log_stats:</span><br><span class="line">        <span class="keyword">assert</span> self.prefix_cache_stats <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">        self.prefix_cache_stats.reset = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_num_common_prefix_blocks</span>(<span class="params">self, running_request_id: <span class="built_in">str</span></span>) -&gt; <span class="built_in">list</span>[<span class="built_in">int</span>]:</span><br><span class="line">    <span class="comment"># 统计当前正在运行的所有请求共享了多少个前缀块。</span></span><br><span class="line">    <span class="comment"># 这个指标对于调度策略优化和缓存效率评估非常关键。</span></span><br><span class="line">    <span class="keyword">return</span> self.coordinator.get_num_common_prefix_blocks(running_request_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">take_events</span>(<span class="params">self</span>) -&gt; <span class="built_in">list</span>[KVCacheEvent]:</span><br><span class="line">    <span class="comment"># 取出 block pool 中积累的 KV cache 事件。</span></span><br><span class="line">    <span class="keyword">return</span> self.block_pool.take_events()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_blocks</span>(<span class="params">self, request_id: <span class="built_in">str</span></span>) -&gt; KVCacheBlocks:</span><br><span class="line">    <span class="comment"># 获取某个请求当前持有的 blocks。</span></span><br><span class="line">    <span class="keyword">return</span> self.create_kv_cache_blocks(self.coordinator.get_blocks(request_id))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_block_ids</span>(<span class="params">self, request_id: <span class="built_in">str</span></span>) -&gt; <span class="built_in">tuple</span>[<span class="built_in">list</span>[<span class="built_in">int</span>], ...]:</span><br><span class="line">    <span class="comment"># 获取某个请求的 block_id 列表。</span></span><br><span class="line">    <span class="keyword">return</span> self.get_blocks(request_id).get_block_ids()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cache_blocks</span>(<span class="params">self, request: Request, num_computed_tokens: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 把某个请求的 blocks 写入 prefix cache。</span></span><br><span class="line">    <span class="keyword">if</span> self.enable_caching:</span><br><span class="line">        self.coordinator.cache_blocks(request, num_computed_tokens)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_kv_cache_blocks</span>(<span class="params">self, blocks: <span class="built_in">tuple</span>[<span class="built_in">list</span>[KVCacheBlock], ...]</span>) -&gt; KVCacheBlocks:</span><br><span class="line">    <span class="comment"># 只有在 blocks 非空时才创建新对象，否则直接复用 empty_kv_cache_blocks。</span></span><br><span class="line">    <span class="keyword">return</span> KVCacheBlocks(blocks) <span class="keyword">if</span> <span class="built_in">any</span>(blocks) <span class="keyword">else</span> self.empty_kv_cache_blocks</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">take_new_block_ids</span>(<span class="params">self</span>) -&gt; <span class="built_in">list</span>[<span class="built_in">int</span>]:</span><br><span class="line">    <span class="comment"># 取出新分配的 attention block IDs，供后续清零使用。</span></span><br><span class="line">    ids: <span class="built_in">list</span>[<span class="built_in">int</span>] = []</span><br><span class="line">    <span class="keyword">for</span> mgr <span class="keyword">in</span> self.coordinator.single_type_managers:</span><br><span class="line">        ids.extend(mgr.take_new_block_ids())</span><br><span class="line">    <span class="keyword">return</span> ids</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">new_step_starts</span>(<span class="params">self</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="comment"># 当前一步开始时调用，用来推进 coordinator 的内部状态。</span></span><br><span class="line">    self.coordinator.new_step_starts()</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 总结：</span></span><br><span class="line"><span class="comment"># 这段代码展示了 vLLM 如何把“理论上的 PagedAttention”落地成“工业级的显存调度系统”。</span></span><br><span class="line"><span class="comment"># 它通过哈希匹配实现跨请求的内存共享（Prefix Caching），并通过非常细致的槽位类型划分，</span></span><br><span class="line"><span class="comment"># 支持了当前大模型推理领域中的多种前沿加速技术。</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="文末问答"><a href="#文末问答" class="headerlink" title="文末问答"></a>文末问答</h2><ol>
+<li><p>block 是什么时候分配的？</p>
+<p>新请求进入、prefill&#x2F;decode 推进时，如果已有 block 不够，就会分配新的 block。</p>
+</li>
+<li><p>logical token 怎么映射 physical block？</p>
+<p>通过 block table 来映射：逻辑 token 先定位到逻辑块，再由 block table 找到对应的物理块 ID。</p>
+</li>
+<li><p>request 结束后怎么回收？</p>
+<p>block table 里的 physical blocks 会被归还给 block pool &#x2F; allocator，随后重新进入空闲池。</p>
+</li>
+<li><p>attention kernel 怎么读 KV？</p>
+<p>kernel 不要求 KV 连续，而是根据 block table 找到对应的 physical block，再读取该 block 内 offset 位置的 K&#x2F;V。<br> Returns:<br>     A tuple containing:<br>         - A list of blocks that are computed for the request.<br>         - The number of computed tokens.<br> “””<br> # We skip finding the prefix cache hit when prefix caching is<br> # disabled or the request is marked as skipping kv cache read<br> # (which happens when the request requires prompt logprobs<br> # or calls a pooling model with all pooling).<br> if not self.enable_caching or request.skip_reading_prefix_cache:<br>     return self.empty_kv_cache_blocks, 0<br><br> # NOTE: When all tokens hit the cache, we must recompute the last token<br> # to obtain logits. Thus, set max_cache_hit_length to prompt_length - 1.<br> # This can trigger recomputation of an entire block, rather than just<br> # the single last token, because allocate_slots() requires<br> # num_computed_tokens to be block-size aligned. Removing this limitation<br> # could slightly improve performance in the future.<br> max_cache_hit_length &#x3D; request.num_tokens - 1<br> computed_blocks, num_new_computed_tokens &#x3D; (<br>     self.coordinator.find_longest_cache_hit(<br>         request.block_hashes, max_cache_hit_length<br>     )<br> )<br><br> if self.log_stats:<br>     assert self.prefix_cache_stats is not None<br>     self.prefix_cache_stats.record(<br>         num_tokens&#x3D;request.num_tokens,<br>         num_hits&#x3D;num_new_computed_tokens,<br>         preempted&#x3D;request.num_preemptions &gt; 0,<br>     )<br><br> return self.create_kv_cache_blocks(computed_blocks), num_new_computed_tokens</p>
+</li>
+</ol>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br></pre></td><td class="code"><pre><span class="line">```python</span><br><span class="line">    def allocate_slots(</span><br><span class="line">        self,</span><br><span class="line">        request: Request,</span><br><span class="line">        num_new_tokens: int,</span><br><span class="line">        num_new_computed_tokens: int = 0,</span><br><span class="line">        new_computed_blocks: KVCacheBlocks | None = None,</span><br><span class="line">        num_lookahead_tokens: int = 0,</span><br><span class="line">        num_external_computed_tokens: int = 0,</span><br><span class="line">        delay_cache_blocks: bool = False,</span><br><span class="line">        num_encoder_tokens: int = 0,</span><br><span class="line">        full_sequence_must_fit: bool = False,</span><br><span class="line">    ) -&gt; KVCacheBlocks | None:</span><br><span class="line">        # &quot;&quot;&quot;Add slots for a request with new tokens to append.</span><br><span class="line"></span><br><span class="line">        # Args:</span><br><span class="line">        #     request: The request to allocate slots.</span><br><span class="line">        #     num_new_tokens: The number of new tokens to be allocated and computed.</span><br><span class="line">        #     num_new_computed_tokens: The number of new computed tokens just</span><br><span class="line">        #         hitting the prefix caching, excluding external tokens.</span><br><span class="line">        #     new_computed_blocks: The cached blocks for the above new computed</span><br><span class="line">        #         tokens, grouped as a tuple by kv cache groups.</span><br><span class="line">        #     num_lookahead_tokens: The number of speculative tokens to allocate.</span><br><span class="line">        #         This is used by spec decode proposers with kv-cache such</span><br><span class="line">        #         as eagle.</span><br><span class="line">        #     num_external_computed_tokens: The number of tokens that their</span><br><span class="line">        #         KV caches are not cached by vLLM but cached by the connector.</span><br><span class="line">        #     delay_cache_blocks: Whether to skip caching the blocks. This is</span><br><span class="line">        #         used by P/D when allocating blocks used in a KV transfer</span><br><span class="line">        #         which will complete in a future step.</span><br><span class="line">        #     num_encoder_tokens: The number of encoder tokens to allocate for</span><br><span class="line">        #         cross-attention in encoder-decoder models(e.g., Whisper).</span><br><span class="line">        #         For decoder-only models, this should be 0.</span><br><span class="line">        #     full_sequence_must_fit: Only allocate blocks if the KV cache has enough</span><br><span class="line">        #         free blocks to hold the full sequence, accounting for prefix cache hits</span><br><span class="line">        #         and sliding window. Used as an admission gate to prevent over-admitting</span><br><span class="line">        #         requests when chunked prefill would otherwise only check the first chunk</span><br><span class="line"></span><br><span class="line">        # Blocks layout:</span><br><span class="line">        # ```</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        # | &lt; comp &gt; | &lt; new_comp &gt; | &lt; ext_comp &gt;  | &lt; new &gt;  | &lt; lookahead &gt; |</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        #                                           |   &lt; to be computed &gt;     |</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        #                           |            &lt; to be allocated &gt;           |</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        #                           | &lt; to be cached (roughly, |</span><br><span class="line">        #                           | details below)&gt;          |</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        # | Prefix-cached tokens from either vLLM   |</span><br><span class="line">        # | or connector. Can be safely removed if  |</span><br><span class="line">        # | they are outside sliding window.        |</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        # |   &lt; cached by vLLM &gt;    | not cached by |</span><br><span class="line">        #                           | vLLM, but     |</span><br><span class="line">        # | ref_cnt  | ref_cnt not  | cached by     |</span><br><span class="line">        # | increased| increased yet| connector     |</span><br><span class="line">        # ----------------------------------------------------------------------</span><br><span class="line">        # ```</span><br><span class="line"></span><br><span class="line">        # Abbrivations:</span><br><span class="line"></span><br><span class="line">        # ```</span><br><span class="line">        # comp      = request.num_computed_tokens</span><br><span class="line">        # new_comp  = num_new_computed_tokens</span><br><span class="line">        #           = len(new_computed_blocks) * block_size</span><br><span class="line">        # ext_comp  = num_external_computed_tokens, cached by the connector</span><br><span class="line">        # new       = num_new_tokens, including unverified draft tokens</span><br><span class="line">        # lookahead = num_lookahead_tokens</span><br><span class="line">        # ```</span><br><span class="line"></span><br><span class="line">        # NOTE: for new tokens which include both verified and unverified draft</span><br><span class="line">        # tokens, we only cache the verified tokens (by capping the number at</span><br><span class="line">        # `request.num_tokens`).</span><br><span class="line"></span><br><span class="line">        # The allocation has three stages:</span><br><span class="line">        # - Free unnecessary blocks in `comp` and check</span><br><span class="line">        #    if we have sufficient free blocks (return None if not).</span><br><span class="line">        # - Handle prefix tokens (`comp + new_comp + ext_comp`):</span><br><span class="line">        #     - Free unnecessary blocks (e.g. outside sliding window)</span><br><span class="line">        #     - Allocate new blocks for `ext_comp` tokens inside</span><br><span class="line">        #       sliding window</span><br><span class="line">        # - Allocate new blocks for tokens to be computed (`new + lookahead`)</span><br><span class="line"></span><br><span class="line">        # Returns:</span><br><span class="line">        #     A list of new allocated blocks.</span><br><span class="line">        # &quot;&quot;&quot;</span><br><span class="line">        # # When loading KV data asynchronously, we may have zero new tokens to</span><br><span class="line">        # # compute while still allocating slots for externally computed tokens.</span><br><span class="line">        # if num_new_tokens == 0 and num_external_computed_tokens == 0:</span><br><span class="line">        #     raise ValueError(</span><br><span class="line">        #         &quot;num_new_tokens must be greater than 0 when there are no &quot;</span><br><span class="line">        #         &quot;external computed tokens&quot;</span><br><span class="line">        #     )</span><br><span class="line"></span><br><span class="line">        # if new_computed_blocks is not None:</span><br><span class="line">        #     new_computed_block_list = new_computed_blocks.blocks</span><br><span class="line">        # else:</span><br><span class="line">        #     new_computed_block_list = self.empty_kv_cache_blocks.blocks</span><br><span class="line"></span><br><span class="line">        # # The number of computed tokens is the number of computed tokens plus</span><br><span class="line">        # # the new prefix caching hits</span><br><span class="line">        # num_local_computed_tokens = (</span><br><span class="line">        #     request.num_computed_tokens + num_new_computed_tokens</span><br><span class="line">        # )</span><br><span class="line">        # total_computed_tokens = min(</span><br><span class="line">        #     num_local_computed_tokens + num_external_computed_tokens,</span><br><span class="line">        #     self.max_model_len,</span><br><span class="line">        # )</span><br><span class="line"></span><br><span class="line">        # if full_sequence_must_fit:</span><br><span class="line">        #     # First check and fail if the full request sequence won&#x27;t fit.</span><br><span class="line">        #     full_num_tokens = min(request.num_tokens, self.max_model_len)</span><br><span class="line"></span><br><span class="line">        #     num_blocks_to_allocate = self.coordinator.get_num_blocks_to_allocate(</span><br><span class="line">        #         request_id=request.request_id,</span><br><span class="line">        #         num_tokens=full_num_tokens,</span><br><span class="line">        #         new_computed_blocks=new_computed_block_list,</span><br><span class="line">        #         num_encoder_tokens=num_encoder_tokens,</span><br><span class="line">        #         total_computed_tokens=total_computed_tokens,</span><br><span class="line">        #         num_tokens_main_model=full_num_tokens,</span><br><span class="line">        #         apply_admission_cap=True,</span><br><span class="line">        #     )</span><br><span class="line">        #     if num_blocks_to_allocate &gt; self.block_pool.get_num_free_blocks():</span><br><span class="line">        #         return None</span><br><span class="line"></span><br><span class="line">        # num_tokens_main_model = total_computed_tokens + num_new_tokens</span><br><span class="line">        # num_tokens_need_slot = min(</span><br><span class="line">        #     num_tokens_main_model + num_lookahead_tokens, self.max_model_len</span><br><span class="line">        # )</span><br><span class="line"></span><br><span class="line">        # # Free the blocks that are skipped during the attention computation</span><br><span class="line">        # # (e.g., tokens outside the sliding window).</span><br><span class="line">        # # We can do this even if we cannot schedule this request due to</span><br><span class="line">        # # insufficient free blocks.</span><br><span class="line">        # # Should call this function before allocating new blocks to reduce</span><br><span class="line">        # # the number of evicted blocks.</span><br><span class="line">        self.coordinator.remove_skipped_blocks(</span><br><span class="line">            request.request_id, total_computed_tokens</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        num_blocks_to_allocate = self.coordinator.get_num_blocks_to_allocate(</span><br><span class="line">            request_id=request.request_id,</span><br><span class="line">            num_tokens=num_tokens_need_slot,</span><br><span class="line">            new_computed_blocks=new_computed_block_list,</span><br><span class="line">            num_encoder_tokens=num_encoder_tokens,</span><br><span class="line">            total_computed_tokens=num_local_computed_tokens</span><br><span class="line">            + num_external_computed_tokens,</span><br><span class="line">            num_tokens_main_model=num_tokens_main_model,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        if num_blocks_to_allocate &gt; self.block_pool.get_num_free_blocks():</span><br><span class="line">            # Cannot allocate new blocks</span><br><span class="line">            return None</span><br><span class="line"></span><br><span class="line">        if (</span><br><span class="line">            new_computed_block_list is not self.empty_kv_cache_blocks.blocks</span><br><span class="line">            or num_external_computed_tokens &gt; 0</span><br><span class="line">        ):</span><br><span class="line">            # Append the new computed blocks to the request blocks until now to</span><br><span class="line">            # avoid the case where the new blocks cannot be allocated.</span><br><span class="line">            self.coordinator.allocate_new_computed_blocks(</span><br><span class="line">                request_id=request.request_id,</span><br><span class="line">                new_computed_blocks=new_computed_block_list,</span><br><span class="line">                num_local_computed_tokens=num_local_computed_tokens,</span><br><span class="line">                num_external_computed_tokens=num_external_computed_tokens,</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        new_blocks = self.coordinator.allocate_new_blocks(</span><br><span class="line">            request.request_id,</span><br><span class="line">            num_tokens_need_slot,</span><br><span class="line">            num_tokens_main_model,</span><br><span class="line">            num_encoder_tokens,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        # P/D: delay caching blocks if we have to recv from</span><br><span class="line">        # remote. Update state for locally cached blocks.</span><br><span class="line">        if not self.enable_caching or delay_cache_blocks:</span><br><span class="line">            return self.create_kv_cache_blocks(new_blocks)</span><br><span class="line"></span><br><span class="line">        # NOTE(woosuk): We want to commit (cache) up to num_local_computed_tokens</span><br><span class="line">        # + num_external_computed_tokens + num_new_tokens, but must exclude</span><br><span class="line">        # &quot;non-committable&quot; tokens (e.g., draft tokens that could be rejected).</span><br><span class="line">        # Therefore, we cap the number at `request.num_tokens`, ensuring only</span><br><span class="line">        # &quot;finalized&quot; tokens are cached.</span><br><span class="line">        num_tokens_to_cache = min(</span><br><span class="line">            total_computed_tokens + num_new_tokens,</span><br><span class="line">            request.num_tokens,</span><br><span class="line">        )</span><br><span class="line">        self.coordinator.cache_blocks(request, num_tokens_to_cache)</span><br><span class="line"></span><br><span class="line">        return self.create_kv_cache_blocks(new_blocks)</span><br><span class="line"></span><br><span class="line">    def free(self, request: Request) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;Free the blocks allocated for the request.</span><br><span class="line">        We free the blocks in reverse order so that the tail blocks are evicted</span><br><span class="line">        first when caching is enabled.</span><br><span class="line"></span><br><span class="line">        Args:</span><br><span class="line">            request: The request to free the blocks.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.coordinator.free(request.request_id)</span><br><span class="line"></span><br><span class="line">    def remove_skipped_blocks(</span><br><span class="line">        self, request_id: str, total_computed_tokens: int</span><br><span class="line">    ) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;Remove the blocks that are no longer needed from `blocks` and replace</span><br><span class="line">        the removed blocks with null_block.</span><br><span class="line"></span><br><span class="line">        Args:</span><br><span class="line">            request_id: The request ID.</span><br><span class="line">            total_computed_tokens: The total number of computed tokens, including</span><br><span class="line">                local computed tokens and external computed tokens.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.coordinator.remove_skipped_blocks(request_id, total_computed_tokens)</span><br><span class="line"></span><br><span class="line">    def evict_blocks(self, block_ids: set[int]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;evict blocks from the prefix cache by their block IDs.</span><br><span class="line"></span><br><span class="line">        Args:</span><br><span class="line">            block_ids: Set of block IDs to evict from cache.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.block_pool.evict_blocks(block_ids)</span><br><span class="line"></span><br><span class="line">    def reset_prefix_cache(self) -&gt; bool:</span><br><span class="line">        &quot;&quot;&quot;Reset prefix cache. This function may be used in RLHF</span><br><span class="line">        flows to invalidate prefix caching after the weights are updated,</span><br><span class="line">        or used for resetting prefix caching status for benchmarking.</span><br><span class="line"></span><br><span class="line">        Returns:</span><br><span class="line">            bool: True if the prefix cache is successfully reset,</span><br><span class="line">            False otherwise.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if not self.block_pool.reset_prefix_cache():</span><br><span class="line">            return False</span><br><span class="line">        if self.log_stats:</span><br><span class="line">            assert self.prefix_cache_stats is not None</span><br><span class="line">            self.prefix_cache_stats.reset = True</span><br><span class="line">        return True</span><br><span class="line"></span><br><span class="line">    def get_num_common_prefix_blocks(self, running_request_id: str) -&gt; list[int]:</span><br><span class="line">        &quot;&quot;&quot;Calculate the number of common prefix blocks for each kv cache group.</span><br><span class="line"></span><br><span class="line">        The function selects a running request and iterates through its blocks.</span><br><span class="line">        A block is considered a common prefix block if ALL requests with</span><br><span class="line">        allocated KV cache share it (i.e., ref_cnt equals the number of entries</span><br><span class="line">        in req_to_blocks).</span><br><span class="line"></span><br><span class="line">        NOTE(woosuk): The number of requests with allocated KV cache is **greater</span><br><span class="line">        than or equal to** the number of requests scheduled in the current step.</span><br><span class="line">        This is because having allocated KV cache only indicates that:</span><br><span class="line">        1. The request has not yet finished, and</span><br><span class="line">        2. The request holds its blocks unfreed.</span><br><span class="line"></span><br><span class="line">        While all scheduled requests must have allocated KV cache, the inverse</span><br><span class="line">        is not necessarily true. There may be requests with allocated KV cache</span><br><span class="line">        that are not scheduled in the current step.</span><br><span class="line"></span><br><span class="line">        This can result in an edge case where the number of common prefix blocks</span><br><span class="line">        is 0, even though all scheduled requests share a common prefix. This</span><br><span class="line">        occurs because there may be unscheduled requests that do not share the</span><br><span class="line">        common prefix. Currently, this case cannot be easily detected, so the</span><br><span class="line">        function returns 0 in such cases.</span><br><span class="line"></span><br><span class="line">        Args:</span><br><span class="line">            running_request_id: The request ID of any running request, used to</span><br><span class="line">                identify the common prefix blocks.</span><br><span class="line"></span><br><span class="line">        Returns:</span><br><span class="line">            list[int]: The number of common prefix blocks for each kv cache</span><br><span class="line">            group.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return self.coordinator.get_num_common_prefix_blocks(running_request_id)</span><br><span class="line"></span><br><span class="line">    def take_events(self) -&gt; list[KVCacheEvent]:</span><br><span class="line">        &quot;&quot;&quot;Take the KV cache events from the block pool.</span><br><span class="line"></span><br><span class="line">        Returns:</span><br><span class="line">            A list of KV cache events.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return self.block_pool.take_events()</span><br><span class="line"></span><br><span class="line">    def get_blocks(self, request_id: str) -&gt; KVCacheBlocks:</span><br><span class="line">        &quot;&quot;&quot;Get the blocks of a request.&quot;&quot;&quot;</span><br><span class="line">        return self.create_kv_cache_blocks(self.coordinator.get_blocks(request_id))</span><br><span class="line"></span><br><span class="line">    def get_block_ids(self, request_id: str) -&gt; tuple[list[int], ...]:</span><br><span class="line">        &quot;&quot;&quot;Get the block ids of a request.&quot;&quot;&quot;</span><br><span class="line">        return self.get_blocks(request_id).get_block_ids()</span><br><span class="line"></span><br><span class="line">    def cache_blocks(self, request: Request, num_computed_tokens: int) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;Cache the blocks for the request, if enabled.</span><br><span class="line"></span><br><span class="line">        Args:</span><br><span class="line">            request: The request to cache the blocks.</span><br><span class="line">            num_computed_tokens: The number of computed tokens, including tokens</span><br><span class="line">                that are already cached and tokens to be cached.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if self.enable_caching:</span><br><span class="line">            self.coordinator.cache_blocks(request, num_computed_tokens)</span><br><span class="line"></span><br><span class="line">    def create_kv_cache_blocks(</span><br><span class="line">        self, blocks: tuple[list[KVCacheBlock], ...]</span><br><span class="line">    ) -&gt; KVCacheBlocks:</span><br><span class="line">        # Only create new KVCacheBlocks for non-empty blocks</span><br><span class="line">        return KVCacheBlocks(blocks) if any(blocks) else self.empty_kv_cache_blocks</span><br><span class="line"></span><br><span class="line">    def take_new_block_ids(self) -&gt; list[int]:</span><br><span class="line">        &quot;&quot;&quot;Drain and return new attention block IDs for zeroing.&quot;&quot;&quot;</span><br><span class="line">        ids: list[int] = []</span><br><span class="line">        for mgr in self.coordinator.single_type_managers:</span><br><span class="line">            ids.extend(mgr.take_new_block_ids())</span><br><span class="line">        return ids</span><br><span class="line"></span><br><span class="line">    def new_step_starts(self) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;Called when a new step is started.&quot;&quot;&quot;</span><br><span class="line">        self.coordinator.new_step_starts()</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><p>这段代码是 vLLM v1 架构中核心的显存管理层实现。它位于调度器（Scheduler）和底层物理显存池（Block Pool）之间，主要负责 PagedAttention 机制下的显存块分配、回收，以及 Prefix Caching（前缀缓存）功能。</p>
+<p>代码主要由两个类构成，下面按模块拆解。</p>
+<h4 id="1-KVCacheBlocks：调度器与管理器的隔离层"><a href="#1-KVCacheBlocks：调度器与管理器的隔离层" class="headerlink" title="1. KVCacheBlocks：调度器与管理器的隔离层"></a>1. KVCacheBlocks：调度器与管理器的隔离层</h4><p>这是一个数据类，本质上是对物理显存块列表的封装，用来把 <code>KVCacheManager</code> 内部的数据结构隐藏起来，只向上层调度器暴露稳定接口。</p>
+<ul>
+<li>设计目的：作为 Scheduler 的返回对象，避免调度器直接接触内部 block pool 的复杂结构。</li>
+<li>多组支持：<code>blocks</code> 是一个元组，支持多个 <code>kv_cache_group</code>。这样可以兼容未来不同组采用不同 <code>block_size</code> 的架构。</li>
+<li>核心功能：<ul>
+<li><code>get_block_ids</code>：把对象转换成物理块 ID 列表，方便调度器使用。</li>
+<li><code>get_unhashed_block_ids</code>：返回尚未进行哈希、也就是还没有进入前缀缓存管理的块 ID。</li>
+<li><code>get_unhashed_block_ids_all_groups</code>：按组返回未哈希块 ID，并跳过 padding block。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-KVCacheManager：缓存与分配的控制中枢"><a href="#2-KVCacheManager：缓存与分配的控制中枢" class="headerlink" title="2. KVCacheManager：缓存与分配的控制中枢"></a>2. KVCacheManager：缓存与分配的控制中枢</h4><p>这是管理 KV Cache 生命周期的大脑。它不仅处理常规的生成请求，还兼容投机解码（Speculative Decoding）、多模态外部缓存接入等复杂场景。</p>
+<h4 id="3-核心机制一：前缀缓存匹配-get-computed-blocks"><a href="#3-核心机制一：前缀缓存匹配-get-computed-blocks" class="headerlink" title="3. 核心机制一：前缀缓存匹配 get_computed_blocks"></a>3. 核心机制一：前缀缓存匹配 <code>get_computed_blocks</code></h4><p>当系统启用了 <code>enable_caching</code> 时，这个方法会在处理新请求前被调用。</p>
+<ul>
+<li>它会根据请求的 <code>block_hashes</code>，去底层 coordinator 里查找是否已经存在可复用的 KV Cache。</li>
+<li>典型场景是 System Prompt 复用或多轮对话。如果命中，就直接返回已经缓存好的物理块列表，以及命中的 token 数量。</li>
+<li>这样可以跳过对应前缀的 Attention 计算，从而显著降低首字延迟（TTFT）。</li>
+</ul>
+<h4 id="4-核心机制二：复杂的槽位分配-allocate-slots"><a href="#4-核心机制二：复杂的槽位分配-allocate-slots" class="headerlink" title="4. 核心机制二：复杂的槽位分配 allocate_slots"></a>4. 核心机制二：复杂的槽位分配 <code>allocate_slots</code></h4><p>这是整个类里最核心、也最复杂的函数。它负责为一个请求在当前推理步申请物理显存块。代码中把请求在显存中的逻辑布局划分得很细，可以理解成下面几段：</p>
+<ul>
+<li>已经计算或缓存的部分：<ul>
+<li><code>comp</code>：当前请求之前已经计算完的 token。</li>
+<li><code>new_comp</code>：刚刚通过前缀缓存匹配到的 token。</li>
+<li><code>ext_comp</code>：由外部组件（比如多模态 connector）计算并传入的 token。</li>
+</ul>
+</li>
+<li>需要新分配空间的部分：<ul>
+<li><code>new</code>：当前步骤即将输入或生成的新 token。</li>
+<li><code>lookahead</code>：专门为投机解码预留的额外槽位，用来存放模型一次性预测出的多个未来草稿 token。</li>
+</ul>
+</li>
+</ul>
+<p>分配流程可以概括为四步：</p>
+<ol>
+<li>容量预检：如果设置了 <code>full_sequence_must_fit</code>，会提前计算该请求直到最大长度所需的总块数。如果系统当前空闲块不足，就直接拒绝分配，防止请求中途 OOM。</li>
+<li>清理废弃块：调用 <code>remove_skipped_blocks</code>。如果模型使用了滑动窗口注意力，超出窗口范围的旧 token 占用的块会被提前释放。</li>
+<li>物理分配：通过 <code>coordinator.allocate_new_blocks</code> 向系统申请真正的物理块。</li>
+<li>状态固化：将当前已经确认无误的 token，尤其是排除了投机解码中可能被拒绝的草稿 token 后的部分，推入前缀缓存池，供后续请求复用。</li>
+</ol>
+<h4 id="5-核心机制三：资源回收与维护"><a href="#5-核心机制三：资源回收与维护" class="headerlink" title="5. 核心机制三：资源回收与维护"></a>5. 核心机制三：资源回收与维护</h4><ul>
+<li><code>free(request)</code>：当请求生成完毕或被中止时，将其持有的所有物理块交还给底层池。</li>
+<li><code>evict_blocks(block_ids)</code>：强制从前缀缓存中驱逐指定块，通常用于缓存池满了之后执行最近最少使用（LRU）式淘汰。</li>
+<li><code>get_num_common_prefix_blocks</code>：统计当前正在运行的所有请求共享了多少个前缀块，这对于调度策略优化和缓存效率评估非常关键。</li>
+</ul>
+<h4 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h4><p>这段代码展示了 vLLM 如何把“理论上的 PagedAttention”落地成“工业级的显存调度系统”。它通过哈希匹配实现跨请求的内存共享（Prefix Caching），并通过非常细致的槽位类型划分，支持了当前大模型推理领域中的多种前沿加速技术。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> vllm源码学习</li>
+        <li><strong>Author:</strong> Ikko</li>
+        <li><strong>Created at
+                :</strong> 2026-05-04 13:57:24</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2026-05-04 14:41:52
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://ikko-debug.github.io/2026/05/04/vllm-1/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/03/31/%E6%89%8B%E6%92%95attention/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">手撕attention</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '55ccec7ba873a504625f',
+                    clientSecret: '5a44aa297b4124ddb3e9a8bb19842a6c066273e6',
+                    repo: 'gittalk',
+                    owner: 'ikko-debug',
+                    admin: ['ikko-debug'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">vllm源码学习</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#kv-cache-manager-py"><span class="nav-text">kv_cache_manager.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%9C%AB%E9%97%AE%E7%AD%94"><span class="nav-text">文末问答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AF%B4%E6%98%8E"><span class="nav-text">代码说明</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ikko</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        41 posts in total
+                    </span>
+                    
+                        <span>
+                            118.9k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/masonry.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/bookmarkNav.js" ></script>
+
+	
+</body>
+
+</html>

@@ -666,7 +666,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -718,7 +718,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -743,8 +743,49 @@ mjx-container[display="true"] + br {
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2025/12/23/PMPP/">
+                            ncu nsight
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            1vim gemm_naive.cu
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;cuda_runtime.h...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Dec 23 2025 01:06:12 GMT+0800">
+                
+                    2025-12-23
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2025/12/23/PMPP/">Read more<span class="seo-reader-text">ncu nsight</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2025/12/18/c/">
-                            c++
+                            C++
                         </a>
                     </h3>
 
@@ -832,7 +873,7 @@ mjx-container[display="true"] + br {
         
     </div>
 
-    <a href="/2025/12/18/c/">Read more<span class="seo-reader-text">c++</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/12/18/c/">Read more<span class="seo-reader-text">C++</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -907,10 +948,10 @@ mjx-container[display="true"] + br {
                     <div class="home-article-content markdown-body">
                         
                             
-                            发现自己对transformer的理解有些偏颇，开此文章记录一下。
-输入设句子有 T 个 token，embedding 维度为 d：
-输入 embedding 矩阵是一个大小为 T × d 的矩阵每一行表示一个 token 的向量（也就是你说的“每一层”可以理解为“每一个 token 的表示”）
-12345678X = [  x_1    → token 1  x_2    → token...
+                            发现自己对 Transformer 的理解有些偏颇，开此文章记录一下。
+输入设句子有 $T$ 个 token，embedding 维度为 $d$。
+输入 embedding 矩阵可以表示为一个大小为 $T \times d$ 的矩阵：
+1234567X = [  x_1  -&gt; token 1  x_2  -&gt; token 2  x_3  -&gt; token 3  ...  ...
                         
                     </div>
 
@@ -1207,52 +1248,11 @@ Query (Q)
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/02/20/MHA/">
-                            MHA
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            MHA 和 GQA 中 Q、K、V 分割的区别解析
-1. 图3的详细解析1.1 整体布局Figure 3 | Kernel design for NSAThe kernel loads queries by GQA groups (Grid Loop), fetches corresponding sparse KV blocks (Inner Loop), and performs att...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Feb 20 2025 16:19:18 GMT+0800">
-                
-                    2025-02-20
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/02/20/MHA/">Read more<span class="seo-reader-text">MHA</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1278,11 +1278,11 @@ Query (Q)
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        40 posts in total
+                        41 posts in total
                     </span>
                     
                         <span>
-                            109.5k words in total
+                            118.9k words in total
                         </span>
                     
                 </p>

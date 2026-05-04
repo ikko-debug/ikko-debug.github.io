@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-07-21T06:33:12.000Z">
-<meta property="article:modified_time" content="2026-04-25T14:00:05.542Z">
+<meta property="article:modified_time" content="2026-05-04T05:51:54.982Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -521,7 +521,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -572,8 +572,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-04-25 22:05</span>
-            <span class="mobile">2026-04-25 22:05</span>
+            <span class="desktop">2026-05-04 13:51:54</span>
+            <span class="mobile">2026-05-04 13:51:54</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -584,12 +584,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>183 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 Mins</span>
         </span>
     
     
@@ -608,11 +608,271 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>发现自己对transformer的理解有些偏颇，开此文章记录一下。</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>设句子有 T 个 token，embedding 维度为 d：</p>
-<p>输入 embedding 矩阵是一个大小为 T × d 的矩阵<br>每一行表示一个 token 的向量（也就是你说的“每一层”可以理解为“每一个 token 的表示”）</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">X = [</span><br><span class="line">  x_1    → token 1</span><br><span class="line">  x_2    → token 2</span><br><span class="line">  x_3    → token 3</span><br><span class="line">  ...</span><br><span class="line">  x_T    → token T</span><br><span class="line">]    # shape: (T, d)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h2 id="Attention-计算行为：每一个-token-都在“看”其它-token"><a href="#Attention-计算行为：每一个-token-都在“看”其它-token" class="headerlink" title="Attention 计算行为：每一个 token 都在“看”其它 token"></a>Attention 计算行为：每一个 token 都在“看”其它 token</h2><p>对于 第 i 行，表示第 i 个 token 对 所有 token 的关注程度；<br>整个注意力矩阵是 T×T，每一行是一个 token 的“视角”。<br>所以说mask保留上三角矩阵部分。（保留对自己以及对自己之前token的关注～！）</p>
+			<p>发现自己对 Transformer 的理解有些偏颇，开此文章记录一下。</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>设句子有 $T$ 个 token，embedding 维度为 $d$。</p>
+<p>输入 embedding 矩阵可以表示为一个大小为 $T \times d$ 的矩阵：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">X = [</span><br><span class="line">  x_1  -&gt; token 1</span><br><span class="line">  x_2  -&gt; token 2</span><br><span class="line">  x_3  -&gt; token 3</span><br><span class="line">  ...</span><br><span class="line">  x_T  -&gt; token T</span><br><span class="line">]  shape: (T, d)</span><br></pre></td></tr></table></figure></div>
+
+<p>这里每一行表示一个 token 的向量。Transformer 的核心工作，就是让每个 token 在上下文中不断更新自己的表示。</p>
+<h2 id="Attention-计算行为"><a href="#Attention-计算行为" class="headerlink" title="Attention 计算行为"></a>Attention 计算行为</h2><p>对于第 $i$ 个 token，它会“看”其它 token，并计算自己对它们的关注程度。</p>
+<p>整个注意力矩阵是一个 $T \times T$ 的矩阵，每一行都对应一个 token 的视角。</p>
+<p>在自回归生成场景下，通常会使用 causal mask，也就是只保留对自己以及对自己之前 token 的关注，屏蔽未来 token。</p>
+<h2 id="为什么-Transformer-采用多头注意力"><a href="#为什么-Transformer-采用多头注意力" class="headerlink" title="为什么 Transformer 采用多头注意力"></a>为什么 Transformer 采用多头注意力</h2><p>Transformer 使用多头注意力（Multi-Head Attention）的原因，不只是“头更多”，而是让模型能够在同一层里，从不同表示子空间中同时捕捉不同层次的信息。</p>
+<h3 id="1-并行捕捉多样化特征"><a href="#1-并行捕捉多样化特征" class="headerlink" title="1. 并行捕捉多样化特征"></a>1. 并行捕捉多样化特征</h3><p>每个头都有自己独立的权重矩阵 $W^Q, W^K, W^V$。在计算时，不同头可以关注不同的信息：</p>
+<ul>
+<li>有的头专注于语法关系，比如主谓一致。</li>
+<li>有的头专注于代词指代。</li>
+<li>有的头专注于上下文语义关联。</li>
+</ul>
+<p>如果只有单头，模型就必须把这些信息压缩进同一个注意力池里，容易出现信息相互抵消、表征变模糊的问题。</p>
+<h3 id="2-增加容错性和稳定性"><a href="#2-增加容错性和稳定性" class="headerlink" title="2. 增加容错性和稳定性"></a>2. 增加容错性和稳定性</h3><p>多头机制很像集成学习。多个头共同参与决策，可以减少单个头计算偏差带来的影响，让训练过程更稳定，泛化能力也更好。</p>
+<h3 id="3-更有利于表达复杂映射"><a href="#3-更有利于表达复杂映射" class="headerlink" title="3. 更有利于表达复杂映射"></a>3. 更有利于表达复杂映射</h3><p>把高维向量切分成多个低维头来计算，本质上是在保持参数总量大致不变的前提下，增加了并行的非线性变换路径。</p>
+<p>这会让模型更容易学习到复杂函数映射，而不是只靠一个大而粗的注意力通道去硬拟合。</p>
+<h2 id="LLM-里-Transformer-的层数与参数配置"><a href="#LLM-里-Transformer-的层数与参数配置" class="headerlink" title="LLM 里 Transformer 的层数与参数配置"></a>LLM 里 Transformer 的层数与参数配置</h2><p>“LLM 一般是多少个 Transformer” 这个问题，通常要拆成两个维度来看：</p>
+<ul>
+<li><strong>层数（Layers &#x2F; Blocks）</strong>：Transformer 堆叠了多少层。</li>
+<li><strong>头数（Attention Heads）</strong>：每层里有多少个注意力头。</li>
+</ul>
+<p>现代大模型大多数都基于 <strong>Decoder-only</strong> 架构堆叠而成，整体趋势是“变深”和“变宽”同时进行。</p>
+<p>下面是一些典型的规模参考：</p>
+<table>
+<thead>
+<tr>
+<th>模型规模 (Parameter Scale)</th>
+<th align="right">层数 (Layers &#x2F; Blocks)</th>
+<th align="right">注意力头数 (Attention Heads)</th>
+<th align="right">隐藏层维度 ($d_{model}$)</th>
+<th>典型代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1B - 3B</td>
+<td align="right">16 - 24</td>
+<td align="right">16 - 32</td>
+<td align="right">2048</td>
+<td>Llama-3.2-3B, Gemma-2B</td>
+</tr>
+<tr>
+<td>7B - 8B</td>
+<td align="right">30 - 32</td>
+<td align="right">32</td>
+<td align="right">4096</td>
+<td>Llama-3-8B, Mistral-7B</td>
+</tr>
+<tr>
+<td>14B - 32B</td>
+<td align="right">40 - 60</td>
+<td align="right">32 - 40</td>
+<td align="right">5120</td>
+<td>Qwen-2.5-32B</td>
+</tr>
+<tr>
+<td>70B - 175B</td>
+<td align="right">80 - 96</td>
+<td align="right">64 - 128</td>
+<td align="right">8192</td>
+<td>Llama-3-70B, GPT-3</td>
+</tr>
+</tbody></table>
+<h3 id="关键规律"><a href="#关键规律" class="headerlink" title="关键规律"></a>关键规律</h3><ol>
+<li><p>头数与维度通常满足关系：</p>
+<p>$$d_{model} &#x3D; \text{Heads} \times \text{Head Dim}$$</p>
+<p>实际工程里，每个头的维度常常固定在 128 左右，例如 Llama 系列。</p>
+</li>
+<li><p>GQA（Grouped Query Attention）是现在 LLM 里常见的优化方式。为了节省显存和推理开销，Query 头数量往往多于 Key&#x2F;Value 头数量。例如 Llama-3-8B 有 32 个 Query Heads，但只有 8 个 KV Heads。</p>
+</li>
+<li><p>模型变大时，通常会同步增加层数和隐藏层维度，而不是只增加某一个维度。</p>
+</li>
+</ol>
+<h2 id="KV-Cache-demo"><a href="#KV-Cache-demo" class="headerlink" title="KV Cache demo"></a>KV Cache demo</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SimpleKVCache</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_layers, batch_size, num_heads, max_seq_len, head_dim, dtype=torch.float16</span>):</span><br><span class="line">        self.k_cache = torch.empty(</span><br><span class="line">            num_layers, batch_size, num_heads, max_seq_len, head_dim,</span><br><span class="line">            device=<span class="string">&quot;cuda&quot;</span>,</span><br><span class="line">            dtype=dtype,</span><br><span class="line">        )</span><br><span class="line">        self.v_cache = torch.empty_like(self.k_cache)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">append</span>(<span class="params">self, layer_id, pos, k_new, v_new</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        k_new/v_new: [batch, heads, 1, head_dim]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.k_cache[layer_id, :, :, pos:pos+<span class="number">1</span>, :] = k_new</span><br><span class="line">        self.v_cache[layer_id, :, :, pos:pos+<span class="number">1</span>, :] = v_new</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_kv</span>(<span class="params">self, layer_id, end_pos</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        end_pos 表示当前有效长度</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            self.k_cache[layer_id, :, :, :end_pos, :],</span><br><span class="line">            self.v_cache[layer_id, :, :, :end_pos, :],</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decode_attention</span>(<span class="params">q, k, v</span>):</span><br><span class="line">    head_dim = q.shape[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    scores = torch.matmul(q, k.transpose(-<span class="number">1</span>, -<span class="number">2</span>)) / (head_dim ** <span class="number">0.5</span>)</span><br><span class="line">    probs = F.softmax(scores, dim=-<span class="number">1</span>)</span><br><span class="line">    out = torch.matmul(probs, v)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    torch.manual_seed(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    num_layers = <span class="number">2</span></span><br><span class="line">    batch_size = <span class="number">1</span></span><br><span class="line">    num_heads = <span class="number">4</span></span><br><span class="line">    max_seq_len = <span class="number">16</span></span><br><span class="line">    head_dim = <span class="number">8</span></span><br><span class="line">    steps = <span class="number">8</span></span><br><span class="line"></span><br><span class="line">    cache = SimpleKVCache(</span><br><span class="line">        num_layers=num_layers,</span><br><span class="line">        batch_size=batch_size,</span><br><span class="line">        num_heads=num_heads,</span><br><span class="line">        max_seq_len=max_seq_len,</span><br><span class="line">        head_dim=head_dim,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> <span class="built_in">range</span>(steps):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\ndecode step <span class="subst">&#123;pos&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> layer_id <span class="keyword">in</span> <span class="built_in">range</span>(num_layers):</span><br><span class="line">            q = torch.randn(batch_size, num_heads, <span class="number">1</span>, head_dim, device=<span class="string">&quot;cuda&quot;</span>, dtype=torch.float16)</span><br><span class="line">            k_new = torch.randn(batch_size, num_heads, <span class="number">1</span>, head_dim, device=<span class="string">&quot;cuda&quot;</span>, dtype=torch.float16)</span><br><span class="line">            v_new = torch.randn(batch_size, num_heads, <span class="number">1</span>, head_dim, device=<span class="string">&quot;cuda&quot;</span>, dtype=torch.float16)</span><br><span class="line"></span><br><span class="line">            cache.append(layer_id, pos, k_new, v_new)</span><br><span class="line"></span><br><span class="line">            k, v = cache.get_kv(layer_id, pos + <span class="number">1</span>)</span><br><span class="line">            out = decode_attention(q, k, v)</span><br><span class="line"></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;layer=<span class="subst">&#123;layer_id&#125;</span>, seq_len=<span class="subst">&#123;pos+<span class="number">1</span>&#125;</span>, out=<span class="subst">&#123;<span class="built_in">tuple</span>(out.shape)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></div>
+<p>本质是在 GPU global memory 中预分配 [layer, batch, head, max_seq_len, head_dim] 的 K&#x2F;V tensor。decode 每生成一个 token，就把当前 token 的 K&#x2F;V append 到对应位置；下一步 attention 会读取从 0 到当前长度的全部历史 KV。</p>
+<p>这个 demo 能说明 decode 阶段为什么容易 memory-bound：每一步只生成一个 token，Q 很小，但是需要读取越来越长的历史 K&#x2F;V。随着 seq_len 增长，读 KV cache 的显存流量线性增长，而计算并行度又不高，所以小 batch decode 很难把 GPU 吃满。</p>
+<h2 id="Paged-KV-Cache-demo"><a href="#Paged-KV-Cache-demo" class="headerlink" title="Paged KV Cache demo"></a>Paged KV Cache demo</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BlockAllocator</span>:</span><br><span class="line">    <span class="comment"># 物理块分配器：维护所有可用的 GPU 物理块 ID。</span></span><br><span class="line">    <span class="comment"># 可以把它理解成一个简化版的物理内存池，负责“申请”和“回收”块。</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_blocks</span>):</span><br><span class="line">        <span class="comment"># 初始时所有块都空闲，编号从 0 到 num_blocks - 1。</span></span><br><span class="line">        self.free_blocks = <span class="built_in">list</span>(<span class="built_in">range</span>(num_blocks))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">allocate</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 当新请求到来或序列变长时，分配一个空闲物理块。</span></span><br><span class="line">        <span class="comment"># 如果没有空闲块，就说明显存池耗尽，直接报 OOM。</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.free_blocks:</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;No free KV blocks&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> self.free_blocks.pop()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">free</span>(<span class="params">self, block_id</span>):</span><br><span class="line">        <span class="comment"># 请求结束后，把物理块重新放回空闲池。</span></span><br><span class="line">        self.free_blocks.append(block_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PagedKVCache</span>:</span><br><span class="line">    <span class="comment"># 分页式 KV Cache 核心管理器。</span></span><br><span class="line">    <span class="comment"># 它预先在 GPU 上分配好连续的 KV blocks，</span></span><br><span class="line">    <span class="comment"># 再通过 request_id -&gt; 逻辑块列表 -&gt; 物理块 ID 的映射关系，</span></span><br><span class="line">    <span class="comment"># 把逻辑 token 序列和物理显存解耦。</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_blocks, block_size, num_heads, head_dim, dtype=torch.float16</span>):</span><br><span class="line">        self.num_blocks = num_blocks</span><br><span class="line">        self.block_size = block_size</span><br><span class="line">        self.num_heads = num_heads</span><br><span class="line">        self.head_dim = head_dim</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 物理显存：预先分配固定数量的 KV 块。</span></span><br><span class="line">        <span class="comment"># 形状 [num_blocks, num_heads, block_size, head_dim]，每个 block 可容纳固定数量 token。</span></span><br><span class="line">        self.k_blocks = torch.empty(</span><br><span class="line">            num_blocks, num_heads, block_size, head_dim,</span><br><span class="line">            device=<span class="string">&quot;cuda&quot;</span>,</span><br><span class="line">            dtype=dtype,</span><br><span class="line">        )</span><br><span class="line">        self.v_blocks = torch.empty_like(self.k_blocks)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 维护物理块分配情况的分配器。</span></span><br><span class="line">        self.allocator = BlockAllocator(num_blocks)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># block_tables: request_id -&gt; [physical_block_id, physical_block_id, ...]</span></span><br><span class="line">        <span class="comment"># 逻辑块 ID 由列表索引表示，列表中的值是对应的物理块 ID。</span></span><br><span class="line">        self.block_tables = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_ensure_block</span>(<span class="params">self, request_id, logical_block_id</span>):</span><br><span class="line">        <span class="comment"># 在写入新 token 之前，先确认该请求的逻辑块映射是否已经足够。</span></span><br><span class="line">        <span class="comment"># 如果逻辑块表长度不够，就继续向 allocator 申请新的物理块并追加进去。</span></span><br><span class="line">        <span class="keyword">if</span> request_id <span class="keyword">not</span> <span class="keyword">in</span> self.block_tables:</span><br><span class="line">            self.block_tables[request_id] = []</span><br><span class="line"></span><br><span class="line">        table = self.block_tables[request_id]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(table) &lt;= logical_block_id:</span><br><span class="line">            table.append(self.allocator.allocate())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">append</span>(<span class="params">self, request_id, pos, k_new, v_new</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        k_new/v_new: [heads, 1, head_dim]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 将全局 token 位置 pos 拆成两部分：</span></span><br><span class="line">        <span class="comment"># logical_block_id：属于第几个逻辑块。</span></span><br><span class="line">        <span class="comment"># offset：当前 token 在块内的相对位置。</span></span><br><span class="line">        logical_block_id = pos // self.block_size</span><br><span class="line">        offset = pos % self.block_size</span><br><span class="line"></span><br><span class="line">        self._ensure_block(request_id, logical_block_id)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 通过 block table 找到该逻辑块对应的物理块，然后把 K/V 精确写到对应位置。</span></span><br><span class="line">        physical_block_id = self.block_tables[request_id][logical_block_id]</span><br><span class="line"></span><br><span class="line">        self.k_blocks[physical_block_id, :, offset:offset+<span class="number">1</span>, :] = k_new</span><br><span class="line">        self.v_blocks[physical_block_id, :, offset:offset+<span class="number">1</span>, :] = v_new</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_kv</span>(<span class="params">self, request_id, end_pos</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        这是一个验证 / 调试接口：把离散的 paged blocks gather 成连续 tensor。</span></span><br><span class="line"><span class="string">        真实 vLLM 不会在推理路径里做这个拼接，因为 gather 会带来很大的显存带宽开销。</span></span><br><span class="line"><span class="string">        真正的 PagedAttention 做法，是把 block_table 直接传给 CUDA Kernel，</span></span><br><span class="line"><span class="string">        在 Kernel 内部按映射关系直接寻址读取离散数据。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        table = self.block_tables[request_id]</span><br><span class="line"></span><br><span class="line">        k_list = []</span><br><span class="line">        v_list = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> logical_block_id, physical_block_id <span class="keyword">in</span> <span class="built_in">enumerate</span>(table):</span><br><span class="line">            <span class="comment"># 当前逻辑块对应的全局起点。</span></span><br><span class="line">            start = logical_block_id * self.block_size</span><br><span class="line">            remain = end_pos - start</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 如果已经超过有效长度，就停止拼接。</span></span><br><span class="line">            <span class="keyword">if</span> remain &lt;= <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 只保留当前序列最后一个块里真正有效的部分。</span></span><br><span class="line">            valid_len = <span class="built_in">min</span>(self.block_size, remain)</span><br><span class="line"></span><br><span class="line">            k_list.append(self.k_blocks[physical_block_id, :, :valid_len, :])</span><br><span class="line">            v_list.append(self.v_blocks[physical_block_id, :, :valid_len, :])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将离散块拼成连续 tensor，方便调试或做单元测试。</span></span><br><span class="line">        k = torch.cat(k_list, dim=<span class="number">1</span>)  <span class="comment"># [heads, seq_len, head_dim]</span></span><br><span class="line">        v = torch.cat(v_list, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> k, v</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">free_request</span>(<span class="params">self, request_id</span>):</span><br><span class="line">        <span class="comment"># 请求结束后，先取出该请求占用的逻辑块表，再把所有物理块还给 allocator。</span></span><br><span class="line">        table = self.block_tables.pop(request_id, [])</span><br><span class="line">        <span class="keyword">for</span> block_id <span class="keyword">in</span> table:</span><br><span class="line">            self.allocator.free(block_id)</span><br></pre></td></tr></table></figure></div>
+
+<p>这段代码实现的是一个简化版的 Paged KV Cache（分页键值缓存）。它借鉴了操作系统虚拟内存分页的思路：把连续的 token 序列切成固定大小的块（block），再离散地存放到 GPU 的物理显存中，从而降低显存碎片和大块连续分配的压力。</p>
+<h3 id="逐模块说明"><a href="#逐模块说明" class="headerlink" title="逐模块说明"></a>逐模块说明</h3><h4 id="1-BlockAllocator：物理块分配器"><a href="#1-BlockAllocator：物理块分配器" class="headerlink" title="1. BlockAllocator：物理块分配器"></a>1. BlockAllocator：物理块分配器</h4><p>这个类负责管理系统里所有可用的物理内存块，作用类似一个简化版的物理内存池。</p>
+<ul>
+<li><code>__init__</code>：初始化一个包含所有空闲块 ID 的列表，从 <code>0</code> 到 <code>num_blocks - 1</code>。</li>
+<li><code>allocate</code>：当有新请求到来，或者某个序列变长需要新块时，从空闲列表里弹出一个物理块 ID。如果没有空闲块，就直接报 OOM。</li>
+<li><code>free</code>：当请求结束后，把已经使用过的物理块 ID 重新放回空闲列表。</li>
+</ul>
+<h4 id="2-PagedKVCache：分页缓存核心管理"><a href="#2-PagedKVCache：分页缓存核心管理" class="headerlink" title="2. PagedKVCache：分页缓存核心管理"></a>2. PagedKVCache：分页缓存核心管理</h4><p>这个类负责预分配 GPU 显存，并维护每个请求的“逻辑块”到“物理块”的映射表（block table）。</p>
+<ul>
+<li><code>__init__</code>：在 GPU 上一次性开辟固定大小的连续张量 <code>k_blocks</code> 和 <code>v_blocks</code>，形状为 <code>[num_blocks, num_heads, block_size, head_dim]</code>。其中 <code>block_size</code> 表示一个块能装下多少个 token。</li>
+<li><code>block_tables</code>：一个字典，键是 <code>request_id</code>，值是一个列表。这个列表相当于页表，列表索引表示逻辑块 ID，列表中的值表示对应的物理块 ID。</li>
+<li><code>_ensure_block</code>：在写入新 token 前，检查当前请求的逻辑块数量是否足够覆盖即将写入的位置。如果目标 <code>logical_block_id</code> 超出当前页表长度，就向 allocator 申请新的物理块并追加到映射表中。</li>
+<li><code>append</code>：把全局绝对位置 <code>pos</code> 拆成 <code>logical_block_id = pos // block_size</code> 和 <code>offset = pos % block_size</code>，再通过映射表找到物理块，把 <code>k_new</code> 和 <code>v_new</code> 写入预分配张量对应的位置。</li>
+<li><code>get_kv</code>：用于验证和调试。它会遍历映射表，把离散的物理块逐个切片提取出来，并通过 <code>torch.cat</code> 拼成连续的 <code>[heads, seq_len, head_dim]</code> 张量。真实推理时不会做这个 gather，因为会带来很大的显存带宽开销。</li>
+<li><code>free_request</code>：当请求结束时，把该请求的映射表从字典里移除，并把占用过的所有物理块回收到 allocator 中。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这段代码的核心，是把原本随着序列长度动态增长、且需要连续存储的 KV Cache，转换成按固定大小分块分配、离散存储的模式。通过维护 <code>request_id -&gt; 逻辑块列表 -&gt; 物理块 ID</code> 的映射关系，逻辑序列和物理内存空间被解耦，进而缓解了变长序列推理中的显存碎片化和显存浪费问题。</p>
+<h2 id="KV-Cache-为什么有-num-layers-维度"><a href="#KV-Cache-为什么有-num-layers-维度" class="headerlink" title="KV Cache 为什么有 num_layers 维度"></a>KV Cache 为什么有 num_layers 维度</h2><p>在推理系统里，KV Cache 通常会设计成包含 <code>num_layers</code> 维度的张量，因为 Transformer 的每一层都有独立的 Self-Attention 模块，而这些模块拥有不同的 $W^K$ 和 $W^V$。</p>
+<p>也就是说，每一层在计算时，都会生成只属于这一层的 K 和 V，用来表征当前层级的特征抽象。所以每一层都需要单独缓存。</p>
+<h3 id="时间轴上的逐层写入"><a href="#时间轴上的逐层写入" class="headerlink" title="时间轴上的逐层写入"></a>时间轴上的逐层写入</h3><p>在自回归生成（Autoregressive Generation）阶段，假设模型正在生成第 $t$ 个 token：</p>
+<ol>
+<li>输入先流经第 0 层，Layer 0 的 Attention 计算出当前 token 的 K 和 V，并写入缓存的第一个切片，例如 <code>self.K[0, :, t, :]</code>。</li>
+<li>Layer 0 计算完毕后输出结果，作为 Layer 1 的输入。</li>
+<li>Layer 1 根据新的输入，计算自己的 K 和 V，并写入第二个切片，例如 <code>self.K[1, :, t, :]</code>。</li>
+<li>依次类推，直到第 <code>num_layers - 1</code> 层写入完毕。</li>
+</ol>
+<p>在这个过程中，<code>self.K</code> 和 <code>self.V</code> 里的 <code>num_layers</code> 维度是一步步、逐层更新的，而不是同一时刻被并行填满。</p>
+<h3 id="为什么要设计成一个大张量"><a href="#为什么要设计成一个大张量" class="headerlink" title="为什么要设计成一个大张量"></a>为什么要设计成一个大张量</h3><p>从 AI Infrastructure 和 CUDA 的角度看，把 KV Cache 统一初始化成 <code>[num_layers, num_heads, max_seq_len, head_dim]</code> 这样的连续大张量，有几个明显好处：</p>
+<ul>
+<li><strong>避免显存碎片化</strong>：如果每一层都在自己的类里单独 <code>torch.zeros()</code> 分配缓存，会在显存中产生很多不连续的小块内存。一次性分配连续大张量，对显存管理更友好。</li>
+<li><strong>指针偏移更简单</strong>：在底层 CUDA Kernel 里，计算到第 $i$ 层时，只需要拿到基础地址并加上层偏移即可，传参和调度都更直接。</li>
+<li><strong>状态统一管理</strong>：在多轮对话、Prompt Caching、模型保存与恢复等场景里，把所有 KV Cache 集中在一个变量中，更方便做复制、保存和加载。</li>
+</ul>
+<p>所以，物理存储上它是一个包含所有层信息的高维大数组，但在执行流里，访问和更新仍然是沿着层顺序逐层切片进行的。</p>
+<h3 id="各种kvcache优化策略"><a href="#各种kvcache优化策略" class="headerlink" title="各种kvcache优化策略"></a>各种kvcache优化策略</h3><h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><p>在工程里，KV Cache 相关优化可以分成三个明确维度：<strong>模型架构层</strong>、<strong>系统工程层</strong> 和 <strong>算法与压缩层</strong>。这样区分后，哪些方法需要改模型、哪些只改推理引擎、哪些可以在推理阶段动态应用，就会清楚很多。</p>
+<h4 id="1-模型架构层"><a href="#1-模型架构层" class="headerlink" title="1. 模型架构层"></a>1. 模型架构层</h4><p>这一层的策略在训练阶段就已经固定了，推理端只能按模型原本的结构去适配，不能在不改权重和结构的前提下，给标准 MHA 强行“切换”成 MQA 或 MLA。</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>核心思路</th>
+<th>优点</th>
+<th>缺点</th>
+<th>典型说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MQA (Multi-Query Attention)</strong></td>
+<td>多个 Query 头共享同一组 Key&#x2F;Value 头</td>
+<td>KV Cache 体积显著下降，带宽压力更小</td>
+<td>表达能力弱于标准 MHA，可能有质量损失</td>
+<td>需要在预训练阶段就采用这种结构</td>
+</tr>
+<tr>
+<td><strong>GQA (Grouped-Query Attention)</strong></td>
+<td>将 Query 头分组，每组共享少量 KV 头</td>
+<td>在质量和显存之间折中，推理友好</td>
+<td>仍然不是完全独立的 KV，压缩幅度有限于 MQA</td>
+<td>现代主流 LLM 常见，如 Llama 系列</td>
+</tr>
+<tr>
+<td><strong>MLA (Multi-head Latent Attention)</strong></td>
+<td>先把 KV 压到低维 latent，再恢复&#x2F;投影</td>
+<td>KV Cache 更小，适合超长上下文</td>
+<td>结构和实现复杂，通常要从模型设计开始介入</td>
+<td>更像专门为长上下文和推理效率设计的架构</td>
+</tr>
+<tr>
+<td><strong>Cross-Layer KV Sharing</strong></td>
+<td>相邻或部分层共享同一份 KV Cache</td>
+<td>理论上可进一步压缩 KV 规模</td>
+<td>会损伤层级表达能力，必须在预训练中介入</td>
+<td>适合模型结构级别的实验性优化</td>
+</tr>
+</tbody></table>
+<h4 id="2-系统工程层"><a href="#2-系统工程层" class="headerlink" title="2. 系统工程层"></a>2. 系统工程层</h4><p>这一层主要由推理引擎、内存管理器和调度器决定，重点是怎么把缓存放好、怎么复用、怎么切分、怎么搬运。</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>核心思路</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>静态预分配 Cache</strong></td>
+<td>一次性申请 <code>[num_layers, num_heads, max_seq_len, head_dim]</code> 大张量</td>
+<td>实现简单，访问连续，Kernel 传参方便</td>
+<td>占用显存固定，长上下文时浪费大</td>
+<td>小型推理服务、单机原型</td>
+</tr>
+<tr>
+<td><strong>PagedAttention &#x2F; 分页式 Cache</strong></td>
+<td>把 KV 按固定块分页管理，类似虚拟内存</td>
+<td>减少碎片化，支持更高并发，更适合长上下文</td>
+<td>调度和索引更复杂，工程实现成本高</td>
+<td>vLLM、在线推理服务</td>
+</tr>
+<tr>
+<td><strong>Prefix Cache &#x2F; Prompt Cache</strong></td>
+<td>复用相同前缀的 KV，避免重复计算</td>
+<td>对多轮对话、系统提示词复用非常有效</td>
+<td>只对重复前缀生效，命中率依赖业务模式</td>
+<td>Chat、Agent、模板化请求</td>
+</tr>
+<tr>
+<td><strong>CPU Offload</strong></td>
+<td>把不活跃 KV 或部分层缓存放到 CPU</td>
+<td>降低 GPU 显存压力</td>
+<td>PCIe 传输开销大，延迟通常更高</td>
+<td>显存紧张、吞吐要求不极端的场景</td>
+</tr>
+<tr>
+<td><strong>Chunked Prefill</strong></td>
+<td>将长 Prompt 分块预填充，而不是一次性算完</td>
+<td>降低长输入的显存峰值，缓解 TTFT 瓶颈</td>
+<td>调度逻辑更复杂，前后阶段衔接成本更高</td>
+<td>长文本输入、在线批处理推理</td>
+</tr>
+</tbody></table>
+<h4 id="3-算法与压缩层"><a href="#3-算法与压缩层" class="headerlink" title="3. 算法与压缩层"></a>3. 算法与压缩层</h4><p>这一层可以在推理阶段动态应用，重点是少存、少算、少搬运，通常不要求彻底改变模型主干结构。</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>核心思路</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>KV Quantization</strong></td>
+<td>将 KV 从 FP16&#x2F;BF16 压到 INT8、FP8 等低比特</td>
+<td>显著降低显存占用，提高带宽利用率</td>
+<td>可能带来精度损失，量化&#x2F;反量化有额外开销</td>
+<td>大模型低成本部署</td>
+</tr>
+<tr>
+<td><strong>Sliding Window Cache</strong></td>
+<td>只保留最近窗口内的 KV，丢弃更早历史</td>
+<td>显存占用可控，适合超长序列</td>
+<td>会损失远距离依赖信息</td>
+<td>长文档流式推理、局部上下文任务；典型如 Mistral-7B、Qwen-1.5 的部分版本</td>
+</tr>
+<tr>
+<td><strong>Attention Sinks &#x2F; StreamingLLM</strong></td>
+<td>永久保留开头少量 token 作为 sink，再配合滑动窗口</td>
+<td>比纯滑窗更稳，可支持更长甚至近似无限的流式生成</td>
+<td>仍会丢失中间较远的细节，设计依赖具体任务</td>
+<td>流式对话、长时间在线生成</td>
+</tr>
+<tr>
+<td><strong>动态&#x2F;稀疏 KV 驱逐</strong></td>
+<td>根据 attention 分数或重要性动态保留高价值 token，丢弃不重要 KV</td>
+<td>比纯时间窗口保留更多全局信息</td>
+<td>需要额外重要性评估逻辑，底层 Kernel 适配更难</td>
+<td>H2O、SnapKV 一类方法</td>
+</tr>
+<tr>
+<td><strong>Speculative Decoding</strong></td>
+<td>先用小模型草拟多个 token，再由大模型批量验证</td>
+<td>显著减少大模型解码步数，降低端到端延迟</td>
+<td>需要额外 draft model，通常还会增加一点显存占用</td>
+<td>追求低延迟的在线生成</td>
+</tr>
+</tbody></table>
+<p>KV Cache 相关优化，本质上是在 <strong>显存占用、推理延迟、实现复杂度</strong> 之间做权衡。不同策略解决的问题不一样，实际工程里通常会组合使用。</p>
+<p>其中有两个修正点值得单独强调：</p>
+<ul>
+<li><strong>KV Quantization 不只包括 INT 格式</strong>：在 Hopper 架构上，FP8 在实际工程里非常常见，动态范围和硬件支持通常更好，也更容易和 Tensor Core 结合。很多时候它比 INT8 更接近“几乎无损”的量化路径。</li>
+<li><strong>Speculative Decoding 不一定省显存</strong>：它的核心收益是减少大模型的解码步数，用计算量和少量额外显存去换更低的延迟；由于还要维护 draft model 及其缓存，整体显存占用通常不会比基础解码更低。</li>
+</ul>
+<h4 id="补充理解"><a href="#补充理解" class="headerlink" title="补充理解"></a>补充理解</h4><p>这些方案并不是互斥的，而且也不完全属于同一层面的优化。比如一个系统可以同时使用：</p>
+<ul>
+<li>PagedAttention 来管理物理内存布局；</li>
+<li>Prefix Cache 来复用重复 prompt；</li>
+<li>KV Quantization 来压缩每个 block 的存储成本；</li>
+<li>Sliding Window Cache + Attention Sinks 来做流式长上下文生成。</li>
+</ul>
+<p>所以，KV Cache 优化更像是一个系统设计问题，而不是单一算法问题。最终目标都是：<strong>尽量少算、少占、少搬运</strong>。</p>
+<p>如果你还想继续往下补，下一块通常会接 <strong>FlashAttention &#x2F; FlashAttention-2</strong>，它主要优化 attention 计算时的显存访问和中间结果存储。</p>
 
 		</div>
 
@@ -627,7 +887,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-04-25 22:00:05
+                    :</strong> 2026-05-04 13:51:54
             </li>
         
         <li>
@@ -752,7 +1012,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">new-about-transformer</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention-%E8%AE%A1%E7%AE%97%E8%A1%8C%E4%B8%BA%EF%BC%9A%E6%AF%8F%E4%B8%80%E4%B8%AA-token-%E9%83%BD%E5%9C%A8%E2%80%9C%E7%9C%8B%E2%80%9D%E5%85%B6%E5%AE%83-token"><span class="nav-text">Attention 计算行为：每一个 token 都在“看”其它 token</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention-%E8%AE%A1%E7%AE%97%E8%A1%8C%E4%B8%BA"><span class="nav-text">Attention 计算行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-Transformer-%E9%87%87%E7%94%A8%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-text">为什么 Transformer 采用多头注意力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B9%B6%E8%A1%8C%E6%8D%95%E6%8D%89%E5%A4%9A%E6%A0%B7%E5%8C%96%E7%89%B9%E5%BE%81"><span class="nav-text">1. 并行捕捉多样化特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A2%9E%E5%8A%A0%E5%AE%B9%E9%94%99%E6%80%A7%E5%92%8C%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-text">2. 增加容错性和稳定性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9B%B4%E6%9C%89%E5%88%A9%E4%BA%8E%E8%A1%A8%E8%BE%BE%E5%A4%8D%E6%9D%82%E6%98%A0%E5%B0%84"><span class="nav-text">3. 更有利于表达复杂映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LLM-%E9%87%8C-Transformer-%E7%9A%84%E5%B1%82%E6%95%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-text">LLM 里 Transformer 的层数与参数配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%A7%84%E5%BE%8B"><span class="nav-text">关键规律</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KV-Cache-demo"><span class="nav-text">KV Cache demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paged-KV-Cache-demo"><span class="nav-text">Paged KV Cache demo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%90%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E"><span class="nav-text">逐模块说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KV-Cache-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89-num-layers-%E7%BB%B4%E5%BA%A6"><span class="nav-text">KV Cache 为什么有 num_layers 维度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E8%BD%B4%E4%B8%8A%E7%9A%84%E9%80%90%E5%B1%82%E5%86%99%E5%85%A5"><span class="nav-text">时间轴上的逐层写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%AE%BE%E8%AE%A1%E6%88%90%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%BC%A0%E9%87%8F"><span class="nav-text">为什么要设计成一个大张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%A7%8Dkvcache%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="nav-text">各种kvcache优化策略</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -779,11 +1039,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        40 posts in total
+                        41 posts in total
                     </span>
                     
                         <span>
-                            109.5k words in total
+                            118.9k words in total
                         </span>
                     
                 </p>
