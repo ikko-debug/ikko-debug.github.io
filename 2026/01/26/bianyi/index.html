@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-01-26T12:12:27.000Z">
-<meta property="article:modified_time" content="2026-04-25T14:00:05.541Z">
+<meta property="article:modified_time" content="2026-05-05T10:32:13.879Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
@@ -513,7 +513,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -572,8 +572,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-04-25 22:05</span>
-            <span class="mobile">2026-04-25 22:05</span>
+            <span class="desktop">2026-05-05 18:32:13</span>
+            <span class="mobile">2026-05-05 18:32:13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -584,12 +584,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>902 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.2k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
         </span>
     
     
@@ -623,6 +623,7 @@
                      data-src="/images/simpledag.png"
                       alt="simpledag"
                 ></p>
+<h3 id="深度学习必须依赖计算图"><a href="#深度学习必须依赖计算图" class="headerlink" title="深度学习必须依赖计算图"></a>深度学习必须依赖计算图</h3><p>计算图的设计直接解决了神经网络训练和部署部署中的两大核心难题：<br>A. 自动求导（Auto-Differentiation &#x2F; Autograd）<br>如果没有计算图，手动推导包含上百层结构的复杂模型（如你正在基于 Fairseq 开发的交错式翻译架构）的梯度是不可能的。<br>•	前向传播（Forward）： 沿着计算图的边计算出最终的 Loss，并保存中间激活值。<br>•	反向传播（Backward）： 框架顺着图的相反方向，根据微积分的链式法则，自动且极其精确地计算出每个节点的梯度。<br>B. 图级优化（Graph-level Optimization）<br>在模型进入底层硬件（如生成 CUDA Kernel）之前，编译器可以在计算图（逻辑层面）做大量等效代数变换，这被称为 Pass。<br>•	算子融合（Operator Fusion）： 将图上的 MatMul -&gt; BiasAdd -&gt; ReLU 三个节点融合成一个单一的节点。这样底层只需要调用一次融合后的 CUDA Kernel，大幅减少显存读写。<br>•	死代码消除与常量折叠： 裁剪掉图中对最终输出没有贡献的分支，或者提前计算好图中的常数部分。</p>
 <h3 id="图层优化"><a href="#图层优化" class="headerlink" title="图层优化"></a>图层优化</h3><p>将一种计算图结构，在算术结果不改变的情况下，基于一系列预先写好的模板，对计算图进行相应的图<br>替换操作。</p>
 <h4 id="常量折叠"><a href="#常量折叠" class="headerlink" title="常量折叠"></a>常量折叠</h4><p>常量折叠：将计算图中可以预先确定输出值的节点替换<br>成常量，并对计算图进行一些结构简化的操作。AI 编译<br>器会对计算图中的每个操作节点进行分析，判断其是否<br>可进行常量折叠。如果可以，则通过计算得到结果替换<br>该节点</p>
 <h4 id="冗余节点消除"><a href="#冗余节点消除" class="headerlink" title="冗余节点消除"></a>冗余节点消除</h4><p>死代码消除<br>冗余节点消除<br>公共表达式消除：当模型中出现了公共子图，如一个输出是另外两个同类型同参数的节点输入，则可以考虑将这些分支合并成一个分支。</p>
@@ -644,7 +645,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-04-25 22:00:05
+                    :</strong> 2026-05-05 18:32:13
             </li>
         
         <li>
@@ -769,7 +770,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">AI编译器</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AI%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-text">AI编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-text">计算图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%B1%82%E4%BC%98%E5%8C%96"><span class="nav-text">图层优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cudagraph"><span class="nav-text">cudagraph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tvm"><span class="nav-text">tvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MLIR"><span class="nav-text">MLIR</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AI%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-text">AI编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-text">计算图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%BF%85%E9%A1%BB%E4%BE%9D%E8%B5%96%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-text">深度学习必须依赖计算图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%B1%82%E4%BC%98%E5%8C%96"><span class="nav-text">图层优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cudagraph"><span class="nav-text">cudagraph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tvm"><span class="nav-text">tvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MLIR"><span class="nav-text">MLIR</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -800,7 +801,7 @@
                     </span>
                     
                         <span>
-                            118.9k words in total
+                            127k words in total
                         </span>
                     
                 </p>

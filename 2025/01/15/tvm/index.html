@@ -146,8 +146,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-01-15T06:38:07.000Z">
-<meta property="article:modified_time" content="2026-04-25T14:00:05.543Z">
+<meta property="article:modified_time" content="2026-05-05T13:16:21.512Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="TVM">
+<meta property="article:tag" content="AI Compiler">
+<meta property="article:tag" content="CUDA">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ikko-debug.github.io/images/redefine-og.webp">
     
@@ -513,7 +516,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -572,20 +575,43 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-04-25 22:05</span>
-            <span class="mobile">2026-04-25 22:05</span>
+            <span class="desktop">2026-05-05 21:16:21</span>
+            <span class="mobile">2026-05-05 21:16:21</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
     
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TVM/">TVM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AI-Compiler/">AI Compiler</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CUDA/">CUDA</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.8k Words</span>
+        </span>
+    
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 Mins</span>
         </span>
     
     
@@ -604,7 +630,181 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			
+			<p>TVM 常被概括为“把模型编译成高性能 kernel 的系统”，但这句话如果不拆开，往往只会留下几个名词：Relay、compute、schedule、AutoTVM。真正重要的是理解这些层次为什么要分开，以及它们如何共同决定最终性能。</p>
+<p>这篇文章尝试沿着一条完整主线来解释 TVM：模型如何进入编译器，为什么会被拆成图、计算表达和调度策略，schedule 为什么是性能核心，以及 TVM 适合在哪些场景发挥价值。</p>
+<h2 id="从模型到-kernel：TVM-的核心链路"><a href="#从模型到-kernel：TVM-的核心链路" class="headerlink" title="从模型到 kernel：TVM 的核心链路"></a>从模型到 kernel：TVM 的核心链路</h2><p>先看一个非常简单的例子：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = relu(x @ W + b)</span><br></pre></td></tr></table></figure></div>
+
+<p>从深度学习框架的角度看，这是一行普通代码；从编译器的角度看，它对应的是一条由多个算子组成的数据流：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matmul -&gt; add -&gt; relu</span><br></pre></td></tr></table></figure></div>
+
+<p>TVM 的核心工作，就是把这条高层语义链路逐层下沉，最终变成目标硬件可以高效执行的代码。这个过程可以概括为：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">模型</span><br><span class="line">  -&gt; 计算图（Relay IR）</span><br><span class="line">  -&gt; 算子级计算定义（compute）</span><br><span class="line">  -&gt; 执行策略（schedule）</span><br><span class="line">  -&gt; 目标代码（CUDA / CPU / 其他后端）</span><br><span class="line">  -&gt; 硬件执行</span><br></pre></td></tr></table></figure></div>
+
+<p>这条链路里最关键的设计思想，是把“算什么”和“怎么高效地算”分开表达。前者对应 compute，后者对应 schedule。</p>
+<h2 id="第一层：Relay-IR-负责描述模型结构"><a href="#第一层：Relay-IR-负责描述模型结构" class="headerlink" title="第一层：Relay IR 负责描述模型结构"></a>第一层：Relay IR 负责描述模型结构</h2><p>TVM 首先需要把模型转换成一种编译器内部可以分析和变换的表示。在传统 TVM 语境里，这一层通常是 Relay IR。Relay 的职责不是直接生成 kernel，而是准确描述模型中有哪些算子、它们之间如何连接、张量如何流动。</p>
+<p>对于前面的例子，可以把 Relay 理解成这样一种图结构：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x ----+</span><br><span class="line">      |--&gt; matmul --&gt; add --&gt; relu --&gt; y</span><br><span class="line">W ----+</span><br><span class="line">b --------------------------^</span><br></pre></td></tr></table></figure></div>
+
+<p>如果写成接近代码的形式，大致会像下面这样：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = relay.var(<span class="string">&quot;x&quot;</span>, shape=(<span class="number">1</span>, <span class="number">768</span>))</span><br><span class="line">W = relay.var(<span class="string">&quot;W&quot;</span>, shape=(<span class="number">768</span>, <span class="number">768</span>))</span><br><span class="line">b = relay.var(<span class="string">&quot;b&quot;</span>, shape=(<span class="number">768</span>,))</span><br><span class="line">y = relay.nn.relu(relay.add(relay.nn.dense(x, W), b))</span><br></pre></td></tr></table></figure></div>
+
+<p>Relay 的重点不在于“快”，而在于“清楚”。它描述的是模型结构、算子依赖和张量关系，因此非常适合做图层面的优化，例如：</p>
+<ul>
+<li>常量折叠</li>
+<li>死代码消除</li>
+<li>算子融合</li>
+<li>子图划分</li>
+<li>布局变换</li>
+</ul>
+<p>也正因为如此，Relay 不直接回答“这个 matmul 应该用 shared memory 还是寄存器”，那是更低一层的工作。</p>
+<h2 id="第二层：compute-负责描述算子在数学上怎么算"><a href="#第二层：compute-负责描述算子在数学上怎么算" class="headerlink" title="第二层：compute 负责描述算子在数学上怎么算"></a>第二层：compute 负责描述算子在数学上怎么算</h2><p>从计算图继续向下，TVM 会把图中的算子转成张量级的计算表达。这个阶段关心的是数学定义，而不是执行细节。</p>
+<p>以前面的 <code>matmul -&gt; add -&gt; relu</code> 为例，可以拆成：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">matmul:</span><br><span class="line">C[i, j] = sum_k x[i, k] * W[j, k]</span><br><span class="line"></span><br><span class="line">add:</span><br><span class="line">D[i, j] = C[i, j] + b[j]</span><br><span class="line"></span><br><span class="line">relu:</span><br><span class="line">E[i, j] = max(D[i, j], 0)</span><br></pre></td></tr></table></figure></div>
+
+<p>这就是 compute 的本质：用张量表达式定义结果如何由输入推导出来。它回答的是“算什么”，而不是“如何映射到硬件”。</p>
+<p>这一层的抽象非常重要，因为一旦数学定义稳定下来，同一个 compute 理论上就可以对应多种不同的执行方式。CPU、GPU、NPU 的差异，不应该反过来污染算子本身的数学表达。</p>
+<h2 id="第三层：schedule-负责把数学表达映射到硬件"><a href="#第三层：schedule-负责把数学表达映射到硬件" class="headerlink" title="第三层：schedule 负责把数学表达映射到硬件"></a>第三层：schedule 负责把数学表达映射到硬件</h2><p>只有 compute 还远远不够。下面这个矩阵乘表达式，虽然已经定义了结果，但仍然无法直接高效运行：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C[i, j] = sum_k A[i, k] * B[k, j]</span><br></pre></td></tr></table></figure></div>
+
+<p>原因很简单：它只说明了计算关系，没有说明执行方式。真正决定性能的，是 schedule。</p>
+<p>schedule 需要回答的问题包括：</p>
+<ul>
+<li>循环如何切块（tiling）</li>
+<li>哪些维度并行执行</li>
+<li>数据是否放入 shared memory 或寄存器</li>
+<li>访问顺序是否连续、是否利于 cache</li>
+<li>是否做向量化</li>
+<li>是否展开循环、是否双缓冲</li>
+</ul>
+<p>这也是 TVM 与手写 CUDA 在思想上最接近的地方。很多 CUDA kernel 优化，本质上都可以理解为 schedule 决策。</p>
+<p>如果把同一个 matmul 分别用“差的执行方式”和“好的执行方式”实现，差别会非常明显。</p>
+<p>差的情况通常像这样：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i</span><br><span class="line">  for j</span><br><span class="line">    for k</span><br><span class="line">      直接从 global memory 读取</span><br></pre></td></tr></table></figure></div>
+
+<p>这种实现的问题是数据复用差、访存开销大、并行度利用不足。</p>
+<p>而更好的实现往往会引入：</p>
+<ul>
+<li>block 级切块</li>
+<li>shared memory staging</li>
+<li>连续访存与向量化加载</li>
+<li>更合适的线程映射</li>
+</ul>
+<p>因此可以说，compute 决定正确性，schedule 决定性能上限。</p>
+<h2 id="TVM-如何表达-schedule"><a href="#TVM-如何表达-schedule" class="headerlink" title="TVM 如何表达 schedule"></a>TVM 如何表达 schedule</h2><p>TVM 的 schedule 并不是直接手写一整个 kernel，而是对循环和数据访问施加一系列变换。例如：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i, j = C.op.axis</span><br><span class="line">io, ii = s[C].split(i, factor=<span class="number">32</span>)</span><br><span class="line">jo, ji = s[C].split(j, factor=<span class="number">32</span>)</span><br><span class="line">s[C].reorder(io, jo, ii, ji)</span><br></pre></td></tr></table></figure></div>
+
+<p>这段代码表达的是把原本的大循环拆成更适合块化执行的小循环，再重新组织迭代顺序。</p>
+<p>进一步还可以加入并行、cache 和向量化策略：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s[C].parallel(io)</span><br><span class="line">AA = s.cache_read(A, <span class="string">&quot;shared&quot;</span>, [C])</span><br><span class="line">s[AA].compute_at(s[C], jo)</span><br><span class="line">s[C].vectorize(ji)</span><br></pre></td></tr></table></figure></div>
+
+<p>这些变换背后的语义分别对应：</p>
+<ul>
+<li><code>split</code>：把大问题切成小块</li>
+<li><code>reorder</code>：调整循环次序</li>
+<li><code>parallel</code>：暴露并行执行机会</li>
+<li><code>cache_read</code>：显式管理数据在内存层级中的位置</li>
+<li><code>compute_at</code>：控制中间结果何时产生、何时复用</li>
+<li><code>vectorize</code>：让计算更贴近 SIMD 或向量指令</li>
+</ul>
+<p>从这个角度看，TVM 并不是绕开硬件，而是试图用更系统化的方式表达“如何让硬件跑得更好”。</p>
+<h2 id="为什么-TVM-要把-compute-和-schedule-分开"><a href="#为什么-TVM-要把-compute-和-schedule-分开" class="headerlink" title="为什么 TVM 要把 compute 和 schedule 分开"></a>为什么 TVM 要把 compute 和 schedule 分开</h2><p>这个分层设计不是为了抽象而抽象，而是直接服务于可移植性与优化空间。</p>
+<p>如果把数学定义和性能优化完全写死在一起，那么每适配一种硬件，就可能要重写一套实现。手写 CUDA 往往就是这种模式：一个 kernel 同时承载了计算逻辑和优化细节，因此它在目标硬件上可能极致高效，但复用性有限。</p>
+<p>TVM 的思路则是：</p>
+<ul>
+<li>compute 尽量保持稳定</li>
+<li>schedule 随硬件变化</li>
+</ul>
+<p>这样带来的直接好处是，同一个算子定义可以绑定到不同 schedule，再进一步生成适配 CPU、GPU 或其他后端的代码。换句话说，TVM 试图把“通用的数学结构”和“特定硬件的优化经验”拆成两个可组合的层次。</p>
+<h2 id="schedule-之后，才是最终代码生成"><a href="#schedule-之后，才是最终代码生成" class="headerlink" title="schedule 之后，才是最终代码生成"></a>schedule 之后，才是最终代码生成</h2><p>当 compute 和 schedule 都确定下来后，TVM 才会继续 lower，生成目标代码。最终结果可能是：</p>
+<ul>
+<li>CUDA kernel</li>
+<li>向量化 CPU 代码</li>
+<li>某类 NPU 的特定指令序列</li>
+<li>调用外部高性能算子库的封装代码</li>
+</ul>
+<p>在 GPU 场景下，最后落地的形态通常已经接近：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">matmul_kernel</span><span class="params">(...)</span> </span>&#123;</span><br><span class="line">    __shared__ ...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>到这里，模型才真正走完了从高层表达到底层执行的完整路径。</p>
+<h2 id="schedule-的上限，取决于搜索"><a href="#schedule-的上限，取决于搜索" class="headerlink" title="schedule 的上限，取决于搜索"></a>schedule 的上限，取决于搜索</h2><p>理解 TVM 不能停留在“schedule 很重要”这句话上。更进一步地说，现代 AI 编译器的核心竞争力，往往在于能否在巨大 schedule 空间中找到足够好的解。</p>
+<p>以 matmul 为例，单是下面这些维度就足以构成一个巨大的组合空间：</p>
+<ul>
+<li>tile size</li>
+<li>thread&#x2F;block 映射方式</li>
+<li>cache 策略</li>
+<li>vector width</li>
+<li>unroll 深度</li>
+<li>layout 变换方式</li>
+<li>是否使用特殊 intrinsic</li>
+</ul>
+<p>这些选择相互耦合，很难靠人工一次性写出全局最优解。因此，TVM 不仅提供 schedule 表达能力，也发展出了自动搜索能力。</p>
+<p>常见的路径包括：</p>
+<ul>
+<li>手写 schedule：适合理解机制，也适合构造基线</li>
+<li>AutoTVM：通过模板和搜索空间进行自动调优</li>
+<li>Ansor &#x2F; AutoScheduler：自动生成候选 schedule，再通过 cost model 与实测反馈搜索最优方案</li>
+</ul>
+<p>其核心流程大致是：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">compute</span><br><span class="line">  -&gt; 生成大量 schedule 候选</span><br><span class="line">  -&gt; 预测性能</span><br><span class="line">  -&gt; 选择并实测</span><br><span class="line">  -&gt; 更新模型</span><br><span class="line">  -&gt; 继续搜索</span><br></pre></td></tr></table></figure></div>
+
+<p>因此，TVM 中的 schedule 不只是“写优化规则”，更是“把硬件上的数据流优化问题转化为可搜索问题”。</p>
+<h2 id="TVM-的代价：用编译时间换运行效率"><a href="#TVM-的代价：用编译时间换运行效率" class="headerlink" title="TVM 的代价：用编译时间换运行效率"></a>TVM 的代价：用编译时间换运行效率</h2><p>TVM 的优势从来不是“零成本”。尤其一旦引入 autotuning，编译时间会显著上升。</p>
+<p>大致可以分成三种情况：</p>
+<h3 id="1-普通编译"><a href="#1-普通编译" class="headerlink" title="1. 普通编译"></a>1. 普通编译</h3><p>如果只是把模型从 Relay 编译到目标后端，不做大规模调优，开销通常是秒级到几十秒，和常见推理编译器相比并不夸张。</p>
+<h3 id="2-自动调优"><a href="#2-自动调优" class="headerlink" title="2. 自动调优"></a>2. 自动调优</h3><p>一旦进入 AutoTVM 或 Ansor 这类搜索流程，时间开销就可能上升到分钟甚至小时级。因为系统需要在真实硬件上反复试跑候选方案，才能知道哪种 schedule 更优。</p>
+<h3 id="3-离线调优复用"><a href="#3-离线调优复用" class="headerlink" title="3. 离线调优复用"></a>3. 离线调优复用</h3><p>工业落地时更常见的方式是离线调优：在固定模型、固定硬件上完成一次搜索，然后保存 tuning log，后续重复部署时直接复用。这也是 TVM “编译时间换运行时间”最现实的工程化方式。</p>
+<p>这件事之所以合理，是因为很多推理系统属于“一次编译，多次执行”。如果模型会被长期、大规模调用，那么一次性较高的编译成本往往可以被持续收益摊薄。</p>
+<h2 id="TVM-适合什么场景"><a href="#TVM-适合什么场景" class="headerlink" title="TVM 适合什么场景"></a>TVM 适合什么场景</h2><p>TVM 最典型的价值，并不一定出现在所有人最熟悉的通用 GPU 训练场景，而更常出现在异构、碎片化、需要深度定制的部署环境中。</p>
+<h3 id="边缘设备"><a href="#边缘设备" class="headerlink" title="边缘设备"></a>边缘设备</h3><p>边缘侧硬件种类非常多，CPU、GPU、DSP、NPU 的组合复杂，且不同设备的最佳执行方式差异明显。TVM 在这里的优势，是能把模型表示、图优化、算子调优和后端适配组织成一套统一框架。</p>
+<h3 id="AI-芯片和加速器"><a href="#AI-芯片和加速器" class="headerlink" title="AI 芯片和加速器"></a>AI 芯片和加速器</h3><p>对于芯片厂商来说，TVM 往往不是一个现成推理框架，而更像一个编译器骨架。前端负责接收模型，后端则可以接入自定义 codegen、intrinsic、runtime 和外部算子库，从而适配自家硬件。</p>
+<h3 id="云端推理中的特定场景"><a href="#云端推理中的特定场景" class="headerlink" title="云端推理中的特定场景"></a>云端推理中的特定场景</h3><p>在云端，TVM 并不是唯一主角。很多主流场景会优先选择 TensorRT、vLLM 之类更贴近特定 workload 的系统。但在 CPU 推理、长尾模型优化、异构适配或研究性系统中，TVM 依然有明显价值。</p>
+<h2 id="为什么-TVM-没有统治所有推理场景"><a href="#为什么-TVM-没有统治所有推理场景" class="headerlink" title="为什么 TVM 没有统治所有推理场景"></a>为什么 TVM 没有统治所有推理场景</h2><p>TVM 很强，但它不是所有问题的统一答案。原因主要有三类。</p>
+<p>第一，动态性问题。TVM 更擅长结构相对稳定、shape 相对可分析的场景；而很多大模型推理系统面对的是动态序列长度、动态 batch、复杂 runtime 状态管理，这部分挑战并不完全是静态编译问题。</p>
+<p>第二，调优成本高。自动搜索能带来高性能，但也意味着更高的时间和工程成本，不适合所有快速迭代场景。</p>
+<p>第三，工程门槛高。要真正把 TVM 用好，往往需要同时理解模型图、编译器 IR、底层代码生成、硬件特性和性能调优，这对团队能力提出了较高要求。</p>
+<p>因此，TVM 更像是“适合在正确问题上发挥巨大作用”的系统，而不是一把对所有推理任务都同样高效的万能工具。</p>
+<h2 id="当目标是新硬件时，TVM-关注的是-target-与-backend"><a href="#当目标是新硬件时，TVM-关注的是-target-与-backend" class="headerlink" title="当目标是新硬件时，TVM 关注的是 target 与 backend"></a>当目标是新硬件时，TVM 关注的是 target 与 backend</h2><p>讨论 TVM 的一个高频场景，是“如何适配一类新硬件”。这个问题的重点不在于“支不支持 GPU”，而在于能否把硬件能力抽象成 TVM 能理解和优化的 target、后端和 runtime。</p>
+<p>一条更完整的适配路线通常是：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">硬件特性分析</span><br><span class="line">  -&gt; target / backend 接入</span><br><span class="line">  -&gt; lowering / codegen</span><br><span class="line">  -&gt; schedule rule 与搜索空间设计</span><br><span class="line">  -&gt; runtime 接入</span><br><span class="line">  -&gt; benchmark 与 autotune</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="1-先理解硬件偏好"><a href="#1-先理解硬件偏好" class="headerlink" title="1. 先理解硬件偏好"></a>1. 先理解硬件偏好</h3><p>在做后端适配前，首先要回答几个问题：</p>
+<ul>
+<li>计算单元是什么，偏向标量、向量还是矩阵引擎</li>
+<li>支持哪些数据类型，如 fp16、bf16、int8、int4</li>
+<li>内存层级如何组织，是否存在 local memory、scratchpad 或显式搬运</li>
+<li>并行模型更像 CUDA、SIMD CPU，还是命令队列式 NPU</li>
+<li>是否有现成 runtime API、intrinsic 或厂商算子库</li>
+</ul>
+<p>这些信息会直接决定 schedule 空间该如何设计，也决定 codegen 的边界在哪里。</p>
+<h3 id="2-决定接入层级"><a href="#2-决定接入层级" class="headerlink" title="2. 决定接入层级"></a>2. 决定接入层级</h3><p>常见有两条路。</p>
+<p>一条是 external codegen：如果厂商已经提供高性能算子库，可以让 TVM 在图层面识别并切分子图，再把相应部分下发给厂商库执行。</p>
+<p>另一条是 native backend：如果要让 TVM 原生生成这类硬件的代码，就需要补齐 target、runtime、DeviceAPI、codegen、intrinsic lowering 等能力。</p>
+<p>前者更适合已有成熟生态的专用加速器，后者则适合需要深度原生支持的新平台。</p>
+<h3 id="3-把硬件能力转成可搜索的-schedule-空间"><a href="#3-把硬件能力转成可搜索的-schedule-空间" class="headerlink" title="3. 把硬件能力转成可搜索的 schedule 空间"></a>3. 把硬件能力转成可搜索的 schedule 空间</h3><p>适配新硬件的关键，不是简单增加一个后端名字，而是把硬件特征翻译成真正可优化的 knobs。例如：</p>
+<ul>
+<li>tile 大小</li>
+<li>vector width</li>
+<li>cache_read &#x2F; cache_write 策略</li>
+<li>local memory 使用方式</li>
+<li>unroll 深度</li>
+<li>double buffer</li>
+<li>layout transform</li>
+<li>tensor intrinsic</li>
+</ul>
+<p>如果硬件存在专用矩阵指令，那么还需要通过 tensorize 等机制，把高层 pattern lower 到这些 intrinsic 上。否则，即便图和 compute 都是正确的，最终生成的也可能只是性能普通的标量或向量代码。</p>
+<h3 id="4-runtime-同样决定成败"><a href="#4-runtime-同样决定成败" class="headerlink" title="4. runtime 同样决定成败"></a>4. runtime 同样决定成败</h3><p>很多时候，问题不只在 kernel 本身。设备内存分配、host-device copy、stream 或 queue、同步机制、多设备调度、图执行流程，都会影响最终可用性。一个没有 runtime 配套的后端，很难真正落地。</p>
+<h2 id="一个总结：TVM-的价值到底在哪里"><a href="#一个总结：TVM-的价值到底在哪里" class="headerlink" title="一个总结：TVM 的价值到底在哪里"></a>一个总结：TVM 的价值到底在哪里</h2><p>如果只看表面，TVM 像是在“自动生成高性能 kernel”；但从编译器角度看，它真正提供的是一整套分层组织复杂性的方式：</p>
+<ul>
+<li>用 Relay 表达模型结构</li>
+<li>用 compute 表达数学计算</li>
+<li>用 schedule 表达执行策略</li>
+<li>用搜索在巨大优化空间中逼近最优解</li>
+<li>用后端与 runtime 把这些能力落到具体硬件</li>
+</ul>
+<p>这套分层的意义在于，模型语义、硬件特性和性能优化不再混成一团，而是可以分别建模、分别演化，再通过编译链路组合起来。</p>
+<p>因此，理解 TVM 的关键，不是记住几个术语，而是建立这样一种认识：模型变成高性能 kernel，并不是一步完成的；它要先变成图，再变成张量级计算，再变成面向硬件的数据流组织方式，最后才落成真正可执行的代码。TVM 所做的，就是把这条路径系统化。</p>
+
 		</div>
 
 		
@@ -618,7 +818,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-04-25 22:00:05
+                    :</strong> 2026-05-05 21:16:21
             </li>
         
         <li>
@@ -640,6 +840,22 @@
 		</div>
 		
 
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/TVM/">#TVM</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/AI-Compiler/">#AI Compiler</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/CUDA/">#CUDA</a>&nbsp;
+			</li>
+			
+		</ul>
 		
 
 		
@@ -743,7 +959,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">tvm</div>
-		
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%A8%A1%E5%9E%8B%E5%88%B0-kernel%EF%BC%9ATVM-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%93%BE%E8%B7%AF"><span class="nav-text">从模型到 kernel：TVM 的核心链路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%EF%BC%9ARelay-IR-%E8%B4%9F%E8%B4%A3%E6%8F%8F%E8%BF%B0%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="nav-text">第一层：Relay IR 负责描述模型结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%9Acompute-%E8%B4%9F%E8%B4%A3%E6%8F%8F%E8%BF%B0%E7%AE%97%E5%AD%90%E5%9C%A8%E6%95%B0%E5%AD%A6%E4%B8%8A%E6%80%8E%E4%B9%88%E7%AE%97"><span class="nav-text">第二层：compute 负责描述算子在数学上怎么算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%9Aschedule-%E8%B4%9F%E8%B4%A3%E6%8A%8A%E6%95%B0%E5%AD%A6%E8%A1%A8%E8%BE%BE%E6%98%A0%E5%B0%84%E5%88%B0%E7%A1%AC%E4%BB%B6"><span class="nav-text">第三层：schedule 负责把数学表达映射到硬件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TVM-%E5%A6%82%E4%BD%95%E8%A1%A8%E8%BE%BE-schedule"><span class="nav-text">TVM 如何表达 schedule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-TVM-%E8%A6%81%E6%8A%8A-compute-%E5%92%8C-schedule-%E5%88%86%E5%BC%80"><span class="nav-text">为什么 TVM 要把 compute 和 schedule 分开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#schedule-%E4%B9%8B%E5%90%8E%EF%BC%8C%E6%89%8D%E6%98%AF%E6%9C%80%E7%BB%88%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="nav-text">schedule 之后，才是最终代码生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#schedule-%E7%9A%84%E4%B8%8A%E9%99%90%EF%BC%8C%E5%8F%96%E5%86%B3%E4%BA%8E%E6%90%9C%E7%B4%A2"><span class="nav-text">schedule 的上限，取决于搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TVM-%E7%9A%84%E4%BB%A3%E4%BB%B7%EF%BC%9A%E7%94%A8%E7%BC%96%E8%AF%91%E6%97%B6%E9%97%B4%E6%8D%A2%E8%BF%90%E8%A1%8C%E6%95%88%E7%8E%87"><span class="nav-text">TVM 的代价：用编译时间换运行效率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%99%AE%E9%80%9A%E7%BC%96%E8%AF%91"><span class="nav-text">1. 普通编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%87%AA%E5%8A%A8%E8%B0%83%E4%BC%98"><span class="nav-text">2. 自动调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%A6%BB%E7%BA%BF%E8%B0%83%E4%BC%98%E5%A4%8D%E7%94%A8"><span class="nav-text">3. 离线调优复用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TVM-%E9%80%82%E5%90%88%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF"><span class="nav-text">TVM 适合什么场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E8%AE%BE%E5%A4%87"><span class="nav-text">边缘设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AI-%E8%8A%AF%E7%89%87%E5%92%8C%E5%8A%A0%E9%80%9F%E5%99%A8"><span class="nav-text">AI 芯片和加速器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%91%E7%AB%AF%E6%8E%A8%E7%90%86%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E5%9C%BA%E6%99%AF"><span class="nav-text">云端推理中的特定场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-TVM-%E6%B2%A1%E6%9C%89%E7%BB%9F%E6%B2%BB%E6%89%80%E6%9C%89%E6%8E%A8%E7%90%86%E5%9C%BA%E6%99%AF"><span class="nav-text">为什么 TVM 没有统治所有推理场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E7%9B%AE%E6%A0%87%E6%98%AF%E6%96%B0%E7%A1%AC%E4%BB%B6%E6%97%B6%EF%BC%8CTVM-%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF-target-%E4%B8%8E-backend"><span class="nav-text">当目标是新硬件时，TVM 关注的是 target 与 backend</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E7%90%86%E8%A7%A3%E7%A1%AC%E4%BB%B6%E5%81%8F%E5%A5%BD"><span class="nav-text">1. 先理解硬件偏好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%B3%E5%AE%9A%E6%8E%A5%E5%85%A5%E5%B1%82%E7%BA%A7"><span class="nav-text">2. 决定接入层级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8A%8A%E7%A1%AC%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%BD%AC%E6%88%90%E5%8F%AF%E6%90%9C%E7%B4%A2%E7%9A%84-schedule-%E7%A9%BA%E9%97%B4"><span class="nav-text">3. 把硬件能力转成可搜索的 schedule 空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-runtime-%E5%90%8C%E6%A0%B7%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5"><span class="nav-text">4. runtime 同样决定成败</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%80%BB%E7%BB%93%EF%BC%9ATVM-%E7%9A%84%E4%BB%B7%E5%80%BC%E5%88%B0%E5%BA%95%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-text">一个总结：TVM 的价值到底在哪里</span></a></li></ol>
 
 	</div>
 </div>
@@ -774,7 +990,7 @@
                     </span>
                     
                         <span>
-                            118.9k words in total
+                            127k words in total
                         </span>
                     
                 </p>

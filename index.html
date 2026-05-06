@@ -680,7 +680,7 @@ mjx-container[display="true"] + br {
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -732,7 +732,7 @@ mjx-container[display="true"] + br {
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -773,8 +773,9 @@ mjx-container[display="true"] + br {
                     <div class="home-article-content markdown-body">
                         
                             
-                            kv_cache_manager.py路径vllm&#x2F;v1&#x2F;core&#x2F;kv_cache_manager.py
-12345678# 这段代码是 vLLM v1 架构中核心的显存管理层实现。# 它位于调度器（Scheduler）和底层物理显存池（Block Pool）之间，# 主要负责 PagedAttention 机制下的显存块分配、回收，以及 Prefix Cac...
+                            本学习主要围绕vllm的一些特性展开
+kv_cache特性路径vllm&#x2F;v1&#x2F;core&#x2F;kv_cache_manager.py
+1234567891011121314151617Request 到来  ↓Scheduler 判断本轮能不能调度  ↓KVCacheManager.get_computed_blocks()  ↓查 Prefix Cache，得到可复...
                         
                     </div>
 
@@ -1245,7 +1246,7 @@ SM ...
                     </span>
                     
                         <span>
-                            118.9k words in total
+                            127k words in total
                         </span>
                     
                 </p>
